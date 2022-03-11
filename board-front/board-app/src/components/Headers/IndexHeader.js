@@ -53,7 +53,11 @@ function IndexHeader() {
               </div>
             </div>
             <h2 className="presentation-subtitle text-center">
+<<<<<<< HEAD
               Be Vegin jyy gain juhye
+=======
+              Be Vegin jyy pjh
+>>>>>>> c4fa61c455233e9823accd7573950339d5f5352b
             </h2>
           </Container>
         </div>
