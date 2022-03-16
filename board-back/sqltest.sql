@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
 --
--- Host: localhost    Database: board-back
+-- Host: localhost    Database: vegindb
 -- ------------------------------------------------------
 -- Server version	8.0.26
 

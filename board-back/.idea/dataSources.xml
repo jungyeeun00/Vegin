@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="vegindb@vegindatabase.cbnzjcm8m9yd.ap-northeast-2.rds.amazonaws.com" uuid="4556535a-bf1c-4e8a-afa7-bd8ae7eb7c04">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://vegindatabase.cbnzjcm8m9yd.ap-northeast-2.rds.amazonaws.com:3306/vegindb</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>
