@@ -47,7 +47,7 @@ function RegisterPage() {
           <Row>
             <Col className="ml-auto mr-auto" lg="4">
               <Card className="card-register ml-auto mr-auto">
-                <h3 className="title mx-auto">Welcome</h3>
+                <h3 className="title mx-auto">로그인 페이지 구현!!</h3>
                 <div className="social-line text-center">
                   <Button
                     className="btn-neutral btn-just-icon mr-1"
