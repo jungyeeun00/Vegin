@@ -34,58 +34,58 @@ function RegisterPage() {
   });
   return (
     <>
-      <ExamplesNavbar />
-      <div
+      {/* <ExamplesNavbar /> */}
+      {/* <div
         className="page-header"
         style={{
           backgroundImage:
             "url(" + require("assets/img/login-image.jpg") + ")",
         }}
-      >
-        <div className="filter" />
+      > */}
+        <div className="filter"/>
         <Container>
           <Row>
             <Col className="ml-auto mr-auto" lg="4">
-              <Card className="card-register ml-auto mr-auto">
-                <h3 className="title mx-auto">로그인 페이지 구현!!</h3>
-                <div className="social-line text-center">
-                  <Button
-                    className="btn-neutral btn-just-icon mr-1"
-                    color="facebook"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    <i className="fa fa-facebook-square" />
-                  </Button>
-                  <Button
-                    className="btn-neutral btn-just-icon mr-1"
-                    color="google"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    <i className="fa fa-google-plus" />
-                  </Button>
-                  <Button
-                    className="btn-neutral btn-just-icon"
-                    color="twitter"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    <i className="fa fa-twitter" />
-                  </Button>
-                </div>
+              <Card className="card-register ml-auto mr-auto" style={{backgroundColor: "white"}}>
+                <h3 className="title mx-auto">
+                  <img className="login_logo" alt="login_logo" src={require("assets/img/login_logo.png")} style={{width : '250px'}} />
+                </h3>
+               
                 <Form className="register-form">
-                  <label>Email</label>
+                  {/* <label>Email</label> */}
                   <Input placeholder="Email" type="text" />
-                  <label>Password</label>
-                  <Input placeholder="Password" type="password" />
-                  <Button block className="btn-round" color="danger">
-                    Register
+                 {/* <label>Password</label> */}
+                  <Input placeholder="Password" type="password" /> 
+                  <Button block className="btn-round" 
+                    style={{
+                      backgroundColor: "#4A8451", 
+                      border : 'none'
+                      }}>
+                    LOGIN
                   </Button>
+
                 </Form>
-                <div className="forgot">
+                <div className="otherbtns" >
                   <Button
                     className="btn-link"
+                    style={{
+                      fontWeight : '500',
+                      marginLeft : '20px',
+                      display : "inline"
+                    }}
+                    color="danger"
+                    href="#pablo"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    SIGN UP
+                  </Button>
+                  <Button
+                    className="btn-link"
+                    style={{
+                      fontWeight : '500',
+                      marginLeft : '20px',
+                      display : "inline"
+                    }}
                     color="danger"
                     href="#pablo"
                     onClick={(e) => e.preventDefault()}
@@ -103,7 +103,7 @@ function RegisterPage() {
             <i className="fa fa-heart heart" /> by Creative Tim
           </h6>
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 }
