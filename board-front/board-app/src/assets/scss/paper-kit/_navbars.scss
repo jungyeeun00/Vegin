@@ -54,9 +54,11 @@
               margin: 0px 0px;
               text-transform: uppercase;
               font-weight: 600;
-              font-size: 12px;
+              font-size: 13px;
+              font-family: 'category-font-l';
               line-height: 1.5em;
               padding: 15px 0;
+              color: #999;
             }
          }
         .nav-item .nav-link.btn {
@@ -86,6 +88,9 @@
             & .nav-link{
                 p{
                     display: inline;
+                    font-size: 18px;
+                    font-family: 'category-font-l';
+                    color: $default-color;     
                 }
             }
             & .dropdown-item{

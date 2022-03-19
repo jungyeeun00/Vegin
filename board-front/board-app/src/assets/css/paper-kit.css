@@ -2352,8 +2352,38 @@ License - nucleoapp.com/license/
   src: url("~assets/fonts/nucleo-icons.eot");
   src: url("~assets/fonts/nucleo-icons.eot") format("embedded-opentype"), url("~assets/fonts/nucleo-icons.woff2") format("woff2"), url("~assets/fonts/nucleo-icons.woff") format("woff"), url("~assets/fonts/nucleo-icons.ttf") format("truetype");
   font-weight: normal;
-  font-style: normal; }
+  font-style: normal;
+ }
 
+ @font-face {
+   font-family: 'category-font-m';
+   src: url('../fonts/category-font/NIXGONFONTS-M-2.0.ttf');
+ }
+
+ @font-face {
+   font-family: 'category-font-l';
+   src: url('../fonts/category-font/NIXGONFONTS-L-2.0.ttf');
+ }
+
+ @font-face {
+   font-family: 'main-font-l';
+   src: url('../fonts/main-font/KoPubWorld-Dotum-Light.ttf');
+ }
+
+ @font-face {
+   font-family: 'main-font-m';
+   src: url('../fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
+ }
+
+ @font-face {
+   font-family: 'home-title-font-l';
+   src: url('../fonts/home-title-font/GmarketSansTTFLight.ttf');
+ }
+
+ @font-face {
+   font-family: 'home-title-font-m';
+   src: url('../fonts/home-title-font/GmarketSansTTFMedium.ttf');
+ }
 /*------------------------
 	base class definition
 -------------------------*/
