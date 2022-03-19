@@ -62,101 +62,151 @@ function IndexNavbar() {
     };
   });
   return (
-    <Navbar className={classnames("fixed-top", navbarColor)} expand="lg">
-      <Container>
-        <div className="navbar-translate">
-          <NavbarBrand
-            data-placement="bottom"
-            href="/index"
-            target="_blank"
-            title="Coded by Creative Tim"
+    <div>
+      <Navbar expand="lg">
+        <Container fluid>
+          <div className="col d-none d-lg-block"></div>
+          <div className="col text-center">
+            <NavbarBrand
+              className="pb-0"
+              data-placement="bottom"
+              href="/index"
+              target="_top"
+              title="Vegin"
+            >
+              <img
+                alt="Logo"
+                src={require("assets/img/home_logo.png")}
+                width="150px"
+                max-width="100%"
+                height="auto"
+              />
+            </NavbarBrand>
+          </div>
+          <div className="col d-none d-lg-block">
+            <Nav navbar className="justify-content-end">
+              <NavItem>
+                <NavLink
+                  className="pt-0 mt-0"
+                  data-placement="bottom"
+                  href="#"
+                  title="Login"
+                >
+                  <p>로그인</p>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className="pt-0 mt-0"
+                  data-placement="bottom"
+                  href="#"
+                  title="Join"
+                >
+                  <p>회원가입</p>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className="pt-0 mt-0"
+                  data-placement="bottom"
+                  href="#"
+                  title="My Page"
+                >
+                  <p>마이페이지</p>
+                </NavLink>
+              </NavItem>
+            </Nav>
+          </div>
+        </Container>
+      </Navbar>
+      <Navbar expand="lg">
+        <Container>
+          <div className="navbar-translate">
+            <NavbarBrand>
+            </NavbarBrand>
+            <button
+              aria-expanded={navbarCollapse}
+              className={classnames("navbar-toggler navbar-toggler", {
+                toggled: navbarCollapse,
+              })}
+              onClick={toggleNavbarCollapse}
+            >
+              <span className="navbar-toggler-bar bar1" />
+              <span className="navbar-toggler-bar bar2" />
+              <span className="navbar-toggler-bar bar3" />
+            </button>
+          </div>
+          <Collapse
+            className="justify-content-center"
+            navbar
+            isOpen={navbarCollapse}
           >
-            Vegin?
-          </NavbarBrand>
-          <button
-            aria-expanded={navbarCollapse}
-            className={classnames("navbar-toggler navbar-toggler", {
-              toggled: navbarCollapse,
-            })}
-            onClick={toggleNavbarCollapse}
-          >
-            <span className="navbar-toggler-bar bar1" />
-            <span className="navbar-toggler-bar bar2" />
-            <span className="navbar-toggler-bar bar3" />
-          </button>
-        </div>
-        <Collapse
-          className="justify-content-end"
-          navbar
-          isOpen={navbarCollapse}
-        >
-          <Nav navbar>
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="https://twitter.com/CreativeTim?ref=creativetim"
-                target="_blank"
-                title="Follow us on Twitter"
-              >
-                <i className="fa fa-twitter">홈</i>
-                <p className="d-lg-none">Twitter</p>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="https://www.facebook.com/CreativeTim?ref=creativetim"
-                target="_blank"
-                title="Like us on Facebook"
-              >
-                <i className="fa fa-facebook-square">ABOUT</i>
-                <p className="d-lg-none">Facebook</p>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="https://www.instagram.com/CreativeTimOfficial?ref=creativetim"
-                target="_blank"
-                title="Follow us on Instagram"
-              >
-                <i className="fa fa-instagram">SHOP</i>
-                <p className="d-lg-none">Instagram</p>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="https://www.github.com/CreativeTimOfficial/paper-kit-react?ref=creativetim"
-                target="_blank"
-                title="Star on GitHub"
-              >
-                <i className="fa fa-github">PLACE</i>
-                <p className="d-lg-none">GitHub</p>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                href="https://demos.creative-tim.com/paper-kit-react/#/documentation?ref=pkr-index-navbar"
-                target="_blank"
-              >
-                <i className="nc-icon nc-book-bookmark" /> COMMUNITY
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <Button
-                className="btn-round"
-                color="danger"
-                href="https://www.creative-tim.com/product/paper-kit-pro-react?ref=pkr-index-navbar"
-                target="_blank"
-              >
-                <i className="nc-icon nc-spaceship">Upgrade to Pro</i> 
-              </Button>
-            </NavItem>
-          </Nav>
-        </Collapse>
-      </Container>
-    </Navbar>
+            <Nav navbar>
+              <NavItem>
+                <NavLink
+                  className="px-5"
+                  data-placement="bottom"
+                  href="#"
+                  title="HOME"
+                >
+                  <p>HOME</p>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                   className="px-5"
+                  data-placement="bottom"
+                  href="#"
+                  title="INFO"
+                >
+                  <p>INFO</p>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className="px-5"
+                  data-placement="bottom"
+                  href="#"
+                  title="RECIPE"
+                >
+                  <p>RECIPE</p>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className="px-5"
+                  data-placement="bottom"
+                  href="#"
+                  title="SHOP"
+                >
+                  <p>SHOP</p>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className="px-5"
+                  data-placement="bottom"
+                  href="#"
+                  title="PLACE"
+                >
+                  <p>PLACE</p>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className="px-5"
+                  data-placement="bottom"
+                  href="#"
+                  title="COMMUNITY"
+                >
+                  <p>COMMUNITY</p>
+                </NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Container>
+      </Navbar>
+    </div>
   );
 }
 
