@@ -92,7 +92,7 @@ function IndexNavbar() {
                   href="#"
                   title="Login"
                 >
-                  <p>로그인</p>
+                  <p>Login</p>
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -102,7 +102,7 @@ function IndexNavbar() {
                   href="#"
                   title="Join"
                 >
-                  <p>회원가입</p>
+                  <p>Join</p>
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -112,7 +112,7 @@ function IndexNavbar() {
                   href="#"
                   title="My Page"
                 >
-                  <p>마이페이지</p>
+                  <p>My page</p>
                 </NavLink>
               </NavItem>
             </Nav>
