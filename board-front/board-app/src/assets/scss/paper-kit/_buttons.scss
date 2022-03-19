@@ -12,6 +12,8 @@
     &.btn-border,
     &.btn-link{
         background-color: $transparent-bg;
+        color : gray !important; // gray 최우선 지정
+        font-size : 3px;
     }
 
     @include btn-styles($default-color, $default-states-color);

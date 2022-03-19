@@ -6,9 +6,11 @@
     border: 1px solid black;
 }
 .form-control {
-    background-color: $white-bg;
-    border: 1px solid $medium-gray;
-    border-radius: $border-radius-base;
+   // background-color: $white-bg;
+    border-radius: 0rem;
+    border : none;
+    border-bottom : 2px solid rgb(219, 218, 218);
+    margin-bottom : 15px;
     color: $font-color;
     font-size: $font-size-base;
     transition: background-color 0.3s ease 0s;
@@ -18,14 +20,14 @@
 
     &:focus{
        background-color: $white-bg;
-       border: 1px solid $table-line-color;
+      //border: 1px solid $table-line-color;
        @include box-shadow(none);
        outline: 0 !important;
 
        + .input-group-prepend,
        + .input-group-append {
             .input-group-text {
-              border: 1px solid $table-line-color;
+              //border: 1px solid $table-line-color;
               border-left: none;
             }
        }
@@ -172,9 +174,9 @@ textarea.form-control{
 }
 
 .register-form {
-  .form-control {
+  /*.form-control {
     border: 1px solid transparent !important;
-  }
+  }*/
   .input-group .form-control {
     margin-left: -1px;
   }
