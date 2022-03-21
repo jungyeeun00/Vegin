@@ -1,4 +1,9 @@
 /*           Font Smoothing      */
+@font-face {
+    font-family: 'home-title-font-l';
+    src: url('../../fonts/home-title-font/GmarketSansTTFLight.ttf');
+}
+
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, a, .td-name, td, button, input, select, textarea{
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -11,6 +16,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4{
 }
 h1, .h1 {
     font-size: $font-size-h1;
+    // font-family: 'home-title-font-l';
 }
 h2, .h2{
     font-size: $font-size-h2;
@@ -38,6 +44,7 @@ p{
     font-size: $font-paragraph;
     line-height: $line-height-general;
     margin-bottom: 5px;
+    font-family: 'home-title-font-l';
 }
 
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3 .small, .h4 .small, .h5 .small, .h6 .small {
@@ -131,4 +138,5 @@ blockquote small{
 }
 .title.text-center{
     margin-bottom: 50px;
+    font-family: 'home-title-font-l';
 }
