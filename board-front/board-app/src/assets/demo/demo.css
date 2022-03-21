@@ -46,6 +46,10 @@
   text-transform: none;
 }
 
+.image-explanation {
+  width: 250px;
+}
+
 .tim-row {
   padding-top: 60px;
 }

@@ -89,7 +89,7 @@ function IndexNavbar() {
                 <NavLink
                   className="pt-0 mt-0"
                   data-placement="bottom"
-                  href="#"
+                  href="/login-page"
                   title="Login"
                 >
                   <p>Login</p>
@@ -99,7 +99,7 @@ function IndexNavbar() {
                 <NavLink
                   className="pt-0 mt-0"
                   data-placement="bottom"
-                  href="#"
+                  href="/join-page"
                   title="Join"
                 >
                   <p>Join</p>
@@ -109,7 +109,7 @@ function IndexNavbar() {
                 <NavLink
                   className="pt-0 mt-0"
                   data-placement="bottom"
-                  href="#"
+                  href="/mypage-page"
                   title="My Page"
                 >
                   <p>My page</p>
@@ -146,7 +146,7 @@ function IndexNavbar() {
                 <NavLink
                   className="px-5"
                   data-placement="bottom"
-                  href="#"
+                  href="/index"
                   title="HOME"
                 >
                   <p>HOME</p>
@@ -156,17 +156,17 @@ function IndexNavbar() {
                 <NavLink
                    className="px-5"
                   data-placement="bottom"
-                  href="#"
+                  href="/about-page"
                   title="INFO"
                 >
-                  <p>INFO</p>
+                  <p>ABOUT</p>
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
                   className="px-5"
                   data-placement="bottom"
-                  href="#"
+                  href="/recipe-page"
                   title="RECIPE"
                 >
                   <p>RECIPE</p>
@@ -176,7 +176,7 @@ function IndexNavbar() {
                 <NavLink
                   className="px-5"
                   data-placement="bottom"
-                  href="#"
+                  href="/shop-page"
                   title="SHOP"
                 >
                   <p>SHOP</p>
@@ -186,7 +186,7 @@ function IndexNavbar() {
                 <NavLink
                   className="px-5"
                   data-placement="bottom"
-                  href="#"
+                  href="/place-page"
                   title="PLACE"
                 >
                   <p>PLACE</p>
@@ -196,7 +196,7 @@ function IndexNavbar() {
                 <NavLink
                   className="px-5"
                   data-placement="bottom"
-                  href="#"
+                  href="/community-page"
                   title="COMMUNITY"
                 >
                   <p>COMMUNITY</p>

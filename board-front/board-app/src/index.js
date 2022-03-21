@@ -30,6 +30,7 @@ import NucleoIcons from "views/NucleoIcons.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
 import RegisterPage from "views/examples/RegisterPage.js";
+import AboutPage from "views/examples/AboutPage";
 // others
 
 ReactDOM.render(
@@ -51,6 +52,38 @@ ReactDOM.render(
       <Route
         path="/register-page"
         render={(props) => <RegisterPage {...props} />}
+      />   
+      <Route
+        path="/about-page"
+        render={(props) => <AboutPage {...props} />}
+      />
+      <Route
+        path="/recipe-page"
+        render={(props) => <LandingPage {...props} />}
+      />
+      <Route
+        path="/shop-page"
+        render={(props) => <LandingPage {...props} />}
+      />
+      <Route
+        path="/place-page"
+        render={(props) => <LandingPage {...props} />}
+      />
+      <Route
+        path="/community-page"
+        render={(props) => <LandingPage {...props} />}
+      />
+      <Route
+        path="/login-page"
+        render={(props) => <RegisterPage {...props} />}
+      />
+      <Route
+        path="/join-page"
+        render={(props) => <LandingPage {...props} />}
+      />
+      <Route
+        path="/mypage-page"
+        render={(props) => <LandingPage {...props} />}
       />
       <Redirect to="/index" />
     </Switch>
