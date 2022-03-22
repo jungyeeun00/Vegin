@@ -42,6 +42,7 @@ import SectionDownload from "views/index-sections/SectionDownload.js";
 import Banner from "./index-sections/Banner";
 import Magazine from "./index-sections/Magazine";
 import ShopItems from "./index-sections/ShopItems";
+import ItemNavbars from "./index-sections/ItemNavbars";
 
 function Index() {
   document.documentElement.classList.remove("nav-open");
@@ -56,6 +57,7 @@ function Index() {
       <IndexNavbar />
       <IndexHeader />
       <div className="main">
+        <ItemNavbars/>
         <ShopItems/>
         <Banner/>
         <Magazine/>

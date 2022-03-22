@@ -2,15 +2,21 @@
   color: $dark-gray;
 };
 
+.login-main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 .form-control:focus + .input-group-text{
     border: 1px solid black;
 }
 .form-control {
-   // background-color: $white-bg;
+    position: relative;
     border-radius: 0rem;
     border : none;
     border-bottom : 2px solid rgb(219, 218, 218);
-    margin-bottom : 15px;
+    margin-bottom : 10px;
     color: $font-color;
     font-size: $font-size-base;
     transition: background-color 0.3s ease 0s;
@@ -174,9 +180,6 @@ textarea.form-control{
 }
 
 .register-form {
-  /*.form-control {
-    border: 1px solid transparent !important;
-  }*/
   .input-group .form-control {
     margin-left: -1px;
   }
@@ -200,4 +203,57 @@ textarea.form-control{
             margin-bottom: 0;
         }
     }
+}
+
+.login-group {
+  position: relative;
+  width: 85%;
+  margin: auto;
+}
+.login-icon{
+  position: absolute;
+  margin-top: 10px;
+  z-index: 1;
+  color:gray;
+  font-size:15px;
+}
+.input-login {
+  position: relative;
+  background-color: transparent;
+  padding-left: 20px;
+}
+.login-btn {
+  border: none;
+  border-radius: 30px;
+  font-weight: 500;
+  display: inline;
+  background-color: #4A8451;
+
+  &:hover,
+  &:focus,
+  &:active{
+      text-decoration: none;
+      border-color: transparent;
+      background-color: #2b4d2f;
+  }
+  
+}
+.signup-btn, .findpwd-btn{
+  background-color: transparent; 
+  color: gray;
+  border : none;
+  font-size: 3px;
+  font-weight: 500;
+  margin-top: 0px !important; 
+  margin-left: 18px;
+  
+  &:hover,
+  &:focus,
+  &:active{
+      text-decoration: none;
+      border-color: transparent;
+      background-color: transparent !important;
+      color: rgb(59, 58, 58) !important;
+  }
+
 }

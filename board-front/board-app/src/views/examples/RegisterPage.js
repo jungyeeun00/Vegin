@@ -19,10 +19,9 @@
 import React from "react";
 
 // reactstrap components
-import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
-
-// core components
-import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
+import { Button, Card, Form, Input, InputGroup, InputGroupText, Container, Row, Col } from "reactstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 
 function RegisterPage() {
   document.documentElement.classList.remove("nav-open");
@@ -34,15 +33,8 @@ function RegisterPage() {
   });
   return (
     <>
-      {/* <ExamplesNavbar /> */}
-      {/* <div
-        className="page-header"
-        style={{
-          backgroundImage:
-            "url(" + require("assets/img/login-image.jpg") + ")",
-        }}
-      > */}
-        <div className="filter"/>
+    <div className="login-main">
+        <div className="filter" />
         <Container>
           <Row>
             <Col className="ml-auto mr-auto" lg="4">
@@ -52,44 +44,31 @@ function RegisterPage() {
                 </h3>
                
                 <Form className="register-form">
-                  {/* <label>Email</label> */}
-                  <Input placeholder="Email" type="text" />
-                 {/* <label>Password</label> */}
-                  <Input placeholder="Password" type="password" /> 
-                  <Button block className="btn-round" 
-                    style={{
-                      backgroundColor: "#4A8451", 
-                      border : 'none'
-                      }}>
+                  <div className="login-group">        
+                    <span className="login-icon"> <FontAwesomeIcon icon={faEnvelope} /> </span>
+                    <Input className='input-login' placeholder="Email" type="text" />
+                  </div>
+                  <div className="login-group">
+                    <span className="login-icon"> <FontAwesomeIcon icon={faLock} /> </span>
+                    <Input className='input-login' placeholder="Password" type="text" />
+                  </div>
+                  <Button block className="login-btn">
                     LOGIN
                   </Button>
-
                 </Form>
                 <div className="otherbtns" >
                   <Button
-                    className="btn-link"
-                    style={{
-                      fontWeight : '500',
-                      marginLeft : '20px',
-                      display : "inline"
-                    }}
+                    className="signup-btn"
                     color="danger"
                     href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                  >
+                    onClick={(e) => e.preventDefault()} >
                     SIGN UP
                   </Button>
                   <Button
-                    className="btn-link"
-                    style={{
-                      fontWeight : '500',
-                      marginLeft : '20px',
-                      display : "inline"
-                    }}
+                    className="findpwd-btn"
                     color="danger"
                     href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                  >
+                    onClick={(e) => e.preventDefault()}  >
                     Forgot password?
                   </Button>
                 </div>
@@ -97,13 +76,7 @@ function RegisterPage() {
             </Col>
           </Row>
         </Container>
-        <div className="footer register-footer text-center">
-          <h6>
-            © {new Date().getFullYear()}, made with{" "}
-            <i className="fa fa-heart heart" /> by Creative Tim
-          </h6>
         </div>
-      {/* </div> */}
     </>
   );
 }
