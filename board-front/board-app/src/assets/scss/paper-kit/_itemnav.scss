@@ -3,45 +3,42 @@
     src: url('/assets/fonts/home-title-font/GmarketSansTTFLight.ttf');
   }
 
-.item-title{
-    color: black;
+.featured-title{
+    // color: black;
     font-family: 'home-title-font-l';
-    font-size: 20px;
+    font-size: 24px;
     text-align: center;
 }
 
 .nav-item {
     .btn {
-
         opacity: 1;
-      
     }
   }
 
-.item-list{
+.featured-list{
     display:flex;
     justify-content: center;
-    .item-navbar{
+    .featured-navbar{
         box-shadow: none;
     }  
 }
 
-.item-img{
-    width: 20px;
-    height: 20px;
+.featured-img{
+    width: 24px;
+    height: 24px;
     opacity: 0.5;
-
 }
-.item-img-wrapper{
+.featured-img-wrapper{
     //border-bottom: 1.5px solid black;
     opacity: 1;
 }
-.item-img-wrapper :hover{
+.featured-img-wrapper :hover{
     //border-bottom: 1.5px solid black;
     margin-top: -10px;
     opacity: 1;
 }
-.item-link :hover,:active{
+.featured-link :hover,:active{
     opacity: 1;
 
 }

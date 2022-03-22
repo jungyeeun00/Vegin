@@ -18,6 +18,8 @@
 */
 import React from "react";
 
+import IndexNavbar from "components/Navbars/IndexNavbar.js";
+
 // reactstrap components
 import { Button, Card, Form, Input, InputGroup, InputGroupText, Container, Row, Col } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,18 +35,19 @@ function RegisterPage() {
   });
   return (
     <>
-    <div className="login-main">
+      <IndexNavbar />
+      <div className="login-main">
         <div className="filter" />
         <Container>
           <Row>
             <Col className="ml-auto mr-auto" lg="4">
-              <Card className="card-register ml-auto mr-auto" style={{backgroundColor: "white"}}>
+              <Card className="card-register ml-auto mr-auto" style={{ backgroundColor: "white" }}>
                 <h3 className="title mx-auto">
-                  <img className="login_logo" alt="login_logo" src={require("assets/img/login_logo.png")} style={{width : '250px'}} />
+                  <img className="login_logo" alt="login_logo" src={require("assets/img/login_logo.png")} style={{ width: '250px' }} />
                 </h3>
-               
+
                 <Form className="register-form">
-                  <div className="login-group">        
+                  <div className="login-group">
                     <span className="login-icon"> <FontAwesomeIcon icon={faEnvelope} /> </span>
                     <Input className='input-login' placeholder="Email" type="text" />
                   </div>
@@ -76,7 +79,7 @@ function RegisterPage() {
             </Col>
           </Row>
         </Container>
-        </div>
+      </div>
     </>
   );
 }
