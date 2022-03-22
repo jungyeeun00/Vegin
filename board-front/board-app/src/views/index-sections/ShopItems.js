@@ -9,7 +9,7 @@ class ShopItems extends Component {
             <>
                 <div id="shopItem" className="item" align="center">
                     <img id="shopImg" className="item-img" alt="shop_img" src={require("assets/img/shop_item.jpg")} />
-                    <div class="like">
+                    <div className="like">
                         <button id="shopLike" type="button" class="like-button" title="like">
                             <FontAwesomeIcon icon={faHeart} />
                         </button>
