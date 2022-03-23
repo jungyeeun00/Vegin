@@ -30,7 +30,8 @@ import NucleoIcons from "views/NucleoIcons.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
 import RegisterPage from "views/examples/RegisterPage.js";
-import AboutPage from "views/examples/AboutPage";
+import AboutVeginPage from "views/examples/AboutVeginPage";
+import AboutVeganPage from "views/examples/AboutVeganPage";
 // others
 
 ReactDOM.render(
@@ -54,8 +55,12 @@ ReactDOM.render(
         render={(props) => <RegisterPage {...props} />}
       />   
       <Route
-        path="/about-page"
-        render={(props) => <AboutPage {...props} />}
+        path="/about-vegin-page"
+        render={(props) => <AboutVeginPage {...props} />}
+      />
+      <Route
+        path="/about-vegan-page"
+        render={(props) => <AboutVeganPage {...props} />}
       />
       <Route
         path="/recipe-page"
@@ -83,7 +88,7 @@ ReactDOM.render(
       />
       <Route
         path="/mypage-page"
-        render={(props) => <LandingPage {...props} />}
+        render={(props) => <ProfilePage {...props} />}
       />
       <Redirect to="/index" />
     </Switch>

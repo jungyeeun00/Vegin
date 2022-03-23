@@ -19,6 +19,7 @@
 import React from "react";
 // nodejs library that concatenates strings
 import classnames from "classnames";
+import 'assets/scss/paper-kit/_indexnavbar.scss'
 // reactstrap components
 import {
   Button,
@@ -30,6 +31,7 @@ import {
   Nav,
   Container,
 } from "reactstrap";
+import { Link } from "react-router-dom";
 
 function IndexNavbar() {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
@@ -154,12 +156,17 @@ function IndexNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
-                   className="px-5"
+                  className="px-5"
                   data-placement="bottom"
-                  href="/about-page"
-                  title="INFO"
+                  href="#"
+                  title="ABOUT"
                 >
-                  <p>ABOUT</p>
+                  <p>ABOUT
+                  <ul className="about-dropdown">
+                    <li><Link className="about-dropdown-content" to="/about-vegin-page">vegin</Link></li>
+                    <li><Link className="about-dropdown-content" to="/about-vegan-page">vegan</Link></li>
+                  </ul>
+                  </p>
                 </NavLink>
               </NavItem>
               <NavItem>

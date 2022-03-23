@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'category-font-m';
+    src: url('../../fonts/category-font/NIXGONFONTS-M-2.0.ttf');
+}
+
+.about-dropdown{
+    padding: 0;
+    padding-top: 10px;
+    display: none;
+    list-style-type: none;
+    font-size: 16px;
+    // position: relative;
+    // z-index: 1;
+}
+
+.about-dropdown-content{
+    color: #444;
+    font-family: 'category-font-m';
+}
+.about-dropdown-content:hover{
+    color:#4A8451;
+}
+.nav-link:hover{
+    .about-dropdown{
+        margin-top: 0;
+        display: block;
+    }
+}
