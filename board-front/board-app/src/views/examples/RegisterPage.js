@@ -41,11 +41,11 @@ function RegisterPage() {
         <Container>
           <Row>
             <Col className="ml-auto mr-auto" lg="4">
-              <Card className="card-register ml-auto mr-auto" style={{ backgroundColor: "white" }}>
-                <h3 className="title mx-auto">
+              <Card className="card-register login ml-auto mr-auto" style={{ backgroundColor: "white" }}>
+                {/* <h3 className="title mx-auto">
                   <img className="login_logo" alt="login_logo" src={require("assets/img/login_logo.png")} style={{ width: '250px' }} />
-                </h3>
-
+                </h3> */}
+                <h3 className="login-title">LOGIN</h3>
                 <Form className="register-form">
                   <div className="login-group">
                     <span className="login-icon"> <FontAwesomeIcon icon={faEnvelope} /> </span>

@@ -43,6 +43,10 @@ import Banner from "./index-sections/Banner";
 import Magazine from "./index-sections/Magazine";
 import ShopItems from "./index-sections/ShopItems";
 import ItemNavbars from "./index-sections/ItemNavbars";
+import PlaceItems from "./index-sections/PlaceItems";
+import RecipeItems from "./index-sections/RecipeItems";
+import CommunityItems from "./index-sections/CommunityItems";
+import FeaturedShopItems from "./index-sections/FeaturedShopItems";
 
 function Index() {
   document.documentElement.classList.remove("nav-open");
@@ -58,7 +62,7 @@ function Index() {
       <IndexHeader />
       <div className="main">
         <ItemNavbars/>
-        <ShopItems/>
+        <FeaturedShopItems/>
         <Banner/>
         <Magazine/>
         <SectionButtons />
