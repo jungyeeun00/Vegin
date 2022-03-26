@@ -2,29 +2,34 @@ import React, { Component } from 'react';
 import { Navbar, NavItem, NavLink, Nav } from 'reactstrap';
 //import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import 'assets/scss/paper-kit/_itemnav.scss'
-import FeaturedRecipeItem from './home-featured/FeaturedRecipeItems';
-import FeaturedShopItems from './home-featured/FeaturedShopItems';
-import FeaturedPlaceItems from './home-featured/FeaturedPlaceItems';
-import FeaturedCommunityItems from './home-featured/FeaturedCommunityItems';
+import BestShopItems from './BestShopItems';
+import "../../assets/scss/paper-kit/_shop-page.scss";
+import RecipeItems from './RecipeItems';
+import PlaceItems from './PlaceItems';
+import CommunityItems from './CommunityItems';
+
 
 class ItemNavbars extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            mode:'recipe'
+        this.state = {
+            mode: 'recipe'
         }
     }
 
     getContent() {
         var featured = null;
         if (this.state.mode === 'recipe') {
-            featured = <FeaturedRecipeItem />
+            featured = <RecipeItems />
         } else if (this.state.mode === 'shop') {
-            featured = <FeaturedShopItems />
+            featured =
+                <div className="shop-main">
+                    <BestShopItems />
+                </div>
         } else if (this.state.mode === 'place') {
-            featured = <FeaturedPlaceItems/>
-        } else if (this.state.mode === 'community'){
-            featured = <FeaturedCommunityItems/>
+            featured = <PlaceItems />
+        } else if (this.state.mode === 'community') {
+            featured = <CommunityItems />
         }
         return featured;
     }
@@ -41,7 +46,7 @@ class ItemNavbars extends Component {
                                     href="#pablo"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        this.setState({mode:'recipe'});
+                                        this.setState({ mode: 'recipe' });
                                     }}
                                 >
                                     <div className='featured-img-wrapper'>
@@ -54,7 +59,7 @@ class ItemNavbars extends Component {
                                     href="#pablo"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        this.setState({mode:'shop'});
+                                        this.setState({ mode: 'shop' });
                                     }}
                                 >
                                     <div className='featured-img-wrapper'>
@@ -67,7 +72,7 @@ class ItemNavbars extends Component {
                                     href="#pablo"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        this.setState({mode:'place'});
+                                        this.setState({ mode: 'place' });
                                     }}
                                 >
                                     <div className='featured-img-wrapper'>
@@ -80,7 +85,7 @@ class ItemNavbars extends Component {
                                     href="#pablo"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        this.setState({mode:'community'});
+                                        this.setState({ mode: 'community' });
                                     }}
                                 >
                                     <div className='featured-img-wrapper'>

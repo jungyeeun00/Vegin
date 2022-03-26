@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import IndexNavbar from 'components/Navbars/IndexNavbar';
-import BestItems from "../index-sections/BestItems";
-import AllItems from 'views/index-sections/AllItems';
+import BestShopItems from '../index-sections/BestShopItems';
+import AllShopItems from 'views/index-sections/AllShopItems';
 
 class ShopPage extends Component {
     render() {
@@ -10,10 +10,14 @@ class ShopPage extends Component {
                 <IndexNavbar />
                 <div className="shop-main">
                     {/* BEST ITEM 부분 */}
-                    < BestItems />
+                    <div className="shop-best">
+                        <h3>BEST</h3>
+                    </div>
+                    < BestShopItems />
+                    <hr className='shop-hr'/>
 
                     {/* 정렬 및 아이템 나열 부분 */}
-                    < AllItems />
+                    < AllShopItems />
                 </div>
             </>
         );

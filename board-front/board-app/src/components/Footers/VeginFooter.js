@@ -25,83 +25,80 @@ import { Row, Container } from "reactstrap";
 function VeginFooter() {
   return (
     <footer className="footer footer-black footer-white">
-      <Container>
-        <Row>
-          <nav className="footer-nav">
+      <hr></hr>
+      {/* <Container> */}
+      {/* <Row> */}
+      <nav className="footer-nav">
+        <ul className="footer-inner">
+          <div className="foot_left">
             <ul>
-              <div className="foot_left">
-                <ul>
-                  <li>
-                    <br />CS
-                    <br />ekfqlc0103@hansung.ac.kr
-                  </li>
-                </ul>
-                <ul>
-                  <li>010-1234-5678</li>
-                  <li>ekfqlc0103@hansung.ac.kr</li>
-                  <li>
-                    10:00 ~ 18:00<br />
-                    점심시간 12:00 ~ 13:30
-                  </li>
-                </ul>
-              </div>
-              <div className="foot_center">
-                <ul>
-                  <li>COMPANY</li>
-                  <div>
-                    <span>
-                      상호
-                      <span>(주)비긴컴퍼니</span>
-                    </span>
-                    <span>
-                      대표
-                      <span>정윤이편</span>
-                    </span>
-                    <span>
-                      사업자등록번호
-                      <span>02-760-8076</span>
-                    </span>
-                    <br/>
-                    <span>
-                      전화
-                      <span>02-760-8079</span>
-                    </span>
-                    <span>
-                      주소
-                      <span>서울특별시 성북구 삼선교로16길 116 한성대학교 상상빌리지</span>
-                    </span>
-                    <br/>
-                    <span>
-                      개인정보관리책임자
-                      <span>정예은 (ekfqlc0103@naver.com)</span>
-                    </span>
-                  </div>
-                </ul>
-              </div>
-              <div className="foot_right">
-                <ul>
-                  <li>BANK</li>
-                </ul>
-                <ul>
-                  <li>
-                    <span>기업은행</span>
-                    <br/>
-                    <span>505-044752-01-012</span>
-                    <br/>
-                    <span>정예은^^7</span>
-                  </li>
-                </ul>
+              <li className="footer-title">
+                <span>CS</span>
+              </li>
+              ekfqlc0103@hansung.ac.kr
+            </ul>
+            <ul>
+              <li className="tel">010-1234-5678</li>
+              <li>ekfqlc0103@hansung.ac.kr</li>
+              <li>
+                10:00 ~ 18:00 (평일 및 주말 휴무)<br />
+                점심시간 12:00 ~ 13:30
+              </li>
+            </ul>
+          </div>
+          <div className="foot_center">
+            <ul>
+              <li className="footer-title">
+                <span>COMPANY</span>
+              </li>
+              <div>
+                <span className="ft-center-title">
+                  상호
+                </span>
+                <span>&nbsp;&nbsp;(주)비긴컴퍼니</span>
+                <span className="ft-center-title">
+                  대표
+                </span>
+                <span>&nbsp;&nbsp;정윤이편</span>
+                <span className="ft-center-title">
+                  사업자등록번호
+                </span>
+                <span>&nbsp;&nbsp;02-760-8076</span>
+                <br />
+                <span className="ft-center-title">
+                  전화
+                </span>
+                <span>&nbsp;&nbsp;02-760-8079</span>
+                <span className="ft-center-title">
+                  주소
+                </span>
+                <span>&nbsp;&nbsp;서울특별시 성북구 삼선교로16길 116 한성대학교</span>
+                <br />
+                <span className="ft-center-title">
+                  개인정보관리책임자
+                </span>
+                <span>&nbsp;&nbsp;정예은 (ekfqlc0103@naver.com)</span>
               </div>
             </ul>
-          </nav>
-          <div className="credits ml-auto">
-            <span className="copyright">
-              © {new Date().getFullYear()}, made with{" "}
-              <i className="fa fa-heart heart" /> by Creative Tim
-            </span>
           </div>
-        </Row>
-      </Container>
+          <div className="foot_right">
+            <ul>
+              <li className="footer-title">
+                <span>BANK</span>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <span>기업은행</span>
+                <br />
+                <span>505-044752-01-012</span>
+                <br />
+                <span>정예은^^7</span>
+              </li>
+            </ul>
+          </div>
+        </ul>
+      </nav>
     </footer>
   );
 }

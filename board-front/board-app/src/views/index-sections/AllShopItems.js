@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import ShopItems from "../index-sections/ShopItems";
+import ShopItems from "./ShopItems";
 import {
     NavLink,
 } from "reactstrap";
 
-class AllItems extends Component {
+class AllShopItems extends Component {
     render() {
         return (
             <>
@@ -159,4 +159,4 @@ class AllItems extends Component {
     }
 }
 
-export default AllItems;
+export default AllShopItems;
