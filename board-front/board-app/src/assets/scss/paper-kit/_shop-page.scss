@@ -1,0 +1,103 @@
+.shop-main {
+    padding: 0% 15%;
+    position: relative;
+
+    .shop-best {
+        padding: 20px 0px;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    .shop-content-bar {
+        display: block;
+        text-align: right;
+        margin-top: 30px;
+
+        .shop-sort-list {
+            margin: 0;
+            padding: 0;
+            padding-right: 1.45vw;
+        }
+
+        li {
+            list-style: none;
+            display: inline-block;
+            margin: 0 0.4vw;
+        }
+
+        a:before {
+            content: "•";
+            font-family: FontAwesome;
+            margin-right: 0.3vw;
+        }
+
+        .active a {
+            color: black;
+            font-weight: bold;
+        }
+
+        .active a:before {
+            content: "\f00c";
+            color: #4A8451;
+            font-size: 0.3vw;
+            font-weight: lighter;
+        }
+    }
+
+
+    .shop-best-table, .shop-items-table {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        width:100%;
+        padding-left: 0;
+        margin-bottom: 0;
+
+        li {
+            display:inline-block;
+            vertical-align:middle;
+
+            #shopItem {
+                padding: 0;
+                padding-top: 3vh;
+                padding-bottom: 10vh;
+                margin : 0;
+
+                #shopImg {
+                    width: 13vw;
+                }
+                .shop-text {
+                    width: 13vw;
+                    padding: 0.2vw;
+                    margin: 0.34vw 0.2vw;
+                }
+
+                .like {
+                    max-width: 13vw;
+                }
+
+                #shopTitle {
+                    width: 13vw;
+                    font-size: 1.1vw;
+                }
+
+                #shopPer {
+                    font-size: 0.91vw;
+                } 
+
+                #shopPrice {
+                    font-size: 1.05vw;
+                } 
+
+                #shopStrikePrice {
+                    font-size: 0.84vw;
+                }
+            }
+        }
+    }
+
+    .shop-best-table {
+        border-bottom: 2px solid #CCC5B9;
+    }
+}

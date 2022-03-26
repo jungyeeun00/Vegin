@@ -32,6 +32,7 @@ import ProfilePage from "views/examples/ProfilePage.js";
 import RegisterPage from "views/examples/RegisterPage.js";
 import AboutVeginPage from "views/examples/AboutVeginPage";
 import AboutVeganPage from "views/examples/AboutVeganPage";
+import ShopPage from "views/examples/ShopPage";
 // others
 
 ReactDOM.render(
@@ -68,7 +69,7 @@ ReactDOM.render(
       />
       <Route
         path="/shop-page"
-        render={(props) => <LandingPage {...props} />}
+        render={(props) => <ShopPage {...props} />}
       />
       <Route
         path="/place-page"
