@@ -1,0 +1,160 @@
+.shop-info-wrap {
+    width: 1080px;
+    min-width: 1080px;
+    max-width: 1280px;
+	margin: 4% auto;
+
+    .shop-info-items {    /* 자식들을 감싸고 있는 부모 */
+        display: block;
+	    font-size: 0;
+	    margin: 0 -5px; /* 너비간 10px 간격을 만들기 위해 남은 5px을 양옆으로 땡겨줌 */
+
+        .shop-info-item {   /* 나란히 배치할 영역 */
+            display: inline-block;
+            width: 50%;
+            padding: 0 5px; /* 간격을 위해 각 너비에 준 패딩 5px을 줌 */
+            vertical-align: middle; /* 나란히 배치하는 와중에 수직정렬도 가운데로 하려고 준 속성 */
+            box-sizing: border-box; /* width값이 오롯이 50%를 갖게 하기 위해 준 속성 */
+
+            .shop-info-image, .shop-info-text {  /* 나란히 배치할 영역 안 텍스트를 감싼 div */
+                height: 500px;
+                min-height: 100%;
+                font-size: initial; /* font-size: 0;을 하면 그 아래 자식들 모두 상속받기 때문에 텍스트가 있는 경우라면 꼭 줘야할 속성 */
+                // background: aliceblue; /* 간격과 영역을 보여주기 위한 속성 */
+
+                #shopImg {
+                    height: 500px;
+                    width: auto;
+                    display: inline-block;
+                }
+
+                .product-price {
+                    font-size: 21px;
+                    line-height: 20px;
+                    font-weight: 600;
+                    margin-top: 30px;
+                    margin-bottom: 15px;
+                }
+            }
+
+            .shop-info-image:before, .shop-info-text:before {   /* 텍스트를 수직 가운데 정렬하기 위한 가상선택자 */
+                content: ''; /* 가상선택자 안에 빈값을 넣어주기 위해 적용한 속성 */
+                display: inline-block; /* inline-block이어야 vertical-align을 쓸 수 있기 때문에 준 속성 */
+                vertical-align: middle; /* 수직 가운데 정렬을 하기 위해 준 속성 */
+                width: 0; /* 다음에 올 태그와 수직을 맞추기 위한 것이므로 width값은 필요없어서 0으로 줌 */
+                height: 100%; /* height값은 부모의 높이값을 100% 상속받아야 하기 때문에 준 속성 */
+            }
+
+            .shop-info-text {
+                border-top: 2px solid #CCC5B9;
+                font-size: 13px;
+
+                .container {
+                    display: inline-block;
+                    height: 500px;
+                    min-height: 100%;
+
+                    h3 {
+                        padding: 0;
+                        margin: 0;
+                        font-weight: bold;
+                    }
+
+                    .product-price {
+                        font-size: 25px;
+                    }
+
+                    .option-choice {
+                        padding-top: 20px;
+                        font-weight: bold;
+                    }
+    
+                    .row {
+                        border-top: 1px solid #CCC5B9;
+                        align-items: center;
+                    }
+    
+                    .price-row, .option-row, .choice-row {
+                        border: none;
+                    }
+
+                    .option-row {
+                        margin-bottom: 30px;
+                    }
+    
+                    .option-btn, .choice-btn {
+                        border-radius: 0%;
+                        margin-right: 10px;
+                        color: #66615B;
+                        border-color: #CCC5B9;
+                        background-color: #fff;
+    
+                        &:focus {
+                            background-color: #4A8451;
+                            color: #fff;
+                            text-decoration: none;
+                            border-color: transparent;
+                        }
+                    }
+    
+                    .option-btn {
+                        width: auto;
+                    }
+
+                    .product-total {
+                        font-size: 18px;
+
+                        span {
+                            font-size: 25px;
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .product-btns {
+        margin-top: 10px;
+        float: right;
+
+        .cart-btn, .buy-btn {
+            width: 150px;
+            border-radius: 30px;
+            font-weight: 500;
+            display: inline;
+
+            &:hover,
+            &:active{
+                text-decoration: none;
+                border-color: transparent;
+            }
+        }
+
+        .cart-btn {
+            background-color: #fff;
+            color: #66615B;
+            border-width: 1px;
+            border-color: #CCC5B9;
+            margin-right: 5px;
+
+            &:hover,
+            &:active{
+                background-color: #CCC5B9;
+                color: #fff;
+            }
+        }
+
+        .buy-btn {
+            background-color: #4A8451;
+            border: none;
+
+            &:hover,
+            &:active{
+                background-color: #2b4d2f;
+            }
+        }
+
+
+    }
+}

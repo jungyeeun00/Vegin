@@ -60,38 +60,15 @@
 
             #shopItem {
                 padding: 0;
-                padding-top: 3vh;
-                padding-bottom: 10vh;
-                margin : 0;
+                margin-bottom: 10vh;
+                margin-top: 3vh;
 
                 #shopImg {
                     width: 13vw;
                 }
-                .shop-text {
-                    width: 13vw;
-                    padding: 0.2vw;
-                    margin: 0.34vw 0.2vw;
-                }
 
                 .like {
                     max-width: 13vw;
-                }
-
-                #shopTitle {
-                    width: 13vw;
-                    font-size: 1.1vw;
-                }
-
-                #shopPer {
-                    font-size: 0.91vw;
-                } 
-
-                #shopPrice {
-                    font-size: 1.05vw;
-                } 
-
-                #shopStrikePrice {
-                    font-size: 0.84vw;
                 }
             }
         }
