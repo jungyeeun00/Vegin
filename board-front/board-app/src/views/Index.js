@@ -23,7 +23,6 @@ import React from "react";
 // core components
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import IndexHeader from "components/Headers/IndexHeader.js";
-import DemoFooter from "components/Footers/DemoFooter.js";
 
 // index sections
 import SectionButtons from "views/index-sections/SectionButtons.js";
@@ -41,12 +40,8 @@ import SectionExamples from "views/index-sections/SectionExamples.js";
 import SectionDownload from "views/index-sections/SectionDownload.js";
 import Banner from "./index-sections/Banner";
 import Magazine from "./index-sections/Magazine";
-import ShopItems from "./index-sections/ShopItems";
 import ItemNavbars from "./index-sections/ItemNavbars";
-import PlaceItems from "./index-sections/PlaceItems";
-import RecipeItems from "./index-sections/RecipeItems";
-import CommunityItems from "./index-sections/CommunityItems";
-import FeaturedShopItems from "./index-sections/FeaturedShopItems";
+import VeginFooter from "components/Footers/VeginFooter";
 
 function Index() {
   document.documentElement.classList.remove("nav-open");
@@ -62,7 +57,6 @@ function Index() {
       <IndexHeader />
       <div className="main">
         <ItemNavbars/>
-        <FeaturedShopItems/>
         <Banner/>
         <Magazine/>
         <SectionButtons />
@@ -78,7 +72,7 @@ function Index() {
         <SectionLogin />
         <SectionExamples />
         <SectionDownload />
-        <DemoFooter />
+        <VeginFooter />
       </div>
     </>
   );
