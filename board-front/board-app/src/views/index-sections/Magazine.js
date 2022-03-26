@@ -8,6 +8,7 @@ import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import "assets/css/Slide.css";
 import { Slide } from "./Slide";
+import { Container } from "reactstrap";
 
 const data = [
   {
@@ -46,10 +47,11 @@ const Magazine = () => {
   const ref = React.useRef(StackedCarousel);
   return (
     <>
+    {/* <Container> */}
     <div className="magazine_title">
         <h3> VEGIN'S MAGAZINE </h3>
     </div>
-    <div className="card mx-auto">
+    <div className="card mx-auto magazine">
       <div style={{ width: "70%", position: "relative" }}>
         <ResponsiveContainer
           carouselRef={ref}
@@ -85,6 +87,7 @@ const Magazine = () => {
         </Fab>
       </div>
     </div>
+    {/* </Container> */}
     </>
   );
 };

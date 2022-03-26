@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import ShopItems from "../index-sections/ShopItems";
+import ShopItems from "./ShopItems";
+import "../../assets/scss/paper-kit/_shop-page.scss";
 import {
     NavLink,
 } from "reactstrap";
 
-class BestItems extends Component {
+class BestShopItems extends Component {
     render() {
         return (
             <>
-                <div className="shop-best">
-                    <h3>BEST</h3>
-                </div>
                 <ul className="shop-best-table">
                     <li>
                         <NavLink
@@ -54,4 +52,4 @@ class BestItems extends Component {
     }
 }
 
-export default BestItems;
+export default BestShopItems;
