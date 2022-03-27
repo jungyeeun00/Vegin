@@ -28,6 +28,8 @@ import {
 } from "reactstrap";
 
 // core components
+import ProductInquiry from "../index-sections/ProductInquiry";
+import Reviews from "../index-sections/Reviews";
 
 function SectionProgress() {
     const [activeTab, setActiveTab] = React.useState("1");
@@ -84,10 +86,10 @@ function SectionProgress() {
                         </p>
                     </TabPane>
                     <TabPane tabId="2">
-                        <p>Here is your profile.</p>
+                        < Reviews />
                     </TabPane>
                     <TabPane tabId="3">
-                        <p>Here are your messages.</p>
+                        < ProductInquiry />
                     </TabPane>
                 </TabContent>
             </div>{" "}

@@ -1,0 +1,36 @@
+.inq-main {
+    .inq-title {
+        padding-top: 10px;
+        padding-bottom: 25px;
+
+        h5 {
+            font-weight: bold;
+        }
+    }
+
+    .inq-tb-wrap {
+        font-size: 12px;
+        
+        .inq-tb {
+            border-color: #66615B;
+
+            .inq-thead {
+
+                border-bottom: 2px solid #999999;
+
+                :not(tbody) {
+                    border-top: 0;
+                    border-bottom: 0;
+                }
+            }
+
+            // .inq-thead {
+            //     background-color: #cfcfcf;
+            // }
+
+            .inq-tbody {
+                color: black;
+            }
+        }
+    }
+}
