@@ -5,6 +5,7 @@
     padding: 70px 150px;
     position: relative;
     background-color: #FFFFFF;
+    overflow: hidden;
 }
 .nav-tabs-navigation{
     text-align: center;
@@ -36,6 +37,7 @@
             }
             .nav-link:hover{
                 color: #66615b;
+                cursor: pointer;
             }
             .nav-link.active{
                 color: #4A8451;
