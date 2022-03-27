@@ -33,6 +33,8 @@ import RegisterPage from "views/examples/RegisterPage.js";
 import AboutVeginPage from "views/examples/AboutVeginPage";
 import AboutVeganPage from "views/examples/AboutVeganPage";
 import ShopPage from "views/examples/ShopPage";
+import RecipePage from "views/examples/RecipePage";
+import RecipeDetailPage from "views/examples/RecipeDetailPage";
 // others
 
 ReactDOM.render(
@@ -54,7 +56,7 @@ ReactDOM.render(
       <Route
         path="/register-page"
         render={(props) => <RegisterPage {...props} />}
-      />   
+      />
       <Route
         path="/about-vegin-page"
         render={(props) => <AboutVeginPage {...props} />}
@@ -65,7 +67,11 @@ ReactDOM.render(
       />
       <Route
         path="/recipe-page"
-        render={(props) => <LandingPage {...props} />}
+        render={(props) => <RecipePage {...props} />}
+      />
+      <Route
+        path="/recipe-detail-page"
+        render={(props) => <RecipeDetailPage {...props} />}
       />
       <Route
         path="/shop-page"

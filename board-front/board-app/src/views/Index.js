@@ -41,10 +41,10 @@ import SectionExamples from "views/index-sections/SectionExamples.js";
 import SectionDownload from "views/index-sections/SectionDownload.js";
 import Banner from "./index-sections/Banner";
 import Magazine from "./index-sections/Magazine";
-import ShopItems from "./index-sections/ShopItems";
 import ItemNavbars from "./index-sections/ItemNavbars";
-import PlaceItems from "./index-sections/PlaceItems";
 import RecipeItems from "./index-sections/RecipeItems";
+import ShopItems from "./index-sections/ShopItems";
+import PlaceItems from "./index-sections/PlaceItems";
 import CommunityItems from "./index-sections/CommunityItems";
 import FeaturedShopItems from "./index-sections/FeaturedShopItems";
 
@@ -61,10 +61,10 @@ function Index() {
       <IndexNavbar />
       <IndexHeader />
       <div className="main">
-        <ItemNavbars/>
-        <FeaturedShopItems/>
-        <Banner/>
-        <Magazine/>
+        <ItemNavbars />
+        <FeaturedShopItems />
+        <Banner />
+        <Magazine />
         <SectionButtons />
         <SectionNavbars />
         <SectionNavigation />
