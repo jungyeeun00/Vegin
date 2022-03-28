@@ -24,6 +24,7 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import { Button, Card, Form, Input, InputGroup, InputGroupText, Container, Row, Col } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
+import VeginFooter from "components/Footers/VeginFooter";
 
 function RegisterPage() {
   document.documentElement.classList.remove("nav-open");
@@ -80,6 +81,7 @@ function RegisterPage() {
           </Row>
         </Container>
       </div>
+      <VeginFooter/>
     </>
   );
 }

@@ -37,7 +37,21 @@ import {
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
-import DemoFooter from "components/Footers/DemoFooter.js";
+import VeginFooter from "components/Footers/VeginFooter";
+import SectionButtons from "views/index-sections/SectionButtons.js";
+import SectionNavbars from "views/index-sections/SectionNavbars.js";
+import SectionNavigation from "views/index-sections/SectionNavigation.js";
+import SectionProgress from "views/index-sections/SectionProgress.js";
+import SectionNotifications from "views/index-sections/SectionNotifications.js";
+import SectionTypography from "views/index-sections/SectionTypography.js";
+import SectionJavaScript from "views/index-sections/SectionJavaScript.js";
+import SectionCarousel from "views/index-sections/SectionCarousel.js";
+import SectionNucleoIcons from "views/index-sections/SectionNucleoIcons.js";
+import SectionDark from "views/index-sections/SectionDark.js";
+import SectionLogin from "views/index-sections/SectionLogin.js";
+import SectionExamples from "views/index-sections/SectionExamples.js";
+import SectionDownload from "views/index-sections/SectionDownload.js";
+import IndexNavbar from "components/Navbars/IndexNavbar";
 
 function ProfilePage() {
   const [activeTab, setActiveTab] = React.useState("1");
@@ -57,7 +71,7 @@ function ProfilePage() {
   });
   return (
     <>
-      <ExamplesNavbar />
+      <IndexNavbar />
       <ProfilePageHeader />
       <div className="section profile-content">
         <Container>
@@ -71,18 +85,15 @@ function ProfilePage() {
             </div>
             <div className="name">
               <h4 className="title">
-                Jane Faker <br />
+                정예은 <br />
               </h4>
-              <h6 className="description">Music Producer</h6>
+              <h6 className="description">small 빌게이츠</h6>
             </div>
           </div>
           <Row>
             <Col className="ml-auto mr-auto text-center" md="6">
               <p>
-                An artist of considerable range, Jane Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.
+                한성대학교 컴퓨터공학부? 모바일소프트웨어트랙?입니다만? 저를 아시나요?
               </p>
               <br />
               <Button className="btn-round" color="default" outline>
@@ -130,7 +141,7 @@ function ProfilePage() {
                             alt="..."
                             className="img-circle img-no-padding img-responsive"
                             src={
-                              require("assets/img/faces/clem-onojeghuo-2.jpg")                            }
+                              require("assets/img/faces/clem-onojeghuo-2.jpg")}
                           />
                         </Col>
                         <Col className="ml-auto mr-auto" lg="7" md="4" xs="4">
@@ -194,7 +205,20 @@ function ProfilePage() {
           </TabContent>
         </Container>
       </div>
-      <DemoFooter />
+      <SectionButtons />
+      <SectionNavbars />
+      <SectionNavigation />
+      <SectionProgress />
+      <SectionNotifications />
+      <SectionTypography />
+      <SectionJavaScript />
+      <SectionCarousel />
+      <SectionNucleoIcons />
+      <SectionDark />
+      <SectionLogin />
+      <SectionExamples />
+      <SectionDownload />
+      <VeginFooter />
     </>
   );
 }

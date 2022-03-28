@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'main-font-l';
+    src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Light.ttf');
+  }
+
+@font-face {
+font-family: 'main-font-m';
+src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
+}
+
 .shop-main {
     padding: 0% 15%;
     position: relative;
@@ -8,12 +18,14 @@
 
     h3 {
         text-align: center;
+        font-family: 'main-font-m';
     }
 
     .shop-content-bar {
         display: block;
         text-align: right;
         margin-top: 30px;
+        font-family: 'main-font-l';
 
         .shop-sort-list {
             margin: 0;
@@ -57,47 +69,28 @@
         li {
             display:inline-block;
             vertical-align:middle;
+            margin-bottom: 10vh;
+            margin-top: 3vh;
 
             #shopItem {
                 padding: 0;
-                padding-top: 3vh;
-                padding-bottom: 10vh;
-                margin : 0;
 
                 #shopImg {
                     width: 13vw;
-                }
-                .shop-text {
-                    width: 13vw;
-                    padding: 0.2vw;
-                    margin: 0.34vw 0.2vw;
                 }
 
                 .like {
                     max-width: 13vw;
                 }
-
-                #shopTitle {
-                    width: 13vw;
-                    font-size: 1.1vw;
-                }
-
-                #shopPer {
-                    font-size: 0.91vw;
-                } 
-
-                #shopPrice {
-                    font-size: 1.05vw;
-                } 
-
-                #shopStrikePrice {
-                    font-size: 0.84vw;
-                }
             }
         }
     }
 
-    .shop-best-table {
-        border-bottom: 2px solid #CCC5B9;
-    }
+    // .shop-best-table {
+    //     border-bottom: 2px solid #CCC5B9;
+    // }
+}
+
+.shop-hr{
+    border: 1px solid #CCC5B9;
 }

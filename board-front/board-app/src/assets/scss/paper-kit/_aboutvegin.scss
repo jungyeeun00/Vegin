@@ -1,0 +1,81 @@
+@font-face {
+    font-family: 'home-title-font-m';
+    src: url('/assets/fonts/home-title-font/GmarketSansTTFMedium.ttf');
+  }
+@font-face {
+    font-family: 'main-font-l';
+    src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Light.ttf');
+}
+    body{
+        min-width: 1150px;
+    }
+  .typography-line{
+      font-family: 'main-font-l';
+      padding-left: 20%;
+      padding-right: 20%;    
+      margin-bottom: 0px;  
+    .wvi-logo-wrapper{
+    margin: 0px 0px 30px 0px;
+    text-align: center;
+        .wvi-main-logo{
+            margin-top: 150px;
+            width: 650px;
+        }
+    }
+    .wvi-mean{
+        margin-top: 80px;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 300;
+        font-family: 'home-title-font-m';
+        color: rgb(71, 69, 69);
+    }
+    .wvi-contents1{
+        text-align: center;
+        font-size: 20px;
+        font-family: 'home-title-font-m';
+        font-weight: 100;
+        .mean-l{
+            position: inherit;
+            display: inline;
+            bottom: 0px; line-height: 0px;
+            font-size: inherit;
+            font-weight: 800;
+            color: inherit;
+
+        }
+    }
+    .wvi-contents2{
+        text-align: center;
+        font-size: 40px;
+        font-weight: 800;
+        font-style: italic;
+        margin-top: 80px;
+    }
+    .con-wrapper{      
+        text-align: center;
+        display: flex;
+        margin-top: 40px;
+        .mr-auto{
+            margin-top: 40px;
+            align-items: center;
+            justify-content: space-around;
+            
+        }
+        .img-circle{
+            border-radius: 0 !important;
+            width: 80px;
+            background: #F5F5F5;
+        }
+        .image-explanation{
+            text-align: center;
+            align-items: center;
+            width: 250px;
+        }
+
+    }
+} 
+  .wvi-title-main{
+     text-align: center;
+     margin-top: 0px;
+  }
