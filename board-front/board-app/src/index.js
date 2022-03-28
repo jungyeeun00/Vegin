@@ -36,6 +36,7 @@ import ShopPage from "views/examples/ShopPage";
 import RecipePage from "views/examples/RecipePage";
 import RecipeDetailPage from "views/examples/RecipeDetailPage";
 import ShopDetailPage from "views/examples/ShopDetailPage";
+import PlacePage from "views/examples/PlacePage";
 // others
 
 ReactDOM.render(
@@ -84,7 +85,7 @@ ReactDOM.render(
       />
       <Route
         path="/place-page"
-        render={(props) => <LandingPage {...props} />}
+        render={(props) => <PlacePage {...props} />}
       />
       <Route
         path="/community-page"
