@@ -43,7 +43,6 @@ function Index() {
       <IndexNavbar />
       <IndexHeader />
       <div className="main">
-
         <ItemNavbars/>
         <Banner/>
         <Magazine/>

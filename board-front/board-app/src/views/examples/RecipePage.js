@@ -3,7 +3,9 @@ import { NavLink } from 'react-router-dom'
 import IndexNavbar from 'components/Navbars/IndexNavbar';
 import RecipeItems from "../index-sections/RecipeItems";
 import { faMagnifyingGlass, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import VeginFooter from 'components/Footers/VeginFooter';
+import BestRecipeItems from 'views/index-sections/BestRecipeItems';
 
 
 
@@ -32,7 +34,7 @@ class RecipePage extends Component {
         this.setState({
             searchInput: e.target.value
         });
-        
+
     };
     searchInputRemoveHandler = () => {
         this.setState({
@@ -40,14 +42,14 @@ class RecipePage extends Component {
             searchCancel: false
         });
     };
-    
+
     render() {
         return (
             <>
                 <IndexNavbar />
 
                 <div className="recipe-main">
-                    
+
                     <div>
                         <ul className="recipe-search-table">
                             <div class="row">
@@ -64,11 +66,11 @@ class RecipePage extends Component {
                                         <button type="button" class="ml-1 btn"> 샐러드 </button>
                                     </div>
                                     <div className="search-bar">
-                                        <FontAwesomeIcon icon={faMagnifyingGlass}/>
+                                        <FontAwesomeIcon icon={faMagnifyingGlass} />
                                         <input type="search" placeholder="재료명 / 요리명" value={this.state.searchInput}
-                                             onFocus={ this.searchOnHandler } onBlur={ this.searchOffHandler } onChange={ this.setSearchHandler }/>
+                                            onFocus={this.searchOnHandler} onBlur={this.searchOffHandler} onChange={this.setSearchHandler} />
                                         <button className="btn-clear" onClick={this.searchInputRemoveHandler}>
-                                            { this.state.searchClick || this.state.searchCancel ? <FontAwesomeIcon icon={faCircleXmark} /> : null}
+                                            {this.state.searchClick || this.state.searchCancel ? <FontAwesomeIcon icon={faCircleXmark} /> : null}
                                         </button>
                                     </div>
                                 </div>
@@ -80,12 +82,7 @@ class RecipePage extends Component {
                     <div className="recipe-best">
                         <h3>BEST</h3>
                     </div>
-                    <ul className="recipe-best-table">
-                        <li><NavLink to="/recipe-detail-page"><RecipeItems /></NavLink></li>
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
-                    </ul>
+                    <BestRecipeItems />
 
                     {/* 정렬 버튼 */}
                     <div className="recipe-content-bar">
@@ -114,6 +111,7 @@ class RecipePage extends Component {
                         <li><RecipeItems /></li>
                     </ul>
                 </div>
+                <VeginFooter />
             </>
         );
     }

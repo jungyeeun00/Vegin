@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import IndexNavbar from 'components/Navbars/IndexNavbar';
 import BestShopItems from '../index-sections/BestShopItems';
-import AllShopItems from 'views/index-sections/AllShopItems';
+import AllShopItems from '../index-sections/AllShopItems';
+import VeginFooter from 'components/Footers/VeginFooter';
 
 class ShopPage extends Component {
     render() {
@@ -19,6 +20,7 @@ class ShopPage extends Component {
                     {/* 정렬 및 아이템 나열 부분 */}
                     < AllShopItems />
                 </div>
+                <VeginFooter/>
             </>
         );
     }
