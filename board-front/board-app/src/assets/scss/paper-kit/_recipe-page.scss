@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'main-font-l';
+    src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Light.ttf');
+  }
+
+@font-face {
+font-family: 'main-font-m';
+src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
+}
+
 .recipe-main {
     padding: 0% 15%;
     position: relative;
@@ -56,31 +66,26 @@
         li {
             display:inline-block;
             vertical-align:middle;
-            padding: 0;
             padding-top: 3vh;
             padding-bottom: 10vh;
-            margin : 0;
 
             #recipeItem {
+                padding: 0;
 
                 #recipeImg {
                     width: 13vw;
                 }
                 .recipe-text {
-                    width: 13vw;
                     padding: 0.2vw;
                     margin: 0.34vw 0.2vw;
-                }
-
-                #recipeTitle {
-                    width: 13vw;
                 }
             }
         }
     }
 
-    .recipe-best-table {
-        border-bottom: 2px solid #CCC5B9;
+    .recipe-hr {
+        height: 1px;
+        background-color: #CCC5B9;
     }
 
     .recipe-search-table {
@@ -144,14 +149,13 @@
 
                 input {
                     padding-left: 5px;
-                    padding-right: 22px;
-                    margin-right: 10px;
+                    padding-right: 24px;
+                    margin-right: 2px;
                     font-family: "main-font-l";
-                    width: 200px;
                     height: 28px;
                     border: none;
                     -webkit-appearance: none;
-                    text-align: center;
+                    text-align: left;
                     overflow: auto;
                     z-index: -1;
                     font-size: 15px;
@@ -159,18 +163,14 @@
                     &::-webkit-search-cancel-button {
                         display:none
                     }
-
-                    &:focus {
-                        margin-right: 0px;
-                        text-align: left;
-                    }
                 }
 
                 .btn-clear {
-                    position: relative;
+                    position: absolute;
                     vertical-align: middle;
                     padding: 0;
-                    top: 0;
+                    margin-right: 16px;
+                    vertical-align: middle;
                     right: 0;
                     color: gray;
                     background: center center no-repeat;
