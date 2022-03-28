@@ -1,4 +1,9 @@
 @font-face {
+    font-family: 'home-title-font-l';
+    src: url('/assets/fonts/home-title-font/GmarketSansTTFLight.ttf');
+  }
+
+@font-face {
     font-family: 'main-font-l';
     src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Light.ttf');
   }
@@ -18,6 +23,7 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
 
     h3 {
         text-align: center;
+        font-family: 'home-title-font-l';
     }
 
     .recipe-content-bar {

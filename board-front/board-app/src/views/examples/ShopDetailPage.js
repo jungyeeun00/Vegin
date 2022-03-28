@@ -11,7 +11,11 @@ class ProductDetailPage extends Component {
                 <IndexNavbar />
                 <ShopInfo />
                 <ShopNavTab />
-                <VeginFooter/>
+                <div className="btn-list">
+                    <button type="button" class="btn-round btn"
+                        onClick={() => this.props.history.goBack()}> 목록 </button>
+                </div>
+                <VeginFooter />
             </>
         );
     }
