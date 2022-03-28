@@ -63,7 +63,7 @@ class ShopPage extends Component {
                                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                                         <input type="search" placeholder="검색하기" value={this.state.searchInput}
                                             onFocus={this.searchOnHandler} onBlur={this.searchOffHandler} onChange={this.setSearchHandler} />
-                                        {this.state.searchInput.length!=0 && 
+                                        {this.state.searchInput.length!==0 && 
                                             <button className="btn-clear" onClick={this.searchInputRemoveHandler}>
                                                 <FontAwesomeIcon icon={faCircleXmark} />
                                             </button>
@@ -80,6 +80,7 @@ class ShopPage extends Component {
                         <h3>BEST</h3>
                     </div>
                     < BestShopItems />
+                    <hr className='shop-hr'/>
 
                     {/* 정렬 및 아이템 나열 부분 */}
                     < AllShopItems />

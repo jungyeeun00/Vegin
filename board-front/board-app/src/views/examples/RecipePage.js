@@ -74,7 +74,7 @@ class RecipePage extends Component {
                                         {/* <button className="btn-clear" onClick={this.searchInputRemoveHandler}>
                                             { this.state.searchCancel ? <FontAwesomeIcon icon={faCircleXmark} /> : null}
                                         </button> */}
-                                        {this.state.searchInput.length != 0 &&
+                                        {this.state.searchInput.length !== 0 &&
                                             <button className="btn-clear" onClick={this.searchInputRemoveHandler}>
                                                 <FontAwesomeIcon icon={faCircleXmark} />
                                             </button>
