@@ -3,10 +3,9 @@ import { Navbar, NavItem, NavLink, Nav } from 'reactstrap';
 //import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import 'assets/scss/paper-kit/_itemnav.scss'
 import BestShopItems from './BestShopItems';
-import "../../assets/scss/paper-kit/_shop-page.scss";
-import RecipeItems from './RecipeItems';
 import PlaceItems from './PlaceItems';
 import CommunityItems from './CommunityItems';
+import BestRecipeItems from './BestRecipeItems';
 
 
 class ItemNavbars extends Component {
@@ -20,7 +19,10 @@ class ItemNavbars extends Component {
     getContent() {
         var featured = null;
         if (this.state.mode === 'recipe') {
-            featured = <RecipeItems />
+            featured =
+                <div className="recipe-main">
+                    <BestRecipeItems />
+                </div>
         } else if (this.state.mode === 'shop') {
             featured =
                 <div className="shop-main">

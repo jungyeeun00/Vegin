@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import IndexNavbar from 'components/Navbars/IndexNavbar';
+import VeginFooter from 'components/Footers/VeginFooter';
 
 class RecipeDetailPage extends Component {
     render() {
@@ -100,6 +101,7 @@ class RecipeDetailPage extends Component {
                         <button type="button" class="btn-round mr-1 btn btn-list"> 목록 </button>
                     </NavLink> */}
                 </div>
+                <VeginFooter/>
             </>
         );
     }
