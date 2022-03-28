@@ -97,9 +97,6 @@ class RecipeDetailPage extends Component {
                         <button type="button" class="btn-round btn"
                             onClick={() => this.props.history.goBack()}> 목록 </button>
                     </div>
-                    {/* <NavLink to="/recipe-page">
-                        <button type="button" class="btn-round mr-1 btn btn-list"> 목록 </button>
-                    </NavLink> */}
                 </div>
                 <VeginFooter/>
             </>
