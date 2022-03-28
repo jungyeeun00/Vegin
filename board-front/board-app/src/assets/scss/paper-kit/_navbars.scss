@@ -1,3 +1,21 @@
+@font-face {
+  font-family: 'category-font-l';
+  src: url('/assets/fonts/category-font/NIXGONFONTS-L-2.0.ttf');
+}
+
+@font-face {
+  font-family: 'category-font-m';
+  src: url('/assets/fonts/category-font/NIXGONFONTS-M-2.0.ttf');
+}
+@font-face {
+  font-family: 'home-title-font-l';
+  src: url('/assets/fonts/home-title-font/GmarketSansTTFLight.ttf');
+}
+
+@font-face {
+  font-family: 'home-title-font-m';
+  src: url('/assets/fonts/home-title-font/GmarketSansTTFMedium.ttf');
+}
 
 .nav {
   .nav-item{
@@ -60,7 +78,44 @@
               padding: 15px 0;
               color: #999;
             }
-         }
+        }
+        .in-dropdown{
+          background-color: transparent !important;
+          color: #66615B;
+          border: none;
+          font-family: 'category-font-l' !important;
+          margin: $navbar-margin-a;
+          padding: $navbar-padding-a;
+          opacity: .8;
+          font-size: 18px;
+          text-transform: uppercase;
+          font-weight: 600;
+          color: $default-color;
+          text-align: center !important;
+        }
+        .dropdown-info{
+          border: 1px solid rgb(206, 204, 204);
+          text-align: center;
+          border-radius: 0rem;
+        }
+        .dropdown-info:hover, :focus, :active{
+          background-color: white !important;
+          color: #4A8451 !important;
+        }
+        .in-dropdown-item{
+          background-color: white;
+          z-index: inherit;
+          //margin-top: 5px;
+          //margin-bottom: 5px;
+          font-size: 16px !important;
+          padding: 10px 5px 10px 5px !important;
+        }
+        .in-dropdown-item:hover, :active{
+          background: transparent;
+          background-color: white !important;
+          color: #4A8451 !important;
+        }
+    
         .nav-item .nav-link.btn {
             margin: $navbar-margin-a-btn;
             padding: 9px;
@@ -72,8 +127,8 @@
             right: 5px;
         }
         .dropdown-menu {
-            border-radius: $border-radius-extreme;
-            margin-top: 1px;
+            border-radius: none;
+            margin-top: -20px;
         }
         .nav-item {
           .btn {

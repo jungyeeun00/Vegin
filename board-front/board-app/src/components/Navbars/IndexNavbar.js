@@ -29,6 +29,10 @@ import {
   NavItem,
   NavLink,
   Nav,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
   Container,
 } from "reactstrap";
 import { Link } from "react-router-dom";
@@ -154,21 +158,29 @@ function IndexNavbar() {
                   <p>HOME</p>
                 </NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink
-                  className="px-5"
-                  data-placement="bottom"
-                  href="#"
-                  title="ABOUT"
-                >
-                  <p>ABOUT
-                  <ul className="about-dropdown">
-                    <li><Link className="about-dropdown-content" to="/about-vegin-page">vegin</Link></li>
-                    <li><Link className="about-dropdown-content" to="/about-vegan-page">vegan</Link></li>
-                  </ul>
-                  </p>
-                </NavLink>
-              </NavItem>
+              <UncontrolledDropdown nav inNavbar className='in-dropdown-wrapper'>
+                 <DropdownToggle className='in-dropdown'
+                 style={{height: '49px', padding: '10px 48px', margin: '15px 3px'}}>
+                   ABOUT
+                  </DropdownToggle> 
+                  <DropdownMenu
+                    aria-labelledby="dropdownMenuButton"
+                    className='dropdown-info'
+                  >
+                      <DropdownItem
+                        href="/about-vegan-page"
+                        className="in-dropdown-item"
+                      >
+                      VEGAN
+                      </DropdownItem>  
+                      <DropdownItem
+                        href="/about-vegin-page"
+                        className="in-dropdown-item"
+                      >
+                      VEGIN
+                      </DropdownItem>                     
+                  </DropdownMenu>
+                </UncontrolledDropdown>
               <NavItem>
                 <NavLink
                   className="px-5"
