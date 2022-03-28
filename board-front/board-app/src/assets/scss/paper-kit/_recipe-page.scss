@@ -1,0 +1,188 @@
+.recipe-main {
+    padding: 0% 15%;
+    position: relative;
+
+    .recipe-best {
+        padding: 20px 0px;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    .recipe-content-bar {
+        display: block;
+        text-align: right;
+        margin-top: 30px;
+
+        .recipe-sort-list {
+            margin: 0;
+            padding: 0;
+            padding-right: 1.45vw;
+        }
+
+        li {
+            list-style: none;
+            display: inline-block;
+            margin: 0 0.4vw;
+        }
+
+        a:before {
+            content: "•";
+            font-family: FontAwesome;
+            margin-right: 0.3vw;
+        }
+
+        .active a {
+            color: black;
+            font-weight: bold;
+        }
+
+        .active a:before {
+            content: "\f00c";
+            color: #4A8451;
+            font-size: 0.3vw;
+            font-weight: lighter;
+        }
+    }
+
+    .recipe-best-table, .recipe-items-table {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        width:100%;
+        padding-left: 0;
+        margin-bottom: 0;
+
+        li {
+            display:inline-block;
+            vertical-align:middle;
+            padding: 0;
+            padding-top: 3vh;
+            padding-bottom: 10vh;
+            margin : 0;
+
+            #recipeItem {
+
+                #recipeImg {
+                    width: 13vw;
+                }
+                .recipe-text {
+                    width: 13vw;
+                    padding: 0.2vw;
+                    margin: 0.34vw 0.2vw;
+                }
+
+                #recipeTitle {
+                    width: 13vw;
+                }
+            }
+        }
+    }
+
+    .recipe-best-table {
+        border-bottom: 2px solid #CCC5B9;
+    }
+
+    .recipe-search-table {
+        min-width: 600px;
+        margin-top: 70px;
+        padding: 2px 0px;
+        text-align: center;
+        vertical-align: middle;
+        border-top: 2px solid #aaaaaa;
+        border-bottom: 2px solid #aaaaaa;
+
+        .row {
+            margin: 0px;
+            text-align: center;
+
+            .col-md-12 {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .type-buttons {
+                    margin-right: 20px;
+                    padding-top: 3px;
+
+                    button {
+                        font-family: "main-font-m";
+                        font-size: 13px;
+                        color: gray;
+                        background-color: transparent;
+                        border: none;
+
+                        &:focus,
+                        &:active{
+                            color: #4A8451;
+                            background-color: transparent;
+                        }
+
+                        &:hover {
+                            color: #69a170;
+                            background-color: transparent;
+
+                        }
+                    }
+                }
+            }
+
+            .search-bar {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 220px;
+                height: 32px;
+                border-radius: 5px;
+                border: solid 1px #aaaaaa;
+                z-index: 1;
+                opacity: 1;
+
+                svg {
+                    margin: 0px 8px;
+                }
+
+                input {
+                    padding-left: 5px;
+                    padding-right: 22px;
+                    margin-right: 10px;
+                    font-family: "main-font-l";
+                    width: 200px;
+                    height: 28px;
+                    border: none;
+                    -webkit-appearance: none;
+                    text-align: center;
+                    overflow: auto;
+                    z-index: -1;
+                    font-size: 15px;
+
+                    &::-webkit-search-cancel-button {
+                        display:none
+                    }
+
+                    &:focus {
+                        margin-right: 0px;
+                        text-align: left;
+                    }
+                }
+
+                .btn-clear {
+                    position: relative;
+                    vertical-align: middle;
+                    padding: 0;
+                    top: 0;
+                    right: 0;
+                    color: gray;
+                    background: center center no-repeat;
+                    border: none;
+                    z-index: 2;
+
+                    &:hover {
+                        color: black;
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+    }
+}
