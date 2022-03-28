@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'reactstrap';
 import IndexNavbar from 'components/Navbars/IndexNavbar';
 import RecipeItems from "../index-sections/RecipeItems";
 import { faMagnifyingGlass, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
@@ -15,14 +15,16 @@ class RecipePage extends Component {
         this.state = {
             searchClick: false,
             searchInput: '',
-            searchCancel: false
+            searchCancel: false,
+            searchPlaceHolder: '재료명 / 요리명'
         };
     }
 
     searchOnHandler = () => { // onFocus 이벤트
         this.setState({
             searchClick: true,
-            searchCancel: true
+            searchCancel: true,
+            searchPlaceHolder: ''
         });
     };
     searchOffHandler = () => { // onBlur 이벤트
@@ -34,12 +36,12 @@ class RecipePage extends Component {
         this.setState({
             searchInput: e.target.value
         });
-
     };
     searchInputRemoveHandler = () => {
         this.setState({
             searchInput: '',
-            searchCancel: false
+            searchCancel: false,
+            searchPlaceHolder: '재료명 / 요리명'
         });
     };
 
@@ -67,11 +69,16 @@ class RecipePage extends Component {
                                     </div>
                                     <div className="search-bar">
                                         <FontAwesomeIcon icon={faMagnifyingGlass} />
-                                        <input type="search" placeholder="재료명 / 요리명" value={this.state.searchInput}
+                                        <input type="search" placeholder={this.state.searchPlaceHolder} value={this.state.searchInput}
                                             onFocus={this.searchOnHandler} onBlur={this.searchOffHandler} onChange={this.setSearchHandler} />
-                                        <button className="btn-clear" onClick={this.searchInputRemoveHandler}>
-                                            {this.state.searchClick || this.state.searchCancel ? <FontAwesomeIcon icon={faCircleXmark} /> : null}
-                                        </button>
+                                        {/* <button className="btn-clear" onClick={this.searchInputRemoveHandler}>
+                                            { this.state.searchCancel ? <FontAwesomeIcon icon={faCircleXmark} /> : null}
+                                        </button> */}
+                                        {this.state.searchInput.length != 0 &&
+                                            <button className="btn-clear" onClick={this.searchInputRemoveHandler}>
+                                                <FontAwesomeIcon icon={faCircleXmark} />
+                                            </button>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -83,6 +90,7 @@ class RecipePage extends Component {
                         <h3>BEST</h3>
                     </div>
                     <BestRecipeItems />
+                    <hr className="recipe-hr"/>
 
                     {/* 정렬 버튼 */}
                     <div className="recipe-content-bar">
@@ -94,21 +102,141 @@ class RecipePage extends Component {
 
                     {/* 아이템 나열 부분 */}
                     <ul className="recipe-items-table">
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
-                        <li><RecipeItems /></li>
+                         <li>
+                            <NavLink
+                                className="pt-0 mt-0"
+                                data-placement="bottom"
+                                href="/recipe-detail-page"
+                                title="View Detail"
+                            ><RecipeItems />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className="pt-0 mt-0"
+                                data-placement="bottom"
+                                href="/recipe-detail-page"
+                                title="View Detail"
+                            ><RecipeItems />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className="pt-0 mt-0"
+                                data-placement="bottom"
+                                href="/recipe-detail-page"
+                                title="View Detail"
+                            ><RecipeItems />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className="pt-0 mt-0"
+                                data-placement="bottom"
+                                href="/recipe-detail-page"
+                                title="View Detail"
+                            ><RecipeItems />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className="pt-0 mt-0"
+                                data-placement="bottom"
+                                href="/recipe-detail-page"
+                                title="View Detail"
+                            ><RecipeItems />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className="pt-0 mt-0"
+                                data-placement="bottom"
+                                href="/recipe-detail-page"
+                                title="View Detail"
+                            ><RecipeItems />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className="pt-0 mt-0"
+                                data-placement="bottom"
+                                href="/recipe-detail-page"
+                                title="View Detail"
+                            ><RecipeItems />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className="pt-0 mt-0"
+                                data-placement="bottom"
+                                href="/recipe-detail-page"
+                                title="View Detail"
+                            ><RecipeItems />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className="pt-0 mt-0"
+                                data-placement="bottom"
+                                href="/recipe-detail-page"
+                                title="View Detail"
+                            ><RecipeItems />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className="pt-0 mt-0"
+                                data-placement="bottom"
+                                href="/recipe-detail-page"
+                                title="View Detail"
+                            ><RecipeItems />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className="pt-0 mt-0"
+                                data-placement="bottom"
+                                href="/recipe-detail-page"
+                                title="View Detail"
+                            ><RecipeItems />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className="pt-0 mt-0"
+                                data-placement="bottom"
+                                href="/recipe-detail-page"
+                                title="View Detail"
+                            ><RecipeItems />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className="pt-0 mt-0"
+                                data-placement="bottom"
+                                href="/recipe-detail-page"
+                                title="View Detail"
+                            ><RecipeItems />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className="pt-0 mt-0"
+                                data-placement="bottom"
+                                href="/recipe-detail-page"
+                                title="View Detail"
+                            ><RecipeItems />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                className="pt-0 mt-0"
+                                data-placement="bottom"
+                                href="/recipe-detail-page"
+                                title="View Detail"
+                            ><RecipeItems />
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
                 <VeginFooter />
