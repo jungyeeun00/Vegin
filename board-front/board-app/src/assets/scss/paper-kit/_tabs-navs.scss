@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'main-font-m';
+    src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
+}
+
 /*             Navigation menu                */
 
 /*             Navigation Tabs                 */
@@ -6,6 +11,7 @@
     position: relative;
     background-color: #FFFFFF;
     overflow: hidden;
+    font-family: 'main-font-m';
 }
 .nav-tabs-navigation{
     text-align: center;
@@ -31,6 +37,7 @@
             border: 1px solid $medium-pale-bg;
             border-bottom: 0 none;
             .nav-link{
+                font-family: 'main-font-m';
                 border: 0 none;
                 color: #66615b;
                 background-color: transparent;

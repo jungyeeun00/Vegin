@@ -4,9 +4,14 @@
   }
 
 @font-face {
-font-family: 'main-font-m';
-src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
+    font-family: 'main-font-m';
+    src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
 }
+
+@font-face {
+    font-family: 'home-title-font-l';
+    src: url('/assets/fonts/home-title-font/GmarketSansTTFLight.ttf');
+  }
 
 .shop-main {
     padding: 0% 15%;
@@ -18,7 +23,7 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
 
     h3 {
         text-align: center;
-        font-family: 'main-font-m';
+        font-family: 'home-title-font-l';
     }
 
     .shop-content-bar {
@@ -86,11 +91,128 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
         }
     }
 
-    // .shop-best-table {
-    //     border-bottom: 2px solid #CCC5B9;
-    // }
-}
+    .shop-best-table {
+        border-bottom: 2px solid #CCC5B9;
+    }
 
-.shop-hr{
-    border: 1px solid #CCC5B9;
+    .shop-search-table {
+        min-width: 600px;
+        margin-top: 70px;
+        padding: 2px 0px;
+        text-align: left;
+        vertical-align: middle;
+        border-top: 2px solid #aaaaaa;
+        border-bottom: 2px solid #aaaaaa;
+
+        .row {
+            margin: 0px;
+            text-align: left;
+
+            .col-md-12 {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .type-buttons {
+                    margin-right: 20px;
+                    padding-top: 3px;
+
+                    button {
+                        font-family: "main-font-m";
+                        font-size: 13px;
+                        color: gray;
+                        background-color: transparent;
+                        border: none;
+
+                        &:focus,
+                        &:active{
+                            color: #4A8451;
+                            background-color: transparent;
+                        }
+
+                        &:hover {
+                            color: #69a170;
+                            background-color: transparent;
+
+                        }
+                    }
+                }
+            }
+
+            .search-bar {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 220px;
+                height: 32px;
+                border-radius: 5px;
+                border: solid 1px #aaaaaa;
+                z-index: 1;
+                opacity: 1;
+
+                svg {
+                    margin: 0px 8px;
+                }
+
+                input {
+                    padding-left: 5px;
+                    padding-right: 22px;
+                    margin-right: 10px;
+                    font-family: "main-font-l";
+                    width: 200px;
+                    height: 28px;
+                    border: none;
+                    -webkit-appearance: none;
+                    text-align: left;
+                    overflow: auto;
+                    z-index: -1;
+                    font-size: 15px;
+
+                    &::-webkit-search-cancel-button {
+                        display:none
+                    }
+
+                    &:focus-visible {
+                        margin-right: 0px;
+                    }
+
+                    // focus시 placeholder 안보이게
+                    &:focus::-webkit-input-placeholder {
+                        color: transparent;
+                    }
+                    &:focus::-moz-placeholder {
+                        color: transparent;
+                    }
+                    &:focus:-ms-input-placeholder {
+                        color: transparent;
+                    }
+                    &:focus::-ms-input-placeholder {
+                        color: transparent;
+                    }
+
+                    // placeholder 왼쪽 정렬
+                    &::-webkit-input-placeholder {
+                        text-align: left;
+                    }
+                }
+
+                .btn-clear {
+                    position: relative;
+                    vertical-align: middle;
+                    padding: 0;
+                    top: 0;
+                    right: 0;
+                    color: gray;
+                    background: center center no-repeat;
+                    border: none;
+                    z-index: 2;
+
+                    &:hover {
+                        color: black;
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+    }
 }
