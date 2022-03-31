@@ -4,6 +4,7 @@ import IndexNavbar from 'components/Navbars/IndexNavbar';
 import React, { Component, useEffect } from 'react';
 import { Container } from 'reactstrap';
 import PlaceListItem from "../index-sections/PlaceListItem";
+import PlaceDetailItem from 'views/index-sections/PlaceDetailItem';
 
 const PlacePage = () => {
     useEffect(() => {
@@ -18,6 +19,7 @@ const PlacePage = () => {
     return (
         <>
             <IndexNavbar />
+            <PlaceDetailItem/>
             <Container>
                 <div id="map" style={{width:"100%", height:"800px"}}>
 
