@@ -1,9 +1,8 @@
 .place-dt-item-main{
     position: relative;
-    left: 100px;
     width: 384px;
     height: 800px;
-    background-color: white;
+    background-color: #f8f8f8;
 
     .place-dt-imgbox{
         position: relative;
@@ -46,13 +45,13 @@
     padding: 1px 0 20px;
     margin: -68px auto 0;
     text-align: center;
-    background-color: white;
+    background-color: #f8f8f8;
     // background: url(//t1.daumcdn.net/localimg/localimages/07/2017/pc/bg_shadow_bottom.png) no-repeat 0 100%;
-    // border-top: solid 2.5px gray;
+    border-top: solid 2.5px gray;
     
     .place-dt-inner{
         // padding-top: 10px;
-        background-color: white;
+        background-color: #f8f8f8;
         
         .place-dt-inner-title{
             font-weight: 400;
@@ -81,7 +80,7 @@
     
     .place-dt-infobox{
         position: relative;
-        padding: 0 20px;
+        padding: 0 25px;
         margin-bottom: 5px;
         text-align: start;
         
