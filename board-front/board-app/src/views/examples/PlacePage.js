@@ -3,6 +3,7 @@ import VeginFooter from 'components/Footers/VeginFooter';
 import IndexNavbar from 'components/Navbars/IndexNavbar';
 import React, { Component, useEffect } from 'react';
 import { Container } from 'reactstrap';
+import PlaceListItem from "../index-sections/PlaceListItem";
 import PlaceDetailItem from 'views/index-sections/PlaceDetailItem';
 
 const PlacePage = () => {
@@ -23,6 +24,7 @@ const PlacePage = () => {
                 <div id="map" style={{width:"100%", height:"800px"}}>
 
                 </div>
+            < PlaceListItem />
             </Container>
             <VeginFooter />
         </>
