@@ -1,0 +1,31 @@
+.wp-wrapper{
+    margin-top: 60px !important;
+     margin: 60px auto 20px auto;
+    width:750px;
+    
+    
+}
+.ck-editor__editable {
+    min-height: 500px;
+}
+.ck-focused:focus {
+    border-color: rgba(117, 116, 116, 0.699) !important;
+}
+.wp-post-btn-wrapper{
+    text-align: right;
+    margin-top: 20px;
+    .wp-post-btn{
+        background-color: #4A8451;
+        border-color: #4A8451;
+    }
+}
+.wp-title-wrapper{
+    margin-bottom: 20px;
+    .wp-title{
+        width: 100%;
+        height: 35px;
+    }
+    .wp-title:focus{
+        outline-color: rgba(0, 0, 0, 0.164);
+    }
+}

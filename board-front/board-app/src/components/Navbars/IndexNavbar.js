@@ -201,26 +201,30 @@ function IndexNavbar() {
                   <p>SHOP</p>
                 </NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink
-                  className="px-5"
-                  data-placement="bottom"
-                  href="/place-page"
-                  title="PLACE"
-                >
-                  <p>PLACE</p>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  className="px-5"
-                  data-placement="bottom"
-                  href="/community-page"
-                  title="COMMUNITY"
-                >
-                  <p>COMMUNITY</p>
-                </NavLink>
-              </NavItem>
+              <UncontrolledDropdown nav inNavbar className='in-dropdown-wrapper'>
+                 <DropdownToggle className='in-dropdown'
+                 style={{height: '49px', padding: '10px 48px', margin: '15px 3px'}}>
+                   COMMUNITY
+                  </DropdownToggle> 
+                  <DropdownMenu
+                    aria-labelledby="dropdownMenuButton"
+                    className='dropdown-info'
+                    style={{minWidth: '211px'}}
+                  >
+                      <DropdownItem
+                        href="/post-page"
+                        className="in-dropdown-item"
+                      >
+                      자유게시판
+                      </DropdownItem>  
+                      <DropdownItem
+                        href="/"
+                        className="in-dropdown-item"
+                      >
+                      다이어리 게시판
+                      </DropdownItem>                     
+                  </DropdownMenu>
+                </UncontrolledDropdown>
             </Nav>
           </Collapse>
         </Container>
