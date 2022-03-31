@@ -1,0 +1,40 @@
+.pp-title{
+    margin: 40px 0 0;
+    text-align: center;
+    font-family: 'home-title-font-m';
+    font-size: 28px;
+}
+
+.pp-title-bar{
+    width: 35px;
+    height: 2px;
+    background-color: rgb(185, 185, 185);
+    margin: 10px auto 40px;
+}
+
+.pp-box{
+    position: relative;
+
+    .pp-map{
+        position: absolute;
+        // top: 0;
+        left: 0;
+        // right: 0;
+        // bottom: 0;
+        z-index: 1;
+    }
+
+    .pp-place-list-item{
+        position: absolute;
+        // top: 0;
+        right: 0;
+        // bottom: 0;
+        z-index: 200;
+    }
+}
+
+.pp-footer{
+    position: relative;
+    top: 850px;
+    padding-bottom: 1px;
+}

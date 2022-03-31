@@ -19,14 +19,19 @@ const PlacePage = () => {
     return (
         <>
             <IndexNavbar />
-            <PlaceDetailItem/>
-            <Container>
-                <div id="map" style={{width:"100%", height:"800px"}}>
-
+            <h3 className='pp-title'>플레이스</h3>
+            <hr className='pp-title-bar'/>
+            <Container className='pp-box'>
+                <div className='pp-map' id="map" style={{ width: "100%", height: "800px" }}>
                 </div>
-            < PlaceListItem />
+                <div className='pp-place-list-item'>
+                    < PlaceListItem />
+                    {/* <PlaceDetailItem /> */}
+                </div>
             </Container>
-            <VeginFooter />
+            <div className='pp-footer'>
+                <VeginFooter />
+            </div>
         </>
     );
 }
