@@ -126,7 +126,7 @@ class CommunityDiaryList extends Component {
                             </thead>
                             <tbody className="community-pl-tbody">
                                 {this.pagedPosts().map((post) => (
-                                    <tr key={post.id}>
+                                    <tr key={post.id} onClick={() => window.location.href = "/community-post-page"}>
                                         <td scope="row">{post.id}</td>
                                         <td className="community-post-title">{post.title}</td>
                                         <td>{post.writer}</td>
@@ -147,7 +147,8 @@ class CommunityDiaryList extends Component {
                                 />
                             </div>
                             <div className="btn-write">
-                                <button type="button" href="/community-write-post-page" class="btn-round btn"> 글 작성 </button>
+                                <button type="button" href="/community-write-post-page" class="btn-round btn"
+                                    onClick={() => window.location.href = "/community-write-post-page"}> 글 작성 </button>
                             </div>
                         </div>
                     </div>

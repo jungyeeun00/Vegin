@@ -6,7 +6,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import 'assets/scss/paper-kit/_writepost.scss'
 
-const WritePostPage = () => {
+const WritePostPage = ({ history }) => {
     return (
         <>
             <IndexNavbar />
@@ -25,7 +25,11 @@ const WritePostPage = () => {
                     }}
                 />
                 <div className='wp-post-btn-wrapper'>
-                    <Button className="wp-post-btn btn-round ml-1" color="info" type="button" >
+                    <Button className="wp-post-btn btn-round ml-1" type="button"
+                        onClick={() => history.goBack()}>
+                        취소
+                    </Button>
+                    <Button className="wp-post-btn btn-round ml-1" type="button" >
                         등록
                     </Button>
                 </div>

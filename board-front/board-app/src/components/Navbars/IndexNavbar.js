@@ -159,28 +159,28 @@ function IndexNavbar() {
                 </NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar className='in-dropdown-wrapper'>
-                 <DropdownToggle className='in-dropdown'
-                 style={{height: '49px', padding: '10px 48px', margin: '15px 3px'}}>
-                   ABOUT
-                  </DropdownToggle> 
-                  <DropdownMenu
-                    aria-labelledby="dropdownMenuButton"
-                    className='dropdown-info'
+                <DropdownToggle className='in-dropdown'
+                  style={{ height: '49px', padding: '10px 48px', margin: '15px 3px' }}>
+                  ABOUT
+                  </DropdownToggle>
+                <DropdownMenu
+                  aria-labelledby="dropdownMenuButton"
+                  className='dropdown-info'
+                >
+                  <DropdownItem
+                    href="/about-vegan-page"
+                    className="in-dropdown-item"
                   >
-                      <DropdownItem
-                        href="/about-vegan-page"
-                        className="in-dropdown-item"
-                      >
-                      VEGAN
-                      </DropdownItem>  
-                      <DropdownItem
-                        href="/about-vegin-page"
-                        className="in-dropdown-item"
-                      >
-                      VEGIN
-                      </DropdownItem>                     
-                  </DropdownMenu>
-                </UncontrolledDropdown>
+                    VEGAN
+                      </DropdownItem>
+                  <DropdownItem
+                    href="/about-vegin-page"
+                    className="in-dropdown-item"
+                  >
+                    VEGIN
+                      </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
               <NavItem>
                 <NavLink
                   className="px-5"
@@ -212,29 +212,29 @@ function IndexNavbar() {
                 </NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar className='in-dropdown-wrapper'>
-                 <DropdownToggle className='in-dropdown'
-                 style={{height: '49px', padding: '10px 48px', margin: '15px 3px'}}>
-                   COMMUNITY
-                  </DropdownToggle> 
-                  <DropdownMenu
-                    aria-labelledby="dropdownMenuButton"
-                    className='dropdown-info'
-                    style={{minWidth: '211px'}}
+                <DropdownToggle className='in-dropdown'
+                  style={{ height: '49px', padding: '10px 48px', margin: '15px 3px' }}>
+                  COMMUNITY
+                  </DropdownToggle>
+                <DropdownMenu
+                  aria-labelledby="dropdownMenuButton"
+                  className='dropdown-info'
+                  style={{ minWidth: '211px' }}
+                >
+                  <DropdownItem
+                    href="/community-page/:1"
+                    className="in-dropdown-item"
                   >
-                      <DropdownItem
-                        href="/post-page"
-                        className="in-dropdown-item"
-                      >
-                      자유게시판
-                      </DropdownItem>  
-                      <DropdownItem
-                        href="/"
-                        className="in-dropdown-item"
-                      >
-                      다이어리 게시판
-                      </DropdownItem>                     
-                  </DropdownMenu>
-                </UncontrolledDropdown>
+                    자유게시판
+                      </DropdownItem>
+                  <DropdownItem
+                    href="/community-page/:2"
+                    className="in-dropdown-item"
+                  >
+                    다이어리
+                      </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
             </Nav>
           </Collapse>
         </Container>
