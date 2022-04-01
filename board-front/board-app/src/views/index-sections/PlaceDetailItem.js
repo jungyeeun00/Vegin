@@ -29,7 +29,7 @@ class PlaceDetailItem extends Component {
                     <div className='place-dt-top'>
                         <div className='place-dt-imgbox'>
                             <img id="placeImg" className="place-dt-item-img" alt="place_img" src={require("assets/img/place_item.jpg")} />
-                            
+                            <button className='place-dt-imgbtn' type='button'><img className='place-dt-prevBtn' src={require("assets/img/close_btn.png")} /></button>
                         </div>
                         <div className='place-dt-detail'>
                             <div className='place-dt-inner'>
@@ -57,15 +57,15 @@ class PlaceDetailItem extends Component {
                         <hr className='place-dt-hr' />
                         <h6 className='place-dt-info-title'>메뉴</h6>
                         <div className='place-dt-infobox'>
-                            <span className='place-dt-location-icon'> <FontAwesomeIcon icon={faDotCircle} /> </span>
+                            <span className='place-dt-location-icon'> <FontAwesomeIcon icon={faCheck} /> </span>
                             <span className='place-dt-info-ds'>차돌짬뽕</span>
                         </div>
                         <div className='place-dt-infobox'>
-                            <span className='place-dt-location-icon'> <FontAwesomeIcon icon={faCircle} /> </span>
+                            <span className='place-dt-location-icon'> <FontAwesomeIcon icon={faCheck} /> </span>
                             <span className='place-dt-info-ds'>짬뽕</span>
                         </div>
                         <div className='place-dt-infobox'>
-                            <span className='place-dt-location-icon'> <FontAwesomeIcon icon={faCircle} /> </span>
+                            <span className='place-dt-location-icon'> <FontAwesomeIcon icon={faCheck} /> </span>
                             <span className='place-dt-info-ds'>짜장면</span>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ import {
     Col
 } from 'reactstrap';
 import PlaceDetailItem from './PlaceDetailItem';
+import PlaceItem from './PlaceItem';
 
 function PlaceListItem() {
     const [searchClick, setSearchClick] = useState(false);
@@ -17,7 +18,6 @@ function PlaceListItem() {
 
     const searchOnHandler = () => {
         setSearchClick(true);
-    }
 
     const searchOffHandler = () => {
         setSearchClick(false);
@@ -67,7 +67,7 @@ function PlaceListItem() {
                 </button>
                 <div id="place-list-main" className="place-list-main">
                     <div className="place-search-bar">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        <span className='place-search-icon'> <FontAwesomeIcon icon={faMagnifyingGlass} /> </span>
                         <input type="search" placeholder="검색하기" value={searchInput}
                             onFocus={searchOnHandler} onBlur={searchOffHandler} onChange={setSearchHandler} />
                         {searchInput.length !== 0 &&
@@ -77,28 +77,15 @@ function PlaceListItem() {
                         }
                     </div>
                     <Container>
-                        <Row>
-                            <Col md="4" className="list-img-col">
-                                <img className="list-img" alt="place_img" src={require("assets/img/place_item.jpg")} />
-                            </Col>
-                            <Col>
-                                <Row className="name-category">
-                                    <Col></Col>
-                                    <Col xs="auto" className="place-name">
-                                        <div onClick={changeShowDetail} style={{cursor: 'pointer'}}>음식점명</div>
-                                    </Col>
-                                    <Col className="place-category">
-                                        <div>카페</div>
-                                    </Col>
-                                </Row>
-                                <div className="place-intro">비건이 만드는 비건 케이크 & 빵</div>
-                                <div className="place-address">서울 성북구 삼선교로 16길 116</div>
-                                <div className="place-time">
-                                    <span><FontAwesomeIcon icon={faClock} /></span>
-                                    <span>11:00 ~ 20:00</span>
-                                </div>
-                            </Col>
-                        </Row>
+                        <PlaceItem/>
+                        <PlaceItem/>
+                        <PlaceItem/>
+                        <PlaceItem/>
+                        <PlaceItem/>
+                        <PlaceItem/>
+                        <PlaceItem/>
+                        <PlaceItem/>
+                        <PlaceItem/>
                     </Container>
                 </div>
                 </div>
