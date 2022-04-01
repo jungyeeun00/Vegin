@@ -15,16 +15,14 @@ class RecipePage extends Component {
         this.state = {
             searchClick: false,
             searchInput: '',
-            searchCancel: false,
-            searchPlaceHolder: '재료명 / 요리명'
+            searchCancel: false
         };
     }
 
     searchOnHandler = () => { // onFocus 이벤트
         this.setState({
             searchClick: true,
-            searchCancel: true,
-            searchPlaceHolder: ''
+            searchCancel: true
         });
     };
     searchOffHandler = () => { // onBlur 이벤트
@@ -41,7 +39,6 @@ class RecipePage extends Component {
         this.setState({
             searchInput: '',
             searchCancel: false,
-            searchPlaceHolder: '재료명 / 요리명'
         });
     };
 
@@ -69,11 +66,8 @@ class RecipePage extends Component {
                                     </div>
                                     <div className="search-bar">
                                         <FontAwesomeIcon icon={faMagnifyingGlass} />
-                                        <input type="search" placeholder={this.state.searchPlaceHolder} value={this.state.searchInput}
+                                        <input type="search" placeholder="재료명 / 요리명" value={this.state.searchInput}
                                             onFocus={this.searchOnHandler} onBlur={this.searchOffHandler} onChange={this.setSearchHandler} />
-                                        {/* <button className="btn-clear" onClick={this.searchInputRemoveHandler}>
-                                            { this.state.searchCancel ? <FontAwesomeIcon icon={faCircleXmark} /> : null}
-                                        </button> */}
                                         {this.state.searchInput.length !== 0 &&
                                             <button className="btn-clear" onClick={this.searchInputRemoveHandler}>
                                                 <FontAwesomeIcon icon={faCircleXmark} />

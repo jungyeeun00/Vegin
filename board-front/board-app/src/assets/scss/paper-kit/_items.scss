@@ -26,7 +26,7 @@
 .item-img {
     position: relative;
     width: 200px;
-    border: 1px solid #CCC5B9;
+    border: 1px solid #aaaaaa;
 }
 
 .item-title {
@@ -35,7 +35,7 @@
     font-family: 'main-font-m';
     font-size: 17px;
     color: black;
-    border-bottom: 1px solid #CCC5B9;
+    border-bottom: 1px solid #aaaaaa;
 }
 
 .shop-text {
@@ -124,8 +124,8 @@
     padding-top: 2px;
     padding-left: 2px;
     padding-right: 2px;
-    margin-top: 11px;
-    margin-bottom: 3px;
+    margin-top: 10px;
+    margin-bottom: 2px;
     font-family: 'main-font-m';
     font-size: x-small;
     color: black;
@@ -138,18 +138,22 @@
     white-space: nowrap;
     overflow : hidden;
     text-overflow : ellipsis;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 0px;
+    margin-bottom: 4px;
     padding-left: 5px;
     padding-right: 5px;
     font-family: 'main-font-l';
+    color: #aaaaaa;
 }
 
-#communityContent {
+#commContent {
+    margin-top: 8px;
+    font-size: 14px;
     color: black;
 }
 
-#communityWriter, #communityDate, #communityType {
+#commWriter, #commDate, #commType2 {
     font-size: small;
-    margin-left: 0px;
+    padding: 0px 1px;
+    color: black;
 }

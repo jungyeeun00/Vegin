@@ -6,6 +6,7 @@ import BestShopItems from './BestShopItems';
 import FeaturedPlaceItems from './FeaturedPlaceItems';
 import CommunityItems from './CommunityItems';
 import BestRecipeItems from './BestRecipeItems';
+import BestCommunityItems from './BestCommunityFreeItems';
 
 
 class ItemNavbars extends Component {
@@ -31,7 +32,10 @@ class ItemNavbars extends Component {
         } else if (this.state.mode === 'place') {
             featured = <FeaturedPlaceItems />
         } else if (this.state.mode === 'community') {
-            featured = <CommunityItems />
+            featured =
+                <div className="community-main">
+                    <BestCommunityItems />
+                </div>
         }
         return featured;
     }
