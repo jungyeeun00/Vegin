@@ -3,6 +3,8 @@ import VeginFooter from 'components/Footers/VeginFooter';
 import IndexNavbar from 'components/Navbars/IndexNavbar';
 import React, { Component, useEffect } from 'react';
 import { Container } from 'reactstrap';
+import PlaceListItem from "../index-sections/PlaceListItem";
+import PlaceDetailItem from 'views/index-sections/PlaceDetailItem';
 
 const PlacePage = () => {
     useEffect(() => {
@@ -17,12 +19,19 @@ const PlacePage = () => {
     return (
         <>
             <IndexNavbar />
-            <Container>
-                <div id="map" style={{width:"100%", height:"800px"}}>
-
+            <h3 className='pp-title'>플레이스</h3>
+            <hr className='pp-title-bar'/>
+            <Container className='pp-box'>
+                <div className='pp-map' id="map" style={{ width: "100%", height: "800px" }}>
+                </div>
+                <div className='pp-place-list-item'>
+                    < PlaceListItem />
+                    {/* <PlaceDetailItem /> */}
                 </div>
             </Container>
-            <VeginFooter />
+            <div className='pp-footer'>
+                <VeginFooter />
+            </div>
         </>
     );
 }

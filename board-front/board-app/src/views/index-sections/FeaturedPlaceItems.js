@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-class PlaceItems extends Component {
+class FeaturedPlaceItems extends Component {
     render() {
         return (
             <>
@@ -25,4 +25,4 @@ class PlaceItems extends Component {
     }
 }
 
-export default PlaceItems;
+export default FeaturedPlaceItems;

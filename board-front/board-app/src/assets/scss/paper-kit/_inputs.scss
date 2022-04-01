@@ -232,6 +232,9 @@ textarea.form-control{
   background-color: transparent;
   padding-left: 35px;
 }
+.input-login:focus{
+  border-color: #4A8451;
+}
 .login-btn {
   width: 100%;
   border: none;

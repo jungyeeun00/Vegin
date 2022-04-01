@@ -1,0 +1,106 @@
+.place-dt-imgbtn{
+    position: relative;
+    background-color: pink;
+    border-radius: 8px 0 0 8px;
+    left: 72px;
+    top: 80px;
+    border: 0;
+    border-right: 0;
+    padding: 3px 5px 5px;
+    width: 28px;
+    height: 40px;
+    padding-right: 4px;
+
+    .place-dt-prevBtn{
+        width: 10px;
+        height: 10px;
+    }
+}
+
+.place-dt-item-main{
+    position: relative;
+    width: 384px;
+    height: 800px;
+    background-color: #f8f8f8;
+
+    .place-dt-imgbox{
+        position: relative;
+
+        .place-dt-item-img{
+            position: relative;
+            width: 100%;
+            min-height: 140px;
+            max-height: 250px;
+        }
+
+    }
+
+}
+
+
+.place-dt-detail{
+    position: relative;
+    z-index: 10;
+    width: 70%;
+    padding: 1px 0 20px;
+    margin: -68px auto 0;
+    text-align: center;
+    background-color: #f8f8f8;
+    // background: url(//t1.daumcdn.net/localimg/localimages/07/2017/pc/bg_shadow_bottom.png) no-repeat 0 100%;
+    border-top: solid 2.5px gray;
+    
+    .place-dt-inner{
+        // padding-top: 10px;
+        background-color: #f8f8f8;
+        
+        .place-dt-inner-title{
+            font-weight: 400;
+            margin-top: 20px;
+            // font-family: 'main-font-l';
+            font-family: 'category-font-l';
+            font-weight: bold;
+        }
+    }
+    
+}
+
+.place-dt-info{
+    padding: 0 30px;
+    text-align: center;
+    
+    .place-dt-intro{
+        text-align: center;
+    }
+    
+    .place-dt-info-title{
+        font-size: 15px;
+        padding: 0 25px;
+        text-align: start;
+    }
+    
+    .place-dt-infobox{
+        position: relative;
+        padding: 0 25px;
+        margin-bottom: 5px;
+        text-align: start;
+        
+        .place-dt-location-icon{
+            position: absolute;
+            text-align: center;
+            z-index: 1;
+            color: gray;
+            font-size: 15px;
+        }
+        
+        .place-dt-info-ds{
+            padding-left: 20px;
+        }
+    }
+}
+
+.place-dt-hr{
+    border: 0;
+    background-color: #ddd;
+    height: 1.3px;
+    margin: 20px 0;
+}
