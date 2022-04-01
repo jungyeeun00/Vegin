@@ -18,7 +18,7 @@ function PlaceListItem() {
 
     const searchOnHandler = () => {
         setSearchClick(true);
-
+    }
     const searchOffHandler = () => {
         setSearchClick(false);
     }
@@ -38,10 +38,10 @@ function PlaceListItem() {
         if (xPosition > -1110) {
             setX('-1110');
             setOpen(true);
-          } else {
+        } else {
             setX('-726');
             setOpen(false);
-          }
+        }
     };
 
     const changeShowDetail = () => {
@@ -51,8 +51,8 @@ function PlaceListItem() {
 
     return (
         <>
-        {showDetail && <PlaceDetailItem changeShowDetail={changeShowDetail}/>}
-        <div className="pl-side" style={{ transform: `translatex(${-xPosition}px)`}}>
+            {showDetail && <PlaceDetailItem changeShowDetail={changeShowDetail} />}
+            <div className="pl-side" style={{ transform: `translatex(${-xPosition}px)` }}>
                 <button
                     className='place-list-imgbtn'
                     type='button'
@@ -77,18 +77,18 @@ function PlaceListItem() {
                         }
                     </div>
                     <Container>
-                        <PlaceItem/>
-                        <PlaceItem/>
-                        <PlaceItem/>
-                        <PlaceItem/>
-                        <PlaceItem/>
-                        <PlaceItem/>
-                        <PlaceItem/>
-                        <PlaceItem/>
-                        <PlaceItem/>
+                        <PlaceItem />
+                        <PlaceItem />
+                        <PlaceItem />
+                        <PlaceItem />
+                        <PlaceItem />
+                        <PlaceItem />
+                        <PlaceItem />
+                        <PlaceItem />
+                        <PlaceItem />
                     </Container>
                 </div>
-                </div>
+            </div>
         </>
     );
 }

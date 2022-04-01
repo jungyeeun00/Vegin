@@ -201,6 +201,16 @@ function IndexNavbar() {
                   <p>SHOP</p>
                 </NavLink>
               </NavItem>
+              <NavItem>
+                <NavLink
+                  className="px-5"
+                  data-placement="bottom"
+                  href="/place-page"
+                  title="PLACE"
+                >
+                  <p>PLACE</p>
+                </NavLink>
+              </NavItem>
               <UncontrolledDropdown nav inNavbar className='in-dropdown-wrapper'>
                  <DropdownToggle className='in-dropdown'
                  style={{height: '49px', padding: '10px 48px', margin: '15px 3px'}}>

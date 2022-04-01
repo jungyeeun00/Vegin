@@ -24,9 +24,9 @@ const PlacePage = () => {
             <Container className='pp-box'>
                 <div className='pp-map' id="map" style={{ width: "100%", height: "800px" }}>
                 </div>
-                <div className='pp-place-list-item'>
                     < PlaceListItem />
-                    {/* <PlaceDetailItem /> */}
+                <div className='pp-place-list-item'>
+                    <PlaceDetailItem />
                 </div>
             </Container>
             <div className='pp-footer'>
