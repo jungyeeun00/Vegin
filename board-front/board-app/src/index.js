@@ -37,6 +37,9 @@ import RecipePage from "views/examples/RecipePage";
 import RecipeDetailPage from "views/examples/RecipeDetailPage";
 import ShopDetailPage from "views/examples/ShopDetailPage";
 import PlacePage from "views/examples/PlacePage";
+import CommunityPage from "views/examples/CommunityPage";
+// import PostPage from "views/examples/PostPage";
+// import WritePostPage from "views/examples/WritePostPage";
 // others
 
 ReactDOM.render(
@@ -89,8 +92,16 @@ ReactDOM.render(
       />
       <Route
         path="/community-page"
-        render={(props) => <LandingPage {...props} />}
+        render={(props) => <CommunityPage {...props} />}
       />
+      {/* <Route
+        path="/community-post-page"
+        render={(props) => <PostPage {...props} />}
+      />
+      <Route
+        path="/community-write-post-page"
+        render={(props) => <WritePostPage {...props} />}
+      /> */}
       <Route
         path="/login-page"
         render={(props) => <RegisterPage {...props} />}

@@ -4,8 +4,8 @@ import { Navbar, NavItem, NavLink, Nav } from 'reactstrap';
 import 'assets/scss/paper-kit/_itemnav.scss'
 import BestShopItems from './BestShopItems';
 import PlaceItems from './PlaceItems';
-import CommunityItems from './CommunityItems';
 import BestRecipeItems from './BestRecipeItems';
+import BestCommunityItems from './BestCommunityFreeItems';
 
 
 class ItemNavbars extends Component {
@@ -31,7 +31,10 @@ class ItemNavbars extends Component {
         } else if (this.state.mode === 'place') {
             featured = <PlaceItems />
         } else if (this.state.mode === 'community') {
-            featured = <CommunityItems />
+            featured =
+                <div className="community-main">
+                    <BestCommunityItems />
+                </div>
         }
         return featured;
     }

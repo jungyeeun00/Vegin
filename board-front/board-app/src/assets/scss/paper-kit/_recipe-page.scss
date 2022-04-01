@@ -73,7 +73,7 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
             display:inline-block;
             vertical-align:middle;
             padding-top: 3vh;
-            padding-bottom: 10vh;
+            padding-bottom: 10.2vh;
 
             #recipeItem {
                 padding: 0;
@@ -91,21 +91,20 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
 
     .recipe-hr {
         height: 1px;
-        background-color: #CCC5B9;
+        background-color: lightgray;
     }
 
     .recipe-search-table {
         min-width: 600px;
         margin-top: 70px;
         padding: 2px 0px;
-        text-align: center;
         vertical-align: middle;
         border-top: 2px solid #aaaaaa;
         border-bottom: 2px solid #aaaaaa;
 
         .row {
             margin: 0px;
-            text-align: center;
+            text-align: left;
 
             .col-md-12 {
                 display: flex;
@@ -132,7 +131,6 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
                         &:hover {
                             color: #69a170;
                             background-color: transparent;
-
                         }
                     }
                 }
@@ -142,6 +140,7 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                text-align: center;
                 width: 220px;
                 height: 32px;
                 border-radius: 5px;
@@ -169,6 +168,20 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
                     &::-webkit-search-cancel-button {
                         display:none
                     }
+
+                    // focus시 placeholder 안보이게
+                    &:focus::-webkit-input-placeholder {
+                        color: transparent;
+                    }
+                    &:focus::-moz-placeholder {
+                        color: transparent;
+                    }
+                    &:focus:-ms-input-placeholder {
+                        color: transparent;
+                    }
+                    &:focus::-ms-input-placeholder {
+                        color: transparent;
+                    }
                 }
 
                 .btn-clear {
@@ -176,7 +189,6 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
                     vertical-align: middle;
                     padding: 0;
                     margin-right: 16px;
-                    vertical-align: middle;
                     right: 0;
                     color: gray;
                     background: center center no-repeat;

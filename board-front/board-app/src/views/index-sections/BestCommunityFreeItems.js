@@ -1,46 +1,46 @@
 import React, { Component } from 'react';
 import { NavLink } from 'reactstrap';
-import RecipeItems from './RecipeItems';
+import CommunityItems from './CommunityItems';
 
-class BestRecipeItems extends Component {
+class BestCommunityFreeItems extends Component {
     render() {
         return (
             <>
-                <ul className="recipe-best-table">
+                <ul className="community-best-table">
                     <li>
                         <NavLink
                             className="pt-0 mt-0"
                             data-placement="bottom"
-                            href="/recipe-detail-page"
+                            href="/community-post-page"
                             title="View Detail"
-                        ><RecipeItems />
+                        ><CommunityItems />
                         </NavLink>
                     </li>
                     <li>
                         <NavLink
                             className="pt-0 mt-0"
                             data-placement="bottom"
-                            href="/recipe-detail-page"
+                            href="/community-post-page"
                             title="View Detail"
-                        ><RecipeItems />
+                        ><CommunityItems />
                         </NavLink>
                     </li>
                     <li>
                         <NavLink
                             className="pt-0 mt-0"
                             data-placement="bottom"
-                            href="/recipe-detail-page"
+                            href="/community-post-page"
                             title="View Detail"
-                        ><RecipeItems />
+                        ><CommunityItems />
                         </NavLink>
                     </li>
                     <li>
                         <NavLink
                             className="pt-0 mt-0"
                             data-placement="bottom"
-                            href="/recipe-detail-page"
+                            href="/community-post-page"
                             title="View Detail"
-                        ><RecipeItems />
+                        ><CommunityItems />
                         </NavLink>
                     </li>
                 </ul>
@@ -49,4 +49,4 @@ class BestRecipeItems extends Component {
     }
 }
 
-export default BestRecipeItems;
+export default BestCommunityFreeItems;

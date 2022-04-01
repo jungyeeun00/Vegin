@@ -1,0 +1,159 @@
+.community-pl-main {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+
+    .community-pl-title {
+        padding-top: 30px;
+        padding-bottom: 25px;
+
+        h5 {
+            font-weight: bold;
+        }
+    }
+
+    .community-pl-search-bar {
+        display: flex;
+        float: right;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 200px;
+        height: 28px;
+        border-radius: 5px;
+        border: solid 1px #aaaaaa;
+        z-index: 1;
+        opacity: 1;
+        margin-right: 3px;
+
+        svg {
+            margin: 0px 8px;
+        }
+
+        input {
+            padding-left: 5px;
+            padding-right: 23px;
+            margin-right: 2px;
+            font-family: "main-font-l";
+            height: 25px;
+            border: none;
+            -webkit-appearance: none;
+            text-align: left;
+            overflow: auto;
+            z-index: 1;
+            font-size: 13px;
+
+            &::-webkit-search-cancel-button {
+                display:none
+            }
+
+            // focus시 placeholder 안보이게
+            &:focus::-webkit-input-placeholder {
+                color: transparent;
+            }
+            &:focus::-moz-placeholder {
+                color: transparent;
+            }
+            &:focus:-ms-input-placeholder {
+                color: transparent;
+            }
+            &:focus::-ms-input-placeholder {
+                color: transparent;
+            }
+        }
+
+        .btn-clear {
+            min-width: 30px;
+            position: absolute;
+            vertical-align: middle;
+            padding: 0;
+            right: 15.23%;
+            color: gray;
+            background: center center no-repeat;
+            border: none;
+            z-index: 2;
+
+            &:hover {
+                color: black;
+                background-color: transparent;
+            }
+        }
+    }
+
+    .community-pl-tb-wrap {
+        font-size: 12px;
+        
+        .community-pl-tb {
+            border-color: #66615B;
+
+            .community-pl-thead {
+
+                border-bottom: 2px solid #999999;
+
+                :not(tbody) {
+                    border-top: 0;
+                    border-bottom: 0;
+                }
+            }
+
+            .community-pl-tbody {
+                color: black;
+
+                .community-post-title {
+                    text-align: left;
+                }
+            }
+        }
+
+        .community-pl-bottom {
+            position: relative;
+            margin-bottom: 70px;
+
+            #pagination {
+                display: flex;
+                justify-content: center;
+                padding-top: 10px;
+                
+                #prePageItem, #idPageItem, #nextPageItem {
+                    border: none;
+                    color: gray;
+                    background-color: transparent;
+                    
+                    &:hover {opacity: 1;
+                        color: #69a170;
+                        background-color: transparent;
+                    }
+                    
+                    &:focus, 
+                    &:active {opacity: 1;
+                        color: #4A8451;
+                        background-color: transparent;
+                    }
+                }
+            }
+
+            .btn-write {
+                position: absolute;
+                top: 0%;
+                right: 0%;
+                margin-top: -3px;
+                margin-right: 3px;
+                margin-bottom: 70px;
+
+                .nav-link {
+                    padding: 0px;
+                }
+
+                button {
+                    width: 80px;
+                    background-color: #4A8451;
+                    border: none;
+                    font-size: 11px;
+
+                    &:hover {
+                        background-color: #2B4D2F;
+                    }
+                }
+            }
+        }
+    }
+}
