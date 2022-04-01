@@ -4,14 +4,32 @@ import React, { Component } from 'react';
 import { faClock, faDotCircle, faListAlt, faSquare } from '@fortawesome/free-regular-svg-icons';
 
 class PlaceDetailItem extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isHidden: false
+        };
+    }
+
+    setHidden = (e) => {
+        this.setState({
+            isHidden: true
+        });
+        this.props.changeShowDetail();
+    }
+
     render() {
         return (
+            <>
+            <div className="place-dt-wrap">
+            <button className='place-dt-imgbtn' type='button' onClick={this.setHidden} hidden={this.state.isHidden}><img className='place-dt-prevBtn' src={require("assets/img/close_btn.png")}/></button>
+            {!this.state.isHidden &&
             <div style={{background:'lightgray'}}>
                 <div className='place-dt-item-main'>
                     <div className='place-dt-top'>
                         <div className='place-dt-imgbox'>
                             <img id="placeImg" className="place-dt-item-img" alt="place_img" src={require("assets/img/place_item.jpg")} />
-                            <button className='place-dt-imgbtn' type='button'><img className='place-dt-prevBtn' src={require("assets/img/close_btn.png")}/></button>
+                            
                         </div>
                         <div className='place-dt-detail'>
                             <div className='place-dt-inner'>
@@ -53,7 +71,11 @@ class PlaceDetailItem extends Component {
                     </div>
                 </div>
             </div>
+            }
+            </div>
+            </>
         );
+
     }
 }
 

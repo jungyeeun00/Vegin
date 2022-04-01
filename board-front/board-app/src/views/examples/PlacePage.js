@@ -19,7 +19,6 @@ const PlacePage = () => {
     return (
         <>
             <IndexNavbar />
-            <PlaceDetailItem/>
             <Container>
                 <div id="map" style={{width:"100%", height:"800px"}}>
 

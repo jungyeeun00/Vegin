@@ -1,3 +1,22 @@
+.place-dt-imgbtn{
+    position: relative;
+    background-color: pink;
+    border-radius: 8px 0 0 8px;
+    left: 72px;
+    top: 80px;
+    border: 0;
+    border-right: 0;
+    padding: 3px 5px 5px;
+    width: 28px;
+    height: 40px;
+    padding-right: 4px;
+
+    .place-dt-prevBtn{
+        width: 10px;
+        height: 10px;
+    }
+}
+
 .place-dt-item-main{
     position: relative;
     left: 100px;
@@ -15,25 +34,6 @@
             max-height: 250px;
         }
 
-    }
-
-    .place-dt-imgbtn{
-        position: absolute;
-        top: 40px;
-        left: -28px;
-        background-color: white;
-        border-radius: 8px 0 0 8px;
-        border: 0;
-        border-right: 0;
-        padding: 3px 5px 5px;
-        width: 28px;
-        height: 40px;
-        padding-right: 4px;
-
-        .place-dt-prevBtn{
-            width: 10px;
-            height: 10px;
-        }
     }
 
 }
