@@ -3,10 +3,47 @@
     src: url('/assets/fonts/category-font/NIXGONFONTS-M-2.0.ttf');
 }
 
+.container {
+    overflow: hidden;
+}
+
+.pl-side {
+    transition: 0.4s ease;
+    z-index: 99;
+}
+
+.place-list-imgbtn{
+    position: relative;
+    // top: 8px;
+    left: -28px;
+    vertical-align: top;
+    top: 80px;
+    background-color: pink;
+    border-radius: 8px 0 0 8px;
+    border: 0;
+    border-right: 0;
+    padding: 3px 5px 5px;
+    width: 28px;
+    height: 40px;
+    padding-right: 4px;
+
+    z-index: 99;
+    transition: 0.8s ease;
+    overflow: hidden;
+
+    .place-list-prevBtn{
+        width: 10px;
+        height: 10px;
+    }
+}
+
+
 .place-list-main {
     height: 100%;
     width: 384px;
     padding-top: 10px;
+    z-index: 99;
+    overflow: hidden;
     background-color: #f8f8f8;
 
     .place-search-bar {
