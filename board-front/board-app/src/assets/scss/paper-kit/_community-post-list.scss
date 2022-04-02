@@ -98,6 +98,10 @@
             .community-pl-tbody {
                 color: black;
 
+                tr {
+                    cursor: pointer;
+                }
+
                 .community-post-title {
                     text-align: left;
                 }
@@ -138,6 +142,7 @@
                 margin-top: -3px;
                 margin-right: 3px;
                 margin-bottom: 70px;
+                z-index: 100;
 
                 .nav-link {
                     padding: 0px;

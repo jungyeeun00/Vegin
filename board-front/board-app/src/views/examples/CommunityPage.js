@@ -7,8 +7,8 @@ import CommunityFreeList from "../index-sections/CommunityFreeList";
 import CommunityDiaryList from "../index-sections/CommunityDiaryList";
 import VeginFooter from 'components/Footers/VeginFooter';
 
-function CommunityPageProgress() {
-    const [activeTab, setActiveTab] = React.useState("1");
+function CommunityPageProgress(props) {
+    const [activeTab, setActiveTab] = React.useState(props.tab);
     //const commRef = useRef(null);
     const toggle = (tab) => {
         if (activeTab !== tab) {
