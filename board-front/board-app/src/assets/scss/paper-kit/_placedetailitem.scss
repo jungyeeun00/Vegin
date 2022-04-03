@@ -1,8 +1,16 @@
+.place-dt-wrap {
+    // setX('-741');
+    position: relative;
+    top: -40px;
+    left: 741px;
+    z-index: 50;
+}
+
 .place-dt-imgbtn{
     position: relative;
-    background-color: pink;
+    background-color: #f8f8f8;
     border-radius: 8px 0 0 8px;
-    left: 72px;
+    left: -28px;
     top: 80px;
     border: 0;
     border-right: 0;

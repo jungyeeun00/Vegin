@@ -4,6 +4,10 @@ import React, { Component } from 'react';
 import { Col, Row } from 'reactstrap';
 
 class PlaceItem extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <>
@@ -15,7 +19,7 @@ class PlaceItem extends Component {
                         <Row className="name-category">
                             <Col></Col>
                             <Col xs="auto" className="place-name">
-                                <div>음식점명</div>
+                                <div onClick={this.props.changeShowDetail}>음식점명</div>
                             </Col>
                             <Col className="place-category">
                                 <div>카페</div>
