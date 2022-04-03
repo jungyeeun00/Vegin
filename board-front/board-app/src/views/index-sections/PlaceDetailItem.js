@@ -29,7 +29,6 @@ class PlaceDetailItem extends Component {
                     <div className='place-dt-top'>
                         <div className='place-dt-imgbox'>
                             <img id="placeImg" className="place-dt-item-img" alt="place_img" src={require("assets/img/place_item.jpg")} />
-                            <button className='place-dt-imgbtn' type='button'><img className='place-dt-prevBtn' src={require("assets/img/close_btn.png")} /></button>
                         </div>
                         <div className='place-dt-detail'>
                             <div className='place-dt-inner'>
