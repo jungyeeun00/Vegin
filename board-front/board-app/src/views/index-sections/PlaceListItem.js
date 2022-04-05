@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { faMagnifyingGlass, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,7 @@ import {
 } from 'reactstrap';
 import PlaceDetailItem from './PlaceDetailItem';
 import PlaceItem from './PlaceItem';
+import axios from 'axios';
 
 function PlaceListItem() {
     const [searchClick, setSearchClick] = useState(false);
@@ -16,6 +17,7 @@ function PlaceListItem() {
     const [open, setOpen] = useState(false);
     const [showDetail, setShowDetail] = useState(false);
     const [dir, setDir] = useState('next');
+    const [places ,setPlaces] = useState(null);
 
     const searchOnHandler = () => {
         setSearchClick(true);
@@ -34,6 +36,22 @@ function PlaceListItem() {
 
     const [xPosition, setX] = useState('-741');
 
+    useEffect(() => {
+        axios
+        .get('http://openapi.seoul.go.kr:8088/41497a6663656b6634335950466b78/json/CrtfcUpsoInfo/1/1000/')
+        .then((response) => {
+            // setPlaces(response['data']['CrtfcUpsoInfo']['row']);
+            const res = response['data']['CrtfcUpsoInfo']['row'];
+
+            const result = res.filter( it => it.CRTFC_GBN=='14')
+            setPlaces(result);
+        })
+        .catch((e) => {
+            console.log(e);
+        })
+    }, []);
+    // console.log(JSON.stringify(places));
+
     // button 클릭 시 토글
     const toggleMenu = () => {
         if (xPosition > -1125) {
@@ -50,6 +68,10 @@ function PlaceListItem() {
     const changeShowDetail = () => {
         setShowDetail(!showDetail);
         console.log(showDetail);
+    }
+
+    if(!places){
+        return null;
     }
 
     return (
@@ -81,15 +103,9 @@ function PlaceListItem() {
                         }
                     </div>
                     <Container>
-                        <PlaceItem changeShowDetail={changeShowDetail}/>
-                        <PlaceItem changeShowDetail={changeShowDetail}/>
-                        <PlaceItem changeShowDetail={changeShowDetail}/>
-                        <PlaceItem changeShowDetail={changeShowDetail}/>
-                        <PlaceItem changeShowDetail={changeShowDetail}/>
-                        <PlaceItem changeShowDetail={changeShowDetail}/>
-                        <PlaceItem changeShowDetail={changeShowDetail}/>
-                        <PlaceItem changeShowDetail={changeShowDetail}/>
-                        <PlaceItem changeShowDetail={changeShowDetail}/>
+                        {places.map((place) => (
+                            <PlaceItem key={place.CRTFC_UPSO_MGT_SNO} changeShowDetail={changeShowDetail} place={place}/>
+                        ))}
                     </Container>
                 </div>
             </div>
