@@ -8,16 +8,16 @@ import PlaceDetailItem from 'views/index-sections/PlaceDetailItem';
 import axios from 'axios';
 
 const PlacePage = () => {
-    const [places ,setPlaces] = useState(null);
+    const [places, setPlaces] = useState(null);
     useEffect(() => {
         axios
-        .get('http://openapi.seoul.go.kr:8088/41497a6663656b6634335950466b78/json/CrtfcUpsoInfo/1/1000/')
-        .then((response) => {
-            const res = response['data']['CrtfcUpsoInfo']['row'];
+            .get('http://openapi.seoul.go.kr:8088/41497a6663656b6634335950466b78/json/CrtfcUpsoInfo/1/1000/')
+            .then((response) => {
+                const res = response['data']['CrtfcUpsoInfo']['row'];
 
-            const result = res.filter( it => it.CRTFC_GBN=='14')
-            setPlaces(result);
-        });
+                const result = res.filter(it => it.CRTFC_GBN == '14')
+                setPlaces(result);
+            });
 
         var container = document.getElementById('map');
         var options = {
@@ -25,8 +25,8 @@ const PlacePage = () => {
             level: 3
         };
         var map = new kakao.maps.Map(container, options);
-        
-        if(!places){
+
+        if (!places) {
             return null;
         }
         places.map(element => {
@@ -42,14 +42,11 @@ const PlacePage = () => {
         <>
             <IndexNavbar />
             <h3 className='pp-title'>플레이스</h3>
-            <hr className='pp-title-bar'/>
+            <hr className='pp-title-bar' />
             <Container className='pp-box'>
                 <div className='pp-map' id="map" style={{ width: "100%", height: "800px" }}>
                 </div>
-                    < PlaceListItem />
-                <div className='pp-place-list-item'>
-                    <PlaceDetailItem />
-                </div>
+                < PlaceListItem />
             </Container>
             <div className='pp-footer'>
                 <VeginFooter />
