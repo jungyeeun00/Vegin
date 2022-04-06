@@ -18,6 +18,7 @@ function PlaceListItem() {
     const [showDetail, setShowDetail] = useState(false);
     const [dir, setDir] = useState('next');
     const [places ,setPlaces] = useState(null);
+    const [place, setPlace] = useState(null);
 
     const searchOnHandler = () => {
         setSearchClick(true);
@@ -65,9 +66,9 @@ function PlaceListItem() {
         }
     };
 
-    const changeShowDetail = () => {
+    const changeShowDetail = (data) => {
+        setPlace(data);
         setShowDetail(!showDetail);
-        console.log(showDetail);
     }
 
     if(!places){
@@ -76,7 +77,7 @@ function PlaceListItem() {
 
     return (
         <>
-            {showDetail && <PlaceDetailItem changeShowDetail={changeShowDetail} />}
+            {showDetail && <PlaceDetailItem changeShowDetail={changeShowDetail} place={place} />}
             {!showDetail &&
             <div className="pl-side" style={{ transform: `translatex(${-xPosition}px)` }}>
                 <button
@@ -104,7 +105,7 @@ function PlaceListItem() {
                     </div>
                     <Container>
                         {places.map((place) => (
-                            <PlaceItem key={place.CRTFC_UPSO_MGT_SNO} changeShowDetail={changeShowDetail} place={place}/>
+                            <PlaceItem key={place.CRTFC_UPSO_MGT_SNO} changeShowDetail={() => changeShowDetail(place)} place={place}/>
                         ))}
                     </Container>
                 </div>
