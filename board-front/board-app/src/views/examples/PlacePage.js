@@ -15,7 +15,7 @@ const PlacePage = () => {
             .then((response) => {
                 const res = response['data']['CrtfcUpsoInfo']['row'];
 
-                const result = res.filter(it => it.CRTFC_GBN == '14')
+                const result = res.filter(it => it.CRTFC_GBN === '14')
                 setPlaces(result);
             });
 
@@ -30,13 +30,23 @@ const PlacePage = () => {
             return null;
         }
         places.map(element => {
-            new kakao.maps.Marker({
+            console.log(element.CRTFC_GBN);
+            const marker = new kakao.maps.Marker({
                 map: map,
                 position: new kakao.maps.LatLng(element.Y_DNTS, element.X_CNTS),
                 title: element.UPSO_NM,
             });
+            kakao.maps.event.addListener(
+                marker,
+                "click",
+                ()=>showPlaceDetail(element)
+            )
         });
     }, []);
+
+    function showPlaceDetail(clickedData) {
+        console.log(clickedData);
+    }
 
     return (
         <>
