@@ -7,14 +7,23 @@ options = webdriver.ChromeOptions()
 driver = webdriver.Chrome()
 
 # DB 연결
+# conn = pymysql.connect(
+#     host='vegindatabase.cbnzjcm8m9yd.ap-northeast-2.rds.amazonaws.com',
+#     port=3306,
+#     user='vegin',
+#     password='vegin123',
+#     db='vegindb',
+#     charset='utf8'
+# )
 conn = pymysql.connect(
-    host='vegindatabase.cbnzjcm8m9yd.ap-northeast-2.rds.amazonaws.com',
+    host='127.0.0.1',
     port=3306,
-    user='vegin',
-    password='vegin123',
-    db='vegindb',
+    user='root',
+    password='dlrkdls7815',
+    db='board-back',
     charset='utf8'
 )
+conn.set_charset('utf8mb4')
 curs = conn.cursor()
 
 url = 'https://www.idus.com/search?word=%EB%B9%84%EA%B1%B4&keyword_channel=user&category_uuid=b3f853b9-333d-4eec-ad04-e4604d9d501b&category_uuid=8daa0fc3-d370-46c5-a58b-9a0c71a6ae08'
@@ -43,10 +52,17 @@ href_list = []
 for a in a_list:
     href_list.append(a.get_attribute('href'))
 
-for href in href_list[0:201]:
+for href in href_list[0:250]:
     driver.get(href)
     soup = BeautifulSoup(driver.page_source, 'html.parser')
 
+    # 상품 상세정보
+    detail = soup.select_one('#prd-info > p')
+    if detail is None:
+        detail = soup.select_one('#prd-info > p')
+        if detail is None:
+            continue
+    detail = detail.get_text()
     # 상품 이미지 url
     img_url = soup.select_one("#img-section > div > div > ul > li:nth-of-type(1)")
     if img_url is None:
@@ -78,8 +94,8 @@ for href in href_list[0:201]:
         saleRate = int(saleRate.get_text())
 
     # 옵션 제외하고 DB insert
-    sql = "INSERT INTO product (product_name, reg_price, sold_price, sale_rate, category, img_src) VALUES (%s, %s, %s, %s, %s, %s)"
-    curs.execute(sql, (name, soldPrice, regPrice, saleRate, category_name, img_url))
+    sql = "INSERT INTO product (product_name, reg_price, sold_price, sale_rate, category, img_src, detail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    curs.execute(sql, (name, soldPrice, regPrice, saleRate, category_name, img_url, detail))
     conn.commit()
     # 옵션
     op = soup.select('#optionScrollable > div.select_group__body > ol > ul > li')
@@ -91,6 +107,8 @@ for href in href_list[0:201]:
             choice = o.get_text()
             if "(+" in choice:
                 extra_cost = int(choice.split('(+')[1][:-1].replace('원','').replace(',',''))
+            elif "(-" in choice:
+                extra_cost = -int(choice.split('(-')[1][:-1].replace('원','').replace(',',''))
             else :
                 extra_cost = 0
             sql = "INSERT INTO choice (product_id, content, extra_cost) VALUES (%s, %s, %s)"

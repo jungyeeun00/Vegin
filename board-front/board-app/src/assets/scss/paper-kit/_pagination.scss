@@ -317,3 +317,19 @@
     box-shadow: none;
   }
 }
+
+.pagination > #page-next > a:active,
+.pagination > #page-next > a:focus,
+.pagination > #page-prev > a:active,
+.pagination > #page-prev > a:focus{
+    background-color: transparent;
+    border-color: $danger-color;
+    color: $danger-color;
+}
+
+.pagination > #page-next > a:hover,
+.pagination > #page-prev > a:hover {
+    background-color: $danger-color;
+    border-color: $danger-color;
+    color: $white-color;
+}
