@@ -36,19 +36,23 @@ const PlaceItem = ({place, changeShowDetail}) => {
           size: 10, // 한 페이지에 보여 질 문서의 개수
         };
     
-        // const { data } = await imageSearch(params); // api 호출
-        // console.log(data.documents[0].image_url);
-        // setImg(data.documents[0].image_url);
-        // image = data.documents[0].image_url;
+        const { data } = await imageSearch(params); // api 호출
+        console.log(data.documents[0].image_url);
+        setImg(data.documents[0].image_url);
+        image = img;
         // console.log(UPSO_NM+" : "+image);
       };
+
+      const getImg = () => {
+        return image;
+      }
 
     return (
         <>
             <Row>
                 <Col md="4" className="list-img-col">
-                    <img className="list-img" alt="place_img" src={require("assets/img/place_item.jpg")} />
-                    {/* <img className="list-img" alt="place_img" src={img} /> */}
+                    {/* {!image && <img className="list-img" alt="place_img" src={require("assets/img/place_item.jpg")} />} */}
+                    {img && <img className="list-img" alt="place_img" src={()=>getImg} />}
                 </Col>
                 <Col>
                     <Row className="name-category">
