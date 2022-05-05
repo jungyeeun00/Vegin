@@ -75,7 +75,7 @@ ReactDOM.render(
         render={(props) => <RecipePage {...props} />}
       />
       <Route
-        path="/recipe-detail-page"
+        path="/recipe-detail-page/:id"
         render={(props) => <RecipeDetailPage {...props} />}
       />
       <Route

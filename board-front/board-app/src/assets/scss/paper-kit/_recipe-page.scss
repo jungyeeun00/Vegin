@@ -79,8 +79,11 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
                 padding: 0;
 
                 #recipeImg {
-                    width: 13vw;
+                    width: 200px;
+                    height: 200px;
+                    object-fit: cover;
                 }
+
                 .recipe-text {
                     padding: 0.2vw;
                     margin: 0.34vw 0.2vw;
@@ -122,9 +125,14 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
                         background-color: transparent;
                         border: none;
 
+                        &:disabled {
+                            color: gray;
+                        }
+
                         &:focus,
-                        &:active{
-                            color: #4A8451;
+                        &.active {
+                            // color: #4A8451;
+                            color: #75bf7f;
                             background-color: transparent;
                         }
 
