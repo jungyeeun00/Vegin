@@ -7,14 +7,23 @@ options = webdriver.ChromeOptions()
 driver = webdriver.Chrome()
 
 # DB 연결
+# conn = pymysql.connect(
+#     host='vegindatabase.cbnzjcm8m9yd.ap-northeast-2.rds.amazonaws.com',
+#     port=3306,
+#     user='vegin',
+#     password='vegin123',
+#     db='vegindb',
+#     charset='utf8'
+# )
 conn = pymysql.connect(
-    host='vegindatabase.cbnzjcm8m9yd.ap-northeast-2.rds.amazonaws.com',
+    host='127.0.0.1',
     port=3306,
-    user='vegin',
-    password='vegin123',
-    db='vegindb',
+    user='root',
+    password='dlrkdls7815',
+    db='board-back',
     charset='utf8'
 )
+conn.set_charset('utf8mb4')
 curs = conn.cursor()
 
 url = 'https://www.idus.com/search?word=%EB%B9%84%EA%B1%B4&keyword_channel=user&category_uuid=1616d42d-ea77-11e4-88d5-06530c0000b4&category_uuid=a9970f75-ea75-11e4-8a46-06fd000000c2&category_uuid=bc5f4be5-c6bc-11e3-8b03-06fd000000c2'
@@ -47,6 +56,14 @@ for href in href_list:
     driver.get(href)
     soup = BeautifulSoup(driver.page_source, 'html.parser')
 
+    # 상품 상세정보
+    detail = soup.select_one('#prd-info > p')
+    if detail is None:
+        detail = soup.select_one('#prd-info > p')
+        if detail is None:
+            continue
+    detail = detail.get_text()
+
     # 상품 이미지 url
     img_url = soup.select_one("#img-section > div > div > ul > li:nth-of-type(1)")
     if img_url is None:
@@ -78,8 +95,8 @@ for href in href_list:
         saleRate = int(saleRate.get_text())
 
     # 옵션 제외하고 DB insert
-    sql = "INSERT INTO product (product_name, reg_price, sold_price, sale_rate, category, img_src) VALUES (%s, %s, %s, %s, %s, %s)"
-    curs.execute(sql, (name, soldPrice, regPrice, saleRate, category_name, img_url))
+    sql = "INSERT INTO product (product_name, reg_price, sold_price, sale_rate, category, img_src, detail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    curs.execute(sql, (name, soldPrice, regPrice, saleRate, category_name, img_url, detail))
     conn.commit()
     # 옵션
     op = soup.select('#optionScrollable > div.select_group__body > ol > ul > li')
@@ -91,6 +108,8 @@ for href in href_list:
             choice = o.get_text()
             if "(+" in choice:
                 extra_cost = int(choice.split('(+')[1][:-1].replace('원','').replace(',',''))
+            elif "(-" in choice:
+                extra_cost = -int(choice.split('(-')[1][:-1].replace('원','').replace(',',''))
             else :
                 extra_cost = 0
             sql = "INSERT INTO choice (product_id, content, extra_cost) VALUES (%s, %s, %s)"
