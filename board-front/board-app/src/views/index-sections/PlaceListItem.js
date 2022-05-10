@@ -46,12 +46,46 @@ function PlaceListItem() {
 
             const result = res.filter( it => it.CRTFC_GBN=='14')
             setPlaces(result);
+            console.log(places);
+            places.map(it => {
+                // return {...it, img:}
+            })
         })
         .catch((e) => {
             console.log(e);
         })
+        imageSearchHttpHandler(UPSO_NM);
+
     }, []);
     // console.log(JSON.stringify(places));
+
+    const Kakao = axios.create({
+        baseURL: 'https://dapi.kakao.com', // 공통 요청 경로를 지정해준다.
+        headers: {
+          Authorization: 'KakaoAK 11a1559feddfabd645cb5d5bb075dd14',
+        },
+      });
+
+      // search image api
+      const imageSearch = (params) => {
+        return Kakao.get('/v2/search/image', { params });
+      };
+
+      const imageSearchHttpHandler = async (query) => {
+        // Parameter 설정
+        const params = {
+          query: query,
+          sort: 'accuracy', // accuracy | recency 정확도 or 최신
+          page: 1, // 페이지번호
+          size: 10, // 한 페이지에 보여 질 문서의 개수
+        };
+    
+        const { data } = await imageSearch(params); // api 호출
+        // console.log(data.documents[0].image_url);
+        // setImg(data.documents[0].image_url);
+        // image = data.documents[0].image_url;
+        // console.log(UPSO_NM+" : "+image);
+      };
 
     // button 클릭 시 토글
     const toggleMenu = () => {

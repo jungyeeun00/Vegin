@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import _ from 'lodash';
 
 const Pagination = (props) => {
-    const { itemsCount, pageSize, currentPage, onPageChange , onPagePrevious, onPageNext } = props; // 각각 아이템(글 목록) 개수, 한 페이지에 보여줄 아이템(글 목록) 개수
+    // const [last, setLast] = useState(false);
+    // const [first, setFirst] = useState(false);
 
+    const { itemsCount, pageSize, currentPage, onPageChange , onPagePrevious, onPageNext } = props; // 각각 아이템(글 목록) 개수, 한 페이지에 보여줄 아이템(글 목록) 개수
+    
     const pageCount = Math.ceil(itemsCount / pageSize); // 몇 페이지가 필요한지 계산
     if (pageCount === 1) return null; // 1페이지 뿐이라면 페이지 수를 보여주지 않음
 
@@ -18,6 +21,16 @@ const Pagination = (props) => {
         else
             pages = _.range(parseInt(currentPage / 5) * 5 + 1, parseInt(currentPage / 5) * 5 + 6);
     }
+    
+    // 16 17 18 19 20 -> 3,4
+    // 21 22 23 24 25 -> 4,5
+
+    // const LastHidden = () => {
+    //     pages.
+    // }
+
+    // const FirstHidden = () => {
+    // }
 
     return (
         <nav id="pagination">

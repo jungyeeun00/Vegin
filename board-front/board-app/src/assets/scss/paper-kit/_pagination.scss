@@ -4,31 +4,33 @@
 .pagination > li:first-child > a,
 .pagination > li:first-child > span,
 .pagination > li:last-child > a,
-.pagination > li:last-child > span{
+.pagination > li:last-child > span {
     background-color: transparent;
-    border: 2px solid $danger-color;
-    border-radius: 20px;
-    color: $danger-color;
+    // border: 2px solid $danger-color;
+    // border-radius: 20px;
+    border : none;
+    color: gray;
     height: $line-height;
     margin: 0 2px;
     min-width: 36px;
     padding: 8px 12px;
     font-weight: $font-weight-bold;
+    cursor: pointer;
 }
-.nav-pills-default > li > a,
-.pagination > li > a:hover,
-.pagination > li > a:focus,
-.pagination > li > a:active,
-.pagination > li.active > a,
-.pagination > li.active > span,
-.pagination > li.active > a:hover,
-.pagination > li.active > span:hover,
-.pagination > li.active > a:focus,
-.pagination > li.active > span:focus {
-    background-color: $default-color;
-    border-color: $default-color;
-    color: $white-color;
-}
+// .nav-pills-default > li > a,
+// .pagination > li > a:hover,
+// .pagination > li > a:focus,
+// .pagination > li > a:active,
+// .pagination > li.active > a,
+// .pagination > li.active > span,
+// .pagination > li.active > a:hover,
+// .pagination > li.active > span:hover,
+// .pagination > li.active > a:focus,
+// .pagination > li.active > span:focus {
+//     background-color: $default-color;
+//     border-color: $default-color;
+//     color: $white-color;
+// }
 
 .nav-pills-primary > li > a,
 .pagination-primary > li > a,
@@ -37,7 +39,7 @@
 .pagination-primary > li:first-child > span,
 .pagination-primary > li:last-child > a,
 .pagination-primary > li:last-child > span{
-    border: 2px solid $primary-color;
+    // border: 2px solid $primary-color;
     color: $primary-color;
 }
 
@@ -54,7 +56,7 @@
 .pagination-primary > li.active > a:focus,
 .pagination-primary > li.active > span:focus{
    background-color: $primary-color !important;
-   border-color: $primary-color !important;
+//    border-color: $primary-color !important;
    color: $white-color;
 }
 
@@ -65,7 +67,7 @@
 .pagination-info > li:first-child > span,
 .pagination-info > li:last-child > a,
 .pagination-info > li:last-child > span{
-    border: 2px solid $info-color;
+    // border: 2px solid $info-color;
     color: $info-color;
 }
 
@@ -82,7 +84,7 @@
 .pagination-info > li.active > a:focus,
 .pagination-info > li.active > span:focus{
    background-color: $info-color !important;
-   border-color: $info-color !important;
+//    border-color: $info-color !important;
    color: $white-color;
 }
 
@@ -93,7 +95,7 @@
 .pagination-success > li:first-child > span,
 .pagination-success > li:last-child > a,
 .pagination-success > li:last-child > span{
-    border: 2px solid $success-color;
+    // border: 2px solid $success-color;
     color: $success-color;
 }
 
@@ -110,7 +112,7 @@
 .pagination-success > li.active > a:focus,
 .pagination-success > li.active > span:focus{
    background-color: $success-color !important;
-   border-color: $success-color !important;
+//    border-color: $success-color !important;
    color: $white-color;
 }
 
@@ -121,7 +123,7 @@
 .pagination-warning > li:first-child > span,
 .pagination-warning > li:last-child > a,
 .pagination-warning > li:last-child > span{
-    border: 2px solid $warning-color;
+    // border: 2px solid $warning-color;
     color: $warning-color;
 }
 
@@ -138,7 +140,7 @@
 .pagination-warning > li.active > a:focus,
 .pagination-warning > li.active > span:focus{
    background-color: $warning-color !important;
-   border-color: $warning-color !important;
+//    border-color: $warning-color !important;
    color: $white-color;
 }
 
@@ -149,7 +151,7 @@
 .pagination-danger > li:first-child > span,
 .pagination-danger > li:last-child > a,
 .pagination-danger > li:last-child > span{
-    border: 2px solid $danger-color;
+    // border: 2px solid $danger-color;
     color: $danger-color;
 }
 
@@ -166,7 +168,7 @@
 .pagination-danger > li.active > a:focus,
 .pagination-danger > li.active > span:focus{
    background-color: $danger-color !important;
-   border-color: $danger-color !important;
+//    border-color: $danger-color !important;
    color: $white-color;
 }
 
@@ -258,13 +260,13 @@
 // Stefan making edits
 
 
-.page-item:first-child .page-link,
-.page-item:last-child .page-link{
-    border-bottom-left-radius: 20px;
-	border-top-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-top-right-radius: 20px;
-}
+// .page-item:first-child .page-link,
+// .page-item:last-child .page-link{
+//     border-bottom-left-radius: 20px;
+// 	border-top-left-radius: 20px;
+//     border-bottom-right-radius: 20px;
+//     border-top-right-radius: 20px;
+// }
 .nav-pills-default .nav-item.show .nav-link,
 .nav-pills-default .nav-link.active{
     background-color: $default-color !important;
@@ -298,24 +300,45 @@
 .pagination > li.active > span:hover,
 .pagination > li.active > a:focus,
 .pagination > li.active > span:focus{
-    background-color: $danger-color;
-    border-color: $danger-color;
-    color: $white-color;
+    // background-color: $danger-color;
+    background-color: transparent;
+    // border-color: $danger-color;
+    color: #75bf7f;
+}
+
+.pagination > #page-next > a:active,
+.pagination > #page-next > a:focus,
+.pagination > #page-prev > a:active,
+.pagination > #page-prev > a:focus{
+    background-color: transparent;
+    // border-color: $danger-color;
+    color: #75bf7f;
+}
+
+.pagination > #page-next > a:hover,
+.pagination > #page-prev > a:hover {
+    // background-color: $danger-color;
+    background-color: transparent;
+    // border-color: $danger-color;
+    color: #75bf7f;
 }
 
 .page-item.active .page-link{
-    background-color: $danger-color;
-    color: white;
-    border-color: $danger-color;
+    // background-color: $danger-color;
+    background-color: transparent;
+    color: #75bf7f;
+    // border-color: $danger-color;
 }
+
 .nav-pills .nav-link{
     border-radius: 0;
 }
 
 .pagination {
   .page-link {
-    box-shadow: none;
+     box-shadow: none;
   }
+<<<<<<< HEAD
 }
 
 .pagination > #page-next > a:active,
@@ -333,3 +356,6 @@
     border-color: $danger-color;
     color: $white-color;
 }
+=======
+}
+>>>>>>> cbfa664cb27b692578d01c0bd662c09752dbb84f
