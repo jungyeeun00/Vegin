@@ -14,15 +14,9 @@ const PlaceItem = ({place, changeShowDetail}) => {
                 </Col>
                 <Col>
                     <Row className="name-category">
-                        <Col></Col>
-                        <Col xs="auto" className="place-name">
-                            <div onClick={changeShowDetail}>{UPSO_NM}</div>
-                        </Col>
-                        <Col className="place-category">
-                            <div>{COB_CODE_NM}</div>
-                        </Col>
+                        <div className='place-name' onClick={changeShowDetail}>{UPSO_NM}</div>
+                        <div className='place-category'>{COB_CODE_NM}</div>
                     </Row>
-                    <div className="place-intro">{CRTFC_GBN_NM}</div>
                     <div className="place-address">{RDN_CODE_NM}</div>
                     <div className="place-time">
                         <span><FontAwesomeIcon icon={faPhone} /></span>
