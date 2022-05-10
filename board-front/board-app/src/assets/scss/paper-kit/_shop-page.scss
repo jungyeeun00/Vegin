@@ -81,7 +81,8 @@
                 padding: 0;
 
                 #shopImg {
-                    width: 13vw;
+                    width: 230px;
+                    height: 250px;
                 }
 
                 .like {
@@ -124,8 +125,9 @@
                         border: none;
 
                         &:focus,
-                        &:active{
-                            color: #4A8451;
+                        &.active{
+                             // color: #4A8451;
+                             color: #75bf7f;
                             background-color: transparent;
                         }
 
@@ -215,4 +217,8 @@
 .shop-hr{
     height: 1px;
     background-color: lightgray;
+}
+
+.pagination-wrapper{
+    text-align: center !important;
 }

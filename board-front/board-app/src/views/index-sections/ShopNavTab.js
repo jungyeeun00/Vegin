@@ -16,7 +16,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import { useParams } from "react-router";
+import React, { useState, useEffect} from "react";
 
 // reactstrap components
 import {
@@ -26,18 +27,28 @@ import {
     TabContent,
     TabPane,
 } from "reactstrap";
-
 // core components
 import ProductInquiry from "../index-sections/ProductInquiry";
 import Reviews from "../index-sections/Reviews";
+import ShopService from 'service/ShopService';;
+
+
 
 function SectionProgress() {
-    const [activeTab, setActiveTab] = React.useState("1");
+    const [activeTab, setActiveTab] = useState("1");
     const toggle = (tab) => {
         if (activeTab !== tab) {
             setActiveTab(tab);
         }
     };
+    const productId = useParams().productId;
+    const[product, setProduct] = useState({});
+
+    useEffect(() => {
+        ShopService.getChoices(productId)
+        .then(res => setProduct(res.data[0].product))
+    }, []);
+
     return (
         <>
             <div className="navtab-section">
@@ -79,10 +90,8 @@ function SectionProgress() {
                 </div>
                 <TabContent activeTab={activeTab} className="text-center">
                     <TabPane tabId="1">
-                        <p>
-                            Larger, yet dramatically thinner. More powerful, but
-                            remarkably power efficient. With a smooth metal surface that
-                            seamlessly meets the new Retina HD display.
+                        <p className="snt-detail-wrapper">
+                          <div style={{whiteSpace: 'pre-wrap'}}>{product.detail}</div>
                         </p>
                     </TabPane>
                     <TabPane tabId="2">

@@ -24,6 +24,7 @@ import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import "bootstrap/scss/bootstrap.scss";
 import "assets/scss/paper-kit.scss?v=1.3.0";
 import "assets/demo/demo.css?v=1.3.0";
+
 // pages
 import Index from "views/Index.js";
 import NucleoIcons from "views/NucleoIcons.js";
@@ -40,6 +41,7 @@ import PlacePage from "views/examples/PlacePage";
 import CommunityPage from "views/examples/CommunityPage";
 import PostPage from "views/examples/PostPage";
 import WritePostPage from "views/examples/WritePostPage";
+import ShopNavTab from "views/index-sections/ShopNavTab";
 // others
 
 ReactDOM.render(
@@ -75,7 +77,7 @@ ReactDOM.render(
         render={(props) => <RecipePage {...props} />}
       />
       <Route
-        path="/recipe-detail-page"
+        path="/recipe-detail-page/:id"
         render={(props) => <RecipeDetailPage {...props} />}
       />
       <Route
@@ -83,9 +85,13 @@ ReactDOM.render(
         render={(props) => <ShopPage {...props} />}
       />
       <Route
-        path="/shop-detail-page"
+        path="/shop-detail-page/:productId"
         render={(props) => <ShopDetailPage {...props} />}
       />
+      {/* <Route
+        path="/shop-detail-page"
+        render={(props) => <ShopDetailPage {...props} />}
+      /> */}
       <Route
         path="/place-page"
         render={(props) => <PlacePage {...props} />}

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { faUser, faHourglass, faEye } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+
 class RecipeItems extends Component {
+
     render() {
         return (
             <>
