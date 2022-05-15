@@ -42,6 +42,8 @@ import CommunityPage from "views/examples/CommunityPage";
 import PostPage from "views/examples/PostPage";
 import WritePostPage from "views/examples/WritePostPage";
 import ShopNavTab from "views/index-sections/ShopNavTab";
+import ListBoardComponent from "views/index-sections/ListBoardComponent";
+import CreateBoardComponent from "views/index-sections/CreateBoardComponent";
 // others
 
 ReactDOM.render(
@@ -124,6 +126,8 @@ ReactDOM.render(
         path="/mypage-page"
         render={(props) => <ProfilePage {...props} />}
       />
+      <Route path='/board' component={ListBoardComponent}></Route>
+      <Route path='/create-board/:no' component={CreateBoardComponent}></Route>
       <Redirect to="/index" />
     </Switch>
   </BrowserRouter>,
