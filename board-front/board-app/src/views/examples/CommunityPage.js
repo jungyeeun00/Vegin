@@ -62,11 +62,11 @@ function CommunityPageProgress(props) {
                 </div>
 
                 <TabContent activeTab={activeTab} className="text-center">
-                    <div className="community-best">
+                    {/* <div className="community-best">
                         <h3>BEST</h3>
-                    </div>
+                    </div> */}
                     <TabPane tabId="1">
-                        <BestCommunityFreeItems />
+                        {/* <BestCommunityFreeItems /> */}
                         <hr className="community-hr" />
                         <CommunityFreeList />
                     </TabPane>

@@ -81,6 +81,7 @@
 
     .community-pl-tb-wrap {
         font-size: 12px;
+        text-align: center;
         
         .community-pl-tb {
             border-color: #66615B;
@@ -108,56 +109,56 @@
             }
         }
 
-        .community-pl-bottom {
-            position: relative;
-            margin-bottom: 70px;
+    }
+}
+.community-pl-bottom {
+    position: relative;
+    margin-bottom: 70px;
 
-            #pagination {
-                display: flex;
-                justify-content: center;
-                padding-top: 10px;
-                
-                #prePageItem, #idPageItem, #nextPageItem {
-                    border: none;
-                    color: gray;
-                    background-color: transparent;
-                    
-                    &:hover {opacity: 1;
-                        color: #69a170;
-                        background-color: transparent;
-                    }
-                    
-                    &:focus, 
-                    &:active {opacity: 1;
-                        color: #4A8451;
-                        background-color: transparent;
-                    }
-                }
+    #pagination {
+        display: flex;
+        justify-content: center;
+        padding-top: 10px;
+        
+        #prePageItem, #idPageItem, #nextPageItem {
+            border: none;
+            color: gray;
+            background-color: transparent;
+            
+            &:hover {opacity: 1;
+                color: #69a170;
+                background-color: transparent;
             }
+            
+            &:focus, 
+            &:active {opacity: 1;
+                color: #4A8451;
+                background-color: transparent;
+            }
+        }
+    }
 
-            .btn-write {
-                position: absolute;
-                top: 0%;
-                right: 0%;
-                margin-top: -3px;
-                margin-right: 3px;
-                margin-bottom: 70px;
-                z-index: 100;
+    .btn-write {
+        position: absolute;
+        top: 0%;
+        right: 0%;
+        margin-top: -3px;
+        margin-right: 3px;
+        margin-bottom: 70px;
+        z-index: 100;
 
-                .nav-link {
-                    padding: 0px;
-                }
+        .nav-link {
+            padding: 0px;
+        }
 
-                button {
-                    width: 80px;
-                    background-color: #4A8451;
-                    border: none;
-                    font-size: 11px;
+        button {
+            width: 80px;
+            background-color: #4A8451;
+            border: none;
+            font-size: 11px;
 
-                    &:hover {
-                        background-color: #2B4D2F;
-                    }
-                }
+            &:hover {
+                background-color: #2B4D2F;
             }
         }
     }
