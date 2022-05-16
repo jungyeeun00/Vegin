@@ -34,7 +34,9 @@ class CreateBoardComponent extends Component {
     }
 
     changeContentsHandler = (event) => {
-        this.setState({ contents: event.target.value });
+        // this.setState({ contents: event.target.value });
+        console.log(event);
+        this.setState({ contents: event });
     }
 
     changeMemberNoHandler = (event) => {
@@ -65,13 +67,13 @@ class CreateBoardComponent extends Component {
         this.props.history.push('/board');
     }
 
-    getTitle() {
-        if (this.state.no === '_create') {
-            return <h3 className='text-center'>새 글을 작성해주세요</h3>
-        } else {
-            return <h3 className='text-center'>{this.state.no}글을 수정합니다.</h3>
-        }
-    }
+    // getTitle() {
+    //     if (this.state.no === '_create') {
+    //         return <h3 className='text-center'>새 글을 작성해주세요</h3>
+    //     } else {
+    //         return <h3 className='text-center'>{this.state.no}글을 수정합니다.</h3>
+    //     }
+    // }
 
     componentDidMount() {
         if (this.state.no === '_create') {
@@ -118,14 +120,16 @@ class CreateBoardComponent extends Component {
                                         </div>
                                         <div className='form-group'>
                                             <label>Contents</label>
-                                            <textarea placeholder='contents' name='contents' className='form-control' value={this.state.contents} onChange={this.changeContentsHandler} />
+                                            {/* <textarea placeholder='contents' name='contents' className='form-control' value={this.state.contents} onChange={this.changeContentsHandler} /> */}
                                             <CKEditor
                                                 className='wp-editor'
                                                 editor={ClassicEditor}
                                                 //data='<p>Hello from CKEditor 5!</p>'
+                                                value={this.state.contents}
                                                 onChange={(event, editor) => {
                                                     const data = editor.getData();
                                                     console.log(data);
+                                                    this.changeContentsHandler(data);
                                                 }}
                                             />
                                         </div>

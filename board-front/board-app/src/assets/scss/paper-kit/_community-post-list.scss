@@ -138,6 +138,12 @@
         }
     }
 
+    .btn-pagination{
+        display: flex;
+        justify-content: center;
+        padding-top: 10px;
+    }
+
     .btn-write {
         position: absolute;
         top: 0%;
