@@ -44,6 +44,7 @@ import WritePostPage from "views/examples/WritePostPage";
 import ShopNavTab from "views/index-sections/ShopNavTab";
 import ListBoardComponent from "views/index-sections/ListBoardComponent";
 import CreateBoardComponent from "views/index-sections/CreateBoardComponent";
+import ReadBoardComponent from "views/index-sections/ReadBoardComponent";
 // others
 
 ReactDOM.render(
@@ -128,6 +129,7 @@ ReactDOM.render(
       />
       <Route path='/board' component={ListBoardComponent}></Route>
       <Route path='/create-board/:no' component={CreateBoardComponent}></Route>
+      <Route path='/read-board/:no' component={ReadBoardComponent}></Route>
       <Redirect to="/index" />
     </Switch>
   </BrowserRouter>,

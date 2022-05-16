@@ -3,8 +3,10 @@ import { NavItem, NavLink, Nav, TabContent, TabPane } from "reactstrap";
 import IndexNavbar from 'components/Navbars/IndexNavbar';
 import VeginFooter from 'components/Footers/VeginFooter'
 import BoardService from '../../service/BoardService';
+import Pagination from './Pagination';
 import { faMagnifyingGlass, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import BestCommunityFreeItems from './BestCommunityFreeItems';
 
 class ListBoardComponent extends Component {
 
@@ -13,7 +15,12 @@ class ListBoardComponent extends Component {
         this.state = {
             p_num: 1,
             paging: {},
-            boards: []
+            boards: [],
+            posts: {
+                data: [],
+                pageSize: 10,
+                currentPage: 1
+            }
         }
 
         this.createBoard = this.createBoard.bind(this);
@@ -64,43 +71,44 @@ class ListBoardComponent extends Component {
     }
 
     isPagingPrev() {
-        if (this.state.paging.prev) {
-            return (
-                <li className='page-itmem'>
-                    <a className='page-link' onClick={() => this.listBoard((this.state.paging.currentPageNum - 1))} tabIndex="-1">Previous</a>
-                </li>
-            )
-        }
+        return (
+            <li className='page-itmem'>
+                <a className='page-link' onClick={() => this.listBoard((this.state.paging.currentPageNum - 1))} tabIndex="-1">
+                    <i aria-hidden="true" className="fa fa-angle-left"></i>
+                </a>
+            </li>
+        )
     }
 
     isPagingNext() {
-        if (this.state.paging.next) {
-            return (
-                <li className='page-itmem'>
-                    <a className='page-link' onClick={() => this.listBoard((this.state.paging.currentPageNum + 1))} tabIndex="-1">Next</a>
-                </li>
-            );
-        }
+        return (
+            <li className='page-itmem'>
+                <a className='page-link' onClick={() => this.listBoard((this.state.paging.currentPageNum + 1))} tabIndex="-1">
+                    <i aria-hidden="true" className="fa fa-angle-right"></i>
+                </a>
+            </li>
+        );
     }
 
     isMoveToFirstPage() {
-        if (this.state.p_num != 1) {
-            return (
-                <li className='page-item'>
-                    <a className='page-link' onClick={() => this.listBoard(1)} tabIndex="-1">Move to First Page</a>
-                </li>
-            );
-        }
+        return (
+            <li className='page-item'>
+                <a className='page-link' onClick={() => this.listBoard(1)} tabIndex="-1">
+                    <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                </a>
+            </li>
+        );
     }
 
     isMoveToLastPage() {
-        if (this.state.p_num != this.state.paging.pageNumCountTotal) {
-            return (
-                <li className='page-item'>
-                    <a className='page-link' onClick={() => this.listBoard(this.state.paging.pageNumCountTotal)} tabIndex="-1">LastPage({this.state.paging.pageNumCountTotal})</a>
-                </li>
-            );
-        }
+        return (
+            <li className='page-item'>
+                <a className='page-link' onClick={() => this.listBoard(this.state.paging.pageNumCountTotal)} tabIndex="-1">
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        );
+
     }
 
     render() {
@@ -108,11 +116,16 @@ class ListBoardComponent extends Component {
             <>
                 <IndexNavbar />
                 <div className="community-main">
-                <h3 id="commLabel">커뮤니티</h3>
-                {/* <div className="community-navtab">
+                    <h3 id="commLabel">커뮤니티</h3>
+                    <div className="community-navtab">
                     <Nav id="tabs" role="tablist" tabs>
-                        <NavItem>
-                            <NavLink id="free"
+                        <NavItem style={{borderBottom: "3px solid #4A8451"}}>
+                            <NavLink id="free" style={
+                            {
+                                color:'#4A8451',
+                                fontWeight:'bold'
+                            }
+                            }
                             >
                                 자유게시판
                             </NavLink>
@@ -125,61 +138,65 @@ class ListBoardComponent extends Component {
                             </NavLink>
                         </NavItem>
                     </Nav>
-                </div> */}
-                <div className="community-pl-main">
-                    <div className="community-pl-title">
-                        <h5 className="text-center">자유게시판</h5>
-                    </div>
-                    <div className="community-pl-search-bar">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        <input type="search" placeholder="글 제목 / 본문" value={this.state.searchInput}
-                            onFocus={this.searchOnHandler} onBlur={this.searchOffHandler} onChange={this.setSearchHandler} />
-                    </div>
-
-                    <div>
-                        <div className="community-pl-tb-wrap">
-                            <table className="community-pl-tb table">
-                                <thead className="community-pl-thead">
-                                    <tr>
-                                        <th scope="col" style={{ width: "8%" }}>글 번호</th>
-                                        <th scope="col" style={{ width: "66%" }}>제목</th>
-                                        <th scope="col" style={{ width: "10%" }}>작성자</th>
-                                        <th scope="col" style={{ width: "10%" }}>작성일</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="community-pl-tbody">
-                                    {
-                                        this.state.boards.map(
-                                            board =>
-                                                <tr key={board.no}>
-                                                    <td>{board.no}</td>
-                                                    <td className="community-post-title"><a onClick={() => this.readBoard(board.no)}>{board.title}</a></td>
-                                                    <td>{board.memberId}</td>
-                                                    <td>{board.createdTime}</td>
-                                                </tr>
-                                        )
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="community-pl-bottom">
-                            <div className='row'>
-                                <nav aria-label='Page navigation example'>
-                                    <ul className='pagination justify-content-center'>
-                                        {this.isMoveToFirstPage()}
-                                        {this.isPagingPrev()}
-                                        {this.viewPaging()}
-                                        {this.isPagingNext()}
-                                        {this.isMoveToLastPage()}
-                                    </ul>
-                                </nav>
-                            </div>
-                            <div className='btn-write'>
-                                <button className='btn-round btn' onClick={this.createBoard}>글 작성</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+                    <div className="community-pl-main">
+                    <div className="community-best">
+                        <h3>BEST</h3>
+                    </div>
+                        <BestCommunityFreeItems />
+                        <hr className="community-hr" />
+                        <div className="community-pl-title">
+                            <h5 className="text-center">자유게시판</h5>
+                        </div>
+                        <div className="community-pl-search-bar">
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                            <input type="search" placeholder="글 제목 / 본문" value={this.state.searchInput}
+                                onFocus={this.searchOnHandler} onBlur={this.searchOffHandler} onChange={this.setSearchHandler} />
+                        </div>
+                        <div>
+                            <div className="community-pl-tb-wrap">
+                                <table className="community-pl-tb table">
+                                    <thead className="community-pl-thead">
+                                        <tr>
+                                            <th scope="col" style={{ width: "8%" }}>번호</th>
+                                            <th scope="col" style={{ width: "66%" }}>제목</th>
+                                            <th scope="col" style={{ width: "10%" }}>작성자</th>
+                                            <th scope="col" style={{ width: "10%" }}>작성일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="community-pl-tbody">
+                                        {
+                                            this.state.boards.map(
+                                                board =>
+                                                    <tr key={board.no}>
+                                                        <td>{board.no}</td>
+                                                        <td className="community-post-title" onClick={() => this.readBoard(board.no)}>{board.title}</td>
+                                                        <td>{board.memberId}</td>
+                                                        <td>{board.createdTime}</td>
+                                                    </tr>
+                                            )
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="community-pl-bottom">
+                                <div className='btn-pagination'>
+                                    <nav aria-label='Page navigation example'>
+                                        <ul className='pagination justify-content-center'>
+                                            {this.isMoveToFirstPage()}
+                                            {this.isPagingPrev()}
+                                            {this.viewPaging()}
+                                            {this.isPagingNext()}
+                                            {this.isMoveToLastPage()}
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div className='btn-write'>
+                                    <button className='btn-round btn' onClick={this.createBoard}>글 작성</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <VeginFooter />
             </>
