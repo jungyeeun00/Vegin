@@ -45,6 +45,9 @@ import ShopNavTab from "views/index-sections/ShopNavTab";
 import ListBoardComponent from "views/index-sections/ListBoardComponent";
 import CreateBoardComponent from "views/index-sections/CreateBoardComponent";
 import ReadBoardComponent from "views/index-sections/ReadBoardComponent";
+import ListDiaryComponent from "views/index-sections/ListDiaryComponent";
+import ReadDiaryComponent from "views/index-sections/ReadDiaryComponent";
+import CreateDiaryComponent from "views/index-sections/CreateDiaryComponent";
 // others
 
 ReactDOM.render(
@@ -99,14 +102,14 @@ ReactDOM.render(
         path="/place-page"
         render={(props) => <PlacePage {...props} />}
       />
-      <Route
+      {/* <Route
         path="/community-page"
         render={(props) => <CommunityPage {...props} />}
       />
       <Route
         path="/community-page/:tab"
         render={(props) => <CommunityPage {...props} />}
-      />
+      /> */}
       <Route
         path="/community-post-page"
         render={(props) => <PostPage {...props} />}
@@ -130,6 +133,9 @@ ReactDOM.render(
       <Route path='/board' component={ListBoardComponent}></Route>
       <Route path='/create-board/:no' component={CreateBoardComponent}></Route>
       <Route path='/read-board/:no' component={ReadBoardComponent}></Route>
+      <Route path='/diary' component={ListDiaryComponent}></Route>
+      <Route path='/create-diary/:no' component={CreateDiaryComponent}></Route>
+      <Route path='/read-diary/:no' component={ReadDiaryComponent}></Route>
       <Redirect to="/index" />
     </Switch>
   </BrowserRouter>,

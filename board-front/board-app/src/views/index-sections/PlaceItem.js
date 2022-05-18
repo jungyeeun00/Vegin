@@ -7,7 +7,7 @@ import { Col, Row } from 'reactstrap';
 
 const PlaceItem = ({place, changeShowDetail}) => {
     const { UPSO_NM, COB_CODE_NM, CRTFC_GBN_NM, RDN_CODE_NM, TEL_NO } = place;
-    const [img, setImg] = useState(null);
+    const [img, setImg] = useState('assets/img/place_item.jpg');
     var image = null;
 
     const Kakao = axios.create({
@@ -37,10 +37,9 @@ const PlaceItem = ({place, changeShowDetail}) => {
         };
     
         const { data } = await imageSearch(params); // api 호출
-        console.log(data.documents[0].image_url);
         setImg(data.documents[0].image_url);
-        image = img;
-        // console.log(UPSO_NM+" : "+image);
+        image=data.documents[0].image_url
+        console.log(query +":"+ data.documents[0].image_url+"\n"+image);
       };
 
       const getImg = () => {
@@ -51,8 +50,8 @@ const PlaceItem = ({place, changeShowDetail}) => {
         <>
             <Row>
                 <Col md="4" className="list-img-col">
-                    {/* {!image && <img className="list-img" alt="place_img" src={require("assets/img/place_item.jpg")} />} */}
-                    {img && <img className="list-img" alt="place_img" src={()=>getImg} />}
+                    {/* <img className="list-img" alt="place_img" src={require("assets/img/place_item.jpg")} /> */}
+                    { <img className="list-img" alt="place_img" src={img} />}
                 </Col>
                 <Col>
                     <Row className="name-category">
