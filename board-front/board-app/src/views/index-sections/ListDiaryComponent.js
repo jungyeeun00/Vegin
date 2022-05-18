@@ -6,9 +6,9 @@ import BoardService from '../../service/BoardService';
 import Pagination from './Pagination';
 import { faMagnifyingGlass, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import BestCommunityFreeItems from './BestCommunityFreeItems';
+import BestCommunityDiaryItems from './BestCommunityDiaryItems';
 
-class ListBoardComponent extends Component {
+class ListDiaryComponent extends Component {
 
     constructor(props) {
         super(props)
@@ -27,7 +27,7 @@ class ListBoardComponent extends Component {
     }
 
     componentDidMount() {
-        BoardService.getBoards(this.state.p_num).then((res) => {
+        BoardService.getDiarys(this.state.p_num).then((res) => {
             this.setState({
                 p_num: res.data.pagingData.currentPageNum,
                 paging: res.data.pagingData,
@@ -37,16 +37,16 @@ class ListBoardComponent extends Component {
     }
 
     createBoard() {
-        this.props.history.push("/create-board/_create");
+        this.props.history.push("/create-diary/_create");
     }
 
     readBoard(no) {
-        this.props.history.push(`/read-board/${no}`)
+        this.props.history.push(`/read-diary/${no}`)
     }
 
     listBoard(p_num) {
         console.log("pageNum : " + p_num);
-        BoardService.getBoards(p_num).then(res => {
+        BoardService.getDiarys(p_num).then(res => {
             console.log(res.data);
             this.setState({
                 p_num: res.data.pagingData.currentPageNum,
@@ -94,7 +94,7 @@ class ListBoardComponent extends Component {
         return (
             <li className='page-item'>
                 <a className='page-link' onClick={() => this.listBoard(1)} tabIndex="-1">
-                    <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                    <i className="fa fa-angle-double-left" aria-hidden="true"></i>
                 </a>
             </li>
         );
@@ -104,7 +104,7 @@ class ListBoardComponent extends Component {
         return (
             <li className='page-item'>
                 <a className='page-link' onClick={() => this.listBoard(this.state.paging.pageNumCountTotal)} tabIndex="-1">
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <i className="fa fa-angle-double-right" aria-hidden="true"></i>
                 </a>
             </li>
         );
@@ -119,20 +119,20 @@ class ListBoardComponent extends Component {
                     <h3 id="commLabel">커뮤니티</h3>
                     <div className="community-navtab">
                     <Nav id="tabs" role="tablist" tabs>
-                        <NavItem style={{borderBottom: "3px solid #4A8451"}}>
-                            <NavLink id="free" style={
-                            {
-                                color:'#4A8451',
-                                fontWeight:'bold'
-                            }
-                            }
+                        <NavItem>
+                            <NavLink id="free" href='/board'
                             >
                                 자유게시판
                             </NavLink>
                         </NavItem>
                         <text> | </text>
-                        <NavItem>
-                            <NavLink id="diary" href='/diary'
+                        <NavItem style={{borderBottom: "3px solid #4A8451"}}>
+                            <NavLink id="diary" style={
+                            {
+                                color:'#4A8451',
+                                fontWeight:'bold'
+                            }
+                            }
                             >
                                 다이어리
                             </NavLink>
@@ -143,10 +143,10 @@ class ListBoardComponent extends Component {
                     <div className="community-best">
                         <h3>BEST</h3>
                     </div>
-                        <BestCommunityFreeItems />
+                        <BestCommunityDiaryItems />
                         <hr className="community-hr" />
                         <div className="community-pl-title">
-                            <h5 className="text-center">자유게시판</h5>
+                            <h5 className="text-center">다이어리</h5>
                         </div>
                         <div className="community-pl-search-bar">
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -204,4 +204,4 @@ class ListBoardComponent extends Component {
     }
 }
 
-export default ListBoardComponent;
+export default ListDiaryComponent;

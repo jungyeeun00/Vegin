@@ -19,7 +19,7 @@ class PlaceDetailItem extends Component {
     }
 
     render() {
-        const { UPSO_NM, COB_CODE_NM, CRTFC_GBN_NM, RDN_CODE_NM, TEL_NO, FOOD_MENU } = this.props.place;
+        const { UPSO_NM, COB_CODE_NM, CRTFC_GBN_NM, RDN_CODE_NM, TEL_NO, FOOD_MENU, image } = this.props.place;
         var menus = FOOD_MENU.split(", ");
         menus = menus.slice(-9);
         return (

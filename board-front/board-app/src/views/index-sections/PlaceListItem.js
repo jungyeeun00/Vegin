@@ -19,6 +19,8 @@ function PlaceListItem() {
     const [dir, setDir] = useState('next');
     const [places, setPlaces] = useState(null);
     const [place, setPlace] = useState(null);
+    const [img, setImg] = useState(null);
+    var image = ''
 
     const searchOnHandler = () => {
         setSearchClick(true);
@@ -92,11 +94,9 @@ function PlaceListItem() {
         };
 
         const { data } = await imageSearch(params); // api 호출
-        return data;
-        // console.log(data.documents[0].image_url);
-        // setImg(data.documents[0].image_url);
-        // image = data.documents[0].image_url;
-        // console.log(UPSO_NM+" : "+image);
+        console.log(data.documents[0].image_url);
+        setImg(data.documents[0].image_url);
+        image = data.documents[0].image_url;
     };
 
     // button 클릭 시 토글

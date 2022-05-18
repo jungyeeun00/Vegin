@@ -30,7 +30,7 @@ const PlacePage = () => {
             return null;
         }
         places.map(element => {
-            console.log(element.CRTFC_GBN);
+            // console.log(element.CRTFC_GBN);
             const marker = new kakao.maps.Marker({
                 map: map,
                 position: new kakao.maps.LatLng(element.Y_DNTS, element.X_CNTS),
