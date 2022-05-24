@@ -104,4 +104,8 @@ public class PlaceService {
         return ResponseEntity.ok(placeInfo);
     }
 
+    public PlaceInfo createPlaceInfo(PlaceInfo placeInfo){ return placeInfoRepository.save(placeInfo);}
+
+    public int findAllCount() { return (int)placeInfoRepository.count(); }
+
 }
