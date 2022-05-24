@@ -15,16 +15,8 @@ const PlacePage = () => {
     useEffect(() => {
         PlaceService.getPlaces().then((res) => {
             setTables(res.data);
-            console.log(res.data);
+            console.log('place:'+res.data);
         })
-        // axios
-        //     .get('http://openapi.seoul.go.kr:8088/41497a6663656b6634335950466b78/json/CrtfcUpsoInfo/1/800/')
-        //     .then((response) => {
-        //         const res = response['data']['CrtfcUpsoInfo']['row'];
-
-        //         const result = res.filter(it => it.CRTFC_GBN === '14')
-        //         setPlaces(result);
-        //     });
 
         var container = document.getElementById('map');
         var options = {
@@ -45,15 +37,17 @@ const PlacePage = () => {
             });
             // 마커에 표시할 인포윈도우를 생성합니다 
             var infowindow = new kakao.maps.InfoWindow({
-                content: `<div style="color: red">element.upso_NM</div>` // 인포윈도우에 표시할 내용
+                content: `
+                <div style='color: black; font-size:17px; font-weight:bold; margin:5px 5px 0 5px'>${element.upso_NM}</div>
+                <div style='margin:0px 5px; font-weight:bold; font-size:13px;'>☎${element.tel_NO}</div>
+                <div style='font-size:12px; margin:0px 5px 5px 5px'>${element.rdn_CODE_NM}</div>
+                `
             });
             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-            kakao.maps.event.addListener(
-                marker,
-                'click',
-                () => showPlaceDetail(element)
-            )
+            kakao.maps.event.addListener(marker, 'click', function () {
+                alert('marker click!');
+            });
         });
     }, []);
 
