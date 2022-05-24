@@ -19,8 +19,9 @@ class PlaceDetailItem extends Component {
     }
 
     render() {
-        const { UPSO_NM, COB_CODE_NM, CRTFC_GBN_NM, RDN_CODE_NM, TEL_NO, FOOD_MENU, image } = this.props.place;
-        var menus = FOOD_MENU.split(", ");
+        const { upso_NM, cob_CODE_NM, crtfc_GBN_NM, rdn_CODE_NM, tel_NO, image, food_MENU } = this.props.place;
+        // const image = this.props.image;
+        var menus = food_MENU.split(", ");
         menus = menus.slice(-9);
         return (
             <>
@@ -31,22 +32,22 @@ class PlaceDetailItem extends Component {
                             <div className='place-dt-item-main'>
                                 <div className='place-dt-top'>
                                     <div className='place-dt-imgbox'>
-                                        <img id="placeImg" className="place-dt-item-img" alt="place_img" src={require("assets/img/place_item.jpg")} />
+                                        <img id="placeImg" className="place-dt-item-img" alt="place_img" src={image} />
                                     </div>
                                     <div className='place-dt-detail'>
                                         <div className='place-dt-inner'>
-                                            <h2 className='place-dt-inner-title'>{UPSO_NM}</h2>
-                                            <span>{COB_CODE_NM}</span>
+                                            <h2 className='place-dt-inner-title'>{upso_NM}</h2>
+                                            <span>{cob_CODE_NM}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div className='place-dt-info'>
-                                    <span className='place-dt-intro'>{CRTFC_GBN_NM}</span>
+                                    <span className='place-dt-intro'>{crtfc_GBN_NM}</span>
                                     <hr className='place-dt-hr' />
                                     <h6 className='place-dt-info-title'>상세 정보</h6>
                                     <div className='place-dt-infobox'>
                                         <span className='place-dt-location-icon'> <FontAwesomeIcon icon={faLocationDot} /> </span>
-                                        <span className='place-dt-info-ds'>{RDN_CODE_NM}</span>
+                                        <span className='place-dt-info-ds'>{rdn_CODE_NM}</span>
                                     </div>
                                     <div className='place-dt-infobox'>
                                         <span className='place-dt-location-icon'> <FontAwesomeIcon icon={faClock} /> </span>
@@ -54,7 +55,7 @@ class PlaceDetailItem extends Component {
                                     </div>
                                     <div className='place-dt-infobox'>
                                         <span className='place-dt-location-icon'> <FontAwesomeIcon icon={faPhone} /> </span>
-                                        <span className='place-dt-info-ds'>{TEL_NO}</span>
+                                        <span className='place-dt-info-ds'>{tel_NO}</span>
                                     </div>
                                     <hr className='place-dt-hr' />
                                     <h6 className='place-dt-info-title'>메뉴</h6>
