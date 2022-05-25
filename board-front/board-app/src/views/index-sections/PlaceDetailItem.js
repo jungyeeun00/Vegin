@@ -49,10 +49,10 @@ class PlaceDetailItem extends Component {
                                         <span className='place-dt-location-icon'> <FontAwesomeIcon icon={faLocationDot} /> </span>
                                         <span className='place-dt-info-ds'>{rdn_CODE_NM}</span>
                                     </div>
-                                    <div className='place-dt-infobox'>
+                                    {/* <div className='place-dt-infobox'>
                                         <span className='place-dt-location-icon'> <FontAwesomeIcon icon={faClock} /> </span>
                                         <span className='place-dt-info-ds'>00:00 ~ 00:00</span>
-                                    </div>
+                                    </div> */}
                                     <div className='place-dt-infobox'>
                                         <span className='place-dt-location-icon'> <FontAwesomeIcon icon={faPhone} /> </span>
                                         <span className='place-dt-info-ds'>{tel_NO}</span>
