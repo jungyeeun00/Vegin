@@ -64,6 +64,7 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
 
     .recipe-best-table, .recipe-items-table {
         display: grid;
+        justify-content: space-evenly;
         grid-template-columns: auto auto auto auto;
         width:100%;
         padding-left: 0;
@@ -82,6 +83,13 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
                     width: 200px;
                     height: 200px;
                     object-fit: cover;
+                }
+
+                #recipeTitle {
+                    height: 90px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                 }
 
                 .recipe-text {
@@ -192,11 +200,16 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
                     }
                 }
 
+                .btn-search {
+                    cursor: pointer;
+                }
+
                 .btn-clear {
                     position: absolute;
                     vertical-align: middle;
                     padding: 0;
-                    margin-right: 16px;
+                    // margin-right: 16px;
+                    margin-right: 46px;
                     right: 0;
                     color: gray;
                     background: center center no-repeat;

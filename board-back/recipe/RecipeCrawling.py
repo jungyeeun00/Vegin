@@ -20,7 +20,8 @@ def ItemRecipe(recipeUrl):
     try:
         res = soup.select_one("div.view2_pic > div.centeredcrop > img")
         recipe_title_img.append(res.attrs['src'])
-    except(AttributeError):
+    except(ValueError, AttributeError):
+        print("ValueError or AttributeError")
         return
 
     try:
@@ -30,26 +31,34 @@ def ItemRecipe(recipeUrl):
         for res in res_list:
             recipe_info.append(res.get_text())
         res = soup.select("div.ready_ingre3 > ul")
-    except(AttributeError):
+    except(ValueError, AttributeError):
+        print("ValueError or AttributeError")
         return
 
     # 재료 찾는 for문 가끔 형식에 맞지 않는 레시피들이 있어 try/ except 해준다
     try:
         for n in res:
             source = []
-            title = n.select_one("#divConfirmedMaterialArea > ul > b").get_text()
-            recipe_source[title] = ''
+            title = n.select_one("#divConfirmedMaterialArea > ul > b")
+            recipe_source[title.get_text()] = ''
             for tmp in n.select('li'):
                 tempSource = tmp.get_text().replace('\n', '').replace(' ', ' ')
                 source.append(tempSource.split("    ")[0])
-                unit = tmp.select_one("span.ingre_unit")
+                if tmp.select_one("span.ingre_unit") is not None:
+                    unit = tmp.select_one("span.ingre_unit")
+                else:
+                    unit = ''
                 recipe_quantity.append(unit.get_text())
-            recipe_source[title] = source
-    except (AttributeError):
+            recipe_source[title.get_text()] = source
+    except (ValueError, AttributeError):
+        print("ValueError or AttributeError")
         return
 
+    if not recipe_source:
+        return
+
+
     # 요리 순서
-    # res = soup.select("div.view_step > div.view_step_cont.media > div.media-body")
     res = soup.select("div.view_step > div.view_step_cont.media")
 
     i = 1
@@ -70,10 +79,8 @@ def ItemRecipe(recipeUrl):
             recipe_step_img.append('')
         i += 1
 
-
     if not recipe_step:
         return
 
     recipe_all = [recipe_title_img, recipe_title, recipe_info, recipe_source, recipe_quantity, recipe_step, recipe_step_img]
     return (recipe_all)
-

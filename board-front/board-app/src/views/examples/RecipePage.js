@@ -47,6 +47,10 @@ class RecipePage extends Component {
         };
     }
 
+    componentWillMount() {
+        VeginService.getRecommend();
+    }
+
     componentDidMount() {
         VeginService.getRecipes(cateData[this.state.curCate], this.state.searchInput, this.state.p_num).then((res) => {
             this.setState({
@@ -84,8 +88,15 @@ class RecipePage extends Component {
     // enter 이벤트 처리 (검색)
     handleKeyPress = (e) => {
         if (e.key === "Enter") {
-            this.listRecipe(this.state.curCate, this.state.searchInput, 1);
-        }
+            this.listRecipe(this.state.curCate, this.state.searchInput, -1);
+            this.setState({
+                searchClick: false
+            })
+        };
+    };
+
+    handleClick = () => {
+        this.listRecipe(this.state.curCate, this.state.searchInput, -1);
     };
 
     changeCate = (e) => {
@@ -98,7 +109,7 @@ class RecipePage extends Component {
     };
 
     // paging
-    listRecipe(curCate, searchInput, p_num) {
+    listRecipe = (curCate, searchInput, p_num) => {
         VeginService.getRecipes(cateData[curCate], searchInput, p_num).then((res) => {
             res.data.list != null
                 ? this.setState({
@@ -114,14 +125,19 @@ class RecipePage extends Component {
                     pagePrev: p_num
                 })
         });
-        {this.state.pagePrev == 0 ?
-        document.getElementById("1").classList.remove('active')
-        : document.getElementById(this.state.pagePrev.toString()).classList.remove('active')};
-
+        // {this.state.pagePrev == 1 ?
+        // document.getElementById("1").classList.remove('active')
+        // : document.getElementById(this.state.pagePrev.toString()).classList.remove('active')};
+        if(this.state.pagePrev == 0 && this.state.paging.currentPageNum != 1) {
+            document.getElementById("1").classList.remove('active');
+        }
+        else if(this.state.pagePrev != 0 && this.state.pagePrev != -1 && this.state.pagePrev != this.state.paging.currentPageNum) {
+            document.getElementById(this.state.pagePrev.toString()).classList.remove('active');
+        }
         window.scrollTo(0, 0);
     }
 
-    viewPaging() {
+    viewPaging = () => {
         const pageNums = [];
 
         for (let i = this.state.paging.pageNumStart; i <= this.state.paging.pageNumEnd; i++) {
@@ -135,11 +151,11 @@ class RecipePage extends Component {
         ));
     }
 
-    isPagingPrev() {
+    isPagingPrev = () => {
         if (this.state.paging.isPrev) {
             return (
                 <li className="page-item" id="page-prev">
-                    <a className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum - 1))} tabIndex="-1">
+                    <a className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum - 2))} tabIndex="-1">
                         <i aria-hidden="true" class="fa fa-angle-left"></i>
                         <span class="sr-only">Previous</span>
                     </a>
@@ -148,11 +164,11 @@ class RecipePage extends Component {
         }
     }
 
-    isPagingNext() {
+    isPagingNext = () => {
         if (this.state.paging.isNext) {
             return (
                 <li className="page-item " id="page-next">
-                    <a className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum + 1))} tabIndex="-1">
+                    <a className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum + 2))} tabIndex="-1">
                         <i aria-hidden="true" class="fa fa-angle-right"></i>
                         <span class="sr-only">Next</span>
                     </a>
@@ -161,35 +177,7 @@ class RecipePage extends Component {
         }
     }
 
-    isMoveToFirstPage() {
-        if (this.state.p_num != 1) {
-            return (
-                <li className="page-item">
-                    <a className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, 1)} tabIndex="-1">
-                        <i aria-hidden="true" class="fa fa-angle-double-left"></i>
-                        <span class="sr-only">Move to First Page</span>
-                    </a>
-                </li>
-            );
-        }
-    }
-
-    isMoveToLastPage() {
-        if (this.state.p_num != this.state.paging.pageNumCountTotal) {
-            return (
-                <li className="page-item">
-                    <a className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, (this.state.paging.pageNumCountTotal))} tabIndex="-1">
-                        <i aria-hidden="true" class="fa fa-angle-double-right"></i>
-                        <span class="sr-only">LastPage({this.state.paging.pageNumCountTotal})</span>
-                        {/* LastPage({this.state.paging.pageNumCountTotal}) */}
-                    </a>
-                </li>
-            );
-        }
-    }
-
     render() {
-
         return (
             <>
                 <IndexNavbar />
@@ -329,9 +317,9 @@ class RecipePage extends Component {
                                         </button>
                                     </div>
                                     <div className="search-bar">
-                                        <FontAwesomeIcon icon={faMagnifyingGlass} />
                                         <input type="search" placeholder="재료명 / 요리명" value={this.state.searchInput}
                                             onFocus={this.searchOnHandler} onBlur={this.searchOffHandler} onChange={this.setSearchHandler} onKeyPress={this.handleKeyPress} />
+                                        <FontAwesomeIcon icon={faMagnifyingGlass} className="btn-search" onClick={this.handleClick}/>
                                         {this.state.searchInput.length !== 0 &&
                                             <button className="btn-clear" onClick={this.searchInputRemoveHandler}>
                                                 <FontAwesomeIcon icon={faCircleXmark} />
@@ -343,18 +331,42 @@ class RecipePage extends Component {
                         </ul>
                     </div>
 
-                    {/* BEST ITEM 부분 */}
+                    {/* RECOMMENDATION 부분 */}
                     <div className="recipe-best">
-                        <h3>BEST</h3>
+                        <h3>RECOMMEND</h3>
                     </div>
-                    <BestRecipeItems />
+                    <div>
+                        
+                    <ul className="recipe-best-table">
+                    {this.state.recipes
+                        .filter((recipe) => recipe.id == 1 || recipe.id == 16 || recipe.id == 17 || recipe.id == 22)
+                        .map((recipe, i) => (
+                            <li key={recipe.id}>
+                            <div id="recipeItem" className="item" align="center">
+                            {/* 레시피 이미지 */}
+                            <img id="recipeImg" alt="recipe_img" src={recipe.img} />
+                            <p id="recipeTitle" className="item-title">{recipe.name}</p>   {/* 요리명 */}
+                            <span id="recipeServing" className="recipe-text">       {/* 인분 수 */}
+                                <FontAwesomeIcon icon={faUser} /> {recipe.servings}
+                            </span>
+                            <span id="recipeTime" className="recipe-text">          {/* 조리 시간 */}
+                                <FontAwesomeIcon icon={faHourglass} /> {recipe.time}
+                            </span>
+                            <span id="recipeViews" className="recipe-text">         {/* 조회 수 */}
+                                <FontAwesomeIcon icon={faEye} /> {recipe.views}
+                            </span>
+                            </div>
+                            </li>
+                    ))}
+                    </ul>
+                </div>
                     <hr className="recipe-hr" />
 
                     {/* 정렬 버튼 */}
                     <div className="recipe-content-bar">
                         <ul className="recipe-sort-list">
-                            <li className="orderItem orderItem10 active"><a>인기순</a></li>
-                            <li className="orderItem orderItem01"><a>추천순</a></li>
+                            <li className="orderItem orderItem10 active"><a>기본순</a></li>
+                            <li className="orderItem orderItem01"><a>인기순</a></li>
                         </ul>
                     </div>
 
@@ -403,9 +415,6 @@ class RecipePage extends Component {
                                 <nav aria-label="Page navigation example">
                                     <ul className="pagination justify-content-center">
                                         {
-                                            this.isMoveToFirstPage()
-                                        }
-                                        {
                                             this.isPagingPrev()
                                         }
                                         {
@@ -413,9 +422,6 @@ class RecipePage extends Component {
                                         }
                                         {
                                             this.isPagingNext()
-                                        }
-                                        {
-                                            this.isMoveToLastPage()
                                         }
                                     </ul>
                                 </nav>

@@ -1,7 +1,9 @@
 package com.example.recipe.service;
 
-import com.example.recipe.exception.ResourceNotFoundException;
-import com.example.recipe.model.Ingredient;
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.PumpStreamHandler;
+
 import com.example.recipe.model.Recipe;
 import com.example.recipe.model.Step;
 import com.example.recipe.repository.RecipeRepository;
@@ -10,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import java.io.*;
 import java.util.*;
 
 @Service
@@ -160,5 +164,93 @@ public class RecipeService {
 
     public int findCateCountWithKeywordMult(String category1, String category2, String category3, String searchInput) {
         return recipeRepository.countCateWithKeywordMult(category1, category2, category3, searchInput).intValue();
+    }
+
+    public void writeLog(Cookie cookie, Integer id, long time) {
+
+        String path = "./board/src/main/resources/ViewLog.txt";
+
+        try {
+            File file = new File(path);
+            FileWriter fw = new FileWriter(file, true);
+            BufferedWriter writer = new BufferedWriter(fw);
+            writer.write(cookie.getValue() + "\t" + id + "\t" + time + "\n");
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeLog(Cookie cookie, String keyword, long time) {
+        String path = "./board/src/main/resources/SearchLog.txt";
+        try {
+            File file = new File(path);
+            FileWriter fw = new FileWriter(file, true);
+            BufferedWriter writer = new BufferedWriter(fw);
+            writer.write(cookie.getValue() + "\t" + keyword + "\t" + time + "\n");
+            writer.flush();
+            writer.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void recommend(String value) {
+        if(value == null) {
+            System.out.println("no recommendation : cookie is null");
+        }
+        else {
+            try{
+                //파일 객체 생성
+                File file = new File("./board/src/main/resources/ViewLog.txt");
+                //입력 스트림 생성
+                FileReader filereader = new FileReader(file);
+                //입력 버퍼 생성
+                BufferedReader bufReader = new BufferedReader(filereader);
+                String line = "";
+                int id = 0;
+                Long time = 0L;
+                while((line = bufReader.readLine()) != null){
+                    String[] array = line.split("\t");
+                    if(array[0].equals(value) && Long.parseLong(array[2]) > time)
+                        id = Integer.parseInt(array[1]);
+                }
+                //.readLine()은 끝에 개행문자를 읽지 않는다.
+                bufReader.close();
+
+                String[] command = new String[3];
+                command[0] = "python";
+                command[1] = "./recipeRec/RecipeRec.py";
+                command[2] = recipeRepository.findNameById(id);
+                execPython(command);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void execPython(String[] command) {
+        try {
+            CommandLine commandLine = CommandLine.parse(command[0]);
+            for (int i = 1, n = command.length; i < n; i++) {
+                commandLine.addArgument(command[i]);
+            }
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            PumpStreamHandler pumpStreamHandler = new PumpStreamHandler(outputStream);
+//            PumpStreamHandler pumpStreamHandler = new PumpStreamHandler(System.out);
+            DefaultExecutor executor = new DefaultExecutor();
+            executor.setStreamHandler(pumpStreamHandler);
+            int result = executor.execute(commandLine);
+            System.out.println("output: " + outputStream.toString());
+//            System.out.println(Arrays.toString(outputStream.toByteArray()));
+//            System.out.println(outputStream.toByteArray());
+//            String line = new String(outputStream.toByteArray());
+//            String[] split = line.split(System.lineSeparator());
+//            for(String name: split)
+//                System.out.println(name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
