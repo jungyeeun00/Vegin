@@ -32,6 +32,7 @@ body {
     margin-top: 40px;
 }
 
+
 .whyvegan-contents {
     float: left;
 
@@ -125,4 +126,33 @@ body {
 
     }
 
+
+}
+
+.slick-prev,
+.slick-next {
+    color: black;
+    background: transparent;
+}
+
+.slick-prev:hover,
+.slick-prev:focus,
+.slick-next:hover,
+.slick-next:focus {
+    color: black;
+    outline: none;
+    background: transparent;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    font-family: 'slick';
+    font-size: 20px;
+    line-height: 1;
+
+    opacity: .75;
+    color: black;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
