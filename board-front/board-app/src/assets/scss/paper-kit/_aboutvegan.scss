@@ -1,81 +1,93 @@
 @font-face {
     font-family: 'home-title-font-m';
     src: url('/assets/fonts/home-title-font/GmarketSansTTFMedium.ttf');
-  }
+}
+
 @font-face {
     font-family: 'main-font-l';
     src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Light.ttf');
 }
-    body{
-        min-width: 1150px;
-    }
 
-  .typography-line{
-      padding-left: 20%;
-      padding-right: 20%;
-      justify-content: center;
-      justify-items: center;
-  }
-  .whyvegan-title-main{
-     text-align: center;
-  }
-  .whyvegan-wrapper{
+body {
+    min-width: 1150px;
+}
+
+.typography-line {
+    padding-left: 20%;
+    padding-right: 20%;
+    justify-content: center;
+    justify-items: center;
+}
+
+.whyvegan-title-main {
+    text-align: center;
+}
+
+.whyvegan-wrapper {
     display: flex;
     justify-items: center;
     justify-content: center;
     min-width: 200px;
     min-height: 200px;
     margin-top: 40px;
-  }
-  .whyvegan-contents{
-      float: left;
+}
 
-        .whyvegan-title{
+.whyvegan-contents {
+    float: left;
+
+    .whyvegan-title {
         //font-family: 'home-title-font-m';
         font-weight: 500;
         font-style: italic;
     }
 
-        .wv-text-source{
-            text-align: right;
-        }
-  }
-  
-  .whyvegan-img-wrapper{
+    .wv-text-source {
+        text-align: right;
+    }
+}
+
+.whyvegan-img-wrapper {
     float: right;
     margin: 30px 0px 0px 20px;
 
-    .whyvegan-img{
+    .whyvegan-img {
         height: 100%;
     }
 }
-.whyvegan-step-wrapper{
-   text-align: center;
-   margin-top: 40px;
-    .whyvegan-step{
+
+.whyvegan-step-wrapper {
+    text-align: center;
+    margin-top: 40px;
+
+    .whyvegan-step {
         width: 800px;
     }
 }
-.whyvegan-mean-wrapper{ 
-    text-align: center ;
+
+.whyvegan-mean-wrapper {
+    text-align: center;
     margin-top: 60px;
+
     //font-weight: 600;
-    .whyvegan-quotes{
+    .whyvegan-quotes {
         color: gray;
         font-size: 25px;
         font-weight: 600;
         margin-top: 20px;
         //font-family: 'home-title-font-m';
     }
-    .whyvegan-mean{
+
+    .whyvegan-mean {
         //font-family: 'main-font-l';
         font-size: 20px;
         font-weight: 100;
         text-align: center;
-        .mean-l{
+
+        .mean-l {
             position: inherit;
             display: inline;
-            bottom: 0px; line-height: 0px;
+            bottom: 0px;
+            line-height: 0px;
             font-size: inherit;
             font-weight: 800;
             color: #4A8451;
@@ -83,29 +95,62 @@
     }
 }
 
-    .wva-mz-wrapper{
-        min-width: 1200px;
-        .wva-mz-title{
-            text-align: center;
-            font-size: 40px;
-        }
-        .wva-mz-slider-wrapper{
-            .wva-mz-slider{
-                min-width: 1200px;
-                max-width: 1200px;
-                margin-top: 40px !important;
-                margin-bottom: 70px !important;
-                margin: auto;
-                //margin: 40px 100px 0px 100px;
-                .wva-mz-img{
-                    height: 250px;
-                    margin-left: auto; margin-right: auto;
-                }
-            }
-            .wva-mz-contents{
-                text-align: center;
-            }
+.wva-mz-wrapper {
+    min-width: 1200px;
 
-        }
-        
+    .wva-mz-title {
+        text-align: center;
+        font-size: 40px;
     }
+
+    .wva-mz-slider-wrapper {
+        .wva-mz-slider {
+            min-width: 1200px;
+            max-width: 1200px;
+            margin-top: 40px !important;
+            margin-bottom: 70px !important;
+            margin: auto;
+
+            //margin: 40px 100px 0px 100px;
+            .wva-mz-img {
+                height: 250px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        .wva-mz-contents {
+            text-align: center;
+        }
+
+    }
+
+}
+
+.slick-prev,
+.slick-next {
+    color: black;
+    background: transparent;
+}
+
+.slick-prev:hover,
+.slick-prev:focus,
+.slick-next:hover,
+.slick-next:focus {
+    color: black;
+    outline: none;
+    background: transparent;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    font-family: 'slick';
+    font-size: 20px;
+    line-height: 1;
+
+    opacity: .75;
+    color: black;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

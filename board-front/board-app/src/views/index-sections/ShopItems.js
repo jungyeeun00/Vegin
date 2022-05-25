@@ -12,7 +12,7 @@ class ShopItems extends Component {
                     {/* 상품 이미지 */}
                     <img id="shopImg" className="item-img" alt="shop_img" src={require("assets/img/shop_item.jpg")} />
                     <div className="like">  {/* 관심 상품 버튼 */}
-                        <button id="shopLike" type="button" class="like-button" title="like">
+                        <button id="shopLike" type="button" className="like-button" title="like">
                             <FontAwesomeIcon icon={faHeart} />
                         </button>
                     </div>

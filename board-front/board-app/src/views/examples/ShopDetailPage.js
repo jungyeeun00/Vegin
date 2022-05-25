@@ -10,10 +10,6 @@ import {
     Row,
     Col,
     Button,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
     NavItem,
     NavLink,
     Nav,
@@ -39,7 +35,6 @@ function ProductDetailPage() {
     useEffect(() => {
         ShopService.getChoices(productId)
         .then(res => setChoices(res.data))
-
         window.scrollTo(0, 0);
     }, []);
     console.log(choices)
@@ -55,14 +50,15 @@ function ProductDetailPage() {
         }
     };
 
+
     return (
         <>
             <IndexNavbar />
             {/* shopInfo */}
-            <div class="shop-info-wrap">
-                <div class="shop-info-items">
-                    <div class="shop-info-item left">
-                        <div class="shop-info-image">
+            <div className="shop-info-wrap">
+                <div className="shop-info-items">
+                    <div className="shop-info-item left">
+                        <div className="shop-info-image">
                             <img id="shopImg" className="item-img" alt="shop_img" src={imgSrc} />
                         </div>
                     </div>
@@ -83,6 +79,7 @@ function ProductDetailPage() {
                                         </div>
                                     </Col>
                                 </Row>
+                                
                                 <Row style={{ height: '120px'}}>
                                     <Col md="4" className="text-center text-md-left">
                                         <div className="delivery">
@@ -99,65 +96,38 @@ function ProductDetailPage() {
                                         </div>
                                     </Col>
                                 </Row>
-                                <Row style={{ height: '120px'}}>
+                                {/* 옵션 있는 경우만 출력 */}
+                                { choices.length != 0 &&
+                                    <Row style={{ height: '120px'}}>
+                                    
                                         <Col md="4" className="text-center text-md-left">
-                                        <div className="option-choice">
-                                            <span>옵션 선택</span>
-                                        </div>
-                                    </Col>
-                                    <Col>
-                                    <select
-                                        value='option'
-                                        // onChange={(e) =>
-                                        //     setForm({ ...form, day: e.target.value })
-                                        // }
-                                    >
-                                        <option value="" selected>옵션</option>
-                                        {
-                                            choices.map(
-                                                choice => 
-                                                <option value={choice.choiceId}>
-                                                    {choice.content}
-                                                </option>
-                                        )}
-                                    </select>
-                                        {/* <UncontrolledDropdown nav inNavbar className='sdp-option-dropdown-wrapper'>
-                                            <DropdownToggle className='sdp-option-dropdown'>
-                                            옵션
-                                            </DropdownToggle>
-                                            <DropdownMenu
-                                            aria-labelledby="dropdownMenuButton"
-                                            className='sdp-option-dropdownmenu'
+                                            <div className="option-choice">
+                                                <span>옵션 선택</span>
+                                            </div>
+                                        </Col> 
+                                        <Col>
+                                            <select
+                                                value='option'
+                                                // onChange={(e) =>
+                                                //     setForm({ ...form, day: e.target.value })
+                                                // }
                                             >
-                                            {
-                                                this.state.choices.map(
-                                                    choice =>
-                                                    <DropdownItem className="sdp-option-dropdownitem">
-                                                        {choice.content}
-                                                    </DropdownItem>
-                                            )}
-                                            </DropdownMenu>
-                                        </UncontrolledDropdown> */}
-                                    </Col>
-                                </Row>
-                                
-                                {/* <Row className="option-row" style={{ height: '55px' }}>
-                                    <Col md="4">
-                                        <div className="option">
-                                            옵션
-                                        </div>
-                                    </Col>
-                                    <Col>
-                                        <div className="option-btns">
-                                        {
-                                            this.state.choices.map(
-                                                choice =>
-                                                <Button type="button" className="option-btn btn-secondary">{choice.content}</Button>
-                                        )}
-                                        </div> 
-                                    </Col> 
-                                </Row>  */}
-                                <Row className="product-total" style={{ height: '50px' }}>
+                                                <option value="" selected>옵션</option>
+                                                {
+                                                    choices.map(
+                                                        choice => 
+                                                        <option value={choice.choiceId}>
+                                                            {choice.content}
+                                                        </option>
+                                                )}
+                                            </select>
+                                        </Col> 
+                                    </Row>
+
+                            
+                                }
+
+                                <Row className="product-total" style={{ height: '120px' }}>
                                     <Col md="4">
                                         총 상품 금액
                                     </Col>
@@ -241,7 +211,7 @@ function ProductDetailPage() {
             </div>{" "}
 
             <div className="btn-list">
-                <button type="button" class="btn-round btn"
+                <button type="button" className="btn-round btn"
                     onClick={goToList}> 목록 </button>
             </div>
             <VeginFooter />
