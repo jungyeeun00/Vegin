@@ -19,11 +19,13 @@ const PlacePage = () => {
     const [dir, setDir] = useState('next');
     const [table, setTable] = useState(null);
     const [xPosition, setX] = useState('-741');
+    const [orgTable, setorgTable] = useState([]);
 
     useEffect(() => {
         //place_info table 불러오기
         PlaceService.getPlaces().then((res) => {
             setTables(res.data);
+            setorgTable(res.data);
         })
 
         //kakao map 생성
@@ -91,7 +93,16 @@ const PlacePage = () => {
         setSearchClick(false);
     }
 
-    const setSearchHandler = (e) => { // input 창에 onChange 이벤트
+    const setSearchHandler = () => { // input 창에 onChange 이벤트
+        var n_tables = orgTable.filter(it => {
+            return it.upso_NM.includes(searchInput);
+        });
+        setTables(n_tables);    //필터가 여러번 되면서 걸러짐
+        alert(n_tables+searchInput);
+        console.log(n_tables);
+    }
+
+    const setSearchContent = (e) => {
         setSearchInput(e.target.value);
     }
 
@@ -169,9 +180,9 @@ const PlacePage = () => {
                         </button>
                         <div id="place-list-main" className="place-list-main">
                             <div className="place-search-bar">
-                                <span className='place-search-icon'> <FontAwesomeIcon icon={faMagnifyingGlass} /> </span>
+                                <span className='place-search-icon' onClick={setSearchHandler}> <FontAwesomeIcon icon={faMagnifyingGlass} /> </span>
                                 <input type="search" placeholder="검색하기" value={searchInput}
-                                    onFocus={searchOnHandler} onBlur={searchOffHandler} onChange={setSearchHandler} />
+                                    onFocus={searchOnHandler} onBlur={searchOffHandler} onChange={setSearchContent} />
                                 {searchInput.length !== 0 &&
                                     <button className="btn-clear" onClick={searchInputRemoveHandler}>
                                         <FontAwesomeIcon icon={faCircleXmark} />

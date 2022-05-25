@@ -94,7 +94,7 @@ class ListBoardComponent extends Component {
         return (
             <li className='page-item'>
                 <a className='page-link' onClick={() => this.listBoard(1)} tabIndex="-1">
-                    <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                    <i className="fa fa-angle-double-left" aria-hidden="true"></i>
                 </a>
             </li>
         );
@@ -104,7 +104,7 @@ class ListBoardComponent extends Component {
         return (
             <li className='page-item'>
                 <a className='page-link' onClick={() => this.listBoard(this.state.paging.pageNumCountTotal)} tabIndex="-1">
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    <i className="fa fa-angle-double-right" aria-hidden="true"></i>
                 </a>
             </li>
         );
