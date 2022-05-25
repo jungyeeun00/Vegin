@@ -16,6 +16,9 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     public String SELECT_RECIPE = ""
             + "SELECT r FROM Recipe r";
 
+    public String SELECT_RECIPE_NAME = ""
+            + "SELECT r.name FROM Recipe r WHERE r.id=?1";
+
     public String SELECT_RECIPE_INGREDIENT = ""
             + "select i from Ingredient i where i.recipeId=:id and i.category=:category";
 
@@ -36,7 +39,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
     public String SELECT_COUNT_RECIPE_CATE_LIST =
             "SELECT count(r) FROM Recipe r WHERE category=:category ORDER BY id";
-
 
     // 전체(검색 포함)
     public String SELECT_RECIPE_LIST_PAGED_WITH_KEYWORD =
@@ -162,6 +164,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     @Query(value = ADD_VIEW_COUNT, nativeQuery = true)
     Integer addViewCount(final Integer id);
 
-//    @Query(value = SELECT_TEST, nativeQuery = true)
-//    List<Recipe> findKeywordTest(final String searchInput);
+    @Query(value = SELECT_RECIPE_NAME, nativeQuery = true)
+    String findNameById(Integer id);
 }

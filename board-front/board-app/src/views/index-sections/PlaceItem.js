@@ -6,63 +6,23 @@ import React, { Component, useEffect, useState } from 'react';
 import { Col, Row } from 'reactstrap';
 
 const PlaceItem = ({place, changeShowDetail}) => {
-    const { UPSO_NM, COB_CODE_NM, CRTFC_GBN_NM, RDN_CODE_NM, TEL_NO } = place;
-    const [img, setImg] = useState(null);
-    var image = null;
-
-    const Kakao = axios.create({
-        baseURL: 'https://dapi.kakao.com', // 공통 요청 경로를 지정해준다.
-        headers: {
-          Authorization: 'KakaoAK 11a1559feddfabd645cb5d5bb075dd14',
-        },
-      });
-
-      useEffect(() => {
-        //   bookSearchHttpHandler(query); // 컴포넌트 마운트 후에, 함수를 호출한다.
-        imageSearchHttpHandler(UPSO_NM);
-      }, []);
-
-      // search image api
-      const imageSearch = (params) => {
-        return Kakao.get('/v2/search/image', { params });
-      };
-
-      const imageSearchHttpHandler = async (query) => {
-        // Parameter 설정
-        const params = {
-          query: query,
-          sort: 'accuracy', // accuracy | recency 정확도 or 최신
-          page: 1, // 페이지번호
-          size: 10, // 한 페이지에 보여 질 문서의 개수
-        };
-    
-        const { data } = await imageSearch(params); // api 호출
-        console.log(data.documents[0].image_url);
-        setImg(data.documents[0].image_url);
-        image = img;
-        // console.log(UPSO_NM+" : "+image);
-      };
-
-      const getImg = () => {
-        return image;
-      }
+    const { upso_NM, cob_CODE_NM, crtfc_GBN_NM, rdn_CODE_NM, tel_NO, image } = place;
 
     return (
         <>
             <Row>
                 <Col md="4" className="list-img-col">
-                    {/* {!image && <img className="list-img" alt="place_img" src={require("assets/img/place_item.jpg")} />} */}
-                    {img && <img className="list-img" alt="place_img" src={()=>getImg} />}
+                    { <img className="list-img" alt="place_img" src={image} />}
                 </Col>
                 <Col>
                     <Row className="name-category">
-                        <div className='place-name' onClick={changeShowDetail}>{UPSO_NM}</div>
-                        <div className='place-category'>{COB_CODE_NM}</div>
+                        <div className='place-name' onClick={changeShowDetail}>{upso_NM}</div>
+                        <div className='place-category'>{cob_CODE_NM}</div>
                     </Row>
-                    <div className="place-address">{RDN_CODE_NM}</div>
+                    <div className="place-address">{rdn_CODE_NM}</div>
                     <div className="place-time">
                         <span><FontAwesomeIcon icon={faPhone} /></span>
-                        <span>{TEL_NO}</span>
+                        <span>{tel_NO}</span>
                     </div>
                 </Col>
             </Row>

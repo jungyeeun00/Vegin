@@ -10,15 +10,19 @@ import {
 import PlaceDetailItem from './PlaceDetailItem';
 import PlaceItem from './PlaceItem';
 import axios from 'axios';
+import PlaceService from 'service/PlaceService';
 
-function PlaceListItem() {
+
+//PlacePage로 삽입해서 여기 안씀
+/*
+const PlaceListItem = ({showPlaceDetail, trash}) => {
     const [searchClick, setSearchClick] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [open, setOpen] = useState(false);
     const [showDetail, setShowDetail] = useState(false);
     const [dir, setDir] = useState('next');
-    const [places, setPlaces] = useState(null);
-    const [place, setPlace] = useState(null);
+    const [tables, setTables] = useState([]);
+    const [table, setTable] = useState(null);
 
     const searchOnHandler = () => {
         setSearchClick(true);
@@ -38,66 +42,11 @@ function PlaceListItem() {
     const [xPosition, setX] = useState('-741');
 
     useEffect(() => {
-        axios
-            .get('http://openapi.seoul.go.kr:8088/41497a6663656b6634335950466b78/json/CrtfcUpsoInfo/1/1000/')
-            .then((response) => {
-                // setPlaces(response['data']['CrtfcUpsoInfo']['row']);
-                const res = response['data']['CrtfcUpsoInfo']['row'];
-
-                const result = res.filter(it => it.CRTFC_GBN == '14')
-                // addImg(places);
-                // const imgresult = result.map(it => {
-                //     const tt = imageSearchHttpHandler(it.UPSO_NM)
-                //     // console.log(tt);
-                //     it.img = imageSearchHttpHandler(it.UPSO_NM)
-                //     // return {...it, img:}
-                // })
-                setPlaces(result);
-                // console.log(imgresult);
-            })
-            .catch((e) => {
-                console.log(e);
-            })
-        // imageSearchHttpHandler(UPSO_NM);
-
-    }, []);
-
-    const addImg = (data) => {
-        data.map(it => {
-            console.log(it.UPSO_NM)
-            // it.img = imageSearchHttpHandler(it.UPSO_NM)
-            // return {...it, img:}
+        PlaceService.getPlaces().then((res) => {
+            setTables(res.data);
+            console.log(res.data);
         })
-    }
-
-    const Kakao = axios.create({
-        baseURL: 'https://dapi.kakao.com', // 공통 요청 경로를 지정해준다.
-        headers: {
-            Authorization: 'KakaoAK 11a1559feddfabd645cb5d5bb075dd14',
-        },
-    });
-
-    // search image api
-    const imageSearch = (params) => {
-        return Kakao.get('/v2/search/image', { params });
-    };
-
-    const imageSearchHttpHandler = async (query) => {
-        // Parameter 설정
-        const params = {
-            query: query,
-            sort: 'accuracy', // accuracy | recency 정확도 or 최신
-            page: 1, // 페이지번호
-            size: 10, // 한 페이지에 보여 질 문서의 개수
-        };
-
-        const { data } = await imageSearch(params); // api 호출
-        return data;
-        // console.log(data.documents[0].image_url);
-        // setImg(data.documents[0].image_url);
-        // image = data.documents[0].image_url;
-        // console.log(UPSO_NM+" : "+image);
-    };
+    }, []);
 
     // button 클릭 시 토글
     const toggleMenu = () => {
@@ -113,17 +62,16 @@ function PlaceListItem() {
     };
 
     const changeShowDetail = (data) => {
-        setPlace(data);
+        //PlacePage.js의 showPlaceDetail을 호출? 좌표 전달
+        trash="hello";
+        showPlaceDetail("hello");
+        setTable(data)
         setShowDetail(!showDetail);
-    }
-
-    if (!places) {
-        return null;
     }
 
     return (
         <>
-            {showDetail && <PlaceDetailItem changeShowDetail={changeShowDetail} place={place} />}
+            {showDetail && <PlaceDetailItem changeShowDetail={changeShowDetail} place={table}/>}
             {!showDetail &&
                 <div className="pl-side" style={{ transform: `translatex(${-xPosition}px)` }}>
                     <button
@@ -150,9 +98,12 @@ function PlaceListItem() {
                             }
                         </div>
                         <Container>
-                            {places.map((place) => (
-                                <PlaceItem key={place.CRTFC_UPSO_MGT_SNO} changeShowDetail={() => changeShowDetail(place)} place={place} />
-                            ))}
+                            {
+                                tables.map(
+                                    table => 
+                                    <PlaceItem key={table.id} changeShowDetail={() => changeShowDetail(table)} place={table} />
+                                )
+                            }
                         </Container>
                     </div>
                 </div>
@@ -162,3 +113,4 @@ function PlaceListItem() {
 }
 
 export default PlaceListItem;
+*/
