@@ -66,6 +66,7 @@
 
     .shop-best-table, .shop-items-table {
         display: grid;
+        justify-content: space-evenly;
         grid-template-columns: auto auto auto auto;
         width:100%;
         padding-left: 0;
@@ -81,19 +82,24 @@
                 padding: 0;
 
                 #shopImg {
-                    width: 13vw;
+                    width: 230px;
+                    height: 250px;
+                    border: none;
                 }
 
                 .like {
                     max-width: 13vw;
                 }
+
+                #shopTitle {
+                    height: 90px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
             }
         }
     }
-
-    // .shop-best-table {
-    //     border-bottom: 2px solid #CCC5B9;
-    // }
 
     .shop-search-table {
         min-width: 600px;
@@ -124,8 +130,9 @@
                         border: none;
 
                         &:focus,
-                        &:active{
-                            color: #4A8451;
+                        &.active{
+                             // color: #4A8451;
+                             color: #75bf7f;
                             background-color: transparent;
                         }
 
@@ -195,7 +202,7 @@
                     position: absolute;
                     vertical-align: middle;
                     padding: 0;
-                    margin-right: 16px;
+                    margin-right: 46px;
                     right: 0;
                     color: gray;
                     background: center center no-repeat;
@@ -215,4 +222,8 @@
 .shop-hr{
     height: 1px;
     background-color: lightgray;
+}
+
+.pagination-wrapper{
+    text-align: center !important;
 }

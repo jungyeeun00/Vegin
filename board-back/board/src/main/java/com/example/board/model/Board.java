@@ -1,6 +1,7 @@
 package com.example.board.model;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -33,7 +34,7 @@ public class Board {
     private String contents;
 
     @Column(name = "memberId")
-    private Integer memberId;
+    private String memberId;
 
     @Column(name = "createdTime")
     private Date createdTime;
@@ -80,16 +81,18 @@ public class Board {
         this.contents = contents;
     }
 
-    public Integer getMemberId() {
+    public String getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(Integer memberNo) {
+    public void setMemberId(String memberNo) {
         this.memberId = memberNo;
     }
 
-    public Date getCreatedTime() {
-        return createdTime;
+    public String getCreatedTime() {
+        SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd");
+
+        return date.format(createdTime);
     }
 
     public void setCreatedTime(Date createdTime) {

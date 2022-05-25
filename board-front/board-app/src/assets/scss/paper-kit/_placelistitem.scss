@@ -4,7 +4,7 @@
 }
 
 .container {
-    overflow: hidden;
+    //overflow: hidden;
 }
 
 .pl-side {
@@ -146,9 +146,11 @@
 
         .name-category {
             margin: 0 2px;
-            padding-bottom: 5px;
+            padding-bottom: 3px;
+            padding-left: 4px;
             border-bottom: 2px solid lightgray;
             align-items: center;
+            text-align: left;
 
             .place-name {
                 font-size: 20px;
@@ -156,13 +158,14 @@
                 font-weight: 600;
                 color: black;
                 padding: 0;
+                width: 100%;
             }
 
             .place-category {
                 font-size: 11px;
                 text-align: left;
-                padding-left: 6px;
-                padding-top: 6px;
+                padding-left: 2px;
+                width: 100%;
             }
 
         }
@@ -174,13 +177,17 @@
         }
 
         .place-address {
+            padding-left: 7px;
+            text-align: left;
             margin-top: 6px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 550;
         }
 
         .place-time {
             margin-top: 3px;
+            text-align: left;
+            padding-left: 6px;
 
             span {
                 font-size: 13px;

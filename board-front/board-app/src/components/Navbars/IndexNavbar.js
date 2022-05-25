@@ -222,13 +222,13 @@ function IndexNavbar() {
                   style={{ minWidth: '211px' }}
                 >
                   <DropdownItem
-                    href="/community-page/:1"
+                    href="/board"
                     className="in-dropdown-item"
                   >
                     자유게시판
                       </DropdownItem>
                   <DropdownItem
-                    href="/community-page/:2"
+                    href="/diary"
                     className="in-dropdown-item"
                   >
                     다이어리

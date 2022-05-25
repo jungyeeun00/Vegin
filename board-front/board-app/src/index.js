@@ -24,6 +24,7 @@ import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import "bootstrap/scss/bootstrap.scss";
 import "assets/scss/paper-kit.scss?v=1.3.0";
 import "assets/demo/demo.css?v=1.3.0";
+
 // pages
 import Index from "views/Index.js";
 import NucleoIcons from "views/NucleoIcons.js";
@@ -42,6 +43,13 @@ import PlacePage from "views/examples/PlacePage";
 import CommunityPage from "views/examples/CommunityPage";
 import PostPage from "views/examples/PostPage";
 import WritePostPage from "views/examples/WritePostPage";
+import ShopNavTab from "views/index-sections/ShopNavTab";
+import ListBoardComponent from "views/index-sections/ListBoardComponent";
+import CreateBoardComponent from "views/index-sections/CreateBoardComponent";
+import ReadBoardComponent from "views/index-sections/ReadBoardComponent";
+import ListDiaryComponent from "views/index-sections/ListDiaryComponent";
+import ReadDiaryComponent from "views/index-sections/ReadDiaryComponent";
+import CreateDiaryComponent from "views/index-sections/CreateDiaryComponent";
 // others
 
 ReactDOM.render(
@@ -77,7 +85,7 @@ ReactDOM.render(
         render={(props) => <RecipePage {...props} />}
       />
       <Route
-        path="/recipe-detail-page"
+        path="/recipe-detail-page/:id"
         render={(props) => <RecipeDetailPage {...props} />}
       />
       <Route
@@ -85,21 +93,25 @@ ReactDOM.render(
         render={(props) => <ShopPage {...props} />}
       />
       <Route
-        path="/shop-detail-page"
+        path="/shop-detail-page/:productId"
         render={(props) => <ShopDetailPage {...props} />}
       />
+      {/* <Route
+        path="/shop-detail-page"
+        render={(props) => <ShopDetailPage {...props} />}
+      /> */}
       <Route
         path="/place-page"
         render={(props) => <PlacePage {...props} />}
       />
-      <Route
+      {/* <Route
         path="/community-page"
         render={(props) => <CommunityPage {...props} />}
       />
       <Route
         path="/community-page/:tab"
         render={(props) => <CommunityPage {...props} />}
-      />
+      /> */}
       <Route
         path="/community-post-page"
         render={(props) => <PostPage {...props} />}
@@ -120,6 +132,12 @@ ReactDOM.render(
         path="/mypage-page"
         render={(props) => <MypagePage {...props} />}
       />
+      <Route path='/board' component={ListBoardComponent}></Route>
+      <Route path='/create-board/:no' component={CreateBoardComponent}></Route>
+      <Route path='/read-board/:no' component={ReadBoardComponent}></Route>
+      <Route path='/diary' component={ListDiaryComponent}></Route>
+      <Route path='/create-diary/:no' component={CreateDiaryComponent}></Route>
+      <Route path='/read-diary/:no' component={ReadDiaryComponent}></Route>
       <Redirect to="/index" />
     </Switch>
   </BrowserRouter>,
