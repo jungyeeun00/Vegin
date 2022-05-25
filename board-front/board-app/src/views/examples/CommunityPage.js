@@ -6,6 +6,7 @@ import BestCommunityDiaryItems from 'views/index-sections/BestCommunityDiaryItem
 import CommunityFreeList from "../index-sections/CommunityFreeList";
 import CommunityDiaryList from "../index-sections/CommunityDiaryList";
 import VeginFooter from 'components/Footers/VeginFooter';
+import ListBoardComponent from 'views/index-sections/ListBoardComponent';
 
 function CommunityPageProgress(props) {
     const [activeTab, setActiveTab] = React.useState(props.tab);
@@ -74,6 +75,7 @@ function CommunityPageProgress(props) {
                         <hr className="community-hr" />
                         <CommunityDiaryList />
                     </TabPane>
+                    <ListBoardComponent/>
                 </TabContent>
             </div>
 

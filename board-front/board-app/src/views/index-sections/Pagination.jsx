@@ -25,10 +25,10 @@ const Pagination = (props) => {
     return (
         <nav id="pagination">
             <ul className="pagination">
-                <li class="page-item">
-                    <a id="prePageItem" aria-label="Previous" class="page-link" onClick={() => onPagePrevious()}>
-                        <i aria-hidden="true" class="fa fa-angle-left"></i>
-                        <span class="sr-only">Previous</span>
+                <li className="page-item">
+                    <a id="prePageItem" aria-label="Previous" className="page-link" onClick={() => onPagePrevious()}>
+                        <i aria-hidden="true" className="fa fa-angle-left"></i>
+                        <span className="sr-only">Previous</span>
                     </a>
                 </li>
                 {pages.map(page => (
@@ -39,10 +39,10 @@ const Pagination = (props) => {
                         <a id="idPageItem" className="page-link" onClick={() => onPageChange(page)}>{page}</a> {/* 페이지 번호 클릭 이벤트 처리기 지정 */}
                     </li>
                 ))}
-                <li class="page-item">
-                    <a id="nextPageItem" aria-label="Next" class="page-link" onClick={() => onPageNext()}>
-                        <i aria-hidden="true" class="fa fa-angle-right"></i>
-                        <span class="sr-only">Next</span>
+                <li className="page-item">
+                    <a id="nextPageItem" aria-label="Next" className="page-link" onClick={() => onPageNext()}>
+                        <i aria-hidden="true" className="fa fa-angle-right"></i>
+                        <span className="sr-only">Next</span>
                     </a>
                 </li>
             </ul>
