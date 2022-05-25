@@ -92,15 +92,14 @@ public class PagingUtil {
             } else if (tmpPageNumStart == currentPageNum) {
                 this.pageNumStart = tmpPageNumStart - (pageNumCountPerPage - 1);
                 tmpPageNumEnd = currentPageNum;
-            }else {
+            } else {
                 this.pageNumStart = tmpPageNumStart + 1;
-                tmpPageNumEnd = pageNumStart + pageNumCountPerPage;
+                tmpPageNumEnd = pageNumStart + (pageNumCountPerPage - 1);
             }
 
             this.pageNumEnd = (pageNumCountTotal < tmpPageNumEnd) ? pageNumCountTotal : tmpPageNumEnd;
-//            this.isPrev = currentPageNum > pageNumCountPerPage;
-            this.isPrev = currentPageNum > 1;
-            this.isNext = (pageNumEnd < pageNumCountTotal || (pageNumStart < pageNumEnd && currentPageNum < pageNumCountTotal));
+            this.isPrev = currentPageNum > pageNumCountPerPage;
+            this.isNext = pageNumEnd < pageNumCountTotal;
 
             this.objectEndNum = (objectCountTotal < objectEndNum) ? objectCountTotal : objectEndNum;
             return true;

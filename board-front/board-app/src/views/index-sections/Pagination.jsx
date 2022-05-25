@@ -21,16 +21,6 @@ const Pagination = (props) => {
         else
             pages = _.range(parseInt(currentPage / 5) * 5 + 1, parseInt(currentPage / 5) * 5 + 6);
     }
-    
-    // 16 17 18 19 20 -> 3,4
-    // 21 22 23 24 25 -> 4,5
-
-    // const LastHidden = () => {
-    //     pages.
-    // }
-
-    // const FirstHidden = () => {
-    // }
 
     return (
         <nav id="pagination">

@@ -76,14 +76,14 @@ const Magazine = () => {
           size="small"
           onClick={() => ref.current?.goBack()}
         >
-          <KeyboardArrowLeftIcon style={{ fontSize: 60 }} />
+          <KeyboardArrowLeftIcon style={{ fontSize: 60, color: "#66615b" }} />
         </Fab>
         <Fab
           className="card-button right"
           size="small"
           onClick={() => ref.current?.goNext()}
         >
-          <KeyboardArrowRightIcon style={{ fontSize: 60 }} />
+          <KeyboardArrowRightIcon style={{ fontSize: 60, color: "#66615b" }} />
         </Fab>
       </div>
     </div>
