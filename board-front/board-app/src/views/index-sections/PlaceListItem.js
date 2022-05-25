@@ -12,7 +12,10 @@ import PlaceItem from './PlaceItem';
 import axios from 'axios';
 import PlaceService from 'service/PlaceService';
 
-function PlaceListItem() {
+
+//PlacePage로 삽입해서 여기 안씀
+/*
+const PlaceListItem = ({showPlaceDetail, trash}) => {
     const [searchClick, setSearchClick] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [open, setOpen] = useState(false);
@@ -59,6 +62,9 @@ function PlaceListItem() {
     };
 
     const changeShowDetail = (data) => {
+        //PlacePage.js의 showPlaceDetail을 호출? 좌표 전달
+        trash="hello";
+        showPlaceDetail("hello");
         setTable(data)
         setShowDetail(!showDetail);
     }
@@ -107,3 +113,4 @@ function PlaceListItem() {
 }
 
 export default PlaceListItem;
+*/
