@@ -7,8 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import VeginFooter from 'components/Footers/VeginFooter';
 import BestRecipeItems from 'views/index-sections/BestRecipeItems';
 
-
-
 class RecipePage extends Component {
     constructor(props) {
         super(props);

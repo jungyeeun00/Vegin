@@ -19,6 +19,7 @@
 import React from "react";
 
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
+import MemberService from "service/MemberService";
 
 // reactstrap components
 import { Button, Card, Form, Input, InputGroup, InputGroupText, Container, Row, Col } from "reactstrap";
@@ -26,7 +27,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import VeginFooter from "components/Footers/VeginFooter";
 
-function RegisterPage() {
+function LoginPage() {
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const setUsernameHandler = (e) => {
+    setUsername(e.target.value);
+    console.log(username);
+  };
+
+  const setPasswordHandler = (e) => {
+    setPassword(e.target.value);
+  };
+
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {
     document.body.classList.add("register-page");
@@ -50,13 +63,13 @@ function RegisterPage() {
                 <Form className="register-form">
                   <div className="login-group">
                     <span className="login-icon"> <FontAwesomeIcon icon={faEnvelope} /> </span>
-                    <Input className='input-login' placeholder="Email" type="text" />
+                    <Input className='input-login' placeholder="Email" type="email" id="username" />
                   </div>
                   <div className="login-group">
                     <span className="login-icon"> <FontAwesomeIcon icon={faLock} /> </span>
-                    <Input className='input-login' placeholder="Password" type="text" />
+                    <Input className='input-login' placeholder="Password" type="password" id="password" />
                   </div>
-                  <Button block className="login-btn">
+                  <Button block className="login-btn" onClick={MemberService.login}>
                     LOGIN
                   </Button>
                 </Form>
@@ -64,8 +77,9 @@ function RegisterPage() {
                   <Button
                     className="signup-btn"
                     color="danger"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()} >
+                    href="/join-page"
+                    onClick={(e) => window.location.href="/join-page"} 
+                  >
                     SIGN UP
                   </Button>
                   <Button
@@ -86,4 +100,4 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage;
+export default LoginPage;

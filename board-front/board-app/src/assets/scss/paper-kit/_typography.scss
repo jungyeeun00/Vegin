@@ -4,55 +4,124 @@
     src: url('../../fonts/home-title-font/GmarketSansTTFLight.ttf');
 }
 
-h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, a, .td-name, td, button, input, select, textarea{
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6,
+p,
+.navbar,
+.brand,
+a,
+.td-name,
+td,
+button,
+input,
+select,
+textarea {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     font-family: $font-family-sans-serif;
     font-weight: $font-weight-light;
 }
 
-h1, .h1, h2, .h2, h3, .h3, h4, .h4{
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4 {
     margin: $margin-large-vertical 0 0;
 }
-h1, .h1 {
+
+h1,
+.h1 {
     font-size: $font-size-h1;
     // font-family: 'home-title-font-l';
 }
-h2, .h2{
+
+h2,
+.h2 {
     font-size: $font-size-h2;
 }
-h3, .h3{
+
+h3,
+.h3 {
     font-size: $font-size-h3;
     line-height: 1.4;
     margin: 20px 0 0px;
 }
-h4, .h4{
+
+h4,
+.h4 {
     font-size: $font-size-h4;
     line-height: 1.2em;
 }
-h5, .h5 {
+
+h5,
+.h5 {
     font-size: $font-size-h5;
     line-height: 1.4em;
 }
-h6, .h6{
+
+h6,
+.h6 {
     font-size: $font-size-h6;
     font-weight: $font-weight-bold;
     text-transform: uppercase;
     line-height: 1.5em;
 }
-p{
+
+p {
     font-size: $font-paragraph;
     line-height: $line-height-general;
     margin-bottom: 5px;
     font-family: 'home-title-font-l';
 }
 
-h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3 .small, .h4 .small, .h5 .small, .h6 .small {
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small,
+.h1 small,
+.h2 small,
+.h3 small,
+.h4 small,
+.h5 small,
+.h6 small,
+h1 .small,
+h2 .small,
+h3 .small,
+h4 .small,
+h5 .small,
+h6 .small,
+.h1 .small,
+.h2 .small,
+.h3 .small,
+.h4 .small,
+.h5 .small,
+.h6 .small {
     color: $dark-gray;
     line-height: $line-height-general;
 }
 
-h1 small, h2 small, h3 small, h1 .small, h2 .small, h3 .small {
+h1 small,
+h2 small,
+h3 small,
+h1 .small,
+h2 .small,
+h3 .small {
     font-size: 60%;
 }
 
@@ -62,67 +131,103 @@ h1 small, h2 small, h3 small, h1 .small, h2 .small, h3 .small {
 .footer-brand,
 .footer-big h5,
 .footer-big h4,
-.media .media-heading{
-    font-family: $font-family-sans-serif;;
+.media .media-heading {
+    font-family: $font-family-sans-serif;
+    ;
 
     &,
-    a{
+    a {
         color: $card-black-color;
         text-decoration: none;
     }
 }
-.title-uppercase{
+
+.title-uppercase {
     text-transform: uppercase;
 }
-.description{
+
+.description {
     color: $dark-gray;
 }
-blockquote small{
+
+blockquote small {
     font-style: normal;
 }
-.text-muted{
+
+.text-muted {
     color: $medium-gray;
 }
-.text-primary, .text-primary:hover{
+
+.text-primary,
+.text-primary:hover {
     color: $primary-color !important;
 }
-.text-info, .text-info:hover{
+
+.text-info,
+.text-info:hover {
     color: $info-color !important;
 }
-.text-success, .text-success:hover{
+
+.text-success,
+.text-success:hover {
     color: $success-color !important;
 }
-.text-warning, .text-warning:hover{
+
+.text-warning,
+.text-warning:hover {
     color: $warning-color !important;
 }
-.text-danger, .text-danger:hover{
+
+.text-danger,
+.text-danger:hover {
     color: $danger-color !important;
 }
-.glyphicon{
+
+.glyphicon {
     line-height: 1;
 }
 
 // Pulsing Heart (footer)
 .heart {
-  color: #EB5E28;
-  animation: heathing 1s ease infinite,;
+    color: #EB5E28;
+    animation: heathing 1s ease infinite, ;
 }
 
 @keyframes heathing {
-  0% { transform: scale( .75 ); }
-  20% { transform: scale( 1 ); }
-  40% { transform: scale( .75 ); }
-  60% { transform: scale( 1 ); }
-  80% { transform: scale( .75 ); }
-  100% { transform: scale( .75 ); }
+    0% {
+        transform: scale(.75);
+    }
+
+    20% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(.75);
+    }
+
+    60% {
+        transform: scale(1);
+    }
+
+    80% {
+        transform: scale(.75);
+    }
+
+    100% {
+        transform: scale(.75);
+    }
 }
-.footer .credits{
+
+.footer .credits {
     line-height: 85px;
 }
-.footer .btn{
+
+.footer .btn {
     margin-bottom: 0;
 }
-.blockquote{
+
+.blockquote {
     border-left: 0 none;
     border-bottom: 1px solid #CCC5B9;
     border-top: 1px solid #CCC5B9;
@@ -130,20 +235,80 @@ blockquote small{
     margin: 15px 0 10px;
     text-align: center;
 }
-.title{
+
+.title {
     margin-top: 30px;
     margin-bottom: 25px;
     min-height: 32px;
 }
-.title.text-center{
+
+.title.text-center {
     margin-bottom: 50px;
     font-family: 'home-title-font-l';
 }
 
-.login-title{
+.login-title,
+.join-title {
     font-family: 'home-title-font-l';
     font-size: 26px;
     text-align: center;
     margin-bottom: 40px;
     font-weight: 500;
+}
+
+.mypage {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-family: 'home-title-font-l';
+
+    .mypage-container {
+        max-width: 1000px;
+    }
+
+    .mypage-info {
+        padding: 20px;
+        margin-bottom: 15px;
+        border: 1px solid #CCC5B9;
+        //border-radius: 3%;
+        font-size: 28px;
+
+        .info-text {
+            font-size: 17px;
+            margin-top: 14px;
+            margin-bottom: 5px;
+
+            div {
+                margin-bottom: 5px;
+            }
+        }
+
+        .info-change-btn {
+            margin-top: 10px;
+            font-family: 'home-title-font-l';
+            background-color: #4A8451;
+            border: none;
+            font-size: 13px;
+
+            &:hover {
+                background-color: #2B4D2F;
+            }
+        }
+    }
+
+    .mypage-order,
+    .mypage-like,
+    .mypage-cart,
+    .mypage-post {
+        margin-bottom: 15px;
+        padding: 15px;
+        border: 1px solid #CCC5B9;
+        font-size: 20px;
+        //border-radius: 5%;
+    }
+
+    .mypage-order,
+    .mypage-like {
+        margin-right: 15px;
+    }
 }

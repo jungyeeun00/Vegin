@@ -29,7 +29,9 @@ import Index from "views/Index.js";
 import NucleoIcons from "views/NucleoIcons.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
-import RegisterPage from "views/examples/RegisterPage.js";
+import LoginPage from "views/examples/LoginPage.js";
+import JoinPage from "views/examples/JoinPage.js";
+import MypagePage from "views/examples/MypagePage.js";
 import AboutVeginPage from "views/examples/AboutVeginPage";
 import AboutVeganPage from "views/examples/AboutVeganPage";
 import ShopPage from "views/examples/ShopPage";
@@ -60,7 +62,7 @@ ReactDOM.render(
       />
       <Route
         path="/register-page"
-        render={(props) => <RegisterPage {...props} />}
+        render={(props) => <LoginPage {...props} />}
       />
       <Route
         path="/about-vegin-page"
@@ -108,15 +110,15 @@ ReactDOM.render(
       />
       <Route
         path="/login-page"
-        render={(props) => <RegisterPage {...props} />}
+        render={(props) => <LoginPage {...props} />}
       />
       <Route
         path="/join-page"
-        render={(props) => <LandingPage {...props} />}
+        render={(props) => <JoinPage {...props} />}
       />
       <Route
         path="/mypage-page"
-        render={(props) => <ProfilePage {...props} />}
+        render={(props) => <MypagePage {...props} />}
       />
       <Redirect to="/index" />
     </Switch>
