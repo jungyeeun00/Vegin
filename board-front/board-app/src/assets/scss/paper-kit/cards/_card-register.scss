@@ -9,14 +9,17 @@
   & label {
     margin-top: 15px;
   }
+
   & .card-title {
     color: #B33C12;
     text-align: center;
   }
+
   & .btn {
     margin-top: 30px;
-    margin-bottom : 30px;
+    margin-bottom: 30px;
   }
+
   & .forgot {
     text-align: center;
   }
@@ -26,6 +29,11 @@
   }
 }
 
-.login{
+.login {
   width: 400px;
+}
+
+.join {
+  padding-top: 50px;
+  width: 550px;
 }
