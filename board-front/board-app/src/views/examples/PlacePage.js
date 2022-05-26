@@ -52,9 +52,11 @@ const PlacePage = () => {
             // 마커에 표시할 인포윈도우를 생성 
             var infowindow = new kakao.maps.InfoWindow({
                 content: `
+                <div style='width:max-content'>
                 <div style='color: black; font-size:17px; font-weight:bold; margin:5px 5px 0 5px'>${element.upso_NM}</div>
                 <div style='margin:0px 5px; font-weight:bold; font-size:13px;'>☎${element.tel_NO}</div>
                 <div style='font-size:12px; margin:0px 5px 5px 5px'>${element.rdn_CODE_NM}</div>
+                </div>
                 `
             });
             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
@@ -98,8 +100,6 @@ const PlacePage = () => {
             return it.upso_NM.includes(searchInput);
         });
         setTables(n_tables);    //필터가 여러번 되면서 걸러짐
-        alert(n_tables+searchInput);
-        console.log(n_tables);
     }
 
     const setSearchContent = (e) => {
@@ -108,6 +108,12 @@ const PlacePage = () => {
 
     const searchInputRemoveHandler = () => {
         setSearchInput('');
+        setTables(orgTable);
+        // settableoriginal();
+    }
+
+    const settableoriginal = () => {
+        setTables(orgTable);
     }
 
     // button 클릭 시 토글
@@ -131,9 +137,11 @@ const PlacePage = () => {
             var n_y_DNTS = 0.0003 + parseFloat(data.y_DNTS);
 
             var iwContent = `
+            <div style='width:max-content'>
             <div style='color: black; font-size:17px; font-weight:bold; margin:5px 5px 0 5px'>${data.upso_NM}</div>
             <div style='margin:0px 5px; font-weight:bold; font-size:13px;'>☎${data.tel_NO}</div>
             <div style='font-size:12px; margin:0px 5px 5px 5px'>${data.rdn_CODE_NM}</div>
+            </div>
             `,
                 iwPosition = new kakao.maps.LatLng(n_y_DNTS, data.x_CNTS), //인포윈도우 표시 위치
                 iwRemoveable = true; //인포윈도우를 닫을 수 있는 x버튼이 표시
@@ -180,7 +188,7 @@ const PlacePage = () => {
                         </button>
                         <div id="place-list-main" className="place-list-main">
                             <div className="place-search-bar">
-                                <span className='place-search-icon' onClick={setSearchHandler}> <FontAwesomeIcon icon={faMagnifyingGlass} /> </span>
+                                <span className='place-search-icon' onClick={setSearchHandler} style={{cursor: 'pointer'}}> <FontAwesomeIcon icon={faMagnifyingGlass} /> </span>
                                 <input type="search" placeholder="검색하기" value={searchInput}
                                     onFocus={searchOnHandler} onBlur={searchOffHandler} onChange={setSearchContent} />
                                 {searchInput.length !== 0 &&

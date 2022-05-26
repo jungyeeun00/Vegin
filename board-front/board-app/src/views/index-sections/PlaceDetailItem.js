@@ -20,7 +20,6 @@ class PlaceDetailItem extends Component {
 
     render() {
         const { upso_NM, cob_CODE_NM, crtfc_GBN_NM, rdn_CODE_NM, tel_NO, image, food_MENU } = this.props.place;
-        // const image = this.props.image;
         var menus = food_MENU.split(", ");
         menus = menus.slice(-9);
         return (
