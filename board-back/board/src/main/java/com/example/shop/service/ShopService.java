@@ -8,11 +8,9 @@ import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.PumpStreamHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +18,7 @@ import com.example.shop.model.Choice;
 
 import javax.servlet.http.Cookie;
 import java.io.*;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ShopService {
@@ -201,7 +196,8 @@ public class ShopService {
         }
     }
 
-    public void recommend(String value) {
+    public List<Product> recommend(String value) {
+        List<Product> list = new ArrayList<>();
         if(value == null) {
             System.out.println("no recommendation : cookie is null");
         }
@@ -225,17 +221,28 @@ public class ShopService {
                 bufReader.close();
 
                 String[] command = new String[3];
-                command[0] = "python";
-                command[1] = "./rec/ShopRec.py";
-                command[2] = shopRepository.findNameById(id);
-                execPython(command);
+                command[0] = "python3";
+                command[1] = "./shopRec/ShopRec.py";
+                command[2] = String.valueOf(id);
+                String[] idList = execPython(command);
+                for(String i: idList)
+                   // System.out.println(i);
+                   // System.out.println(shopRepository.findById(Integer.parseInt(i)).get());
+                    list.add(shopRepository.findById(Integer.parseInt(i)).get());
+
+                for(Product p: list)
+                    System.out.println(p);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        return list;
     }
 
-    public static void execPython(String[] command) {
+    public static String[] execPython(String[] command) {
+        //String[] split = null;
+        String[] split = new String[0];
         try {
             CommandLine commandLine = CommandLine.parse(command[0]);
             for (int i = 1, n = command.length; i < n; i++) {
@@ -243,16 +250,28 @@ public class ShopService {
             }
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             PumpStreamHandler pumpStreamHandler = new PumpStreamHandler(outputStream);
-//            PumpStreamHandler pumpStreamHandler = new PumpStreamHandler(System.out);
             DefaultExecutor executor = new DefaultExecutor();
             executor.setStreamHandler(pumpStreamHandler);
             int result = executor.execute(commandLine);
-//            System.out.println("output: " + outputStream.toString());
-//            System.out.println(outputStream.toString());
+
+            String line = new String(outputStream.toByteArray());
+            // String[] split = line.split(System.lineSeparator());
+
+            split = line.split(",");
+            split[0] = split[0].replace("[", "");
+            split[7] = split[7].replace("]", "");
+            split[7] = split[7].replace("\n", "");
+
+            for (int i = 1; i < 8; i++) {
+                split[i] = split[i].replace(" ", "");
+            }
+            for(String s: split)
+                System.out.println(s);
+
+            //return split;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return split;
     }
-
-
 }
