@@ -1,10 +1,11 @@
-package com.example.diary.model;
+package com.example.board.model;
 
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -41,6 +42,11 @@ public class Diary {
 
     @Column(name = "counts")
     private Integer counts;
+
+    @PrePersist
+    public void prePersist(){
+        this.createdTime = this.createdTime == null ? new Timestamp(System.currentTimeMillis()) : this.createdTime;
+    }
 // ---Getter/Setter ---
 
     public Integer getNo() {

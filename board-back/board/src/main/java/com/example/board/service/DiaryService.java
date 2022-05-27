@@ -1,9 +1,9 @@
-package com.example.diary.service;
+package com.example.board.service;
 
-import com.example.diary.exception.ResourceNotFoundException;
-import com.example.diary.model.Diary;
-import com.example.diary.repository.DiaryRepository;
-import com.example.diary.util.PagingUtil;
+import com.example.board.exception.ResourceNotFoundException;
+import com.example.board.model.Diary;
+import com.example.board.repository.DiaryRepository;
+import com.example.board.util.PagingUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

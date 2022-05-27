@@ -1,6 +1,6 @@
-package com.example.diary.repository;
+package com.example.board.repository;
 
-import com.example.diary.model.Diary;
+import com.example.board.model.Diary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
