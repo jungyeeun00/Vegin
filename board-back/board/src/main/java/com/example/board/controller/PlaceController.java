@@ -39,7 +39,7 @@ public class PlaceController {
         try {
 
             URL url = new URL("http://openapi.seoul.go.kr:8088/" + "41497a6663656b6634335950466b78/" +
-                    "json/CrtfcUpsoInfo/1/1000");
+                    "json/CrtfcUpsoInfo/500/700");
             BufferedReader bf;
             bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
             result = bf.readLine();
@@ -56,6 +56,7 @@ public class PlaceController {
                 if(!tmp.get("CRTFC_GBN").equals("14")) continue;
 
                 if (placeService.findAllCount() > 500) break;
+                if (placeService.findcountUPSONM((String) tmp.get("UPSO_NM")) >= 1) continue;
 
                 //네이버 검색 api
                 String clientId = "KWZO2nm_58J0kYLojjaw"; //애플리케이션 클라이언트 아이디값"

@@ -29,7 +29,7 @@ public class PlaceService {
 
     public List<PlaceInfo> getAllPlaces() {
         String result = "";
-
+/*
         try {
             URL url = new URL("http://openapi.seoul.go.kr:8088/" + "41497a6663656b6634335950466b78/" +
                     "json/CrtfcUpsoInfo/500/800");
@@ -40,9 +40,7 @@ public class PlaceService {
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject)jsonParser.parse(result);
             JSONObject CrtfcUpsoInfo = (JSONObject)jsonObject.get("CrtfcUpsoInfo");
-            Long totalCount=(Long)CrtfcUpsoInfo.get("list_total_count");
 
-            JSONObject subResult = (JSONObject)CrtfcUpsoInfo.get("RESULT");
             JSONArray infoArr = (JSONArray) CrtfcUpsoInfo.get("row");
 
             for(int i=0;i<infoArr.size();i++){
@@ -95,13 +93,17 @@ public class PlaceService {
         }catch(Exception e) {
             e.printStackTrace();
         }
-
+*/
         return placeInfoRepository.findAll();
     }
 
     public ResponseEntity<PlaceInfo> getPlace(Long no){
         PlaceInfo placeInfo = placeInfoRepository.findById(no).orElseThrow(()->new ResourceNotFoundException("Not exist Place Data by id : ["+no+"]"));
         return ResponseEntity.ok(placeInfo);
+    }
+
+    public int findcountUPSONM(String searchInput){
+        return placeInfoRepository.countUPSONM(searchInput).intValue();
     }
 
     public PlaceInfo createPlaceInfo(PlaceInfo placeInfo){ return placeInfoRepository.save(placeInfo);}
