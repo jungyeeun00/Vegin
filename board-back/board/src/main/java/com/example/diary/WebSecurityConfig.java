@@ -1,4 +1,4 @@
-package com.example.board;
+package com.example.diary;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,11 +17,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http
-                /*... ì¤‘ëžµ ...*/
+                /*... Áß·« ...*/
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll() // - (1)
-                /* ì¤‘ëžµ */
+                /* Áß·« */
                 .anyRequest().authenticated().and()
                 .cors().and(); // - (2)
     }

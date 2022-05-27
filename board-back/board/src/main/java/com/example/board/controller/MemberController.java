@@ -1,19 +1,13 @@
-package com.example.member.controller;
+package com.example.board.controller;
 
-import com.example.member.dto.MemberDto;
-import com.example.member.model.Member;
-import com.example.member.service.MemberService;
+import com.example.board.dto.MemberDto;
+import com.example.board.model.Member;
+import com.example.board.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
 
@@ -38,12 +32,23 @@ public class MemberController {
 //        return memberService.loadUserByUsername(member.getId());
 //    }
 
-    @GetMapping("/login")
-    public ModelAndView loginForm() throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("member/loginForm");
-        return modelAndView;
-    }
+    //@GetMapping("/login")
+//    public ModelAndView loginForm() throws IOException {
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("member/loginForm");
+//        return modelAndView;
+//    }
+//    public ResponseEntity<?> login(@RequestParam(value = "username", required = false) String username, @RequestParam(value = "password", required = false) String password) {
+//        if (memberService.loadUserByUsername(username).getPassword() == password)
+//
+//        return memberService.;
+//    }
+//    public ModelAndView login() throws IOException {
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("member/loginForm");
+//        return modelAndView;
+//    }
+
 //    @GetMapping("/login")
 //    public ResponseEntity<?> login() throws IOException {
 //        ModelAndView modelAndView = new ModelAndView();
@@ -52,21 +57,25 @@ public class MemberController {
 //    }
 
     // 회원 가입 페이지
-    @GetMapping("/signup")
-    public ModelAndView signupForm() throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("member/signupForm");
-        modelAndView.addObject("member", new MemberDto());
-        return modelAndView;
-    }
+//    @GetMapping("/signup")
+//    public ModelAndView signupForm() throws IOException {
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("member/signupForm");
+//        modelAndView.addObject("member", new MemberDto());
+//        return modelAndView;
+//    }
 
     @PostMapping("/signup")
-    public ModelAndView signup(MemberDto memberDto) throws IOException {
-        memberService.signUp(memberDto);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/member/");
-        return modelAndView;
+    public String signup(@RequestBody MemberDto memberDto) throws IOException {
+        return memberService.signUp(memberDto);
     }
+//    @PostMapping("/signup")
+//    public ModelAndView signup(MemberDto memberDto) throws IOException {
+//        memberService.signUp(memberDto);
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("redirect:/member/");
+//        return modelAndView;
+//    }
 
     @GetMapping("/list")
     public ResponseEntity<Map> getAllMembers(@RequestParam(value = "p_num", required = false) Integer p_num) {

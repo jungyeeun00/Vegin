@@ -49,9 +49,7 @@ public class BoardService {
 //        return boardRepository.findAll();
 //    }
 
-    public Board createBoard(Board board) {
-        return boardRepository.save(board);
-    }
+    public Board createBoard(Board board) { return boardRepository.save(board); }
 
     public ResponseEntity<Board> getBoard(Integer no) {
         Board board = boardRepository.findById(no)

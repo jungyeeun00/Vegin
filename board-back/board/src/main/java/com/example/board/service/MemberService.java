@@ -1,11 +1,10 @@
-package com.example.member.service;
+package com.example.board.service;
 
-import com.example.member.exception.ResourceNotFoundException;
 import com.example.board.util.PagingUtil;
-import com.example.member.model.Member;
-import com.example.member.dto.MemberDto;
-import com.example.member.repository.MemberRepository;
-import lombok.AllArgsConstructor;
+import com.example.board.dto.MemberDto;
+import com.example.board.exception.ResourceNotFoundException;
+import com.example.board.model.Member;
+import com.example.board.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,6 +35,14 @@ public class MemberService implements UserDetailsService {
 
         return memberRepository.save(memberDto.toEntity()).getId();
     }
+//    public String signUp(MemberDto memberDto) {
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
+//
+//        // password를 암호화 한 뒤 db에 저장
+//
+//        return memberRepository.save(memberDto.toEntity()).getId();
+//    }
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
