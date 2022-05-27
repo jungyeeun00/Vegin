@@ -1,15 +1,11 @@
 package com.example.board.model;
 
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -47,6 +43,11 @@ public class Board {
 
     @Column(name = "counts")
     private Integer counts;
+
+    @PrePersist
+    public void prePersist(){
+        this.createdTime = this.createdTime == null ? new Timestamp(System.currentTimeMillis()) : this.createdTime;
+    }
 // ---Getter/Setter ---
 
     public Integer getNo() {

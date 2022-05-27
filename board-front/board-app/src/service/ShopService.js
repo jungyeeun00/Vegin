@@ -17,6 +17,10 @@ class ProductService {
     getChoices(productId) {
         return axios.post(SHOP_API_BASE_URL + "/shop-detail-page/" + productId,{}, { withCredentials: true })
     }
+
+    getRecommend() {
+        return axios.post(SHOP_API_BASE_URL ,{}, { withCredentials: true })
+    }
 }
 
 export default new ProductService();

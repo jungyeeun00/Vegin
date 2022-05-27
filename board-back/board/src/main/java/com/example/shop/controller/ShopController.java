@@ -24,13 +24,14 @@ public class ShopController {
     private ShopService shopService;
 
     @PostMapping("")
-    public void getShopList(HttpServletRequest request) {
+    public List<Product> getShopList(HttpServletRequest request) {
         Cookie cookie = WebUtils.getCookie(request, "recCookie");
         if(cookie == null) {
-            shopService.recommend(null);
+          return shopService.recommend(null);
         }
-        else if(cookie != null) {
-            shopService.recommend(cookie.getValue());
+        //else if(cookie != null) {
+        else {
+          return shopService.recommend(cookie.getValue());
         }
     }
 

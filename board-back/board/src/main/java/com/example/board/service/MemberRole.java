@@ -1,4 +1,4 @@
-package com.example.member.service;
+package com.example.board.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

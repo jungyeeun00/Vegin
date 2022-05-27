@@ -1,7 +1,7 @@
-package com.example.diary.controller;
+package com.example.board.controller;
 
-import com.example.diary.model.Diary;
-import com.example.diary.service.DiaryService;
+import com.example.board.model.Diary;
+import com.example.board.service.DiaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

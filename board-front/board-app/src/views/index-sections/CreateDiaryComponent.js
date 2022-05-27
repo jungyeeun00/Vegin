@@ -58,7 +58,7 @@ class CreateDiaryComponent extends Component {
             });
         } else {
             BoardService.updateDiary(this.state.no, board).then(res => {
-                this.props.history.push('/diary');
+                this.props.history.push('/read-diary/' + this.state.no);
             });
         }
     }
@@ -122,6 +122,7 @@ class CreateDiaryComponent extends Component {
                                             <label>Contents</label>
                                             {/* <textarea placeholder='contents' name='contents' className='form-control' value={this.state.contents} onChange={this.changeContentsHandler} /> */}
                                             <CKEditor
+                                                // enterMode=CKEDITOR.ENTER_BR
                                                 className='wp-editor'
                                                 editor={ClassicEditor}
                                                 //data='<p>Hello from CKEditor 5!</p>'
