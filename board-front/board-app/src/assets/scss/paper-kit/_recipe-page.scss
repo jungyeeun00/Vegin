@@ -224,4 +224,38 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
             }
         }
     }
+
+    .bestItem-slider-wrapper {
+        display: grid;
+        justify-content: space-around;
+        margin-bottom: 40px;
+        height: 389px;
+    }
+
+    .bestItem-slider {
+        min-width: 1000px;
+
+        #recipeItem {
+            padding: 0;
+            margin: 10px;
+
+            #recipeImg {
+                width: 230px;
+                height: 250px;
+                object-fit: cover;
+                border: none;
+            }
+            #recipeTitle {
+                height: 90px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .recipe-text {
+                padding: 0.2vw;
+                margin: 0.34vw 0.2vw;
+            }
+        }
+    }
+    
 }

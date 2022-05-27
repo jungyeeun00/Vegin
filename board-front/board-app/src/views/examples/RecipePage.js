@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import IndexNavbar from 'components/Navbars/IndexNavbar';
-// import RecipeItems from "../index-sections/RecipeItems";
 import { faMagnifyingGlass, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import VeginFooter from 'components/Footers/VeginFooter';
-import BestRecipeItems from 'views/index-sections/BestRecipeItems';
+import RecipeItem from 'views/index-sections/RecipeItem';
 
-// from RecipeItems.js
-import VeginService from '../../service/VeginService';
-import { faUser, faHourglass, faEye } from "@fortawesome/free-regular-svg-icons";
+import RecipeService from 'service/RecipeService';
 
-import { Link } from 'react-router-dom';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const cateData = {
     cat0: '전체',
@@ -31,6 +30,14 @@ const cateData = {
     cat15: '기타'
 }
 
+const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4
+};
+
 class RecipePage extends Component {
     constructor(props) {
         super(props);
@@ -39,26 +46,28 @@ class RecipePage extends Component {
             searchInput: '',
             searchCancel: false,
             recipes: [],
+            recommend: [],
             curCate: 'cat0',
-            // curCate: sessionStorage.getItem('curCate'),
             p_num: 1,
             paging: {},
-            pagePrev: 0
+            pagePrev: 0,
         };
     }
 
-    componentWillMount() {
-        VeginService.getRecommend();
-    }
 
     componentDidMount() {
-        VeginService.getRecipes(cateData[this.state.curCate], this.state.searchInput, this.state.p_num).then((res) => {
+        RecipeService.getRecipes(cateData[this.state.curCate], this.state.searchInput, this.state.p_num).then((res) => {
             this.setState({
                 recipes: res.data.list,
                 p_num: res.data.pagingData.currentPageNum,
                 paging: res.data.pagingData
             });
         });
+        RecipeService.getRecommend().then((res) => { 
+            this.setState({
+                recommend: res.data
+            })
+         });
     }
 
     searchOnHandler = () => { // onFocus 이벤트
@@ -110,7 +119,7 @@ class RecipePage extends Component {
 
     // paging
     listRecipe = (curCate, searchInput, p_num) => {
-        VeginService.getRecipes(cateData[curCate], searchInput, p_num).then((res) => {
+        RecipeService.getRecipes(cateData[curCate], searchInput, p_num).then((res) => {
             res.data.list != null
                 ? this.setState({
                     p_num: res.data.pagingData.currentPageNum,
@@ -125,13 +134,10 @@ class RecipePage extends Component {
                     pagePrev: p_num
                 })
         });
-        // {this.state.pagePrev == 1 ?
-        // document.getElementById("1").classList.remove('active')
-        // : document.getElementById(this.state.pagePrev.toString()).classList.remove('active')};
-        if(this.state.pagePrev == 0 && this.state.paging.currentPageNum != 1) {
+        if(this.state.pagePrev === 0 && this.state.paging.currentPageNum !== 1) {
             document.getElementById("1").classList.remove('active');
         }
-        else if(this.state.pagePrev != 0 && this.state.pagePrev != -1 && this.state.pagePrev != this.state.paging.currentPageNum) {
+        else if(this.state.pagePrev !== 0 && this.state.pagePrev !== -1 && this.state.pagePrev !== this.state.paging.currentPageNum) {
             document.getElementById(this.state.pagePrev.toString()).classList.remove('active');
         }
         window.scrollTo(0, 0);
@@ -145,8 +151,8 @@ class RecipePage extends Component {
         }
 
         return (pageNums.map((page) =>
-            <li className={`page-item ${this.state.paging.currentPageNum == page ? 'active' : ''}`} key={page.toString()} id={page.toString()}>
-                <a className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, page)}>{page}</a>
+            <li className={`page-item ${this.state.paging.currentPageNum === page ? 'active' : ''}`} key={page.toString()} id={page.toString()}>
+                <a href="{() => false}" className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, page)}>{page}</a>
             </li>
         ));
     }
@@ -155,7 +161,7 @@ class RecipePage extends Component {
         if (this.state.paging.isPrev) {
             return (
                 <li className="page-item" id="page-prev">
-                    <a className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum - 2))} tabIndex="-1">
+                    <a href="{() => false}" className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum - 2))} tabIndex="-1">
                         <i aria-hidden="true" class="fa fa-angle-left"></i>
                         <span class="sr-only">Previous</span>
                     </a>
@@ -168,7 +174,7 @@ class RecipePage extends Component {
         if (this.state.paging.isNext) {
             return (
                 <li className="page-item " id="page-next">
-                    <a className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum + 2))} tabIndex="-1">
+                    <a href="{() => false}" className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum + 2))} tabIndex="-1">
                         <i aria-hidden="true" class="fa fa-angle-right"></i>
                         <span class="sr-only">Next</span>
                     </a>
@@ -335,31 +341,16 @@ class RecipePage extends Component {
                     <div className="recipe-best">
                         <h3>RECOMMEND</h3>
                     </div>
-                    <div>
-                        
-                    <ul className="recipe-best-table">
-                    {this.state.recipes
-                        .filter((recipe) => recipe.id == 1 || recipe.id == 16 || recipe.id == 17 || recipe.id == 22)
-                        .map((recipe, i) => (
-                            <li key={recipe.id}>
-                            <div id="recipeItem" className="item" align="center">
-                            {/* 레시피 이미지 */}
-                            <img id="recipeImg" alt="recipe_img" src={recipe.img} />
-                            <p id="recipeTitle" className="item-title">{recipe.name}</p>   {/* 요리명 */}
-                            <span id="recipeServing" className="recipe-text">       {/* 인분 수 */}
-                                <FontAwesomeIcon icon={faUser} /> {recipe.servings}
-                            </span>
-                            <span id="recipeTime" className="recipe-text">          {/* 조리 시간 */}
-                                <FontAwesomeIcon icon={faHourglass} /> {recipe.time}
-                            </span>
-                            <span id="recipeViews" className="recipe-text">         {/* 조회 수 */}
-                                <FontAwesomeIcon icon={faEye} /> {recipe.views}
-                            </span>
-                            </div>
-                            </li>
-                    ))}
-                    </ul>
-                </div>
+                    <div className='bestItem-slider-wrapper'>
+                        <Slider {...settings} className='bestItem-slider'>
+                            {this.state.recommend.map(
+                                rec =>
+                                    <div className='best-items'>
+                                        < RecipeItem recipe={rec}/>
+                                    </div>
+                            )}
+                        </Slider>
+                    </div>
                     <hr className="recipe-hr" />
 
                     {/* 정렬 버튼 */}
@@ -370,7 +361,7 @@ class RecipePage extends Component {
                         </ul>
                     </div>
 
-                    {this.state.recipes.length == 0
+                    {this.state.recipes.length === 0
                         ? <p style={{ textAlign: 'center' }}>검색 결과가 없습니다.</p>
                         :
                         <div>
@@ -379,35 +370,7 @@ class RecipePage extends Component {
                                 {this.state.recipes.map(
                                     recipe =>
                                         <li key={recipe.id}>
-                                            <Link
-                                                className="pt-0 mt-0"
-                                                data-placement="bottom"
-                                                title="View Detail"
-                                                to={{
-                                                    pathname: `/recipe-detail-page/${recipe.id}`,
-                                                    state: {
-                                                        recipe: { recipe }
-                                                    }
-                                                }}
-                                                onClick={()=>VeginService.setViews(recipe.id)}
-                                            >
-                                                {/* <RecipeItems /> */}
-                                                {/* 레시피 아이템 */}
-                                                <div id="recipeItem" className="item" align="center">
-                                                    {/* 레시피 이미지 */}
-                                                    <img id="recipeImg" alt="recipe_img" src={recipe.img} />
-                                                    <p id="recipeTitle" className="item-title">{recipe.name}</p>   {/* 요리명 */}
-                                                    <span id="recipeServing" className="recipe-text">       {/* 인분 수 */}
-                                                        <FontAwesomeIcon icon={faUser} /> {recipe.servings}
-                                                    </span>
-                                                    <span id="recipeTime" className="recipe-text">          {/* 조리 시간 */}
-                                                        <FontAwesomeIcon icon={faHourglass} /> {recipe.time}
-                                                    </span>
-                                                    <span id="recipeViews" className="recipe-text">         {/* 조회 수 */}
-                                                        <FontAwesomeIcon icon={faEye} /> {recipe.views}
-                                                    </span>
-                                                </div>
-                                            </Link>
+                                            < RecipeItem recipe={recipe}/>
                                         </li>
                                 )}
                             </ul>

@@ -1,8 +1,8 @@
-package com.example.recipe.repository;
+package com.example.board.repository;
 
-import com.example.recipe.model.Ingredient;
-import com.example.recipe.model.Recipe;
-import com.example.recipe.model.Step;
+import com.example.board.model.Ingredient;
+import com.example.board.model.Recipe;
+import com.example.board.model.Step;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
@@ -166,4 +167,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
     @Query(value = SELECT_RECIPE_NAME, nativeQuery = true)
     String findNameById(Integer id);
+
+    Optional<Recipe> findById(Integer id);
 }

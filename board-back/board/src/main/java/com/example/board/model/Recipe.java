@@ -1,10 +1,9 @@
-package com.example.recipe.model;
+package com.example.board.model;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.*;
 
 @Getter
 @Setter
@@ -36,11 +35,5 @@ public class Recipe {
 
     @Column(name = "img")
     private String img;
-
-//    @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
-//    private List<Ingredient> ingredient = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
-//    private List<Step> step = new ArrayList<>();
 
 }

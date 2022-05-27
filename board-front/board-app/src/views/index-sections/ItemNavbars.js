@@ -22,7 +22,7 @@ class ItemNavbars extends Component {
         if (this.state.mode === 'recipe') {
             featured =
                 <div className="recipe-main">
-                    <BestRecipeItems />
+                    {/* <BestRecipeItems /> */}
                 </div>
         } else if (this.state.mode === 'shop') {
             featured =

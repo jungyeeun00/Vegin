@@ -1,4 +1,4 @@
-package com.example.recipe.model;
+package com.example.board.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +19,6 @@ public class Step {
     private Integer no;
 
     @Id
-//    @ManyToOne
-//    @JoinColumn(name = "recipe_id")
     @Column(name = "recipe_id")
     private Integer recipeId;
 
