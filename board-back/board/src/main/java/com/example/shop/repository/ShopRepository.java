@@ -1,7 +1,6 @@
 package com.example.shop.repository;
 import com.example.shop.model.Product;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -9,6 +8,7 @@ import com.example.shop.model.Choice;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 // DB의 SQL 역할하는 인터페이스
 public interface ShopRepository extends JpaRepository<Product, Integer> {
@@ -50,10 +50,6 @@ public interface ShopRepository extends JpaRepository<Product, Integer> {
     //List<Product> findFromTo(final Integer objectStartNum, final Integer objectCountPerPage);
     List<Product> findFromTo(Pageable pageable);
 
-//    @Query(value = SELECT_LIST_PAGED)
-//    //List<Product> findFromTo(final Integer objectStartNum, final Integer objectCountPerPage, Pageable pageable);
-//    List<Product> findFromTo(Pageable pageable);
-
 
     // 전체 (검색 포함)
     @Query(value = SELECT_LIST_PAGED_WITH_KEYWORD, nativeQuery = true)
@@ -79,4 +75,6 @@ public interface ShopRepository extends JpaRepository<Product, Integer> {
 
     @Query(value = SELECT_PRODUCT_NAME, nativeQuery = true)
     String findNameById(Integer id);
+
+    Optional<Product> findById(Integer id);
 }

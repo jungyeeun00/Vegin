@@ -20,9 +20,6 @@ const cateData = {
     cat5 : '패션잡화'
 }
 
-const sortBy = {
-    
-}
 class ShopPage extends Component {
 
     constructor(props) {
@@ -35,7 +32,7 @@ class ShopPage extends Component {
             p_num: 1,
             paging: {},
             pagePrev: 0,
-    
+            recommend: [],
             sort: 0
         };
     }
@@ -49,6 +46,13 @@ class ShopPage extends Component {
                 
              });
         });
+         ShopService.getRecommend().then((res) => {
+            console.log(res.data);
+            
+            this.setState({
+                recommend: res.data
+            })
+         });
        
         // curCate: 'cat0'
         curCate: sessionStorage.getItem('curCate')
@@ -79,11 +83,6 @@ class ShopPage extends Component {
             : this.setState({ 
                 p_num: res.data.pagingData.currentPageNum,
                 paging: res.data.pagingData,
-                // products: this.state.activeTab == 0 ? 
-                //      res.data.list
-                // :   [...res.data.list.sort((a, b) => {
-                //     return a.soldPrice - b.soldPrice;
-                //     })],
                 products: res.data.list,
                 pagePrev: p_num, 
                 empty: 0
@@ -170,19 +169,6 @@ class ShopPage extends Component {
         console.log(this.state.sort);
         this.listProduct(this.state.curCate, this.state.searchInput, this.state.sort, this.state.p_num);
     }
-    
-
-    // // // 최저가순 정렬
-    // lowPriceSort = () => {
-    //     const products = [...this.state.products.sort((a, b) => {
-    //         return a.soldPrice - b.soldPrice;
-    // })];
-    //     this.setState({
-    //         products: products
-    //     })
-    //     console.log(products);
-    //     this.listProduct(this.state.curCate, this.state.searchInput, this.state.p_num);
-    // }
 
     render() {
         return (
@@ -265,7 +251,7 @@ class ShopPage extends Component {
                     <div className="shop-best">
                         <h3>RECOMMEND</h3>
                     </div>
-                    < BestShopItems />
+                    < BestShopItems rec={this.state.recommend}/>
                     <hr className='shop-hr'/>
 
                     {/* 정렬 및 아이템 나열 부분 */}
