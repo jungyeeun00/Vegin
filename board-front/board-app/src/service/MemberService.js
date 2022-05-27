@@ -14,7 +14,7 @@ class MemberService {
         // const username = document.getElementById("username");
         // const password = document.getElementById("password");
         
-        return axios.post(LOGIN_API_BASE_URL, username, password);
+        return axios.get(LOGIN_API_BASE_URL, username, password);
 
 
         // axios({
@@ -56,14 +56,8 @@ class MemberService {
         return JSON.parse(localStorage.getItem("member"));
     }
 
-    signup(id, password, mname, phone, address) {
-        return axios.post(SIGNUP_API_BASE_URL, {
-            id, 
-            password,
-            mname,
-            phone,
-            address
-        });
+    signup(memberDto) {
+        return axios.post(SIGNUP_API_BASE_URL, memberDto);
     }
 }
 

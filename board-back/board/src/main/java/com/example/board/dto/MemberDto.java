@@ -1,14 +1,15 @@
-package com.example.member.dto;
+package com.example.board.dto;
 
-import com.example.member.model.Member;
-import lombok.*;
+import com.example.board.model.Member;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.lang.Nullable;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -27,9 +28,16 @@ public class MemberDto {
     @NotBlank
     private String phone;
 
+    @Nullable
     private String address = null;
 
+    @NotBlank
     private String email = null;
+
+    @Nullable
+    private String birthday = null;
+
+    private Timestamp createdDate;
 
     public Member toEntity() {
         return Member.builder()
@@ -39,16 +47,20 @@ public class MemberDto {
                 .phone(phone)
                 .address(address)
                 .email(email)
+                .birthday(birthday)
+                .createdDate(createdDate)
                 .build();
     }
 
     @Builder
-    public MemberDto(String id, String password, String name, String phone, String address, String email) {
+    public MemberDto(String id, String password, String name, String phone, String address, String email, String birthday, Timestamp createdDate) {
         this.id = id;
         this.password = password;
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.email = email;
+        this.birthday = birthday;
+        this.createdDate = createdDate;
     }
 }
