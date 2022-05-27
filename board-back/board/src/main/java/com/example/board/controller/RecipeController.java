@@ -1,8 +1,8 @@
-package com.example.recipe.controller;
+package com.example.board.controller;
 
-import com.example.recipe.model.Recipe;
-import com.example.recipe.model.Step;
-import com.example.recipe.service.RecipeService;
+import com.example.board.model.Recipe;
+import com.example.board.model.Step;
+import com.example.board.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+//@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
 @RestController
 @RequestMapping("/recipe-page")
 public class RecipeController {
@@ -25,13 +25,13 @@ public class RecipeController {
     private RecipeService recipeService;
 
     @PostMapping("")
-    public void getRecList(HttpServletRequest request) {
+    public List<Recipe> getRecList(HttpServletRequest request) {
         Cookie cookie = WebUtils.getCookie(request, "recCookie");
         if(cookie == null) {
-            recipeService.recommend(null);
+            return recipeService.recommend(null);
         }
-        else if(cookie != null) {
-            recipeService.recommend(cookie.getValue());
+        else {
+            return recipeService.recommend(cookie.getValue());
         }
     }
 

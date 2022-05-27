@@ -1,9 +1,9 @@
-package com.example.recipe.util;
+package com.example.board.util;
 
 import lombok.Getter;
 
 @Getter
-public class PagingUtil {
+public class PagingUtil2 {
     Integer currentPageNum;         // 현재 페이지 번호
 
     Integer objectCountTotal;       // 전체 글 수
@@ -25,7 +25,7 @@ public class PagingUtil {
      * 2) setObjectStartAndEnd()를 호출하여 한 화면에 표시되는 오브젝트의 시작과 마지막을 설정한다.
      *
      */
-    public PagingUtil() {
+    public PagingUtil2() {
         this.currentPageNum = 1;
         this.objectCountPerPage = 10;
         this.pageNumCountPerPage = 10;
@@ -40,7 +40,7 @@ public class PagingUtil {
      *
      * @param currentPageNum
      */
-    public PagingUtil(Integer currentPageNum) {
+    public PagingUtil2(Integer currentPageNum) {
         this.currentPageNum = (0 < currentPageNum) ? currentPageNum : 1;
         this.objectCountPerPage = 10;
         this.pageNumCountPerPage = 10;
@@ -57,7 +57,7 @@ public class PagingUtil {
      * @param objectCountPerPage
      * @param pageNumCountPerPage
      */
-    public PagingUtil(Integer currentPageNum, Integer objectCountPerPage, Integer pageNumCountPerPage) {
+    public PagingUtil2(Integer currentPageNum, Integer objectCountPerPage, Integer pageNumCountPerPage) {
         this.currentPageNum = (0 < currentPageNum) ? currentPageNum : 1;
         this.objectCountPerPage = (0 < objectCountPerPage) ? objectCountPerPage : 10;
         this.pageNumCountPerPage = (0 < pageNumCountPerPage) ? pageNumCountPerPage : 10;

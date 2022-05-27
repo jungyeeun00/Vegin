@@ -1,12 +1,10 @@
-package com.example.recipe.model;
+package com.example.board.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -29,9 +27,5 @@ public class Ingredient {
 
     @Column(name = "name")
     private String name;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "recipe_id")
-//    private Recipe recipe;
 
 }

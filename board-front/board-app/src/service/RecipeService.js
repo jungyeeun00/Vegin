@@ -2,10 +2,10 @@ import axios from 'axios';
 
 const RECIPE_BASE_URL = "http://localhost:8080/recipe-page"; 
 
-class VeginService {
+class RecipeService {
 
     getRecipes(category, searchInput, p_num) {
-        return axios.post(RECIPE_BASE_URL + "/" + category + "?searchInput=" + searchInput +"&" + "p_num=" + p_num, {}, { withCredentials: true })
+        return axios.post(RECIPE_BASE_URL + "/" + category + "?searchInput=" + searchInput +"&" + "p_num=" + p_num, {}, { withCredentials: true})
     }
 
     getIngredients(id) {
@@ -27,4 +27,4 @@ class VeginService {
     
 }
 
-export default new VeginService();
+export default new RecipeService();

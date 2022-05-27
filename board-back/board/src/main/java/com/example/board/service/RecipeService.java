@@ -1,13 +1,13 @@
-package com.example.recipe.service;
+package com.example.board.service;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.PumpStreamHandler;
 
-import com.example.recipe.model.Recipe;
-import com.example.recipe.model.Step;
-import com.example.recipe.repository.RecipeRepository;
-import com.example.recipe.util.PagingUtil;
+import com.example.board.model.Recipe;
+import com.example.board.model.Step;
+import com.example.board.repository.RecipeRepository;
+import com.example.board.util.PagingUtil2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -47,7 +47,7 @@ public class RecipeService {
     public ResponseEntity<Map> getPagingRecipe(Integer p_num) {
         Map result = null;
 
-        PagingUtil pu = new PagingUtil(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
+        PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
         List<Recipe> list = recipeRepository.findFromTo(pu.getObjectStartNum(), pu.getObjectCountPerPage());
         pu.setObjectCountTotal(findAllCount());
         pu.setCalcForPaging();
@@ -74,7 +74,7 @@ public class RecipeService {
         Map result = null;
         List<Recipe> list;
 
-        PagingUtil pu = new PagingUtil(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
+        PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
         if(category.equals("빵/디저트/과자")) {
             list = recipeRepository.findFromToByCateMult("빵", "디저트", "과자", pu.getObjectStartNum(), pu.getObjectCountPerPage());
             pu.setObjectCountTotal(findCateCount("빵") + findCateCount("디저트") + findCateCount("과자"));
@@ -106,7 +106,7 @@ public class RecipeService {
     public ResponseEntity<Map> getPagingRecipeWithKeyword(String searchInput, Integer p_num) {
         Map result = null;
 
-        PagingUtil pu = new PagingUtil(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
+        PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
         List<Recipe> list = recipeRepository.findFromToWithKeyword(searchInput, pu.getObjectStartNum(), pu.getObjectCountPerPage());
         pu.setObjectCountTotal(findCountWithKeyword(searchInput));
         pu.setCalcForPaging();
@@ -129,7 +129,7 @@ public class RecipeService {
         Map result = null;
         List<Recipe> list;
 
-        PagingUtil pu = new PagingUtil(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
+        PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
         if(category.equals("빵/디저트/과자")) {
             list = recipeRepository.findFromToByCateWithKeywordMult("빵", "디저트", "과자", searchInput, pu.getObjectStartNum(), pu.getObjectCountPerPage());
             pu.setObjectCountTotal(findCateCountWithKeywordMult("빵", "디저트","과자",searchInput));
@@ -168,7 +168,7 @@ public class RecipeService {
 
     public void writeLog(Cookie cookie, Integer id, long time) {
 
-        String path = "./board/src/main/resources/ViewLog.txt";
+        String path = "./board/src/main/resources/RecipeViewLog.txt";
 
         try {
             File file = new File(path);
@@ -183,7 +183,7 @@ public class RecipeService {
     }
 
     public void writeLog(Cookie cookie, String keyword, long time) {
-        String path = "./board/src/main/resources/SearchLog.txt";
+        String path = "./board/src/main/resources/RecipeSearchLog.txt";
         try {
             File file = new File(path);
             FileWriter fw = new FileWriter(file, true);
@@ -196,25 +196,27 @@ public class RecipeService {
         }
     }
 
-    public void recommend(String value) {
+    public List<Recipe> recommend(String value) {
+        List<Recipe> list = new ArrayList<>();
+
         if(value == null) {
             System.out.println("no recommendation : cookie is null");
         }
         else {
             try{
                 //파일 객체 생성
-                File file = new File("./board/src/main/resources/ViewLog.txt");
+                File file = new File("./board/src/main/resources/RecipeViewLog.txt");
                 //입력 스트림 생성
                 FileReader filereader = new FileReader(file);
                 //입력 버퍼 생성
                 BufferedReader bufReader = new BufferedReader(filereader);
                 String line = "";
-                int id = 0;
+                String id = "";
                 Long time = 0L;
                 while((line = bufReader.readLine()) != null){
                     String[] array = line.split("\t");
                     if(array[0].equals(value) && Long.parseLong(array[2]) > time)
-                        id = Integer.parseInt(array[1]);
+                        id = array[1];
                 }
                 //.readLine()은 끝에 개행문자를 읽지 않는다.
                 bufReader.close();
@@ -222,15 +224,22 @@ public class RecipeService {
                 String[] command = new String[3];
                 command[0] = "python";
                 command[1] = "./recipeRec/RecipeRec.py";
-                command[2] = recipeRepository.findNameById(id);
-                execPython(command);
+                command[2] = id;
+
+                String[] idList = execPython(command);
+                for(String i:idList)
+                    list.add(recipeRepository.findById(Integer.parseInt(i)).get());
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
+        return list;
     }
 
-    public static void execPython(String[] command) {
+    public static String[] execPython(String[] command) {
+        String[] split = new String[0];
         try {
             CommandLine commandLine = CommandLine.parse(command[0]);
             for (int i = 1, n = command.length; i < n; i++) {
@@ -242,15 +251,27 @@ public class RecipeService {
             DefaultExecutor executor = new DefaultExecutor();
             executor.setStreamHandler(pumpStreamHandler);
             int result = executor.execute(commandLine);
-            System.out.println("output: " + outputStream.toString());
-//            System.out.println(Arrays.toString(outputStream.toByteArray()));
-//            System.out.println(outputStream.toByteArray());
-//            String line = new String(outputStream.toByteArray());
-//            String[] split = line.split(System.lineSeparator());
-//            for(String name: split)
-//                System.out.println(name);
+            String line = new String(outputStream.toByteArray());
+            System.out.println(line);
+
+            split = line.split(",");
+
+//            split[0] = split[0].replace("[", "");
+//            split[7] = split[7].replace("]", "");
+//            split[7] = split[7].replace("\n", "");
+//
+//            for (int i = 1; i < 8; i++) {
+//                split[i] = split[i].replace(" ", ""); // 공백 지우기
+//            }
+
+            for(int i = 0; i < 8; i++) {
+                split[i] = split[i].replaceAll("[^0-9]", "");
+                System.out.println(split[i]);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return split;
     }
 }
