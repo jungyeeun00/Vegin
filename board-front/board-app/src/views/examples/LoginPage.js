@@ -32,42 +32,19 @@ class LoginPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: {},
-      password: {}
+      username: '',
+      password: ''
     }
-
-    //this.createBoard = this.createBoard.bind(this);
   }
 
-  componentDidMount() {
-    MemberService.login(this.state.username, this.state.password).then((res) => {
-      this.setState({
-        // p_num: res.data.pagingData.currentPageNum,
-        // paging: res.data.pagingData,
-        // boards: res.data.list
-      });
-    });
-  }
+  setUsernameHandler = (e) => {
+    this.setState({ username: e.target.value });
+  };
 
-//   const [username, setUsername] = React.useState("");
-//   const [password, setPassword] = React.useState("");
+  setPasswordHandler = (e) => {
+    this.setState({ password: e.target.value });
+  };
 
-//   const setUsernameHandler = (e) => {
-//     setUsername(e.target.value);
-//     console.log(username);
-//   };
-
-//   const setPasswordHandler = (e) => {
-//     setPassword(e.target.value);
-//   };
-
-//   document.documentElement.classList.remove("nav-open");
-//   React.useEffect(() => {
-//     document.body.classList.add("register-page");
-//     return function cleanup() {
-//       document.body.classList.remove("register-page");
-//     };
-// });
   render() {
     return (
       <>
@@ -85,13 +62,16 @@ class LoginPage extends Component {
                   <Form className="register-form">
                     <div className="login-group">
                       <span className="login-icon"> <FontAwesomeIcon icon={faEnvelope} /> </span>
-                      <Input className='input-login' placeholder="Email" type="email" id="username" />
+                      <Input className='input-login' placeholder="Email" type="email" id="username" onChange={this.setUsernameHandler} />
                     </div>
                     <div className="login-group">
                       <span className="login-icon"> <FontAwesomeIcon icon={faLock} /> </span>
-                      <Input className='input-login' placeholder="Password" type="password" id="password" />
+                      <Input className='input-login' placeholder="Password" type="password" id="password" onChange={this.setPasswordHandler} />
                     </div>
-                    <Button block className="login-btn" onClick={MemberService.login}>
+                    <Button block className="login-btn" onClick={() =>
+                      MemberService.login(this.state.username, this.state.password)
+                        .then(res => this.props.history.push("/index"))
+                        .catch(error => alert('아이디 혹은 비밀번호를 확인하세요.'))}>
                       LOGIN
                     </Button>
                   </Form>
@@ -100,7 +80,7 @@ class LoginPage extends Component {
                       className="signup-btn"
                       color="danger"
                       href="/join-page"
-                      onClick={(e) => window.location.href="/join-page"} 
+                      onClick={(e) => window.location.href = "/join-page"}
                     >
                       SIGN UP
                     </Button>
@@ -117,7 +97,7 @@ class LoginPage extends Component {
             </Row>
           </Container>
         </div>
-        <VeginFooter/>
+        <VeginFooter />
       </>
     );
   }
