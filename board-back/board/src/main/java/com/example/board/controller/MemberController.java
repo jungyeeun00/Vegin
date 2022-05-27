@@ -32,12 +32,12 @@ public class MemberController {
 //        return memberService.loadUserByUsername(member.getId());
 //    }
 
-    //@GetMapping("/login")
-//    public ModelAndView loginForm() throws IOException {
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("member/loginForm");
-//        return modelAndView;
-//    }
+    @GetMapping("/login")
+    public ModelAndView loginForm() throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("member/loginForm");
+        return modelAndView;
+    }
 //    public ResponseEntity<?> login(@RequestParam(value = "username", required = false) String username, @RequestParam(value = "password", required = false) String password) {
 //        if (memberService.loadUserByUsername(username).getPassword() == password)
 //
@@ -49,15 +49,8 @@ public class MemberController {
 //        return modelAndView;
 //    }
 
-//    @GetMapping("/login")
-//    public ResponseEntity<?> login() throws IOException {
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("member/login-page");
-//        return modelAndView;
-//    }
-
     // 회원 가입 페이지
-//    @GetMapping("/signup")
+    @GetMapping("/signup")
 //    public ModelAndView signupForm() throws IOException {
 //        ModelAndView modelAndView = new ModelAndView();
 //        modelAndView.setViewName("member/signupForm");
