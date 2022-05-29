@@ -1,8 +1,9 @@
-package com.example.shop.service;
+package com.example.board.service;
 
-import com.example.shop.model.Product;
-import com.example.shop.repository.ShopRepository;
-import com.example.shop.util.ShopPagingUtil;
+import com.example.board.model.Choice;
+import com.example.board.model.Product;
+import com.example.board.repository.ShopRepository;
+import com.example.board.util.ShopPagingUtil;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.PumpStreamHandler;
@@ -13,11 +14,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.example.shop.model.Choice;
-
 import javax.servlet.http.Cookie;
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class ShopService {

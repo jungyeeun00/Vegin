@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ShopItems from "./ShopItems";
 import "../../assets/scss/paper-kit/_shop-page.scss";
 import {
     NavLink,

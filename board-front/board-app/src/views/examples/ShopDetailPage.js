@@ -112,7 +112,7 @@ function ProductDetailPage() {
                                                 //     setForm({ ...form, day: e.target.value })
                                                 // }
                                             >
-                                                <option value="" selected>옵션</option>
+                                                <option value="" >옵션</option>
                                                 {
                                                     choices.map(
                                                         choice => 
@@ -197,9 +197,9 @@ function ProductDetailPage() {
                 </div>
                 <TabContent activeTab={activeTab} className="text-center">
                     <TabPane tabId="1">
-                        <p className="snt-detail-wrapper">
+                        <div className="snt-detail-wrapper">
                           <div style={{whiteSpace: 'pre-wrap'}}>{detail}</div>
-                        </p>
+                        </div>
                     </TabPane>
                     <TabPane tabId="2">
                         < Reviews />
