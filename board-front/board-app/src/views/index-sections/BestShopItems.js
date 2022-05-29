@@ -11,7 +11,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "assets/scss/paper-kit/_aboutvegan.scss";
-import styled from 'styled-components';
 
 
 function BestShopItems(props) {

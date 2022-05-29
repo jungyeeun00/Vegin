@@ -6,29 +6,31 @@ import {
 } from 'react-router-dom';
 import IndexNavbar from 'components/Navbars/IndexNavbar';
 import VeginFooter from 'components/Footers/VeginFooter';
-import VeginService from '../../service/VeginService';
+import RecipeService from 'service/RecipeService';
 
 function RecipeDetailPage() {
     const history = useHistory();
     const location = useLocation();
 
     const id = useParams().id;
-    const recipe = (location.state.recipe)['recipe'];
+    // const recipe = (location.state.recipe)['recipe'];
+    const recipe = (location.state.recipe);
+    console.log(location.state.recipe);
     
     const [ingres, setIngres] = useState([]);
     const [cates, setCates] = useState([]);
     const [steps, setSteps] = useState([]);
 
     useEffect(() => {
-        VeginService.getIngredients(id).then(res => 
+        RecipeService.getIngredients(id).then(res => 
             setIngres(Object.values(res.data))
         )
         
-        VeginService.getIngredients(id).then(res => 
+        RecipeService.getIngredients(id).then(res => 
             setCates(Object.keys(res.data))
         )
 
-        VeginService.getSteps(id).then(res =>
+        RecipeService.getSteps(id).then(res =>
             setSteps(res.data)
         )
 

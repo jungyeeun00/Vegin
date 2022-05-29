@@ -1,4 +1,5 @@
 import axios from 'axios';
+import qs from 'qs';
 
 const LOGIN_API_BASE_URL = "http://localhost:8080/member/login";
 const SIGNUP_API_BASE_URL = "http://localhost:8080/member/signup";
@@ -10,42 +11,21 @@ class MemberService {
     //     fetch(LOGIN_API_BASE_URL)
     // }
 
+
+
     login(username, password) {
         // const username = document.getElementById("username");
         // const password = document.getElementById("password");
-        
-        return axios.post(LOGIN_API_BASE_URL, username, password);
+        const axiosConfig = {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        }
 
 
-        // axios({
-        //     method: "POST",
-        //     url: LOGIN_API_BASE_URL,
-        //     data: {
-        //         "username": username.value,
-        //         "password": password.value
-        //     },
-        //     headers: {
-                
-        //     }
-        // }).then((res) => {
-        //     console.log(res);
-        // }).catch(err => {
-        //     console.log(err);
-        //     console.log(username.value);
-        // })
-
-        // return axios
-        //     .post(LOGIN_API_BASE_URL, {
-        //         username,
-        //         password
-        //     })
-        //     .then(res => {
-        //         if (res.data.accessToken) {
-        //             localStorage.setItem("member", JSON.stringify(res.data))
-        //         }
-
-        //         return res.data;
-        //     });
+        return axios.post(LOGIN_API_BASE_URL,
+            qs.stringify({ username: username, password: password }),
+            axiosConfig);
     }
 
     logout() {
@@ -56,14 +36,8 @@ class MemberService {
         return JSON.parse(localStorage.getItem("member"));
     }
 
-    signup(id, password, mname, phone, address) {
-        return axios.post(SIGNUP_API_BASE_URL, {
-            id, 
-            password,
-            mname,
-            phone,
-            address
-        });
+    signup(memberDto) {
+        return axios.post(SIGNUP_API_BASE_URL, memberDto);
     }
 }
 
