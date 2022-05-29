@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import IndexNavbar from 'components/Navbars/IndexNavbar';
-import BestShopItems from '../index-sections/BestShopItems';
-import AllShopItems from '../index-sections/AllShopItems';
+import ShopItem from '../index-sections/ShopItem';
+import Spinner from '../index-sections/Spinner';
 import VeginFooter from 'components/Footers/VeginFooter';
 import { faMagnifyingGlass, faCircleXmark, faListSquares } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ShopService from 'service/ShopService';
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import { Link } from "react-router-dom"
-import { red } from '@material-ui/core/colors';
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "assets/scss/paper-kit/_aboutvegan.scss";
 
 const cateData = {
     cat0 : '전체',
@@ -19,6 +19,14 @@ const cateData = {
     cat4 : '생활용품',
     cat5 : '패션잡화'
 }
+// recommend slider settings
+const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4
+ };
 
 class ShopPage extends Component {
 
@@ -33,7 +41,8 @@ class ShopPage extends Component {
             paging: {},
             pagePrev: 0,
             recommend: [],
-            sort: 0
+            sort: 0, // 정렬( default: 인기순(0) )
+            isLoading: false // Spinner
         };
     }
     componentDidMount() {
@@ -42,15 +51,13 @@ class ShopPage extends Component {
                 products: res.data.list,
                 p_num: res.data.pagingData.currentPageNum,
                 paging: res.data.pagingData,
-
-                
+                isLoading: false
              });
         });
-         ShopService.getRecommend().then((res) => {
-            console.log(res.data);
-            
+         ShopService.getRecommend().then((res) => { 
             this.setState({
-                recommend: res.data
+                recommend: res.data,
+                isLoading: true
             })
          });
        
@@ -162,12 +169,15 @@ class ShopPage extends Component {
     };
 
     // 정렬 탭
-    clickHandler = (id) => {
+    clickHandler = (sort) => {
         this.setState({
-            sort: id
+            sort: sort,
+            p_num: 1,
+            // 정렬 기준 searchInput 초기화
+            searchInput: ''
         });
         console.log(this.state.sort);
-        this.listProduct(this.state.curCate, this.state.searchInput, this.state.sort, this.state.p_num);
+        this.listProduct(this.state.curCate, this.state.searchInput, sort, this.state.p_num);
     }
 
     render() {
@@ -251,42 +261,46 @@ class ShopPage extends Component {
                     <div className="shop-best">
                         <h3>RECOMMEND</h3>
                     </div>
-                    < BestShopItems rec={this.state.recommend}/>
+                    {/* <div>
+                        { isLoading &&
+                             <Spinner /> }
+                    </div> */}
+
+                    <div className='bestItem-slider-wrapper'>
+                       { this.state.isLoading == false
+                        ? <div className='spinner'> <Spinner /> </div>
+                         :
+
+                        <Slider {...settings} className='bestItem-slider'>
+                            {  
+                                this.state.recommend.map(
+                                    product =>   
+                                        <ShopItem product={product} key={product.id}/>
+                                )
+                            } 
+                        </Slider>
+                        }
+                       
+                    </div>   
+                    
                     <hr className='shop-hr'/>
 
-                    {/* 정렬 및 아이템 나열 부분 */}
-                         {/* 정렬 버튼 */}
-                {/* < div className="shop-content-bar" >
-                    <ul className="shop-sort-list">
-                        <li className="orderItem orderItem10 active"><a>인기순</a></li>
-                        <button className="orderItem orderItem01" onClick={this.lowPriceSort(this.state.products)}><a>최저가순</a></button>
-                    </ul>
-                </div> */}
-
-
-                {/* < div className="shop-content-bar" >            
-                    <ul className="shop-sort-list">
-                        <li onClick={() => this.clickHandler(0)} style={{backgroundColor:'red'}}>인기순</li>
-                        <li onClick={() => this.clickHandler(1)} style={{backgroundColor:'blue'}}>최저가순</li>
-                    </ul>
-                </div> */}
-
-                <div className="type-buttons">      
+                {/* 정렬 및 아이템 나열 부분 */}
+                <div className="shop-content-bar"> 
                     <button 
-                       // id="cat0" 
                         type="button" 
-                        //className={`ml-1 btn ${this.state.curCate === 'cat0'? 'active' : ''}`}
+                        className={`shop-sort-btn ${this.state.sort === 0 ? 'active' : ''}`}
                         onClick={() => this.clickHandler(0)}
                     >
-                        인기순
-                    </button>
+                       <a>인기순</a>
+                    </button> 
                     <button 
-                        id="cat0" 
+                        
                         type="button" 
-                        //className={`ml-1 btn ${this.state.curCate === 'cat0'? 'active' : ''}`}
+                        className={`shop-sort-btn ${this.state.sort === 1 ? 'active' : ''}`}
                         onClick={() => this.clickHandler(1)}
                     >
-                        최저가순
+                        <a>최저가순</a>
                     </button>
                 </div>
 
@@ -301,40 +315,7 @@ class ShopPage extends Component {
                         this.state.products.map(
                             product =>
                             <li key={product.productId}>                   
-                                <Link
-                                    className="pt-0 mt-0"
-                                    data-placement="bottom"
-                                    title="View Detail"
-                                    to={{
-                                        pathname: `/shop-detail-page/${product.productId}`,
-                                        state: {
-                                            productName: `${product.productName}`,
-                                            soldPrice: `${product.soldPrice}`,
-                                            imgSrc: `${product.imgSrc}`,
-                                            detail: `${product.detail}`
-                                        }
-                                    }}
-                                > 
-                                        <div id="shopItem" className="item" align="center"
-                                        onClick = {() => this.readProduct(product.productId)} >
-                                            {/* 상품 이미지 */}
-                                            <img id="shopImg" className="item-img" alt="shop_img" src={product.imgSrc}/>
-                                            <div className="like">  {/* 관심 상품 버튼 */}
-                                                <button id="shopLike" type="button" className="like-button" title="like">
-                                                    <FontAwesomeIcon icon={faHeart} />
-                                                </button>
-                                            </div>
-                                            <p id="shopTitle" className="item-title">{product.productName}</p>                                  {/* 상품명 */}
-                                            {product.saleRate === 0
-                                            ? null
-                                            :  <span id="shopPer" className="shop-per shop-text">{product.saleRate}%</span>}                         {/* 할인율 */}
-                                            <span id="shopPrice" className="shop-price shop-text">₩{product.soldPrice}</span>            {/* 할인 O: 할인가, 할인 X: 정가 */}
-                                            {product.regPrice === product.soldPrice
-                                            ? null
-                                            : <span id="shopStrikePrice" className="shop-strike-price shop-text">₩{product.regPrice}</span> }   {/* 할인 O: 정가 */}
-                                        </div>
-                                </Link>
-
+                                 <ShopItem product={product}/>
                             </li> 
                         )}
                         </ul>

@@ -1,7 +1,7 @@
-package com.example.shop.controller;
-import com.example.shop.model.Choice;
-import com.example.shop.model.Product;
-import com.example.shop.service.ShopService;
+package com.example.board.controller;
+import com.example.board.model.Choice;
+import com.example.board.model.Product;
+import com.example.board.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
