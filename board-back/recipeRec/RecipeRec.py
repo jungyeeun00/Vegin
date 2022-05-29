@@ -56,6 +56,7 @@ def get_recommendations(id):
     # return indices[recipe_indices].index
     return list(map(int, indices[recipe_indices].index))
 
+
 def main(argv):
     print(get_recommendations(argv[1]))
 

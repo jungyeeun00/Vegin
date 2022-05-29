@@ -61,6 +61,8 @@ class RecipePage extends Component {
                 recipes: res.data.list,
                 p_num: res.data.pagingData.currentPageNum,
                 paging: res.data.pagingData
+            }, () => {
+                this.handleScrollPosition();
             });
         });
         RecipeService.getRecommend().then((res) => { 
@@ -69,6 +71,14 @@ class RecipePage extends Component {
             })
          });
     }
+
+    handleScrollPosition = () => {
+        const scrollPosition = sessionStorage.getItem("scrollPosition");
+        if (scrollPosition) {
+          window.scrollTo(0, parseInt(scrollPosition));
+          sessionStorage.removeItem("scrollPosition");
+        }
+    };
 
     searchOnHandler = () => { // onFocus 이벤트
         this.setState({
@@ -152,7 +162,7 @@ class RecipePage extends Component {
 
         return (pageNums.map((page) =>
             <li className={`page-item ${this.state.paging.currentPageNum === page ? 'active' : ''}`} key={page.toString()} id={page.toString()}>
-                <a href="{() => false}" className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, page)}>{page}</a>
+                <a className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, page)}>{page}</a>
             </li>
         ));
     }
@@ -161,7 +171,7 @@ class RecipePage extends Component {
         if (this.state.paging.isPrev) {
             return (
                 <li className="page-item" id="page-prev">
-                    <a href="{() => false}" className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum - 2))} tabIndex="-1">
+                    <a className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum - 2))} tabIndex="-1">
                         <i aria-hidden="true" class="fa fa-angle-left"></i>
                         <span class="sr-only">Previous</span>
                     </a>
@@ -174,7 +184,7 @@ class RecipePage extends Component {
         if (this.state.paging.isNext) {
             return (
                 <li className="page-item " id="page-next">
-                    <a href="{() => false}" className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum + 2))} tabIndex="-1">
+                    <a className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum + 2))} tabIndex="-1">
                         <i aria-hidden="true" class="fa fa-angle-right"></i>
                         <span class="sr-only">Next</span>
                     </a>
@@ -361,7 +371,7 @@ class RecipePage extends Component {
                         </ul>
                     </div>
 
-                    {this.state.recipes.length === 0
+                    {this.state.p_num === 0
                         ? <p style={{ textAlign: 'center' }}>검색 결과가 없습니다.</p>
                         :
                         <div>
