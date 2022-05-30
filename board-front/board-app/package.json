@@ -33,6 +33,7 @@
     "react-script": "^2.0.5",
     "react-scripts": "^5.0.0",
     "react-slick": "^0.28.1",
+    "react-stacked-carousel": "^1.1.4",
     "react-stacked-center-carousel": "^1.0.5",
     "reactstrap": "8.9.0",
     "slick-carousel": "^1.8.1",

@@ -12,34 +12,34 @@ import { Container } from "reactstrap";
 
 const data = [
   {
-    image: "https://assets.vogue.com/photos/61bd0b4a1b84e62f58b4d5a1/master/w_1920,c_limit/VO0222_Cover_Logo.jpg",
-    altText: "Somewhere",
-    caption: "Somewhere",
+    image: "https://vegreen.co.kr/img/banner/main/1920_850/04.jpg",
+    altText: "vegreen",
+    link: "https://vegreen.co.kr/",
   },
   {
-    image: "https://assets.vogue.com/photos/62033851bf3f223aebd2f948/master/w_1600,c_limit/VO0322_SocialCover_logo_R2.jpg",
-    altText: "Somewhere1",
-    caption: "Somewhere1",
+    image: "https://i.pinimg.com/originals/d4/4f/70/d44f70a2f2705a8ae2abf46cf0163ab1.jpg",
+    altText: "lush",
+    link: "https://www.lush.co.kr/goods/goods_list.php?cateCd=001019",
   },
   {
-    image: "https://assets.vogue.com/photos/61ae16157c13ee66d47c2972/master/w_1920,c_limit/VO0122_SocialCover_logo.jpg",
-    altText: "Somewhere2",
-    caption: "Somewhere2",
+    image: "https://vegantigerkorea.com/web/upload/ga09/main/pc-02.jpg",
+    altText: "vegantiger",
+    link: "https://vegantigerkorea.com/",
   },
   {
-    image: require("assets/img/soroush-karimi.jpg"),
-    altText: "Somewhere3",
-    caption: "Somewhere3",
+    image: "https://contents.sixshop.com/thumbnails/uploadedFiles/146325/default/image_1644374784678_500.png",
+    altText: "unademonaco",
+    link: "https://unademonaco.co.kr/home",
   },
   {
-    image: require("assets/img/federico-beccari.jpg"),
-    altText: "Somewhere4",
-    caption: "Somewhere4",
+    image: "https://benope.com/web/product/big/202111/4c5b3a8e408fc8ab98539afe5263e242.jpg",
+    altText: "benope",
+    link: "https://benope.com/",
   },
   {
-    image: require("assets/img/joshua-stannard.jpg"),
-    altText: "Somewhere5",
-    caption: "Somewhere6",
+    image: "https://codegreen.io/static/media/landing3.0b6258bd.jpg",
+    altText: "codegreen",
+    link: "https://codegreen.io/",
   }
 ];
 
