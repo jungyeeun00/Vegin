@@ -143,7 +143,7 @@ class ListDiaryComponent extends Component {
                     <div className="community-best">
                         <h3>BEST</h3>
                     </div>
-                        <BestCommunityDiaryItems />
+                        {this.state.boards.length != 0 && <BestCommunityDiaryItems diarys={this.state.boards} />}
                         <hr className="community-hr" />
                         <div className="community-pl-title">
                             <h5 className="text-center">다이어리</h5>

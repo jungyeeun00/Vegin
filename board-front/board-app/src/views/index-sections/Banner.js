@@ -8,7 +8,7 @@ class Banner extends Component {
         return (
             <>
             <div className='banner' >
-                <Link to="/about-page">
+                <Link to="/about-vegin-page">
                     <div className='banner-wrap'>
                         <div className='banner-content'>
                             <span> Vegin's story </span>

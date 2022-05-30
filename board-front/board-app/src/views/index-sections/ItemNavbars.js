@@ -6,15 +6,25 @@ import BestShopItems from './BestShopItems';
 import FeaturedPlaceItems from './FeaturedPlaceItems';
 import CommunityItems from './CommunityItems';
 import BestRecipeItems from './BestRecipeItems';
-import BestCommunityItems from './BestCommunityFreeItems';
+import BoardService from 'service/BoardService';
+import BestCommunityFreeItems from './BestCommunityFreeItems';
 
 
 class ItemNavbars extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            mode: 'recipe'
+            mode: 'recipe',
+            boards: [],
         }
+    }
+
+    componentDidMount() {
+        BoardService.getBoards(1).then((res) => {
+            this.setState({
+                boards: res.data.list
+            });
+        });
     }
 
     getContent() {
@@ -34,7 +44,7 @@ class ItemNavbars extends Component {
         } else if (this.state.mode === 'community') {
             featured =
                 <div className="community-main">
-                    <BestCommunityItems />
+                        {this.state.boards.length != 0 && <BestCommunityFreeItems boards={this.state.boards} />}
                 </div>
         }
         return featured;
