@@ -135,7 +135,7 @@
                            
                           
                         }
-                    }
+                    }  
                     .sdp-option-dropdown-wrapper {
                         .sdp-option-dropdownmenu{
                            background-color: white !important;
@@ -232,9 +232,10 @@
    
     .option-content {
         margin: 20px 0px 20px 15px;
-        border: 1px solid white;
+       // border: 1px solid white;
+        border: 3px solid #5e8a63e0;
         border-radius: 10px;
-        background-color: #82c289e0 !important;
+        //background-color: #82c289e0 !important;
         color: black;
         width: 500px;
      
@@ -267,13 +268,14 @@
                     border-radius: 20px;
                     border: white;
                     width: 35px;
-                    background-color: white;
+                    background-color: #5e8a63e0 !important;
+                    color: white;
 
                 }
     
                .calculator {
                    margin: 0px 10px 0px 10px;
-                   border: 1px solid white;
+                   border: 1px solid #5e8a63e0;
                    width: 60px;
                    text-align: center;
                    background-color: white;
