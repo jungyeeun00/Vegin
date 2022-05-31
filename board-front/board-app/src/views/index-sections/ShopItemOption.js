@@ -12,7 +12,10 @@ function ShopItemOption(props) {
     return (
         <>
              <div className="option-content">
-                <div className="option-name">{props.option.text}</div>
+                 { props.option.option == null 
+                 ?  <div className="option-name">{props.option.productName}</div>
+                 : <div className="option-name">{props.option.option}</div>
+                 }
                 <div className="quantity-wrapper">
                     <div className="option-delete">
                         <button

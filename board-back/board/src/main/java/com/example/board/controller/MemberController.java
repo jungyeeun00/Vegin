@@ -50,7 +50,7 @@ public class MemberController {
 //    }
 
     // 회원 가입 페이지
-    @GetMapping("/signup")
+//    @GetMapping("/signup")
 //    public ModelAndView signupForm() throws IOException {
 //        ModelAndView modelAndView = new ModelAndView();
 //        modelAndView.setViewName("member/signupForm");
