@@ -52,7 +52,9 @@ class ShopPage extends Component {
                 p_num: res.data.pagingData.currentPageNum,
                 paging: res.data.pagingData,
                 isLoading: false
-             });
+            }, () => {
+                this.handleScrollPosition();
+            });
         });
          ShopService.getRecommend().then((res) => { 
             this.setState({
@@ -64,6 +66,14 @@ class ShopPage extends Component {
         // curCate: 'cat0'
         curCate: sessionStorage.getItem('curCate')
     }
+
+    handleScrollPosition = () => {
+        const scrollPosition = sessionStorage.getItem("scrollPosition");
+        if (scrollPosition) {
+          window.scrollTo(0, parseInt(scrollPosition));
+          sessionStorage.removeItem("scrollPosition");
+        }
+    };
 
     changeCate = (e) => {
         this.setState({
@@ -81,20 +91,19 @@ class ShopPage extends Component {
     listProduct(curCate, searchInput, sort, p_num) {
         console.log("pageNum : "+ p_num );
         ShopService.getProducts(cateData[curCate], searchInput, sort, p_num).then((res) => {
-            console.log(res.data);
-            res.data.list == null 
-            ? this.setState({
-                empty: 1 // 검색 결과 없는 경우 
-            }) 
-            // 검색 결과 존재하지 않을 때 빈 리스트로 만들기
-            : this.setState({ 
-                p_num: res.data.pagingData.currentPageNum,
-                paging: res.data.pagingData,
-                products: res.data.list,
-                pagePrev: p_num, 
-                empty: 0
-            })
-            
+            res.data.list != null
+                ? this.setState({
+                    p_num: res.data.pagingData.currentPageNum,
+                    paging: res.data.pagingData,
+                    recipes: res.data.list,
+                    pagePrev: p_num
+                })
+                : this.setState({
+                    p_num: 0,
+                    paging: {},
+                    recipes: [],
+                    pagePrev: p_num
+                })
         });
         if(this.state.pagePrev == 0 && this.state.paging.currentPageNum != 1) {
             document.getElementById("1").classList.remove('active');
@@ -261,10 +270,6 @@ class ShopPage extends Component {
                     <div className="shop-best">
                         <h3>RECOMMEND</h3>
                     </div>
-                    {/* <div>
-                        { isLoading &&
-                             <Spinner /> }
-                    </div> */}
 
                     <div className='bestItem-slider-wrapper'>
                        { this.state.isLoading == false
