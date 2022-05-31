@@ -28,10 +28,10 @@ function MypagePage() {
     return (
         <>
             <IndexNavbar />
-
             <div className="section mypage">
                 <Container className="mypage-container">
                     <Row>
+                    {localStorage.length !== 0 &&
                         <Col className="mypage-info">
                             <div> <FontAwesomeIcon icon={faCircleUser} /> 이름 </div>
                             <div className="info-text">
@@ -42,6 +42,12 @@ function MypagePage() {
                             </div>
                             <Button className="info-change-btn">회원정보 변경</Button>
                         </Col>
+                    }
+                    {localStorage.length === 0 &&
+                    <Col className="mypage-info">
+                        <Button className="info-change-btn" onClick={() => window.location.href = "/login-page"}>로그인</Button>
+                    </Col>
+                    }
                     </Row>
                     <Row>
                         <Col className="mypage-order">

@@ -36,6 +36,7 @@ import {
   Container,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import MemberService from "service/MemberService";
 
 function IndexNavbar() {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
@@ -67,6 +68,13 @@ function IndexNavbar() {
       window.removeEventListener("scroll", updateNavbarColor);
     };
   });
+
+  const logout = () => {
+    console.log("logout"+localStorage.length);
+    MemberService.logout();
+    window.location.replace("/");
+  }
+
   return (
     <div>
       <Navbar expand="lg">
@@ -91,7 +99,7 @@ function IndexNavbar() {
           </div>
           <div className="col d-none d-lg-block">
             <Nav navbar className="justify-content-end">
-              <NavItem>
+              {localStorage.length === 0 && <NavItem>
                 <NavLink
                   className="pt-0 mt-0"
                   data-placement="bottom"
@@ -100,7 +108,18 @@ function IndexNavbar() {
                 >
                   <p>Login</p>
                 </NavLink>
-              </NavItem>
+              </NavItem>}
+              {localStorage.length !== 0 && <NavItem>
+                <NavLink
+                  className="pt-0 mt-0"
+                  data-placement="bottom"
+                  onClick={()=>logout()}
+                  style={{cursor:'pointer'}}
+                  title="Login"
+                >
+                  <p>Logout</p>
+                </NavLink>
+              </NavItem>}
               <NavItem>
                 <NavLink
                   className="pt-0 mt-0"
