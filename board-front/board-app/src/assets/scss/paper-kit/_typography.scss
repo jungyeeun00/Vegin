@@ -305,6 +305,15 @@ blockquote small {
         border: 1px solid #CCC5B9;
         font-size: 20px;
         //border-radius: 5%;
+        cursor: pointer;
+    }
+
+    .mypage-order:hover,
+    .mypage-like:hover,
+    .mypage-cart:hover,
+    .mypage-post:hover {
+        color: #4A8451;
+        font-weight: bold;
     }
 
     .mypage-order,

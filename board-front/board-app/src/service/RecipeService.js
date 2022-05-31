@@ -4,8 +4,8 @@ const RECIPE_BASE_URL = "http://localhost:8080/recipe-page";
 
 class RecipeService {
 
-    getRecipes(category, searchInput, p_num) {
-        return axios.post(RECIPE_BASE_URL + "/" + category + "?searchInput=" + searchInput +"&" + "p_num=" + p_num, {}, { withCredentials: true})
+    getRecipes(sort, category, searchInput, p_num) {
+        return axios.post(RECIPE_BASE_URL + "/" + category + "?searchInput=" + searchInput + "&sort=" + sort + "&p_num=" + p_num, {}, { withCredentials: true})
     }
 
     getIngredients(id) {

@@ -2,16 +2,18 @@ import sys
 import pymysql
 import pandas as pd
 import sqlalchemy as db
-import numpy as np
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
+from konlpy.tag import Okt
+okt_tag = Okt()
 
-engine = db.create_engine('mysql+pymysql://root:dlrkdls7815@localhost/board-back').connect()
+# engine = db.create_engine('mysql+pymysql://root:dlrkdls7815@localhost/board-back').connect()
+engine = db.create_engine('mysql+pymysql://root:1234@localhost/vegindb').connect()
+
+product_stopwords = ['비건', 'Vegan', 'vegan', '클래식', '세트', '할인', 'set', '신상', '증정', '배송', '인증']
 
 
-def load_clean():
+def load():
     sql = "SELECT * FROM product;"
     product = pd.read_sql(sql, engine)
     product['feature'] = product['product_name'] + ' ' + product['category']
@@ -20,8 +22,7 @@ def load_clean():
 
 def tokenize(product):
     # min_df를 1로 설정해줌으로써 한번이라도 노출이 된 정보도 다 고려함
-    # ngram_range : n_gram 범위 지정 연속으로 나오는 단어들의 순서도 고려함
-    tf = TfidfVectorizer(min_df=1, ngram_range=(1, 5))
+    tf = TfidfVectorizer(stop_words=product_stopwords, min_df=1)
     tfidf_matrix = tf.fit_transform(product['feature'])
     return tfidf_matrix
 
@@ -34,8 +35,7 @@ def similarity(product):
 
 # 상위 10개 이름 반환하는 함수
 def get_recommendations(product_id):
-    product = load_clean()
-    # indices = pd.Series(data=product.index, index=product['product_name'])
+    product = load()
     indices = pd.Series(data=product.index, index=product['product_id'].astype(str))
     idx = indices[int(product_id)]
     cosine_sim = similarity(product)

@@ -1,45 +1,53 @@
 import sqlalchemy as db
 import pandas as pd
+import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 import sys
 
-
 engine = db.create_engine('mysql+pymysql://root:1234@localhost/vegindb').connect()
 
 
-def load_clean():
+def load():
     sql_igr = 'select * from ingredient'
     ingredient = pd.read_sql(sql_igr, engine)
     sql_st = 'select * from step'
     step = pd.read_sql(sql_st, engine)
-    # print(df_igr)
     sql_rcp = 'select * from recipe'
     recipe = pd.read_sql(sql_rcp, engine)
-    # length = len(df_rcp.index)
-    name_list = ingredient.groupby(['recipe_id'], as_index=False).agg({'name': ' '.join, 'recipe_id': 'first'})['name']
+    igr_list = ingredient.groupby(['recipe_id'], as_index=False).agg({'name': ' '.join, 'recipe_id': 'first'})['name']
     step_list = step.groupby(['recipe_id'], as_index=False).agg({'content': ' '.join, 'recipe_id': 'first'})['content']
-    recipe['feature']=recipe['category']+' '+recipe['name']+' '+name_list+' '+step_list
+    recipe['igr_list'] = recipe['category'] + ' ' + igr_list
+    recipe['st_list'] = step_list
     return recipe
 
 
-def tokenize(recipe):
-    # min_df를 1로 설정해줌으로써 한번이라도 노출이 된 정보도 다 고려함
-    # ngram_range : n_gram 범위 지정 연속으로 나오는 단어들의 순서도 고려함
-    tf = TfidfVectorizer(min_df=1, ngram_range=(1, 5))
-    tfidf_matrix = tf.fit_transform(recipe['feature'])
+recipe_stopwords = ['비건', '비건채식', '비건레시피', '비건음식', '비건베이킹', '요리', '쿡', '법', '간단', '레시피', '채식', '베이', '킹', '음식', '초', '노', '손', '맛', '약', 'cm', 'g', 'or']
+w_igr = 2
+w_name = 1.5
+w_st = 1
+
+
+def vectorize(documents):
+    tf = TfidfVectorizer(stop_words=recipe_stopwords, min_df=1)
+    tfidf_matrix = tf.fit_transform(documents)
     return tfidf_matrix
 
 
 def similarity(recipe):
     # 유사도
-    tfidf_matrix = tokenize(recipe);
-    cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
-    return cosine_sim
+    tfidf_matrix1 = vectorize(recipe['igr_list'])
+    cosine_sim = linear_kernel(tfidf_matrix1, tfidf_matrix1) * w_igr
+    tfidf_matrix2 = vectorize(recipe['name'])
+    cosine_sim += linear_kernel(tfidf_matrix2, tfidf_matrix2) * w_name
+    tfidf_matrix3 = vectorize(recipe['st_list'])
+    cosine_sim += linear_kernel(tfidf_matrix3, tfidf_matrix3) * w_st
+    return cosine_sim / 4.5
 
 
 def get_recommendations(id):
-    recipe = load_clean()
+    recipe = load()
+
     indices = pd.Series(data=recipe.index, index=recipe['id'].astype(str))
     # 선택한 레시피의 아이디로부터 해당되는 인덱스를 받아옵니다. 이제 선택한 레시피를 가지고 연산할 수 있습니다
     idx = indices[id]
@@ -53,7 +61,6 @@ def get_recommendations(id):
     # 가장 유사한 8개의 레시피의 인덱스를 받아옵니다
     recipe_indices = [i[0] for i in sim_scores]
     # 가장 유사한 8개의 레시피의 아이디를 리턴합니다
-    # return indices[recipe_indices].index
     return list(map(int, indices[recipe_indices].index))
 
 

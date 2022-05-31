@@ -13,9 +13,7 @@ function RecipeDetailPage() {
     const location = useLocation();
 
     const id = useParams().id;
-    // const recipe = (location.state.recipe)['recipe'];
     const recipe = (location.state.recipe);
-    console.log(location.state.recipe);
     
     const [ingres, setIngres] = useState([]);
     const [cates, setCates] = useState([]);
