@@ -3,9 +3,6 @@ import { NavLink } from 'reactstrap';
 import CommunityItems from './CommunityItems';
 
 class BestCommunityFreeItems extends Component {
-    componentDidMount(){
-        console.log('res:'+this.props.boards)
-    }
     render() {
         return (
             <>

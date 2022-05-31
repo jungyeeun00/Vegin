@@ -109,11 +109,6 @@ const PlacePage = () => {
     const searchInputRemoveHandler = () => {
         setSearchInput('');
         setTables(orgTable);
-        // settableoriginal();
-    }
-
-    const settableoriginal = () => {
-        setTables(orgTable);
     }
 
     // button 클릭 시 토글

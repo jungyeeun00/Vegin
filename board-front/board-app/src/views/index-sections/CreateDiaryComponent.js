@@ -100,16 +100,8 @@ class CreateDiaryComponent extends Component {
                 <div>
                     <div className='wp-wrapper'>
                         <div className='row'>
-                            <div className='card col-md-6 offset-md-3 offset-md-3'>
                                 <div className='card-body'>
                                     <form>
-                                        <div className='form-group'>
-                                            <label>Type</label>
-                                            <select placeholder='type' name='type' className='form-control' value={this.state.type} onChange={this.changeTypeHandler}>
-                                                <option value="1">자유게시판</option>
-                                                <option value='2'>다이어리</option>
-                                            </select>
-                                        </div>
                                         <div className='form-group'>
                                             <label>Title</label>
                                             <input type="text" placeholder='title' name='title' className='form-control' value={this.state.title} onChange={this.changeTitleHandler} />
@@ -140,7 +132,6 @@ class CreateDiaryComponent extends Component {
                                         </div>
                                     </form>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>

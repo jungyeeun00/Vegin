@@ -86,7 +86,7 @@ class ReadDiaryComponent extends Component {
                         </Button>
                         <Button className="post-btn-cancel btn-round ml-1" color="info" type="button" onClick={() => this.deleteView()}>
                             삭제
-                        </Button>
+                        </Button>   
                     </div>
                     <hr />
                     {/* 여기서부터 댓글 */}
