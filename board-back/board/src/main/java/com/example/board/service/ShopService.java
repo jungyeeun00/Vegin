@@ -31,12 +31,6 @@ public class ShopService {
         return shopRepository.findChoice(productId);
 }
 
-//    public ResponseEntity<Product> getProduct(Integer productId) {
-//        Product product = shopRepository.findById(productId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Not exist Product Data by id : ["+productId+"]"));
-//        return ResponseEntity.ok(product);
-//    }
-
     public ResponseEntity<Map> getProduct(Integer sort, Integer p_num) {
         Map result = null;
 
@@ -232,7 +226,7 @@ public class ShopService {
                 bufReader.close();
 
                 String[] command = new String[3];
-                command[0] = "python";
+                command[0] = "python3";
                 command[1] = "./shopRec/ShopRec.py";
                 command[2] = id;
 

@@ -26,6 +26,8 @@ function ProductDetailPage() {
     const productId = useParams().productId;
     const productName = location.state.productName;
     const soldPrice = location.state.soldPrice;
+    const regPrice = location.state.regPrice;
+    const saleRate = location.state.saleRate;
     const imgSrc = location.state.imgSrc;
     const detail = location.state.detail; 
 
@@ -41,7 +43,7 @@ function ProductDetailPage() {
         .then(res => setChoices(res.data))
         window.scrollTo(0, 0);
         setDefOp(
-            { text: productName, num: 0, price: Number(soldPrice), sum: 0 },
+            { productName: productName, num: 0, price: Number(soldPrice), sum: 0 , id: 0},
         )
     }, []);
    
@@ -62,11 +64,11 @@ function ProductDetailPage() {
         let opValue = e.target.value.split("\t"); // content, extraCost 탭 문자로 분리
         let price = Number(opValue[1]) + Number(soldPrice); // 추가 금액에 원래 가격 합산
         const _options = options.filter((o) => {
-            return o.text !== opValue[0];
+            return o.option !== opValue[0];
         });
         // 이미 선택한 옵션인 경우 팝업 창 뜨도록
         for(let i = 0; i < options.length; i++) {
-            if(options[i].text == opValue[0]) {
+            if(options[i].option == opValue[0]) {
                 flag = 1;
                 alert('이미 선택한 옵션입니다.');
                 break;
@@ -75,7 +77,8 @@ function ProductDetailPage() {
         if(flag == 0) {
             setOption([
                 ..._options,
-                { productName: productName, text: opValue[0], num: 1, price: price, sum: price },
+                // price: 판매가 regPrice: 정가
+                { productName: productName, option: opValue[0], num: 1, price: price, regPrice: regPrice, sum: price, id: 0 },
             ])
             setSum(sum + price); 
         }
@@ -98,7 +101,7 @@ function ProductDetailPage() {
     };  //옵션 삭제
     const deleteOption = (target) => {
         const _options = options.filter(o => {
-            if (o.text !== target.text) {
+            if (o.option !== target.option) {
                 return o;
             }
             setSum(sum - Number(target.sum));
@@ -108,6 +111,15 @@ function ProductDetailPage() {
 
      //장바구니 담기 시 로컬 스토리지에 정보를 저장
     const setSessionStorage = () => {
+
+        if(window.confirm("장바구니로 이동하시겠습니까?")){
+            window.location.href = "/cart";
+        } 
+        else {
+            alert("취소");
+        }
+
+        // 세션 저장
         const _cart = sessionStorage.getItem("cart");
         if (_cart) {
             const parseCart = JSON.parse(_cart);
@@ -115,23 +127,7 @@ function ProductDetailPage() {
         } 
         else {
             sessionStorage.setItem("cart", JSON.stringify(options));
-        }
-        //저장 여부를 알리고 페이지 이동 의사를 묻는 알림창
-        // swal({
-        // title: "장바구니에 잘 담겼어요!",
-        // icon: "success",
-        // buttons: {
-        //     showCart: { text: "장바구니 이동", value: "showCart" },
-        //     cancel: "쇼핑 계속하기",
-        // },
-        // }).then((value) => {
-        // switch (value) {
-        //     case "showCart":
-        //     history.push("/cart");
-        //     break;
-        // }
-        // });
-        console.log("ss")
+        }  
     }
 
     return (
@@ -158,8 +154,15 @@ function ProductDetailPage() {
                                 <Row className="price-row" style={{ height: '75px'}}>
                                     <Col>
                                         <div className="product-price">
-                                            <span>{soldPrice}</span>
+                                            { soldPrice != regPrice &&
+                                                <span>
+                                                    <span className="product-saleRate">{saleRate}%</span> 
+                                                    <span className="product-regPrice">{regPrice}</span>
+                                                </span>
+                                            }
+                                             <span>{soldPrice}</span>
                                         </div>
+
                                     </Col>
                                 </Row>
                                 
@@ -196,6 +199,7 @@ function ProductDetailPage() {
                                                 {
                                                     choices.map(
                                                         choice => 
+                                                        !choice.content.includes("품절") &&
                                                         <option value={choice.content + "\t" + choice.extraCost}>
                                                             {choice.content}
                                                         </option>

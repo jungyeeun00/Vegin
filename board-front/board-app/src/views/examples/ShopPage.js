@@ -62,9 +62,6 @@ class ShopPage extends Component {
                 isLoading: true
             })
          });
-       
-        // curCate: 'cat0'
-        curCate: sessionStorage.getItem('curCate')
     }
 
     handleScrollPosition = () => {
@@ -95,13 +92,13 @@ class ShopPage extends Component {
                 ? this.setState({
                     p_num: res.data.pagingData.currentPageNum,
                     paging: res.data.pagingData,
-                    recipes: res.data.list,
+                    products: res.data.list,
                     pagePrev: p_num
                 })
                 : this.setState({
                     p_num: 0,
                     paging: {},
-                    recipes: [],
+                    products: [],
                     pagePrev: p_num
                 })
         });
@@ -310,7 +307,7 @@ class ShopPage extends Component {
                 </div>
 
 
-                { this.state.empty == 1
+                {this.state.p_num === 0
                 ? <p style={{textAlign: 'center'}}>검색 결과가 없습니다.</p>
                 :
                 

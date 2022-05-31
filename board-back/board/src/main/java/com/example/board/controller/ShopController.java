@@ -1,6 +1,9 @@
 package com.example.board.controller;
+import com.example.board.model.Board;
 import com.example.board.model.Choice;
+import com.example.board.model.Like;
 import com.example.board.model.Product;
+import com.example.board.service.LikeService;
 import com.example.board.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +26,9 @@ public class ShopController {
     @Autowired
     private ShopService shopService;
 
+    @Autowired
+    private LikeService likeService;
+
     @PostMapping("")
     public List<Product> getShopList(HttpServletRequest request) {
         Cookie cookie = WebUtils.getCookie(request, "recCookie");
@@ -31,6 +37,21 @@ public class ShopController {
 
         else
           return shopService.recommend(cookie.getValue());
+    }
+
+    // like
+    @GetMapping("")
+    public Like createLike(@RequestParam(value = "memberId", required = true) String memberId,
+                           @RequestParam(value = "productId", required = true) Integer productId){
+
+        return likeService.createLike(memberId, productId);
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<Map<String, Boolean>> deleteLike(
+                                @RequestParam(value = "memberId", required = true) String memberId,
+                                @RequestParam(value = "productId", required = true) Integer productId){
+        return likeService.deleteLike(memberId,productId);
     }
 
     // 1. 상품 전체 목록

@@ -20,6 +20,8 @@ function ShopItem(props) {
                     state: {
                         productName: `${props.product.productName}`,
                         soldPrice: `${props.product.soldPrice}`,
+                        regPrice: `${props.product.regPrice}`,
+                        saleRate: `${props.product.saleRate}`,
                         imgSrc: `${props.product.imgSrc}`,
                         detail: `${props.product.detail}`
                     }

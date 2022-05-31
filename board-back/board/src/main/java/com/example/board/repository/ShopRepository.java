@@ -40,6 +40,7 @@ public interface ShopRepository extends JpaRepository<Product, Integer> {
             "SELECT count(p) FROM Product p WHERE category=:category AND product_name LIKE %:searchInput%";
 
 
+
     @Query(value = CHOICE_ALL)
     List<Choice> findChoice(@Param("productId") Integer productId);
     // 전체 (검색X)
