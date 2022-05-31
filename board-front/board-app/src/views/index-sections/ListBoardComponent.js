@@ -143,7 +143,7 @@ class ListBoardComponent extends Component {
                     <div className="community-best">
                         <h3>BEST</h3>
                     </div>
-                        <BestCommunityFreeItems />
+                        {this.state.boards.length != 0 && <BestCommunityFreeItems boards={this.state.boards} />}
                         <hr className="community-hr" />
                         <div className="community-pl-title">
                             <h5 className="text-center">자유게시판</h5>
@@ -168,7 +168,7 @@ class ListBoardComponent extends Component {
                                         {
                                             this.state.boards.map(
                                                 board =>
-                                                    <tr key={board.no}>
+                                                <tr key={board.no}>
                                                         <td>{board.no}</td>
                                                         <td className="community-post-title" onClick={() => this.readBoard(board.no)}>{board.title}</td>
                                                         <td>{board.memberId}</td>
