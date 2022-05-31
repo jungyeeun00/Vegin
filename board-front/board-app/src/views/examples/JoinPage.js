@@ -118,7 +118,7 @@ class JoinPage extends Component {
                                             <span className="join-icon"> <FontAwesomeIcon icon={faCakeCandles} /> <text>생년월일</text> </span>
                                             <Input className='input-join' placeholder="Birthday" type="date" id="birthday" onChange={this.setBirthdayHandler} />
                                         </div>
-                                        <Button block className="join-btn" onClick={() => {
+                                        <Button block className="join-btn" type='button' onClick={() => {
                                             let memberDto = {
                                                 id: this.state.id,
                                                 email: this.state.email,
@@ -128,7 +128,8 @@ class JoinPage extends Component {
                                                 address: this.state.address,
                                                 birthday: this.state.birthday
                                             };
-                                            MemberService.signup(memberDto);
+                                            MemberService.signup(memberDto)
+                                            .then(res => this.props.history.push("/signup-success"))
                                             }}>
                                             Join
                                         </Button>
