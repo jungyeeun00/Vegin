@@ -48,8 +48,8 @@ public class MemberService implements UserDetailsService {
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
         // 로그인을 하기 위해 가입된 user정보를 조회하는 메서드
         Optional<Member> memberWrapper = memberRepository.findById(id);
-        System.out.println(id + "-----------------");
         Member member = memberWrapper.get();
+        System.out.println(member.getName() + "-----------------");
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
@@ -88,10 +88,6 @@ public class MemberService implements UserDetailsService {
 
         return ResponseEntity.ok(result);
     }
-
-//    public List<Board> getAllBoard() {
-//        return boardRepository.findAll();
-//    }
 
     public Member createMember(Member member) {
         return memberRepository.save(member);

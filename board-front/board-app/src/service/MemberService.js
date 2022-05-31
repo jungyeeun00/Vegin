@@ -14,18 +14,17 @@ class MemberService {
 
 
     login(username, password) {
-        // const username = document.getElementById("username");
-        // const password = document.getElementById("password");
         const axiosConfig = {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
         }
 
-
         return axios.post(LOGIN_API_BASE_URL,
             qs.stringify({ username: username, password: password }),
-            axiosConfig);
+            axiosConfig)
+            .then(localStorage.setItem("member", JSON.stringify(username)))
+            .catch(err => console.log(err));
     }
 
     logout() {
