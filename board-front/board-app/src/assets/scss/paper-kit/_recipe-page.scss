@@ -31,24 +31,16 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
         text-align: right;
         margin-top: 30px;
 
-        .recipe-sort-list {
-            margin: 0;
-            padding: 0;
-            padding-right: 1.45vw;
-        }
-
-        li {
-            list-style: none;
-            display: inline-block;
-            margin: 0 0.4vw;
+        .recipe-sort-btn {
+            background-color: transparent;
+            border: none;
         }
 
         a:before {
-            content: "•";
+            content: "";
             font-family: FontAwesome;
             margin-right: 0.3vw;
         }
-
         .active a {
             color: black;
             font-weight: bold;
@@ -257,5 +249,12 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
             }
         }
     }
-    
+ 
+}
+
+.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }

@@ -63,7 +63,8 @@ public class RecipeController {
     }
 
     @PostMapping("/{category}")
-    public ResponseEntity<Map> getRecipesByCate(@PathVariable String category,
+    public ResponseEntity<Map> getRecipesByCate(@RequestParam(value = "sort", required = false) Integer sort,
+                                                @PathVariable String category,
                                                 @RequestParam(value = "searchInput", required = false) String searchInput,
                                                 @RequestParam(value = "p_num", required=false) Integer p_num,
                                                 HttpSession session,
@@ -77,17 +78,18 @@ public class RecipeController {
         if (p_num == null || p_num <= 0) p_num = 1;
 
         if (category.equals("전체") && searchInput.length() == 0) // 전체, 검색X
-            return recipeService.getPagingRecipe(p_num);
+            return recipeService.getRecipe(sort, p_num);
         else if(category.equals("전체") && searchInput.length() != 0) // 전체, 검색O
-            return recipeService.getPagingRecipeWithKeyword(searchInput, p_num);
+            return recipeService.getRecipeKeyword(sort, searchInput, p_num);
         else if (searchInput.length() == 0) // 카테고리, 검색X
-            return recipeService.getPagingRecipeCate(category, p_num);
+            return recipeService.getRecipeCate(sort, category, p_num);
         else // 카테고리, 검색O
-            return recipeService.getPagingRecipeCateWithKeyword(category, searchInput, p_num);
+            return recipeService.getRecipeCateKeyword(sort, category, searchInput, p_num);
     }
 
     @PostMapping("/{category1}/{category2}")
-    public ResponseEntity<Map> getRecipesByCate1(@PathVariable String category1,
+    public ResponseEntity<Map> getRecipesByCate1(@RequestParam(value = "sort", required = false) Integer sort,
+                                                 @PathVariable String category1,
                                                  @PathVariable String category2,
                                                  @RequestParam(value = "searchInput", required = false) String searchInput,
                                                  @RequestParam(value = "p_num", required=false) Integer p_num,
@@ -102,13 +104,14 @@ public class RecipeController {
 
         String category = category1 + "/" + category2;
         if (searchInput.length() == 0) // 검색X
-            return recipeService.getPagingRecipeCate(category, p_num);
+            return recipeService.getRecipeCate(sort, category, p_num);
         else // 검색O
-            return recipeService.getPagingRecipeCateWithKeyword(category, searchInput, p_num);
+            return recipeService.getRecipeCateKeyword(sort, category, searchInput, p_num);
     }
 
     @PostMapping("/{category1}/{category2}/{category3}")
-    public ResponseEntity<Map> getRecipesByCate2(@PathVariable String category1,
+    public ResponseEntity<Map> getRecipesByCate2(@RequestParam(value = "sort", required = false) Integer sort,
+                                                 @PathVariable String category1,
                                                  @PathVariable String category2,
                                                  @PathVariable String category3,
                                                  @RequestParam(value = "searchInput", required = false) String searchInput,
@@ -125,9 +128,9 @@ public class RecipeController {
         String category = category1 + "/" + category2 + "/" + category3;
 
         if (searchInput.length() == 0) // 검색X
-            return recipeService.getPagingRecipeCate(category, p_num);
+            return recipeService.getRecipeCate(sort, category, p_num);
         else // 검색O
-            return recipeService.getPagingRecipeCateWithKeyword(category, searchInput, p_num);
+            return recipeService.getRecipeCateKeyword(sort, category, searchInput, p_num);
     }
 
     // 레시피 클릭, 검색 시 쿠키 설정 및 로그 기록 함수 호출 메소드

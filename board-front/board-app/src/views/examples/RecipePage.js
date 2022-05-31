@@ -4,9 +4,8 @@ import { faMagnifyingGlass, faCircleXmark } from '@fortawesome/free-solid-svg-ic
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import VeginFooter from 'components/Footers/VeginFooter';
 import RecipeItem from 'views/index-sections/RecipeItem';
-
 import RecipeService from 'service/RecipeService';
-
+import Spinner from '../index-sections/Spinner';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -30,6 +29,7 @@ const cateData = {
     cat15: '기타'
 }
 
+// recommend slider settings
 const settings = {
     dots: true,
     infinite: true,
@@ -47,28 +47,42 @@ class RecipePage extends Component {
             searchCancel: false,
             recipes: [],
             recommend: [],
+            sort: 0, // 정렬( default: 인기순(0) )
             curCate: 'cat0',
             p_num: 1,
             paging: {},
             pagePrev: 0,
+            isLoading: false // Spinner
         };
     }
 
 
     componentDidMount() {
-        RecipeService.getRecipes(cateData[this.state.curCate], this.state.searchInput, this.state.p_num).then((res) => {
+        RecipeService.getRecipes(this.state.sort, cateData[this.state.curCate], this.state.searchInput, this.state.p_num).then((res) => {
             this.setState({
                 recipes: res.data.list,
                 p_num: res.data.pagingData.currentPageNum,
-                paging: res.data.pagingData
+                paging: res.data.pagingData,
+                isLoading: false
+            }, () => {
+                this.handleScrollPosition();
             });
         });
         RecipeService.getRecommend().then((res) => { 
             this.setState({
-                recommend: res.data
+                recommend: res.data,
+                isLoading: true
             })
          });
     }
+
+    handleScrollPosition = () => {
+        const scrollPosition = sessionStorage.getItem("scrollPosition");
+        if (scrollPosition) {
+          window.scrollTo(0, parseInt(scrollPosition));
+          sessionStorage.removeItem("scrollPosition");
+        }
+    };
 
     searchOnHandler = () => { // onFocus 이벤트
         this.setState({
@@ -97,7 +111,7 @@ class RecipePage extends Component {
     // enter 이벤트 처리 (검색)
     handleKeyPress = (e) => {
         if (e.key === "Enter") {
-            this.listRecipe(this.state.curCate, this.state.searchInput, -1);
+            this.listRecipe(this.state.sort, this.state.curCate, this.state.searchInput, -1);
             this.setState({
                 searchClick: false
             })
@@ -114,12 +128,23 @@ class RecipePage extends Component {
             p_num: 1,
             searchInput: ''
         });
-        this.listRecipe(e.target.id, '', 1);
+        this.listRecipe(this.state.sort, e.target.id, '', 1);
     };
 
+    // 정렬 탭
+    clickHandler = (sort) => {
+        this.setState({
+            sort: sort,
+            p_num: 1,
+            // 정렬 기준 searchInput 초기화
+            searchInput: ''
+        });
+        this.listRecipe(sort, this.state.curCate, this.state.searchInput, this.state.p_num);
+    }
+
     // paging
-    listRecipe = (curCate, searchInput, p_num) => {
-        RecipeService.getRecipes(cateData[curCate], searchInput, p_num).then((res) => {
+    listRecipe = (sort, curCate, searchInput, p_num) => {
+        RecipeService.getRecipes(sort, cateData[curCate], searchInput, p_num).then((res) => {
             res.data.list != null
                 ? this.setState({
                     p_num: res.data.pagingData.currentPageNum,
@@ -152,7 +177,7 @@ class RecipePage extends Component {
 
         return (pageNums.map((page) =>
             <li className={`page-item ${this.state.paging.currentPageNum === page ? 'active' : ''}`} key={page.toString()} id={page.toString()}>
-                <a href="{() => false}" className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, page)}>{page}</a>
+                <a className="page-link" onClick={() => this.listRecipe(this.state.sort, this.state.curCate, this.state.searchInput, page)}>{page}</a>
             </li>
         ));
     }
@@ -161,7 +186,7 @@ class RecipePage extends Component {
         if (this.state.paging.isPrev) {
             return (
                 <li className="page-item" id="page-prev">
-                    <a href="{() => false}" className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum - 2))} tabIndex="-1">
+                    <a className="page-link" onClick={() => this.listRecipe(this.state.sort, this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum - 2))} tabIndex="-1">
                         <i aria-hidden="true" class="fa fa-angle-left"></i>
                         <span class="sr-only">Previous</span>
                     </a>
@@ -174,7 +199,7 @@ class RecipePage extends Component {
         if (this.state.paging.isNext) {
             return (
                 <li className="page-item " id="page-next">
-                    <a href="{() => false}" className="page-link" onClick={() => this.listRecipe(this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum + 2))} tabIndex="-1">
+                    <a className="page-link" onClick={() => this.listRecipe(this.state.sort, this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum + 2))} tabIndex="-1">
                         <i aria-hidden="true" class="fa fa-angle-right"></i>
                         <span class="sr-only">Next</span>
                     </a>
@@ -342,26 +367,41 @@ class RecipePage extends Component {
                         <h3>RECOMMEND</h3>
                     </div>
                     <div className='bestItem-slider-wrapper'>
-                        <Slider {...settings} className='bestItem-slider'>
-                            {this.state.recommend.map(
-                                rec =>
-                                    <div className='best-items'>
-                                        < RecipeItem recipe={rec}/>
-                                    </div>
-                            )}
-                        </Slider>
+                        {this.state.isLoading == false
+                            ? <div className='spinner'> <Spinner /> </div>
+                            :
+                            <Slider {...settings} className='bestItem-slider'>
+                                {this.state.recommend.map(
+                                    rec =>
+                                        <div className='best-items'>
+                                            < RecipeItem recipe={rec} />
+                                        </div>
+                                )}
+                            </Slider>
+                        }
                     </div>
                     <hr className="recipe-hr" />
 
-                    {/* 정렬 버튼 */}
-                    <div className="recipe-content-bar">
-                        <ul className="recipe-sort-list">
-                            <li className="orderItem orderItem10 active"><a>기본순</a></li>
-                            <li className="orderItem orderItem01"><a>인기순</a></li>
-                        </ul>
+                    {/* 정렬 및 아이템 나열 부분 */}
+                    <div className="recipe-content-ba">
+                        <button
+                            type="button"
+                            className={`recipe-sort-btn ${this.state.sort === 0 ? 'active' : ''}`}
+                            onClick={() => this.clickHandler(0)}
+                        >
+                            <a>최신순</a>
+                        </button>
+                        <button
+
+                            type="button"
+                            className={`recipe-sort-btn ${this.state.sort === 1 ? 'active' : ''}`}
+                            onClick={() => this.clickHandler(1)}
+                        >
+                            <a>인기순</a>
+                        </button>
                     </div>
 
-                    {this.state.recipes.length === 0
+                    {this.state.p_num === 0
                         ? <p style={{ textAlign: 'center' }}>검색 결과가 없습니다.</p>
                         :
                         <div>

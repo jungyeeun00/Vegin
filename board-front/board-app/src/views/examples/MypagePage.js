@@ -49,7 +49,7 @@ function MypagePage() {
                         </Col>
                         
                         <Col className="mypage-cart">
-                            <div> <FontAwesomeIcon icon={faCartShopping} /> 장바구니 </div>
+                            <div onClick={() => window.location.href="/cart"}> <FontAwesomeIcon icon={faCartShopping} /> 장바구니 </div>
                         </Col>
                     </Row>
                     <Row>

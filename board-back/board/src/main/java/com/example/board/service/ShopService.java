@@ -232,7 +232,7 @@ public class ShopService {
                 bufReader.close();
 
                 String[] command = new String[3];
-                command[0] = "python3";
+                command[0] = "python";
                 command[1] = "./shopRec/ShopRec.py";
                 command[2] = id;
 
