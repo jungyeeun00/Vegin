@@ -20,10 +20,8 @@ public class MemberController {
     private MemberService memberService;
 
     @GetMapping("")
-    public ModelAndView index() throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/home/index");
-        return modelAndView;
+    public String index() throws IOException {
+        return "login";
     }
 
     // 로그인 페이지
@@ -32,11 +30,10 @@ public class MemberController {
 //        return memberService.loadUserByUsername(member.getId());
 //    }
 
-    @GetMapping("/login")
-    public ModelAndView loginForm() throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("member/loginForm");
-        return modelAndView;
+    @GetMapping("/login/{id}")
+    public ResponseEntity<Member> geUserById(@PathVariable String id) {
+        System.out.println("id:"+id);
+        return memberService.getMember(id);
     }
 //    public ResponseEntity<?> login(@RequestParam(value = "username", required = false) String username, @RequestParam(value = "password", required = false) String password) {
 //        if (memberService.loadUserByUsername(username).getPassword() == password)
