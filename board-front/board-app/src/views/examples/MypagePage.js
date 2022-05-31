@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import VeginFooter from "components/Footers/VeginFooter";
@@ -11,6 +11,7 @@ import { NavLink } from "react-router-dom";
 
 function MypagePage() {
     const [activeTab, setActiveTab] = React.useState("1");
+    const [user, setUser] = useState([]);
 
     const toggle = (tab) => {
         if (activeTab !== tab) {
@@ -19,12 +20,17 @@ function MypagePage() {
     };
 
     document.documentElement.classList.remove("nav-open");
-    React.useEffect(() => {
+    useEffect(() => {
         document.body.classList.add("landing-page");
+        console.log("load"+localStorage.getItem("member"));
+        MemberService.getOneMember(localStorage.getItem("member")).then((res) => {
+            console.log(res);
+            setUser(res.data);
+        })
         return function cleanup() {
             document.body.classList.remove("landing-page");
         };
-    });
+    }, []);
     return (
         <>
             <IndexNavbar />
@@ -33,12 +39,12 @@ function MypagePage() {
                     <Row>
                     {localStorage.length !== 0 &&
                         <Col className="mypage-info">
-                            <div> <FontAwesomeIcon icon={faCircleUser} /> 이름 </div>
+                            <div> <FontAwesomeIcon icon={faCircleUser} /> {user.name} </div>
                             <div className="info-text">
-                                <div> 아이디: vegin123 </div>
-                                <div> 전화번호: 010-1234-5678 </div>
-                                <div> 주소: 서울특별시 성북구 삼선교로16길 116 한성대학교 </div>
-                                <div> 가입일: 2022.05.07 </div>
+                                <div> 아이디: {user.id} </div>
+                                <div> 전화번호: {user.phone} </div>
+                                <div> 주소: {user.address} </div>
+                                <div> 가입일: {user.createdDate} </div>
                             </div>
                             <Button className="info-change-btn">회원정보 변경</Button>
                         </Col>
