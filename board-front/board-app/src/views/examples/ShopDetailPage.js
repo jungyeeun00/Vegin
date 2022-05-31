@@ -181,8 +181,7 @@ function ProductDetailPage() {
                                 </Row>
                                 {/* 옵션 있는 경우만 출력 */}
                                 { choices.length != 0 
-                                ?   //<Row style={{backgroundColor: 'red'}}>
-                                    <Row>
+                                ?   <Row>
                                         <Col md="4" className="option-col text-center text-md-left">
                                             <div className="option-choice">
                                                 <span>옵션 선택</span>
