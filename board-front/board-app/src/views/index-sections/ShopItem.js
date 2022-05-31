@@ -25,6 +25,8 @@ function ShopItem(props) {
                     }
                 }}
                 key={props.productId}
+                onClick= {() => sessionStorage.setItem("scrollPosition", window.pageYOffset)}
+                
             > 
                 <div id="shopItem" className="item" align="center">
                     {/* 상품 이미지 */}
