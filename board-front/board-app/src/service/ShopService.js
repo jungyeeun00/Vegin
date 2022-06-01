@@ -10,8 +10,6 @@ class ProductService {
 
     getProducts(category, searchInput, sort, p_num) {
         return axios.post(SHOP_API_BASE_URL + "/" + category + "?searchInput=" + searchInput +"&sort=" + sort + "&p_num=" + p_num,{}, { withCredentials: true });
-        //return axios.post(SHOP_API_BASE_URL + "/" + category + "?searchInput=" + searchInput +"&" + "p_num=" + p_num,{}, { withCredentials: true });
-       //return axios.get(SHOP_API_BASE_URL + "/" + category + "?searchInput=" + searchInput +"&" + "p_num=" + p_num);
     }
 
     setLike(memberId, productId) {
@@ -22,7 +20,7 @@ class ProductService {
         return axios.delete(SHOP_API_BASE_URL + "?memberId=" + memberId +"&productId=" + productId)
     }
 
-    getLike(category, memberId) {
+    getLikeId(category, memberId) {
         return axios.get(SHOP_API_BASE_URL +  "/" + category + "?memberId=" + memberId)
     }
 
@@ -32,6 +30,10 @@ class ProductService {
 
     getRecommend() {
         return axios.post(SHOP_API_BASE_URL ,{}, { withCredentials: true })
+    }
+
+    getFeatured() {
+        return axios.get(SHOP_API_BASE_URL + "/featured")
     }
 }
 

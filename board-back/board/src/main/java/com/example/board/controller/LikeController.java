@@ -1,5 +1,6 @@
 package com.example.board.controller;
 
+import com.example.board.dto.ProductDto;
 import com.example.board.model.Likes;
 import com.example.board.service.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,21 +25,24 @@ public class LikeController {
         return likeService.createLike(memberId, productId);
     }
 
-    @GetMapping("/shop-page/{category}")
-    public ResponseEntity<List<Integer>> getLikeId(@PathVariable String category,
-                                                    @RequestParam(value = "memberId", required = true) String memberId) {
-
-        return likeService.getLikeId(memberId);
-    }
-
-
-
-
     @DeleteMapping("/shop-page")
     public ResponseEntity<Map<String, Boolean>> deleteLike(
             @RequestParam(value = "memberId", required = true) String memberId,
             @RequestParam(value = "productId", required = true) Integer productId) {
         return likeService.deleteLike(memberId, productId);
+    }
+
+    @GetMapping("/shop-page/{category}")
+    public ResponseEntity<List<Integer>> getLikeId(@PathVariable String category,
+                                                   @RequestParam(value = "memberId", required = true) String memberId) {
+
+        return likeService.getLikeId(memberId);
+    }
+
+    @GetMapping("/likes")
+    public ResponseEntity<List<ProductDto>> getLike(@RequestParam(value = "memberId", required = true) String memberId) {
+
+        return likeService.getLike(memberId);
     }
 }
 

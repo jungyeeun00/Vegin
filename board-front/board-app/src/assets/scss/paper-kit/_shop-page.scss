@@ -80,7 +80,11 @@
                 }
 
                 .like {
-                    max-width: 13vw;
+                    position: relative;
+                    left: 90px;
+                    bottom: 40px;
+                    cursor: pointer;
+                    z-index: 100;
                 }
 
                 #shopTitle {
@@ -245,7 +249,11 @@
         }
 
         .like {
-            max-width: 13vw;
+            position: relative;
+            left: 90px;
+            bottom: 40px;
+            cursor: pointer;
+            z-index: 100;
         }
 
         #shopTitle {

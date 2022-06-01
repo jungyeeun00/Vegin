@@ -45,6 +45,7 @@ import PostPage from "views/examples/PostPage";
 import WritePostPage from "views/examples/WritePostPage";
 import ShopNavTab from "views/index-sections/ShopNavTab";
 import CartPage from "views/examples/CartPage";
+import LikesPage from "views/examples/LikesPage";
 import ListBoardComponent from "views/index-sections/ListBoardComponent";
 import CreateBoardComponent from "views/index-sections/CreateBoardComponent";
 import ReadBoardComponent from "views/index-sections/ReadBoardComponent";
@@ -100,10 +101,6 @@ ReactDOM.render(
         path="/shop-detail-page/:productId"
         render={(props) => <ShopDetailPage {...props} />}
       />
-      {/* <Route
-        path="/shop-detail-page"
-        render={(props) => <ShopDetailPage {...props} />}
-      /> */}
       <Route
         path="/place-page"
         render={(props) => <PlacePage {...props} />}
@@ -139,6 +136,10 @@ ReactDOM.render(
       <Route
         path="/cart"
         render={(props) => <CartPage {...props} />}
+      />
+      <Route
+        path="/likes"
+        render={(props) => <LikesPage {...props} />}
       />
       <Route
         path="/signup-success"

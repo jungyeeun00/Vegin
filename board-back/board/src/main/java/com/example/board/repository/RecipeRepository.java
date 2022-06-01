@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
-public interface RecipeRepository extends JpaRepository<Recipe, Long> {
+public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
 
 
     public String INGREDIENT_ALL = ""
@@ -24,7 +24,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     public String STEP_ALL = ""
             + "select s from Step s where s.recipeId=:id";
 
-    /* 없어질 예정인 쿼리 */
     public String RECIPE_LIST =
             "SELECT * FROM Recipe";
 

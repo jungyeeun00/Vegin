@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import VeginFooter from "components/Footers/VeginFooter";
-import { Button, Card, Form, Input, InputGroup, InputGroupText, Container, Row, Col } from "reactstrap";
+import { Button,  Container, Row, Col } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faCreditCard, faHeart, faCartShopping, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 
 import MemberService from "service/MemberService";
-import { NavLink } from "react-router-dom";
 
 function MypagePage() {
     const [activeTab, setActiveTab] = React.useState("1");
@@ -22,9 +21,9 @@ function MypagePage() {
     document.documentElement.classList.remove("nav-open");
     useEffect(() => {
         document.body.classList.add("landing-page");
-        console.log("load"+localStorage.getItem("member"));
+        // console.log("load"+localStorage.getItem("member"));
         MemberService.getOneMember(localStorage.getItem("member")).then((res) => {
-            console.log(res);
+            // console.log(res);
             setUser(res.data);
         })
         return function cleanup() {
@@ -66,8 +65,9 @@ function MypagePage() {
                     </Row>
                     <Row>
                         <Col className="mypage-like">
-                            <div> <FontAwesomeIcon icon={faHeart} /> 관심 상품 </div>
+                            <div onClick={() => window.location.href="/likes"}> <FontAwesomeIcon icon={faHeart} /> 관심 상품 </div>
                         </Col>
+
                         <Col className="mypage-post">
                             <div onClick={() => window.location.href = '/mypost-page'}> <FontAwesomeIcon icon={faPenToSquare} /> 내 글 목록 </div>
                         </Col>

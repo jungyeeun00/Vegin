@@ -1,5 +1,6 @@
 package com.example.board.controller;
 
+import com.example.board.dto.ProductDto;
 import com.example.board.model.Recipe;
 import com.example.board.model.Step;
 import com.example.board.service.RecipeService;
@@ -35,15 +36,20 @@ public class RecipeController {
         }
     }
 
+    @GetMapping("/featured")
+    public ResponseEntity<List<Recipe>> getFeatured() {
+        return recipeService.getFeatured();
+    }
+
     @GetMapping("/ingre/{id}")
-    public HashMap<String, Object> getIngreById(
+    public ResponseEntity<HashMap<String, Object>> getIngreById(
             @PathVariable Integer id) {
 
         return recipeService.getIngredient(id);
     }
 
     @GetMapping("/step/{id}")
-    public List<Step> getStepById(
+    public ResponseEntity<List<Step>> getStepById(
             @PathVariable Integer id) {
 
         return recipeService.getStep(id);

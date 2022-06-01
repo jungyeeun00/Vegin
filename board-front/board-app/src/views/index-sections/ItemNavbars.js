@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Navbar, NavItem, NavLink, Nav } from 'reactstrap';
 //import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import 'assets/scss/paper-kit/_itemnav.scss'
-import BestShopItems from './BestShopItems';
+import FeaturedShopItems from './FeaturedShopItems';
 import FeaturedPlaceItems from './FeaturedPlaceItems';
 import CommunityItems from './CommunityItems';
-import BestRecipeItems from './BestRecipeItems';
+import FeaturedRecipeItems from './FeaturedRecipeItems';
 import BoardService from 'service/BoardService';
 import BestCommunityFreeItems from './BestCommunityFreeItems';
 
@@ -32,12 +32,12 @@ class ItemNavbars extends Component {
         if (this.state.mode === 'recipe') {
             featured =
                 <div className="recipe-main">
-                    {/* <BestRecipeItems /> */}
+                    <FeaturedRecipeItems />
                 </div>
         } else if (this.state.mode === 'shop') {
             featured =
                 <div className="shop-main">
-                    <BestShopItems />
+                    <FeaturedShopItems />
                 </div>
         } else if (this.state.mode === 'place') {
             featured = <FeaturedPlaceItems />

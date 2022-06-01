@@ -1,4 +1,5 @@
 package com.example.board.controller;
+import com.example.board.dto.ProductDto;
 import com.example.board.model.Choice;
 import com.example.board.model.Product;
 import com.example.board.service.ShopService;
@@ -33,6 +34,11 @@ public class ShopController {
           return shopService.recommend(cookie.getValue());
     }
 
+    @GetMapping("/featured")
+    public ResponseEntity<List<ProductDto>> getFeatured() {
+        return shopService.getFeatured();
+    }
+
     // 1. 상품 전체 목록
     @ResponseBody
     @PostMapping("/{category}")
@@ -52,8 +58,6 @@ public class ShopController {
 
         // order 1이면 sold_price 기준 정렬
         if (category.equals("전체") && searchInput.length() == 0) { // 전체, 검색X
-//            return sort == 0 ? shopService.getPagingProduct("product_id", p_num)
-//                    : shopService.getPagingProduct("sold_price", p_num);
             return shopService.getProduct(sort, p_num);
         }
             //return shopService.getPagingProduct("sold_price", p_num);

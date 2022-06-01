@@ -1,0 +1,52 @@
+.like-main {
+    padding: 0% 15%;
+    position: relative;
+    font-family: 'main-font-m';
+
+    .like-list {
+        #like-Lbl {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: 'home-title-font-m';
+            font-size: 28px;
+        }
+        .like-tb {
+            display: grid;
+            justify-content: space-evenly;
+            // justify-content: center;
+            // grid-template-columns: auto auto auto auto;
+            grid-template-columns: repeat(4, 300px);
+            width: 100%;
+            padding-left: 0;
+            margin-bottom: 0;
+            li {
+                display: inline-block;
+                vertical-align: middle;
+                margin-bottom: 10vh;
+                margin-top: 3vh;
+                #shopItem {
+                    padding: 0;
+                    #shopImg {
+                        width: 230px;
+                        height: 250px;
+                        border: none;
+                    }
+                    .like {
+                        position: relative;
+                        left: 90px;
+                        bottom: 40px;
+                        cursor: pointer;
+                        z-index: 100;
+                    }
+                    #shopTitle {
+                        height: 90px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+    }
+}

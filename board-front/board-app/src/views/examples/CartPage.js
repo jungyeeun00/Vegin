@@ -146,7 +146,7 @@ function CartPage(props) {
                             </tr>
                         </thead>
                         <tbody className="ct-tbody">
-                            {items.map(
+                            {items?.map(
                                 item =>
                                     <CartItem
                                         option={item}
