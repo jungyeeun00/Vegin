@@ -5,6 +5,9 @@ import com.example.board.model.Member;
 import com.example.board.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,8 +34,7 @@ public class MemberController {
 //    }
 
     @GetMapping("/login/{id}")
-    public ResponseEntity<Member> geUserById(@PathVariable String id) {
-        System.out.println("id:"+id);
+    public ResponseEntity<Member> getUserById(@PathVariable String id) {
         return memberService.getMember(id);
     }
 //    public ResponseEntity<?> login(@RequestParam(value = "username", required = false) String username, @RequestParam(value = "password", required = false) String password) {

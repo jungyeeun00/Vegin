@@ -24,7 +24,7 @@ import MemberService from "service/MemberService";
 // reactstrap components
 import { Button, Card, Form, Input, InputGroup, InputGroupText, Container, Row, Col } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
+import { faFingerprint, faLock } from '@fortawesome/free-solid-svg-icons'
 import VeginFooter from "components/Footers/VeginFooter";
 
 class LoginPage extends Component {
@@ -61,8 +61,8 @@ class LoginPage extends Component {
                   <h3 className="login-title">LOGIN</h3>
                   <Form className="register-form">
                     <div className="login-group">
-                      <span className="login-icon"> <FontAwesomeIcon icon={faEnvelope} /> </span>
-                      <Input className='input-login' placeholder="Email" type="email" id="username" onChange={this.setUsernameHandler} />
+                      <span className="login-icon"> <FontAwesomeIcon icon={faFingerprint} /> </span>
+                      <Input className='input-login' placeholder="ID" type="text" id="username" onChange={this.setUsernameHandler} />
                     </div>
                     <div className="login-group">
                       <span className="login-icon"> <FontAwesomeIcon icon={faLock} /> </span>
@@ -87,13 +87,13 @@ class LoginPage extends Component {
                     >
                       SIGN UP
                     </Button>
-                    <Button
+                    {/* <Button
                       className="findpwd-btn"
                       color="danger"
                       href="#pablo"
                       onClick={(e) => e.preventDefault()}  >
                       Forgot password?
-                    </Button>
+                    </Button> */}
                   </div>
                 </Card>
               </Col>

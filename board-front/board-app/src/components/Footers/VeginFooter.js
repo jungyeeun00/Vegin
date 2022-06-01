@@ -93,7 +93,7 @@ function VeginFooter() {
                 <br />
                 <span>505-044752-01-012</span>
                 <br />
-                <span>정예은^^7</span>
+                <span>정예은</span>
               </li>
             </ul>
           </div>

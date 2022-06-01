@@ -8,6 +8,7 @@ import com.example.board.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -105,6 +107,9 @@ public class MemberService implements UserDetailsService {
         member.setPassword(updatedMember.getPassword());
         member.setName(updatedMember.getName());
         member.setPhone(updatedMember.getPhone());
+        member.setAddress(updatedMember.getAddress());
+        member.setBirthday(updatedMember.getBirthday());
+        member.setEmail(updatedMember.getEmail());
 
         Member endUpdatedMember = memberRepository.save(member);
         return ResponseEntity.ok(endUpdatedMember);

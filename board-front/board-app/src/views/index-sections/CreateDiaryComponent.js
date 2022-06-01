@@ -21,7 +21,6 @@ class CreateDiaryComponent extends Component {
         this.changeTypeHandler = this.changeTypeHandler.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
         this.changeContentsHandler = this.changeContentsHandler.bind(this);
-        this.changeMemberNoHandler = this.changeMemberNoHandler.bind(this);
         this.createBoard = this.createBoard.bind(this);
     }
 
@@ -34,13 +33,7 @@ class CreateDiaryComponent extends Component {
     }
 
     changeContentsHandler = (event) => {
-        // this.setState({ contents: event.target.value });
-        console.log(event);
         this.setState({ contents: event });
-    }
-
-    changeMemberNoHandler = (event) => {
-        this.setState({ memberId: event.target.value });
     }
 
     createBoard = (event) => {
@@ -49,7 +42,7 @@ class CreateDiaryComponent extends Component {
             type: this.state.type,
             title: this.state.title,
             contents: this.state.contents,
-            memberId: this.state.memberId
+            memberId: localStorage.getItem("member")
         };
         console.log("board => " + JSON.stringify(board));
         if (this.state.no === '_create') {
@@ -100,7 +93,7 @@ class CreateDiaryComponent extends Component {
                                         </div>
                                         <div className='form-group'>
                                             <label>MemberId</label>
-                                            <input placeholder='memberId' name='memberId' className='form-control' value={this.state.memberId} onChange={this.changeMemberNoHandler} />
+                                            <input placeholder='memberId' name='memberId' className='form-control' value={localStorage.getItem("member")} style={{pointerEvents:'none'}}/>
                                         </div>
                                         <div className='form-group'>
                                             <label>Contents</label>

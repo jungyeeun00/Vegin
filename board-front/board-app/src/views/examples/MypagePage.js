@@ -45,7 +45,7 @@ function MypagePage() {
                                 <div> 주소: {user.address} </div>
                                 <div> 가입일: {user.createdDate} </div>
                             </div>
-                            <Button className="info-change-btn">회원정보 변경</Button>
+                            <Button className="info-change-btn" onClick={() => window.location.href = '/edit-profile'}>회원정보 변경</Button>
                         </Col>
                     }
                     {localStorage.length === 0 &&
@@ -69,7 +69,7 @@ function MypagePage() {
                         </Col>
 
                         <Col className="mypage-post">
-                            <div> <FontAwesomeIcon icon={faPenToSquare} /> 내 글 목록 </div>
+                            <div onClick={() => window.location.href = '/mypost-page'}> <FontAwesomeIcon icon={faPenToSquare} /> 내 글 목록 </div>
                         </Col>
                     </Row>
                 </Container>

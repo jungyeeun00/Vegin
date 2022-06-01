@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class BoardService {
@@ -60,7 +57,6 @@ public class BoardService {
     public ResponseEntity<Board> updateBoard(Integer no, Board updatedBoard) {
         Board board = boardRepository.findById(no)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + no + "]"));
-        board.setType(updatedBoard.getType());
         board.setTitle(updatedBoard.getTitle());
         board.setContents(updatedBoard.getContents());
         board.setUpdatedTime(new Date());

@@ -62,7 +62,6 @@ public class DiaryService {
     public ResponseEntity<Diary> updateBoard(Integer no, Diary updatedBoard) {
         Diary diary = diaryRepository.findById(no)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Diary Data by no : [" + no + "]"));
-        diary.setType(updatedBoard.getType());
         diary.setTitle(updatedBoard.getTitle());
         diary.setContents(updatedBoard.getContents());
         diary.setUpdatedTime(new Date());

@@ -10,7 +10,6 @@ public interface DiaryRepository extends JpaRepository<Diary, Integer> {
     public final static String SELECT_BOARD_LIST_PAGED = ""
             + "SELECT "
             + "no,"
-            + "type,"
             + "title,"
             + "contents,"
             + "member_id,"
