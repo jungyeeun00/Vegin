@@ -163,13 +163,13 @@ class ReadBoardComponent extends Component {
                                 <div className='post-comment'>
                                     <hr />
                                     <div className='post-comment-header'>
-                                        <span className='post-comment-name'>{comment.member.name}</span>&nbsp;&nbsp;
+                                        <span className='post-comment-name'></span>&nbsp;&nbsp;
                                         <span className='post-comment-date'>{comment.created_date.substring(0, 16)}</span>
                                     </div>
                                     <div className='post-comment-contents'>
-                                        <span className='post-comment-content'>{comment.content}</span>
+                                        <span className='post-comment-content'>{comment.member.name}</span>
                                     </div>
-                                    {MemberService.getCurrentMember() == comment.member.id &&
+                                    { MemberService.getCurrentMember() == comment.member.id &&
                                         <div className='post-comment-btn-wrapper'>
                                             <Button className="post-comment-btn-edit btn-round ml-1" type="button">수정</Button>
                                             <Button className="post-comment-btn-cancel btn-round ml-1" type="button" onClick={() => this.deleteComment(comment.id)}>삭제</Button>

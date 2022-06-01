@@ -30,7 +30,7 @@ class MemberService {
     }
 
     getCurrentMember() {
-        return JSON.parse(localStorage.getItem("member"));
+        return localStorage.getItem("member");
     }
 
     signup(memberDto) {

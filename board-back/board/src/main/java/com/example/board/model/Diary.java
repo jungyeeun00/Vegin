@@ -19,9 +19,6 @@ public class Diary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer no;
 
-    @Column(name = "type")
-    private String type;
-
     @Column(name = "title")
     private String title;
 
@@ -55,14 +52,6 @@ public class Diary {
 
     public void setNo(Integer no) {
         this.no = no;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getTitle() {
