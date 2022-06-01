@@ -3,10 +3,13 @@ package com.example.board.model;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -43,6 +46,10 @@ public class Board {
 
     @Column(name = "counts")
     private Integer counts;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "board")
+    private List<Comment> comments = new ArrayList<>();
 
     @PrePersist
     public void prePersist(){

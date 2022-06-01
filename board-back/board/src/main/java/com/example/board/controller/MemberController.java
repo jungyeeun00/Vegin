@@ -5,6 +5,9 @@ import com.example.board.model.Member;
 import com.example.board.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,7 +23,11 @@ public class MemberController {
     private MemberService memberService;
 
     @GetMapping("")
-    public ModelAndView index() throws IOException {
+    public ModelAndView index(@AuthenticationPrincipal User user) throws IOException {
+//        if (user == null)
+//            System.out.println("no");
+//        else
+//            System.out.println(user.getUsername() + "입니다");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/home/index");
         return modelAndView;
@@ -50,7 +57,7 @@ public class MemberController {
 //    }
 
     // 회원 가입 페이지
-    @GetMapping("/signup")
+//    @GetMapping("/signup")
 //    public ModelAndView signupForm() throws IOException {
 //        ModelAndView modelAndView = new ModelAndView();
 //        modelAndView.setViewName("member/signupForm");

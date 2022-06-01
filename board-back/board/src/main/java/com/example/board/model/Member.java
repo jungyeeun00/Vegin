@@ -1,5 +1,6 @@
 package com.example.board.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -10,6 +11,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter // get 함수를 일괄적으로 만들어줍니다.
@@ -57,6 +60,10 @@ public class Member {
 
     @Column(name = "createdDate")
     private Timestamp createdDate;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<Comment> comments = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {
