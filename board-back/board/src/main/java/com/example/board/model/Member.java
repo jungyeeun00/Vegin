@@ -13,6 +13,8 @@ import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 @Getter // get 함수를 일괄적으로 만들어줍니다.
@@ -59,7 +61,7 @@ public class Member {
     private String birthday;
 
     @Column(name = "createdDate")
-    private Timestamp createdDate;
+    private Date createdDate;
 
     @JsonIgnore
     @OneToMany(mappedBy = "member")
@@ -71,7 +73,7 @@ public class Member {
     }
 
     @Builder
-    public Member(String id, String password, String name, String phone, String address, String email, String birthday, Timestamp createdDate) {
+    public Member(String id, String password, String name, String phone, String address, String email, String birthday, Date createdDate) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -84,5 +86,11 @@ public class Member {
 
     public String getUsername() {
         return id;
+    }
+
+    public String getCreatedDate(){
+        SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd");
+
+        return date.format(createdDate);
     }
 }

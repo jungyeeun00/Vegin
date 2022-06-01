@@ -103,6 +103,7 @@
     margin-left: 5px;
     margin-right: 5px;
     font-family: 'main-font-l';
+    color: #66615b;
 }
 
 #placeType, #placeAddr {
@@ -156,4 +157,13 @@
     font-size: small;
     padding: 0px 1px;
     color: black;
+}
+
+#placeItem{
+    display: inline-block;
+}
+
+.place-best-box{
+    padding: 0% 13%;
+    position: relative;
 }

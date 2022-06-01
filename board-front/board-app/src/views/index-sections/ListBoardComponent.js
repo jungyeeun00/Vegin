@@ -4,7 +4,7 @@ import IndexNavbar from 'components/Navbars/IndexNavbar';
 import VeginFooter from 'components/Footers/VeginFooter'
 import BoardService from '../../service/BoardService';
 import Pagination from './Pagination';
-import { faMagnifyingGlass, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faCircleXmark, faL } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BestCommunityFreeItems from './BestCommunityFreeItems';
 
@@ -13,6 +13,9 @@ class ListBoardComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            searchClick:false,
+            searchInput:'',
+            orgBoards:[],
             p_num: 1,
             paging: {},
             boards: [],
@@ -31,9 +34,44 @@ class ListBoardComponent extends Component {
             this.setState({
                 p_num: res.data.pagingData.currentPageNum,
                 paging: res.data.pagingData,
-                boards: res.data.list
+                boards: res.data.list,
+                orgBoards: res.data.list,
             });
         });
+    }
+
+    searchOnHandler = () => {
+        this.setState({
+            searchClick:true
+        })
+    }
+    searchOffHandler = () => {
+        this.setState({
+            searchClick:false
+        })
+    }
+
+    setSearchHandler = (e) => { // input 창에 onChange 이벤트
+        this.setState({
+            searchInput:e.target.value
+        })
+    }
+
+    setSearchContent = (e) => { //테이블 제목과 검색 결과 비교&필터링
+        console.log(this.state.searchInput);
+        var n_boards = this.state.boards.filter(it => {
+            return it.title.includes(this.state.searchInput);
+        })
+        this.setState({
+            boards:n_boards
+        })
+    }
+
+    searchInputRemoveHandler = () => {
+        this.setState({
+            searchInput:'',
+            boards:this.state.orgBoards
+        })
     }
 
     createBoard() {
@@ -143,15 +181,20 @@ class ListBoardComponent extends Component {
                     <div className="community-best">
                         <h3>BEST</h3>
                     </div>
-                        <BestCommunityFreeItems />
+                        {this.state.boards.length != 0 && <BestCommunityFreeItems boards={this.state.orgBoards} />}
                         <hr className="community-hr" />
                         <div className="community-pl-title">
                             <h5 className="text-center">자유게시판</h5>
                         </div>
                         <div className="community-pl-search-bar">
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                            <span className='place-search-icon' onClick={this.setSearchContent} style={{cursor: 'pointer'}}> <FontAwesomeIcon icon={faMagnifyingGlass} /> </span>
                             <input type="search" placeholder="글 제목 / 본문" value={this.state.searchInput}
                                 onFocus={this.searchOnHandler} onBlur={this.searchOffHandler} onChange={this.setSearchHandler} />
+                            {this.state.searchInput.length !== 0 &&
+                                <button className="btn-clear" onClick={this.searchInputRemoveHandler}>
+                                    <FontAwesomeIcon icon={faCircleXmark} />
+                                </button>
+                            }    
                         </div>
                         <div>
                             <div className="community-pl-tb-wrap">
@@ -168,7 +211,7 @@ class ListBoardComponent extends Component {
                                         {
                                             this.state.boards.map(
                                                 board =>
-                                                    <tr key={board.no}>
+                                                <tr key={board.no}>
                                                         <td>{board.no}</td>
                                                         <td className="community-post-title" onClick={() => this.readBoard(board.no)}>{board.title}</td>
                                                         <td>{board.memberId}</td>

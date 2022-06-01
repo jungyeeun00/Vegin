@@ -6,6 +6,7 @@ import RecipeService from 'service/RecipeService';
 import { Link } from 'react-router-dom';
 
 function RecipeItem(props) {
+
     return (
         <>
             {/* 레시피 아이템 */}
@@ -19,7 +20,7 @@ function RecipeItem(props) {
                         recipe: props.recipe
                     }
                 }}
-                onClick={() => RecipeService.setViews(props.recipe.id)}
+                onClick= {() => {RecipeService.setViews(props.recipe.id); sessionStorage.setItem("scrollPosition", window.pageYOffset);}}
             >
                 {/* <RecipeItems /> */}
                 {/* 레시피 아이템 */}

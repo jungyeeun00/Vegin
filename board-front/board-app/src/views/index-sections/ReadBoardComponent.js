@@ -132,9 +132,7 @@ class ReadBoardComponent extends Component {
                         <span className='post-date'>{this.returnDate(this.state.board.createdTime)}{this.state.board.createdTime}</span>
                         <hr />
                     </div>
-                    <div className='post-contents'>
-                        {this.state.board.contents}
-                    </div>
+                    <div className='post-contents' dangerouslySetInnerHTML = {{ __html: this.state.board.contents }} />
                     <br /><br />
                     <div className='post-btn'>
                         <Button className="post-btn-edit btn-round ml-1" type="button" onClick={this.goToUpdate}>

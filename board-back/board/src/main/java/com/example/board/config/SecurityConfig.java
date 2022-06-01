@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-//         ÀÎÁõÀ» ¹«½ÃÇÏ±â À§ÇÑ ¼³Á¤
+        // ì¸ì¦ì„ ë¬´ì‹œí•˜ê¸° ìœ„í•œ ì„¤ì •
         web.ignoring().antMatchers("/css/**","/js/**","/img/**","/lib/**");
     }
 
@@ -52,22 +53,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated().and().csrf().disable().cors()
                 .configurationSource(request -> corsConfiguration)
                 .and()
-                .formLogin()     // ·Î±×ÀÎ ¼³Á¤
-                .loginPage("/member/login")      // Ä¿½ºÅÒ login ÆäÀÌÁö¸¦ »ç¿ë
-                .defaultSuccessUrl("/member")      // ·Î±×ÀÎ ¼º°ø ½Ã ÀÌµ¿ÇÒ ÆäÀÌÁö
+                .formLogin()     // ë¡œê·¸ì¸ ì„¤ì •
+                .loginPage("/member/login")      // ì»¤ìŠ¤í…€ login í˜ì´ì§€ë¥¼ ì‚¬ìš©
+                .defaultSuccessUrl("/member")      // ë¡œê·¸ì¸ ì„±ê³µ ì‹œ ì´ë™í•  í˜ì´ì§€
                 .permitAll()
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
                 .logoutSuccessUrl("/member")
-                .invalidateHttpSession(true)    // ¼¼¼Ç ÃÊ±âÈ­
+                .invalidateHttpSession(true)    // ì„¸ì…˜ ì´ˆê¸°í™”
                 .and()
                 .exceptionHandling();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // ·Î±×ÀÎ Ã³¸®¸¦ ÇÏ±â À§ÇÑ AuthenticationManagerBuilder¸¦ ¼³Á¤
+        // ë¡œê·¸ì¸ ì²˜ë¦¬ë¥¼ í•˜ê¸° ìœ„í•œ AuthenticationManagerBuilderë¥¼ ì„¤ì •
         auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
     }
 }

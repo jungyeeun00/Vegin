@@ -1,0 +1,151 @@
+@font-face {
+    font-family: 'home-title-font-m';
+    src: url('/assets/fonts/home-title-font/GmarketSansTTFMedium.ttf');
+}
+
+@font-face {
+    font-family: 'main-font-l';
+    src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Light.ttf');
+}
+
+@font-face {
+    font-family: 'main-font-m';
+    src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
+}
+
+.ct-main {
+    padding: 0% 15%;
+    position: relative;
+    font-family: 'main-font-m';
+    .ct-list {
+        #ct-Lbl {
+            margin-top: 40px;
+            margin-bottom: 10px;
+            text-align: center;
+            font-family: 'home-title-font-m';
+            font-size: 28px;
+        }
+        .ct-tb {
+            margin-top: 40px;
+            // border-color: #CCC5B9;
+            border-bottom: 2px solid #868684;
+            border-collapse: collapse;
+            input[type=checkbox] {
+                transform : scale(1.2);
+            }
+            th {
+                border-top: 1px solid #868684;
+            }
+            td {
+                border-top: 1px solid #CCC5B9;
+                font-family: 'main-font-m';
+                vertical-align: middle;
+                .name {
+                    font-size: 16px;
+                }
+                .option {
+                    font-size: 14px;
+                    color: #66615b;
+                }
+            }
+            td, td:not(.item-name) {
+                font-size: 16px;
+            }
+            th, td:not(.item-name) {
+                text-align: center;
+            }
+            .total {
+                font-weight: bold;
+            }
+            .item-dlt {
+                background-color: #4A8451;
+                border: none;
+                font-family: 'main-font-l';
+                &:hover {
+                    background-color: #2B4D2F;
+                }
+            }
+            .item-dlt,
+            .item-dlt:hover,
+            .item-dlt:focus,
+            .item-dlt:active {
+                color: transparent;
+                background-color: transparent;
+                border: none;
+            }
+        }
+        .ct-dlt {
+            background-color: #4A8451;
+            border: none;
+            font-family: 'main-font-l';
+            margin-left: 10px;
+            &:hover {
+                background-color: #2B4D2F;
+            }
+        }
+    }
+
+    .ct-tot {
+        margin-top: 100px;
+        text-align: center;
+        .ct-tot-line {
+            .ct-tot-area {
+                display: flex;
+                justify-content: center;
+                vertical-align: middle;
+                div {
+                    padding: 0 40px;
+                }
+                div:not(em) {
+                    font-size: 18px;
+                }
+                em {
+                    display: block;
+                    font-size: 25px;
+                    font-weight: bold;
+                    font-style: normal;
+                    color: black;
+                }
+                span {
+                    display: block;
+                    .icon {
+                        position: relative;
+                        top: 30%;
+                        vertical-align: middle;
+                    }
+                }
+                .tot-price {
+                    color: red;
+                }
+                
+            }
+        }
+    }
+
+    .ct-buy {
+        margin: 40px 0;
+        text-align: center;
+        button {
+            width: 200px;
+            height: 40px;
+            background-color: #4A8451;
+            border: none;
+            font-family: 'main-font-l';
+            font-size: 16px;
+            &:hover {
+                background-color: #2B4D2F;
+            }
+        }
+    }
+}
+
+.quantity-btn {
+    background-color: #4a8451cb;
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    font-weight: 800;
+    margin: 0px 7px 0px 7px;
+    width: 28px;
+    
+}

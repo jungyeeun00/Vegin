@@ -67,14 +67,6 @@ class CreateDiaryComponent extends Component {
         this.props.history.push('/diary');
     }
 
-    // getTitle() {
-    //     if (this.state.no === '_create') {
-    //         return <h3 className='text-center'>새 글을 작성해주세요</h3>
-    //     } else {
-    //         return <h3 className='text-center'>{this.state.no}글을 수정합니다.</h3>
-    //     }
-    // }
-
     componentDidMount() {
         if (this.state.no === '_create') {
             return;
@@ -87,7 +79,7 @@ class CreateDiaryComponent extends Component {
                     type: board.type,
                     title: board.title,
                     contents: board.contents,
-                    memberNo: board.memberNo
+                    memberId: board.memberId
                 });
             });
         }
@@ -100,16 +92,8 @@ class CreateDiaryComponent extends Component {
                 <div>
                     <div className='wp-wrapper'>
                         <div className='row'>
-                            <div className='card col-md-6 offset-md-3 offset-md-3'>
                                 <div className='card-body'>
                                     <form>
-                                        <div className='form-group'>
-                                            <label>Type</label>
-                                            <select placeholder='type' name='type' className='form-control' value={this.state.type} onChange={this.changeTypeHandler}>
-                                                <option value="1">자유게시판</option>
-                                                <option value='2'>다이어리</option>
-                                            </select>
-                                        </div>
                                         <div className='form-group'>
                                             <label>Title</label>
                                             <input type="text" placeholder='title' name='title' className='form-control' value={this.state.title} onChange={this.changeTitleHandler} />
@@ -125,13 +109,14 @@ class CreateDiaryComponent extends Component {
                                                 // enterMode=CKEDITOR.ENTER_BR
                                                 className='wp-editor'
                                                 editor={ClassicEditor}
-                                                //data='<p>Hello from CKEditor 5!</p>'
                                                 value={this.state.contents}
                                                 onChange={(event, editor) => {
                                                     const data = editor.getData();
-                                                    console.log(data);
                                                     this.changeContentsHandler(data);
                                                 }}
+                                                onReady={(editor) => {
+                                                    editor.setData(this.state.contents);
+                                                  }}
                                             />
                                         </div>
                                         <div className='wp-post-btn-wrapper'>
@@ -140,7 +125,6 @@ class CreateDiaryComponent extends Component {
                                         </div>
                                     </form>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>

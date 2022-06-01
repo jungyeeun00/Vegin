@@ -9,6 +9,9 @@ import com.example.board.model.Step;
 import com.example.board.repository.RecipeRepository;
 import com.example.board.util.PagingUtil2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -22,34 +25,40 @@ public class RecipeService {
     @Autowired
     private RecipeRepository recipeRepository;
 
-    public List<Recipe> getAllRecipe(){
-        return recipeRepository.findAllRecipe();
-    }
-
+    /* 재료 */
     public HashMap<String, Object> getIngredient(Integer id) {
         HashMap<String, Object> ingredient = new HashMap<String, Object>();
-        List<String> categories = recipeRepository.findIngreCate(id);
+        List<String> categories = recipeRepository.findIgrCate(id);
         for(String category : categories) {
-            ingredient.put(category, recipeRepository.findIgreById(id, category));
+            ingredient.put(category, recipeRepository.findIgrById(id, category));
         }
 
         return ingredient;
     }
 
+    /* 조리단계 */
     public List<Step> getStep(Integer id) {
-       return recipeRepository.findStById(id);
+        return recipeRepository.findStById(id);
     }
 
+    /* 조회수 증가 */
     public void setViews(Integer id) {
         recipeRepository.addViewCount(id);
     }
 
-    public ResponseEntity<Map> getPagingRecipe(Integer p_num) {
+    /* 페이지별 전체 레시피 */
+    public ResponseEntity<Map> getRecipe(Integer sort, Integer p_num) {
         Map result = null;
 
         PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
-        List<Recipe> list = recipeRepository.findFromTo(pu.getObjectStartNum(), pu.getObjectCountPerPage());
-        pu.setObjectCountTotal(findAllCount());
+
+        Pageable sort_recipe = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("id"));
+        Pageable sort_popular = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("views").descending());
+
+        List<Recipe> list = sort ==0 ? recipeRepository.findR(sort_recipe)
+                : recipeRepository.findR(sort_popular);
+
+        pu.setObjectCountTotal(getAllCount());
         pu.setCalcForPaging();
 
         System.out.println("p_num : "+p_num);
@@ -66,106 +75,127 @@ public class RecipeService {
         return ResponseEntity.ok(result);
     }
 
-    public int findAllCount() {
+    /* 카테고리별 레시피 */
+    public ResponseEntity<Map> getRecipeCate(Integer sort, String category, Integer p_num) {
+        Map result = null;
+        List<Recipe> list;
+
+        PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
+
+        Pageable sort_recipe = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("id"));
+        Pageable sort_popular = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("views").descending());
+
+        if(category.equals("빵/디저트/과자")) {
+            list = sort ==0 ? recipeRepository.findRCateM("빵", "디저트", "과자", sort_recipe) : recipeRepository.findRCateM("빵", "디저트", "과자", sort_popular);
+            pu.setObjectCountTotal(getCateCount("빵") + getCateCount("디저트") + getCateCount("과자"));
+        }
+        else {
+            list = sort ==0 ? recipeRepository.findRCate(category, sort_recipe) : recipeRepository.findRCate(category, sort_popular);
+            pu.setObjectCountTotal(getCateCount(category));
+        }
+        pu.setCalcForPaging();
+
+        System.out.println("p_num : "+p_num);
+        System.out.println(pu.toString());
+
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+
+        result = new HashMap<>();
+        result.put("pagingData", pu);
+        result.put("list", list);
+
+        return ResponseEntity.ok(result);
+    }
+
+    /* 검색된 전체 레시피 */
+    public ResponseEntity<Map> getRecipeKeyword(Integer sort, String searchInput, Integer p_num) {
+        Map result = null;
+
+        PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
+
+        Pageable sort_recipe = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("id"));
+        Pageable sort_popular = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("views").descending());
+
+        List<Recipe> list = sort ==0 ? recipeRepository.findRKeyword(searchInput, sort_recipe) : recipeRepository.findRKeyword(searchInput, sort_popular);
+        pu.setObjectCountTotal(getCountKeyword(searchInput));
+        pu.setCalcForPaging();
+
+        System.out.println("p_num : "+p_num);
+        System.out.println(pu.toString());
+
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+
+        result = new HashMap<>();
+        result.put("pagingData", pu);
+        result.put("list", list);
+
+        return ResponseEntity.ok(result);
+    }
+
+    /* 카테고리별 검색된 레시피 */
+    public ResponseEntity<Map> getRecipeCateKeyword(Integer sort, String category, String searchInput, Integer p_num) {
+        Map result = null;
+        List<Recipe> list;
+
+        PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
+
+        Pageable sort_recipe = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("id"));
+        Pageable sort_popular = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("views").descending());
+
+        if(category.equals("빵/디저트/과자")) {
+            list = sort ==0 ? recipeRepository.findRCateKeywordM("빵", "디저트", "과자", searchInput, sort_recipe) : recipeRepository.findRCateKeywordM("빵", "디저트", "과자", searchInput, sort_popular);
+            pu.setObjectCountTotal(getCateCountKeywordM("빵", "디저트","과자",searchInput));
+        }
+        else {
+            list = sort ==0 ? recipeRepository.findRCateKeyword(category, searchInput, sort_recipe) : recipeRepository.findRCateKeyword(category, searchInput, sort_popular);
+            pu.setObjectCountTotal(getCateCountKeyword(category, searchInput));
+        }
+        pu.setCalcForPaging();
+
+        System.out.println("p_num : "+p_num);
+        System.out.println(pu.toString());
+
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+
+        result = new HashMap<>();
+        result.put("pagingData", pu);
+        result.put("list", list);
+
+        return ResponseEntity.ok(result);
+    }
+
+    /* 전체 레시피 개수 */
+    public int getAllCount() {
         return (int) recipeRepository.count();
     }
 
-    public ResponseEntity<Map> getPagingRecipeCate(String category, Integer p_num) {
-        Map result = null;
-        List<Recipe> list;
-
-        PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
-        if(category.equals("빵/디저트/과자")) {
-            list = recipeRepository.findFromToByCateMult("빵", "디저트", "과자", pu.getObjectStartNum(), pu.getObjectCountPerPage());
-            pu.setObjectCountTotal(findCateCount("빵") + findCateCount("디저트") + findCateCount("과자"));
-        }
-        else {
-            list = recipeRepository.findFromToByCate(category, pu.getObjectStartNum(), pu.getObjectCountPerPage());
-            pu.setObjectCountTotal(findCateCount(category));
-        }
-        pu.setCalcForPaging();
-
-        System.out.println("p_num : "+p_num);
-        System.out.println(pu.toString());
-
-        if (list == null || list.size() == 0) {
-            return null;
-        }
-
-        result = new HashMap<>();
-        result.put("pagingData", pu);
-        result.put("list", list);
-
-        return ResponseEntity.ok(result);
-    }
-
-    public int findCateCount(String category) {
+    /* 카테고리별 레시피 개수 */
+    public int getCateCount(String category) {
         return recipeRepository.countCate(category).intValue();
     }
 
-    public ResponseEntity<Map> getPagingRecipeWithKeyword(String searchInput, Integer p_num) {
-        Map result = null;
-
-        PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
-        List<Recipe> list = recipeRepository.findFromToWithKeyword(searchInput, pu.getObjectStartNum(), pu.getObjectCountPerPage());
-        pu.setObjectCountTotal(findCountWithKeyword(searchInput));
-        pu.setCalcForPaging();
-
-        System.out.println("p_num : "+p_num);
-        System.out.println(pu.toString());
-
-        if (list == null || list.size() == 0) {
-            return null;
-        }
-
-        result = new HashMap<>();
-        result.put("pagingData", pu);
-        result.put("list", list);
-
-        return ResponseEntity.ok(result);
+    /* 검색된 전체 레시피 개수 */
+    public int getCountKeyword(String searchInput) {
+        return recipeRepository.countKw(searchInput).intValue();
     }
 
-    public ResponseEntity<Map> getPagingRecipeCateWithKeyword(String category, String searchInput, Integer p_num) {
-        Map result = null;
-        List<Recipe> list;
-
-        PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
-        if(category.equals("빵/디저트/과자")) {
-            list = recipeRepository.findFromToByCateWithKeywordMult("빵", "디저트", "과자", searchInput, pu.getObjectStartNum(), pu.getObjectCountPerPage());
-            pu.setObjectCountTotal(findCateCountWithKeywordMult("빵", "디저트","과자",searchInput));
-        }
-        else {
-            list = recipeRepository.findFromToByCateWithKeyword(category, searchInput, pu.getObjectStartNum(), pu.getObjectCountPerPage());
-            pu.setObjectCountTotal(findCateCountWithKeyword(category, searchInput));
-        }
-        pu.setCalcForPaging();
-
-        System.out.println("p_num : "+p_num);
-        System.out.println(pu.toString());
-
-        if (list == null || list.size() == 0) {
-            return null;
-        }
-
-        result = new HashMap<>();
-        result.put("pagingData", pu);
-        result.put("list", list);
-
-        return ResponseEntity.ok(result);
+    /* 검색된 카테고리별 레시피 개수 */
+    public int getCateCountKeyword(String category, String searchInput) {
+        return recipeRepository.countCateKw(category, searchInput).intValue();
     }
 
-    public int findCountWithKeyword(String searchInput) {
-        return recipeRepository.countWithKeyword(searchInput).intValue();
+    /* 검색된 카테고리(3개짜리) 레시피 개수 */
+    public int getCateCountKeywordM(String category1, String category2, String category3, String searchInput) {
+        return recipeRepository.countCateKeywordM(category1, category2, category3, searchInput).intValue();
     }
 
-    public int findCateCountWithKeyword(String category, String searchInput) {
-        return recipeRepository.countCateWithKeyword(category, searchInput).intValue();
-    }
-
-    public int findCateCountWithKeywordMult(String category1, String category2, String category3, String searchInput) {
-        return recipeRepository.countCateWithKeywordMult(category1, category2, category3, searchInput).intValue();
-    }
-
+    /* 조회 로그 기록 */
     public void writeLog(Cookie cookie, Integer id, long time) {
 
         String path = "./board/src/main/resources/RecipeViewLog.txt";
@@ -182,6 +212,7 @@ public class RecipeService {
         }
     }
 
+    /* 검색 로그 기록 */
     public void writeLog(Cookie cookie, String keyword, long time) {
         String path = "./board/src/main/resources/RecipeSearchLog.txt";
         try {
@@ -196,11 +227,16 @@ public class RecipeService {
         }
     }
 
+    /* 추천 리스트 받아오기 */
     public List<Recipe> recommend(String value) {
         List<Recipe> list = new ArrayList<>();
 
         if(value == null) {
-            System.out.println("no recommendation : cookie is null");
+            for(int i=0; i<8; i++) {
+                double randomValue = Math.random();
+                int intValue = (int) (randomValue * getAllCount()) + 1;
+                list.add(recipeRepository.findById(intValue).get());
+            }
         }
         else {
             try{
@@ -226,7 +262,8 @@ public class RecipeService {
                 command[1] = "./recipeRec/RecipeRec.py";
                 command[2] = id;
 
-                String[] idList = execPython(command);
+                String[] idList;
+                idList = execPython(command);
                 for(String i:idList)
                     list.add(recipeRepository.findById(Integer.parseInt(i)).get());
 
@@ -238,6 +275,7 @@ public class RecipeService {
         return list;
     }
 
+    /* 파이썬 코드 실행 */
     public static String[] execPython(String[] command) {
         String[] split = new String[0];
         try {
@@ -252,21 +290,11 @@ public class RecipeService {
             executor.setStreamHandler(pumpStreamHandler);
             int result = executor.execute(commandLine);
             String line = new String(outputStream.toByteArray());
-            System.out.println(line);
 
             split = line.split(",");
 
-//            split[0] = split[0].replace("[", "");
-//            split[7] = split[7].replace("]", "");
-//            split[7] = split[7].replace("\n", "");
-//
-//            for (int i = 1; i < 8; i++) {
-//                split[i] = split[i].replace(" ", ""); // 공백 지우기
-//            }
-
             for(int i = 0; i < 8; i++) {
                 split[i] = split[i].replaceAll("[^0-9]", "");
-                System.out.println(split[i]);
             }
 
         } catch (Exception e) {

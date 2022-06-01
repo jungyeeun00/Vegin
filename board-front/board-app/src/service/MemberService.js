@@ -7,9 +7,7 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN'
 
 class MemberService {
-    
     login(username, password) {
-
         const axiosConfig = {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -19,12 +17,16 @@ class MemberService {
         return axios.post(LOGIN_API_BASE_URL,
             qs.stringify({ username: username, password: password }),
             axiosConfig)
-            .then(localStorage.setItem("member", JSON.stringify(username)))
+            .then(localStorage.setItem("member", username))
             .catch(err => console.log(err));
     }
 
     logout() {
         localStorage.removeItem("member");
+    }
+
+    getOneMember(id){
+        return axios.get(LOGIN_API_BASE_URL+"/"+id);
     }
 
     getCurrentMember() {

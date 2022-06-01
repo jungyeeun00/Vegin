@@ -13,9 +13,7 @@ function RecipeDetailPage() {
     const location = useLocation();
 
     const id = useParams().id;
-    // const recipe = (location.state.recipe)['recipe'];
     const recipe = (location.state.recipe);
-    console.log(location.state.recipe);
     
     const [ingres, setIngres] = useState([]);
     const [cates, setCates] = useState([]);
@@ -76,15 +74,15 @@ function RecipeDetailPage() {
                     {
                         steps.map(
                             (step) =>
-                            <div id="rdStep" className="rd-step" key={step.no}>
-                                {step.img !== "" ?
-                                <img id="rdStepImg" className="rd-step-img" alt="recipe_step" src={step.img} />
-                                : <img id="rdStepImg" className="rd-step-img noImg" alt="recipe_step" src={require("assets/img/white.png")} />
-                                }
-                                <div id="rdStepText" className="rd-step-text">
-                                    {step.no}. {step.content}
+                                <div id="rdStep" className="rd-step" key={step.no}>
+                                    {step.img !== "" ?
+                                    <img id="rdStepImg" className="rd-step-img" alt="recipe_step" src={step.img} />
+                                    : null
+                                    }
+                                    <div id="rdStepText" className="rd-step-text">
+                                        {step.no}. {step.content}
+                                    </div>
                                 </div>
-                            </div>
                         )
                     }
                 </div>

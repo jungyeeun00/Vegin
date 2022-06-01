@@ -3,7 +3,7 @@ package com.example.board.service;
 import com.example.board.model.Choice;
 import com.example.board.model.Product;
 import com.example.board.repository.ShopRepository;
-import com.example.board.util.ShopPagingUtil;
+import com.example.board.util.PagingUtil2;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.PumpStreamHandler;
@@ -31,16 +31,10 @@ public class ShopService {
         return shopRepository.findChoice(productId);
 }
 
-//    public ResponseEntity<Product> getProduct(Integer productId) {
-//        Product product = shopRepository.findById(productId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Not exist Product Data by id : ["+productId+"]"));
-//        return ResponseEntity.ok(product);
-//    }
-
     public ResponseEntity<Map> getProduct(Integer sort, Integer p_num) {
         Map result = null;
 
-        ShopPagingUtil pu = new ShopPagingUtil(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
+        PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
         Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("product_id"));
         Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price"));
@@ -69,7 +63,7 @@ public class ShopService {
     public ResponseEntity<Map> getProductKeyword(String searchInput, Integer p_num, Integer sort) {
         Map result = null;
 
-        ShopPagingUtil pu = new ShopPagingUtil(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
+        PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
         Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("product_id"));
         Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price"));
@@ -96,7 +90,7 @@ public class ShopService {
     public ResponseEntity<Map> getProductCate(String category, Integer p_num, Integer sort) {
         Map result = null;
 
-        ShopPagingUtil pu = new ShopPagingUtil(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
+        PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
         Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("product_id"));
         Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price"));
@@ -124,7 +118,7 @@ public class ShopService {
     public ResponseEntity<Map> getProductCateKeyword(String category, String searchInput, Integer p_num, Integer sort) {
         Map result = null;
 
-        ShopPagingUtil pu = new ShopPagingUtil(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
+       PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
         Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("product_id"));
         Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price"));
