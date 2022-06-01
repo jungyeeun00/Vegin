@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Entity
 @IdClass(StepId.class)
 @Table(name = "step")
-@ToString(exclude = "recipe")
 public class Step {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

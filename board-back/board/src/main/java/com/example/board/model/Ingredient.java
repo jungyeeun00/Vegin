@@ -10,7 +10,6 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "ingredient")
-@ToString(exclude = "recipe")
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
