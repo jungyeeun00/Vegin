@@ -22,6 +22,10 @@ class ProductService {
         return axios.delete(SHOP_API_BASE_URL + "?memberId=" + memberId +"&productId=" + productId)
     }
 
+    getLike(category, memberId) {
+        return axios.get(SHOP_API_BASE_URL +  "/" + category + "?memberId=" + memberId)
+    }
+
     getChoices(productId) {
         return axios.post(SHOP_API_BASE_URL + "/shop-detail-page/" + productId,{}, { withCredentials: true })
     }

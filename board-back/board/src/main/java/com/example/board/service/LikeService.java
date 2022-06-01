@@ -1,8 +1,7 @@
 package com.example.board.service;
 
 import com.example.board.exception.ResourceNotFoundException;
-import com.example.board.model.Board;
-import com.example.board.model.Like;
+import com.example.board.model.Likes;
 import com.example.board.model.LikeId;
 import com.example.board.model.Product;
 import com.example.board.repository.LikeRepository;
@@ -20,11 +19,9 @@ public class LikeService {
     @Autowired
     private LikeRepository likeRepository;
 
-    public Like createLike(String memberId, Integer productId) {
-        Like like = new Like();
-        like.setMemberId(memberId);
-        like.setProductId(productId);
-        return likeRepository.save(like);
+    public Likes createLike(String memberId, Integer productId) {
+        Likes likes = new Likes(memberId, productId);
+        return likeRepository.save(likes);
     }
 
     public ResponseEntity<List<Product>> getLike(String memberId) {
@@ -32,11 +29,16 @@ public class LikeService {
         return ResponseEntity.ok(product);
     }
 
+    public ResponseEntity<List<Integer>> getLikeId(String memberId) {
+        List<Integer> idList = likeRepository.findLikeId(memberId);
+        return ResponseEntity.ok(idList);
+    }
+
     public ResponseEntity<Map<String, Boolean>> deleteLike(String memberId, Integer productId) {
-        Like like = likeRepository.findById(new LikeId(memberId, productId))
+        Likes likes = likeRepository.findById(new LikeId(memberId, productId))
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Like Data by : [" + memberId + "]"));
 
-        likeRepository.delete(like);
+        likeRepository.delete(likes);
         Map<String, Boolean> response = new HashMap<>();
         response.put("Canceled Like by id : [" + memberId  + ", " + productId + "]", Boolean.TRUE);
         return ResponseEntity.ok(response);
