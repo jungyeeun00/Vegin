@@ -107,6 +107,9 @@ public class MemberService implements UserDetailsService {
         member.setPassword(updatedMember.getPassword());
         member.setName(updatedMember.getName());
         member.setPhone(updatedMember.getPhone());
+        member.setAddress(updatedMember.getAddress());
+        member.setBirthday(updatedMember.getBirthday());
+        member.setEmail(updatedMember.getEmail());
 
         Member endUpdatedMember = memberRepository.save(member);
         return ResponseEntity.ok(endUpdatedMember);

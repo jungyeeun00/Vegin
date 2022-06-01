@@ -114,9 +114,11 @@ body {
 
             //margin: 40px 100px 0px 100px;
             .wva-mz-img {
+                width: 200px;
                 height: 250px;
                 margin-left: auto;
                 margin-right: auto;
+                object-fit: cover;
             }
         }
 

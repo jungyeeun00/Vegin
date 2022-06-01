@@ -34,8 +34,7 @@ public class MemberController {
 //    }
 
     @GetMapping("/login/{id}")
-    public ResponseEntity<Member> geUserById(@PathVariable String id) {
-        System.out.println("id:"+id);
+    public ResponseEntity<Member> getUserById(@PathVariable String id) {
         return memberService.getMember(id);
     }
 //    public ResponseEntity<?> login(@RequestParam(value = "username", required = false) String username, @RequestParam(value = "password", required = false) String password) {

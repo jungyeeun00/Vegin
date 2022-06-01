@@ -176,7 +176,7 @@ class ListBoardComponent extends Component {
                             </NavLink>
                         </NavItem>
                     </Nav>
-                </div>
+                    </div>
                     <div className="community-pl-main">
                     <div className="community-best">
                         <h3>BEST</h3>
