@@ -28,7 +28,7 @@ const settings = {
     slidesToScroll: 4
  };
 
- const memberId = JSON.parse(localStorage.getItem("member"));
+ const memberId = localStorage.getItem("member");
 
 class ShopPage extends Component {
 
