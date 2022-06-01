@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CommentRepository extends CrudRepository<Comment,Integer> {
 
-    @Query("SELECT c from Comment c where c.board.no=:boardNo and c.id>0 order by c.id ASC ")
+    @Query("SELECT c from Comment c where c.board.no=:boardNo and c.id>0 order by c.id ASC")
     public List<Comment> getCommentsOfBoard(@Param("boardNo") Integer boardNo);
 
 

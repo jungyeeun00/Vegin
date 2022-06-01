@@ -15,7 +15,11 @@ class ReadBoardComponent extends Component {
             board: {},
             memberId:{},
             comments: [],
-            content: ''
+            content: '',
+            updating: {
+                now: false,
+                commentId: ''
+            }
         }
 
         this.goToUpdate = this.goToUpdate.bind(this);
@@ -72,6 +76,15 @@ class ReadBoardComponent extends Component {
         this.props.history.push(`/create-board/${this.state.no}`);
     }
 
+    changeUpdating = (commentId) => {
+        this.setState({
+            updating: {
+                now: !this.state.updating.now,
+                commentId: commentId
+            }
+        });
+    }
+
     changeContentHandler = (event) => {
         this.setState({ content: event.target.value });
     }
@@ -89,8 +102,7 @@ class ReadBoardComponent extends Component {
         }
     }
 
-    createComment = (event) => {
-        //event.preventDefault();
+    createComment = () => {
         let comment = {
             boardNo: this.state.no,
             memberId: MemberService.getCurrentMember(),
@@ -100,15 +112,18 @@ class ReadBoardComponent extends Component {
         BoardService.createComment(comment).then(res => {
             window.location.reload();
         });
-        // if (this.state.comment_no === '_create') {
-        //     BoardService.createComment(comment).then(res => {
-        //         window.location.reload();
-        //     });
-        // } else {
-        //     BoardService.updateComment(this.state.no, comment).then(res => {
-        //         window.location.reload();
-        //     });
-        // }
+    }
+
+    updateComment = (commentId) => {
+        let comment = {
+            boardNo: this.state.no,
+            memberId: MemberService.getCurrentMember(),
+            content: this.state.content
+        };
+        console.log("comment => " + JSON.stringify(comment));
+        BoardService.updateComment(commentId, comment).then(res => {
+            window.location.reload();
+        });
     }
 
     deleteComment = async function (commentId) {
@@ -168,15 +183,30 @@ class ReadBoardComponent extends Component {
                                 <div className='post-comment'>
                                     <hr />
                                     <div className='post-comment-header'>
-                                        <span className='post-comment-name'></span>&nbsp;&nbsp;
+                                        <span className='post-comment-name'>{comment.member.id}</span>&nbsp;&nbsp;
                                         <span className='post-comment-date'>{comment.created_date.substring(0, 16)}</span>
                                     </div>
                                     <div className='post-comment-contents'>
-                                        <span className='post-comment-content'>{comment.member.name}</span>
+                                        {!this.state.updating.now && <span className='post-comment-content'>{comment.content}</span>}
+                                        {this.state.updating.now && this.state.updating.commentId == comment.id &&
+                                            <div className='post-updatecomment-wrapper'>
+                                                <textarea
+                                                    id='post-updatecomment'
+                                                    placeholder='불쾌감을 주는 욕설과 악플은 삭제될 수 있습니다.'
+                                                    defaultValue={comment.content}
+                                                    onChange={this.changeContentHandler}>
+                                                </textarea>
+                                                <div className='post-commentupdate-btn-wrapper'>
+                                                    <Button className="post-commentupdate-btn btn-round ml-1" type="button" onClick={() => this.updateComment(comment.id)}>
+                                                        등록
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        }
                                     </div>
-                                    { MemberService.getCurrentMember() == comment.member.id &&
+                                    {MemberService.getCurrentMember() == comment.member.id && !this.state.updating.now &&
                                         <div className='post-comment-btn-wrapper'>
-                                            <Button className="post-comment-btn-edit btn-round ml-1" type="button">수정</Button>
+                                            <Button className="post-comment-btn-edit btn-round ml-1" type="button" onClick={() => this.changeUpdating(comment.id)}>수정</Button>
                                             <Button className="post-comment-btn-cancel btn-round ml-1" type="button" onClick={() => this.deleteComment(comment.id)}>삭제</Button>
                                         </div>
                                     }

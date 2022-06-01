@@ -37,6 +37,12 @@ public class CommentController {
         return new ResponseEntity<>(this.commentService.Listcomments(boardNo),HttpStatus.CREATED);
     }
 
+    // UPDATE
+    @PutMapping("/update/{commentId}")
+    public ResponseEntity<Comment> updateComment(@PathVariable int commentId, @RequestBody CommentDto commentDto) { //, Principal principal){
+        return this.commentService.updateBoard(commentId, new Comment(commentDto.getContent()));
+    }
+
     //DELETE
     @DeleteMapping("/delete/{boardNo}/{commentNo}")
     public ResponseEntity<List<Comment>> addComment(@PathVariable int boardNo,@PathVariable int commentNo) {
