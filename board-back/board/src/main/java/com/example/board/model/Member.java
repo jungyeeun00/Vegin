@@ -1,5 +1,6 @@
 package com.example.board.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -10,6 +11,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -59,6 +62,10 @@ public class Member {
 
     @Column(name = "createdDate")
     private Date createdDate;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<Comment> comments = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {

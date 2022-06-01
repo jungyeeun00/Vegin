@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Card, Form, Input, InputGroup, InputGroupText, Container, Row, Col, UncontrolledTooltip } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faEnvelope, faLock, faPhone, faHouse, faCakeCandles } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faFingerprint, faLock, faEnvelope, faPhone, faHouse, faCakeCandles } from '@fortawesome/free-solid-svg-icons'
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import MemberService from "service/MemberService";
 import VeginFooter from "components/Footers/VeginFooter";

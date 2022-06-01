@@ -57,7 +57,6 @@ public class BoardService {
     public ResponseEntity<Board> updateBoard(Integer no, Board updatedBoard) {
         Board board = boardRepository.findById(no)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + no + "]"));
-        board.setType(updatedBoard.getType());
         board.setTitle(updatedBoard.getTitle());
         board.setContents(updatedBoard.getContents());
         board.setUpdatedTime(new Date());

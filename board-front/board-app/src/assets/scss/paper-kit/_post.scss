@@ -51,31 +51,65 @@ body{
     }
 }
 
+.post-comment-wrapper {
+    margin-top: 20px;
+    margin-bottom: 50px;
 
-.post-comment{
-    margin-bottom: 20px;
-    font-size: 16px;
-    .post-comment-header{
-        margin-bottom: 20px;
-        .post-comment-name{
-            color: black;
-            font-weight: 500;
+    .post-comment {
+        hr {
+            margin-top: 14px;
+            margin-bottom: 14px;
         }
-        .post-comment-date{
-            color: rgb(151, 149, 149);
-            font-size: 14px;
+        font-size: 16px;
+    
+        .post-comment-header {
+            margin-bottom: 10px;
+    
+            .post-comment-name {
+                color: black;
+                font-weight: 500;
+            }
+    
+            .post-comment-date {
+                color: rgb(151, 149, 149);
+                font-size: 14px;
+            }
         }
-        .post-comment-contents{
-            margin-top: 30px;
+
+        .post-comment-contents {
+            margin-bottom: 14px;
             color: black;
+        }
+    
+        .post-comment-btn-wrapper {
+            text-align: right;
+    
+            .post-comment-btn-edit {
+                background-color: white;
+                border-width: 1.5px;
+                background-color: white;
+                border-color: #4A8451;
+                color: #4A8451;
+                width: 70px;
+            }
+    
+            .post-comment-btn-cancel {
+                background-color: #4A8451;
+                border-color: #4A8451;
+                width: 70px;
+            }
+    
+            .post-comment-btn-edit.checked {
+                background-color: #37693d;
+            }
         }
     }
-    
 }
 .post-writecomment-wrapper{
     padding: 8px 8px;
     border: 1px solid rgb(167, 167, 167);
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    margin-top: 20px;
     .post-writecomment-name{
         color: black;
         font-size: 16px;

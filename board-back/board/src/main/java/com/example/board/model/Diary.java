@@ -23,9 +23,6 @@ public class Diary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer no;
 
-    @Column(name = "type")
-    private String type;
-
     @Column(name = "title")
     private String title;
 
