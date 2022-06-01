@@ -52,11 +52,8 @@ class BoardService{
         return axios.post(COMMENT_API_BASE_URL + "/add", comment, null);
     }
 
-    updateComment(no, comment) {
-        // return axios.put(COMMENT_API_BASE_URL + "/add/" + no + "/", comment, null);
-        
-        // return axios.put(BOARD_API_BASE_URL + "/" + no, board);
-        // return axios.post(BOARD_API_BASE_URL, board);
+    updateComment(id, comment) {
+        return axios.put(COMMENT_API_BASE_URL + "/update/" + id, comment, null);
     }
 
     getComments(no) {

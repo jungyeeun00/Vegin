@@ -37,6 +37,9 @@ public class Comment {
     @Column(name="created_date")
     private String created_date;
 
+    @Column(name="last_modified_date")
+    private String last_modified_date;
+
     @JsonIgnore
     @ManyToOne//(fetch=FetchType.LAZY)
     @JoinColumn(name="board_no")

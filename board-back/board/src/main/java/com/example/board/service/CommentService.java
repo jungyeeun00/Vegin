@@ -1,6 +1,7 @@
 package com.example.board.service;
 
 import com.example.board.dto.CommentDto;
+import com.example.board.exception.ResourceNotFoundException;
 import com.example.board.model.Board;
 import com.example.board.model.Comment;
 import com.example.board.model.Member;
@@ -10,9 +11,12 @@ import com.example.board.repository.MemberRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +44,17 @@ public class CommentService {
         });
         System.out.println(comment);
         return this.commentRepository.save(comment);
+    }
+
+    // ´ñ±Û ¼öÁ¤
+    public ResponseEntity<Comment> updateBoard(Integer id, Comment updatedComment) {
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not exist Comment Data by id : [" + id + "]"));
+        comment.setContent(updatedComment.getContent());
+        comment.setLast_modified_date((new Timestamp(System.currentTimeMillis())).toString());
+
+        Comment endUpdatedComment = commentRepository.save(comment);
+        return ResponseEntity.ok(endUpdatedComment);
     }
 
     //´ñ±Û ¸®½ºÆ®
