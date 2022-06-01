@@ -82,21 +82,19 @@
         min-width: 500px;
 
         .rd-step {
-            display: inline-flex;
-            align-items: center;
             margin-bottom: 25px;
             padding: 10px 20px;
             width: 100%;
             
             .rd-step-img {
                 min-width: 200px;
-                margin-right: 15px;
-                width: 50%;
+                max-width: 600px;
             }
 
             .rd-step-text {
-                margin-left: 15px;
-                width: 50%;
+                margin-top: 20px;
+                margin-bottom: 50px;
+                font-size: 18px;
             }
         }
     }

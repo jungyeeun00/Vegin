@@ -105,7 +105,7 @@ class RecipePage extends Component {
             searchInput: '',
             searchCancel: false,
         });
-        this.listRecipe(this.state.curCate, '', 1);
+        this.listRecipe(this.state.sort, this.state.curCate, '', 1);
     };
 
     // enter 이벤트 처리 (검색)
@@ -119,7 +119,7 @@ class RecipePage extends Component {
     };
 
     handleClick = () => {
-        this.listRecipe(this.state.curCate, this.state.searchInput, -1);
+        this.listRecipe(this.state.sort, this.state.curCate, this.state.searchInput, -1);
     };
 
     changeCate = (e) => {
@@ -383,7 +383,7 @@ class RecipePage extends Component {
                     <hr className="recipe-hr" />
 
                     {/* 정렬 및 아이템 나열 부분 */}
-                    <div className="recipe-content-ba">
+                    <div className="recipe-content-bar">
                         <button
                             type="button"
                             className={`recipe-sort-btn ${this.state.sort === 0 ? 'active' : ''}`}
