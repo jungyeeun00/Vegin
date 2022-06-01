@@ -72,7 +72,7 @@ class LoginPage extends Component {
                       MemberService.login(this.state.username, this.state.password)
                         .then(res => {
                           console.log(res.data);
-                          //  this.props.history.push("/index")
+                            this.props.history.push("/index")
                           })
                         .catch(error => alert('아이디 혹은 비밀번호를 확인하세요.'))}>
                       LOGIN

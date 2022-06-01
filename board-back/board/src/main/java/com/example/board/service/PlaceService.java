@@ -3,7 +3,7 @@ package com.example.board.service;
 import com.example.board.controller.ImageSearchApi;
 import com.example.board.model.PlaceInfo;
 import com.example.board.repository.PlaceInfoRepository;
-import com.example.shop.exception.ResourceNotFoundException;
+import com.example.board.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

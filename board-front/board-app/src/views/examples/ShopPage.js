@@ -28,6 +28,8 @@ const settings = {
     slidesToScroll: 4
  };
 
+ const memberId = JSON.parse(localStorage.getItem("member"));
+
 class ShopPage extends Component {
 
     constructor(props) {
@@ -41,10 +43,12 @@ class ShopPage extends Component {
             paging: {},
             pagePrev: 0,
             recommend: [],
+            likes: [],
             sort: 0, // 정렬( default: 인기순(0) )
             isLoading: false // Spinner
         };
     }
+
     componentDidMount() {
         ShopService.getProducts(cateData[this.state.curCate], this.state.searchInput, this.state.sort, this.state.p_num).then((res) => {
             this.setState({ 
@@ -60,6 +64,12 @@ class ShopPage extends Component {
             this.setState({
                 recommend: res.data,
                 isLoading: true
+            })
+         });
+         ShopService.getLike(cateData[this.state.curCate], memberId).then((res) => { 
+             console.log(res.data);
+            this.setState({
+                likes: res.data
             })
          });
     }
