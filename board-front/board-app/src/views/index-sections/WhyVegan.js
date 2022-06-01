@@ -84,46 +84,61 @@ class WhyVegan extends Component {
                     <div className='wva-mz-slider-wrapper'>
                     <Slider {...settings} className='wva-mz-slider'>
                         <div className='wva-mz'>
-                            <img 
-                                className="wva-mz-img" 
-                                alt="magazine" 
-                                src= "https://assets.vogue.com/photos/61ae16157c13ee66d47c2972/master/w_1920,c_limit/VO0122_SocialCover_logo.jpg"
-                            />
-                            <div className='wva-mz-contents'>
-                                비건단체 
-                            </div>
-
+                            <a href='https://vegreen.co.kr/'>
+                                <img 
+                                    className="wva-mz-img" 
+                                    alt="vegreen" 
+                                    src= "https://vegreen.co.kr/img/banner/main/1920_850/04.jpg"
+                                />
+                            </a>
                         </div>
                         <div>
-                            <img 
-                                className="wva-mz-img" 
-                                alt="magazine" 
-                                src= "https://assets.vogue.com/photos/61ae16157c13ee66d47c2972/master/w_1920,c_limit/VO0122_SocialCover_logo.jpg"
-                            />
+                            <a href='https://www.lush.co.kr/goods/goods_list.php?cateCd=001019'>
+                                <img 
+                                    className="wva-mz-img" 
+                                    alt="lush" 
+                                    src= "https://i.pinimg.com/originals/d4/4f/70/d44f70a2f2705a8ae2abf46cf0163ab1.jpg"
+                                />
+                            </a>
                         </div>
                         <div>
-                            <img 
-                                className="wva-mz-img" 
-                                alt="magazine" 
-                                src= "https://assets.vogue.com/photos/61ae16157c13ee66d47c2972/master/w_1920,c_limit/VO0122_SocialCover_logo.jpg"
-                            />
+                            <a href="https://vegantigerkorea.com/">
+                                <img 
+                                    className="wva-mz-img" 
+                                    alt="vegantiger" 
+                                    src= "https://vegantigerkorea.com/web/upload/ga09/main/pc-02.jpg"
+                                />
+                            </a> 
                         </div>
                         <div>
-                            <img 
-                                className="wva-mz-img" 
-                                alt="magazine" 
-                                src= "https://assets.vogue.com/photos/61ae16157c13ee66d47c2972/master/w_1920,c_limit/VO0122_SocialCover_logo.jpg"
-                            />
+                            <a href='https://unademonaco.co.kr/home'>
+                                <img 
+                                    className="wva-mz-img" 
+                                    alt="unademonaco" 
+                                    src= "https://contents.sixshop.com/thumbnails/uploadedFiles/146325/default/image_1644374784678_500.png"
+                                />
+                            </a>
                         </div>
                         <div>
-                            <img 
-                                className="wva-mz-img" 
-                                alt="magazine" 
-                                src= "https://assets.vogue.com/photos/61bd0b4a1b84e62f58b4d5a1/master/w_1920,c_limit/VO0222_Cover_Logo.jpg"
-                            />
+                            <a href='https://benope.com/'>
+                                <img 
+                                    className="wva-mz-img" 
+                                    alt="benope" 
+                                    src= "https://benope.com/web/product/big/202111/4c5b3a8e408fc8ab98539afe5263e242.jpg"
+                                />
+                            </a>
                         </div>
-                        </Slider>
-                        </div>
+                        <div>
+                            <a href='https://codegreen.io/'>
+                                <img 
+                                    className="wva-mz-img" 
+                                    alt="codegreen" 
+                                    src= "https://codegreen.io/static/media/landing3.0b6258bd.jpg"
+                                />
+                            </a>
+                        </div>  
+                    </Slider>
+                    </div>
                 </div>
             </>
         );

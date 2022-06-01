@@ -7,6 +7,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -14,6 +16,8 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name = "board")
 @DynamicInsert
 @DynamicUpdate
+@Getter
+@Setter
 public class Board {
 
     @Id
@@ -48,79 +52,10 @@ public class Board {
     public void prePersist(){
         this.createdTime = this.createdTime == null ? new Timestamp(System.currentTimeMillis()) : this.createdTime;
     }
-// ---Getter/Setter ---
-
-    public Integer getNo() {
-        return no;
-    }
-
-    public void setNo(Integer no) {
-        this.no = no;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContents() {
-        return contents;
-    }
-
-    public void setContents(String contents) {
-        this.contents = contents;
-    }
-
-    public String getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(String memberNo) {
-        this.memberId = memberNo;
-    }
 
     public String getCreatedTime() {
         SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd");
 
         return date.format(createdTime);
-    }
-
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public Date getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(Date updatedTime) {
-        this.updatedTime = updatedTime;
-    }
-
-    public Integer getLikes() {
-        return likes;
-    }
-
-    public void setLikes(Integer likes) {
-        this.likes = likes;
-    }
-
-    public Integer getCounts() {
-        return counts;
-    }
-
-    public void setCounts(Integer counts) {
-        this.counts = counts;
     }
 }

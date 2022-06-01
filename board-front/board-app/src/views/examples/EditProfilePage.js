@@ -8,7 +8,7 @@ import VeginFooter from "components/Footers/VeginFooter";
 import { faIdCard } from '@fortawesome/free-regular-svg-icons';
 
 
-class JoinPage extends Component {
+class EditProfilePage extends Component {
 
     constructor(props) {
         super(props)
@@ -24,8 +24,16 @@ class JoinPage extends Component {
     }
 
     componentDidMount(){
-        this.setState({
-            phone: "010-"
+        MemberService.getOneMember(localStorage.getItem("member")).then((res) => {
+            console.log(res);
+            this.setState({
+                id: res.data.id,
+                email: res.data.email,
+                name: res.data.name,
+                phone: res.data.phone,
+                address: res.data.address,
+                birthday: res.data.birthday
+            })
         })
     }
 
@@ -84,25 +92,25 @@ class JoinPage extends Component {
                                     {/* <h3 className="title mx-auto">
                     <img className="login_logo" alt="login_logo" src={require("assets/img/login_logo.png")} style={{ width: '250px' }} />
                     </h3> */}
-                                    <h3 className="join-title">JOIN</h3>
+                                    <h3 className="join-title">회원정보 수정</h3>
                                     <Form className="register-form">
                                         <div className="join-group" id='bottom-name'>
                                             <span className="join-icon"> <FontAwesomeIcon icon={faUser} /> <text>이름</text> </span>
-                                            <Input className='input-join' placeholder="Name" type="text" id="name" onChange={this.setNameHandler} />
+                                            <Input className='input-join' placeholder="Name" type="text" id="name" value={this.state.name} onChange={this.setNameHandler} />
                                         </div>
                                         <UncontrolledTooltip placement="top" target="bottom-name" delay={0}>
                                         2자 이상 16자 이하로 입력하시오
                                         </UncontrolledTooltip>
                                         <div className="join-group" id='bottom-id'>
                                             <span className="join-icon"> <FontAwesomeIcon icon={faIdCard} /> <text>아이디</text> </span>
-                                            <Input className='input-join' placeholder="ID" type="text" id="id" onChange={this.setIdHandler} />
+                                            <Input className='input-join' placeholder="ID" type="text" id="id" value={this.state.id} style={{pointerEvents:'none'}}/>
                                         </div>
                                         <UncontrolledTooltip placement="top" target="bottom-id" delay={0}>
-                                        6자 이상 12자 이하로 입력하시오
+                                        아이디는 변경 불가합니다
                                         </UncontrolledTooltip>
                                         <div className="join-group" id='bottom-email'>
                                             <span className="join-icon"> <FontAwesomeIcon icon={faEnvelope} /> <text>이메일</text> </span>
-                                            <Input className='input-join' placeholder="Email" type="email" id="username"  onChange={this.setEmailHandler} />
+                                            <Input className='input-join' placeholder="Email" type="email" id="username" value={this.state.email} onChange={this.setEmailHandler} />
                                         </div>
                                         <UncontrolledTooltip placement="top" target="bottom-email" delay={0}>
                                         @을 포함한 이메일을 입력하시오
@@ -120,11 +128,11 @@ class JoinPage extends Component {
                                         </UncontrolledTooltip>
                                         <div className="join-group">
                                             <span className="join-icon"> <FontAwesomeIcon icon={faHouse} /> <text>주소</text> </span>
-                                            <Input className='input-join' placeholder="Address" type="text" id="address" onChange={this.setAddressHandler} />
+                                            <Input className='input-join' placeholder="Address" type="text" id="address" value={this.state.address} onChange={this.setAddressHandler} />
                                         </div>
                                         <div className="join-group">
                                             <span className="join-icon"> <FontAwesomeIcon icon={faCakeCandles} /> <text>생년월일</text> </span>
-                                            <Input className='input-join' placeholder="Birthday" type="date" id="birthday" onChange={this.setBirthdayHandler} />
+                                            <Input className='input-join' placeholder="Birthday" type="date" id="birthday" value={this.state.birthday} onChange={this.setBirthdayHandler} />
                                         </div>
                                         <Button block className="join-btn" type='button' onClick={() => {
                                             let memberDto = {
@@ -139,7 +147,7 @@ class JoinPage extends Component {
                                             MemberService.signup(memberDto)
                                             .then(res => this.props.history.push("/signup-success"))
                                             }}>
-                                            Join
+                                            Edit
                                         </Button>
                                     </Form>
                                 </Card>
@@ -153,4 +161,4 @@ class JoinPage extends Component {
     }
 }
 
-export default JoinPage;
+export default EditProfilePage;

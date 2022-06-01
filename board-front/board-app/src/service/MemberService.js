@@ -1,8 +1,10 @@
 import axios from 'axios';
+import { noConflict } from 'lodash';
 import qs from 'qs';
 
 const LOGIN_API_BASE_URL = "http://localhost:8080/member/login";
 const SIGNUP_API_BASE_URL = "http://localhost:8080/member/signup";
+const UPDATE_API_BASE_URL = "http://localhost:8080/member/list";
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN'
 
@@ -27,6 +29,10 @@ class MemberService {
 
     getOneMember(id){
         return axios.get(LOGIN_API_BASE_URL+"/"+id);
+    }
+
+    updateMember(id, member){
+        return axios.put(LOGIN_API_BASE_URL+"/"+id, member);
     }
 
     getCurrentMember() {
