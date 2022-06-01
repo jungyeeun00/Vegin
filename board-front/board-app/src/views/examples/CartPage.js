@@ -6,14 +6,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEquals, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
 function CartPage(props) {
-    const [checkItems, setCheckItems] = useState([]);
-    const [items, setItems] = useState([
-        { id: 1, name: "상품 이름 어쩌구 저쩌구1", option: "옵션1 +4000", quantity: 2, price: 18000 },
-        { id: 2, name: "상품 이름 어쩌구 저쩌구2", option: "옵션2 +0", quantity: 1, price: 26000 },
-        { id: 3, name: "상품 이름 어쩌구 저쩌구3", option: null, quantity: 1, price: 16000 }
-    ]);
-    const [totalPrice, setTotalPrice] = useState(0);
+    let cartItem = sessionStorage.getItem("cart");
 
+    if (cartItem) {
+        cartItem = JSON.parse(cartItem);
+        // id 설정
+        for(let i = 0; i < cartItem.length; i++) {
+            cartItem[i].id = i;
+        }
+        //sessionStorage.setItem("cart", JSON.stringify(cartItem))
+    }
+
+    const [checkItems, setCheckItems] = useState([]);
+    const [items, setItems] = useState(cartItem);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     /* 선택된 item들 삭제 */
     const onRemoveMul = (checked) => {
@@ -31,6 +37,9 @@ function CartPage(props) {
         });
         setCheckItems(checkItem);
         setTotalPrice(0);
+        
+        // 세션에서도 삭제
+        sessionStorage.setItem("cart", JSON.stringify(item));
     };
 
     /* 하나의 item 삭제 */
@@ -42,12 +51,19 @@ function CartPage(props) {
         var checkItem = checkItems;
         checkItem = checkItems.filter(check => check !== id);
         setCheckItems(checkItem);
+
+        calcTotalPrice(id, false);
+        //setTotalPrice(totalPrice - checkItem.sum)
+        
+        // 세션에서도 삭제
+        sessionStorage.setItem("cart", JSON.stringify(item));
     }
 
     /* 모든 item 삭제 */
     const onRemoveAll = () => {
         setItems([]);
         setCheckItems([]);
+        sessionStorage.setItem("cart", "");
     }
 
     // 체크박스 전체 단일 개체 선택
@@ -73,7 +89,7 @@ function CartPage(props) {
             var sum = 0;
             items.forEach((item) => {
                 idArray.push(item.id);
-                sum += item.price * item.quantity;
+                sum += item.price * item.num;
             });
             setCheckItems(idArray);
             setTotalPrice(sum);
@@ -89,7 +105,7 @@ function CartPage(props) {
     const calcTotalPrice = (id, isTrue) => {
         const curPrice = items.reduce((sum, cur, idx) => {
             if (cur.id == id)
-                sum = cur.price * cur.quantity;
+                sum = cur.price * cur.num;
             return sum;
         }, 0);
         if (isTrue) {
@@ -98,8 +114,9 @@ function CartPage(props) {
         else {
             setTotalPrice(totalPrice - curPrice);
         }
-
     }
+
+  
 
     return (
         <>
@@ -132,7 +149,8 @@ function CartPage(props) {
                             {items.map(
                                 item =>
                                     <CartItem
-                                        item={item}
+                                        option={item}
+                                        items={items}
                                         handleSingleCheck={handleSingleCheck}
                                         checkItems={checkItems}
                                         setCheckItems={setCheckItems}
@@ -185,8 +203,8 @@ function CartPage(props) {
                                     </span>
                                 </em>
                             </div>
-                            <span>
-                                {/* <i className="fa fa-minus" aria-hidden="true"></i> */}
+                            {/* <span>
+                               
                                 <FontAwesomeIcon icon={faMinus} className="icon" />
                             </span>
                             <div>
@@ -195,10 +213,10 @@ function CartPage(props) {
                                 </span>
                                 <em>
                                     <span>
-                                        0원
+                                        {salePrice}원
                                     </span>
                                 </em>
-                            </div>
+                            </div> */}
                             <span>
                                 <FontAwesomeIcon icon={faEquals} className="icon" />
                             </span>
@@ -206,11 +224,19 @@ function CartPage(props) {
                                 <span>
                                     최종금액
                                 </span>
-                                <em>
-                                    <span className="tot-price">
-                                        {totalPrice}원
-                                    </span>
-                                </em>
+                                { totalPrice == 0 
+                                ?  <em>
+                                        <span className="tot-price">
+                                            {totalPrice}원
+                                        </span>
+                                    </em>
+                                :   <em>
+                                        <span className="tot-price">
+                                            {totalPrice + 3000}원
+                                        </span>
+                                    </em>
+                                }
+                               
                             </div>
                         </div>
                     </div>

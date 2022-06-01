@@ -70,7 +70,10 @@ class LoginPage extends Component {
                     </div>
                     <Button block className="login-btn" onClick={() =>
                       MemberService.login(this.state.username, this.state.password)
-                        .then(res => this.props.history.push("/index"))
+                        .then(res => {
+                          console.log(res.data);
+                            this.props.history.push("/index")
+                          })
                         .catch(error => alert('아이디 혹은 비밀번호를 확인하세요.'))}>
                       LOGIN
                     </Button>

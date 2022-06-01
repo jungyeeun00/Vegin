@@ -28,6 +28,8 @@ const settings = {
     slidesToScroll: 4
  };
 
+ const memberId = JSON.parse(localStorage.getItem("member"));
+
 class ShopPage extends Component {
 
     constructor(props) {
@@ -41,10 +43,12 @@ class ShopPage extends Component {
             paging: {},
             pagePrev: 0,
             recommend: [],
+            likes: [],
             sort: 0, // 정렬( default: 인기순(0) )
             isLoading: false // Spinner
         };
     }
+
     componentDidMount() {
         ShopService.getProducts(cateData[this.state.curCate], this.state.searchInput, this.state.sort, this.state.p_num).then((res) => {
             this.setState({ 
@@ -62,9 +66,12 @@ class ShopPage extends Component {
                 isLoading: true
             })
          });
-       
-        // curCate: 'cat0'
-        curCate: sessionStorage.getItem('curCate')
+         ShopService.getLike(cateData[this.state.curCate], memberId).then((res) => { 
+             console.log(res.data);
+            this.setState({
+                likes: res.data
+            })
+         });
     }
 
     handleScrollPosition = () => {
@@ -95,13 +102,13 @@ class ShopPage extends Component {
                 ? this.setState({
                     p_num: res.data.pagingData.currentPageNum,
                     paging: res.data.pagingData,
-                    recipes: res.data.list,
+                    products: res.data.list,
                     pagePrev: p_num
                 })
                 : this.setState({
                     p_num: 0,
                     paging: {},
-                    recipes: [],
+                    products: [],
                     pagePrev: p_num
                 })
         });
@@ -310,7 +317,7 @@ class ShopPage extends Component {
                 </div>
 
 
-                { this.state.empty == 1
+                {this.state.p_num === 0
                 ? <p style={{textAlign: 'center'}}>검색 결과가 없습니다.</p>
                 :
                 

@@ -7,29 +7,26 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN'
 
 class MemberService {
-    // login = () => {
-    //     fetch(LOGIN_API_BASE_URL)
-    // }
-
-
-
     login(username, password) {
-        // const username = document.getElementById("username");
-        // const password = document.getElementById("password");
         const axiosConfig = {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
         }
 
-
         return axios.post(LOGIN_API_BASE_URL,
             qs.stringify({ username: username, password: password }),
-            axiosConfig);
+            axiosConfig)
+            .then(localStorage.setItem("member", username))
+            .catch(err => console.log(err));
     }
 
     logout() {
         localStorage.removeItem("member");
+    }
+
+    getOneMember(id){
+        return axios.get(LOGIN_API_BASE_URL+"/"+id);
     }
 
     getCurrentMember() {

@@ -52,6 +52,19 @@
                     margin-top: 30px;
                     margin-bottom: 15px;
                 }
+                
+                .product-regPrice {
+                    font-size: 15px;
+                    text-decoration : line-through;
+                    color: #aaaaaa;
+                    margin-right: 5px;
+                }
+
+                .product-saleRate {
+                    font-weight: 800;
+                    color: #4A8451;
+                    margin-right: 5px;
+                }
             }
 
             .shop-info-image:before, .shop-info-text:before {   /* 텍스트를 수직 가운데 정렬하기 위한 가상선택자 */

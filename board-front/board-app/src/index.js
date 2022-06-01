@@ -51,6 +51,7 @@ import ReadBoardComponent from "views/index-sections/ReadBoardComponent";
 import ListDiaryComponent from "views/index-sections/ListDiaryComponent";
 import ReadDiaryComponent from "views/index-sections/ReadDiaryComponent";
 import CreateDiaryComponent from "views/index-sections/CreateDiaryComponent";
+import SuccessSignup from "views/examples/SuccessSignup";
 // others
 
 ReactDOM.render(
@@ -136,6 +137,10 @@ ReactDOM.render(
       <Route
         path="/cart"
         render={(props) => <CartPage {...props} />}
+      />
+      <Route
+        path="/signup-success"
+        render={(props) => <SuccessSignup {...props}/>}
       />
       <Route path='/board' component={ListBoardComponent}></Route>
       <Route path='/create-board/:no' component={CreateBoardComponent}></Route>

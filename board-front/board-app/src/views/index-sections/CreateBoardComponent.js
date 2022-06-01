@@ -67,14 +67,6 @@ class CreateBoardComponent extends Component {
         this.props.history.push('/board');
     }
 
-    // getTitle() {
-    //     if (this.state.no === '_create') {
-    //         return <h3 className='text-center'>새 글을 작성해주세요</h3>
-    //     } else {
-    //         return <h3 className='text-center'>{this.state.no}글을 수정합니다.</h3>
-    //     }
-    // }
-
     componentDidMount() {
         if (this.state.no === '_create') {
             return;
@@ -87,7 +79,7 @@ class CreateBoardComponent extends Component {
                     type: board.type,
                     title: board.title,
                     contents: board.contents,
-                    memberNo: board.memberNo
+                    memberId: board.memberId
                 });
             });
         }
@@ -116,13 +108,14 @@ class CreateBoardComponent extends Component {
                                             <CKEditor
                                                 className='wp-editor'
                                                 editor={ClassicEditor}
-                                                //data='<p>Hello from CKEditor 5!</p>'
                                                 value={this.state.contents}
                                                 onChange={(event, editor) => {
                                                     const data = editor.getData();
-                                                    console.log(data);
                                                     this.changeContentsHandler(data);
                                                 }}
+                                                onReady={(editor) => {
+                                                    editor.setData(this.state.contents);
+                                                  }}
                                             />
                                         </div>
                                         <div className='wp-post-btn-wrapper'>

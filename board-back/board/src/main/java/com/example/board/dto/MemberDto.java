@@ -10,6 +10,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -37,7 +38,7 @@ public class MemberDto {
     @Nullable
     private String birthday = null;
 
-    private Timestamp createdDate;
+    private Date createdDate;
 
     public Member toEntity() {
         return Member.builder()
@@ -53,7 +54,7 @@ public class MemberDto {
     }
 
     @Builder
-    public MemberDto(String id, String password, String name, String phone, String address, String email, String birthday, Timestamp createdDate) {
+    public MemberDto(String id, String password, String name, String phone, String address, String email, String birthday, Date createdDate) {
         this.id = id;
         this.password = password;
         this.name = name;
