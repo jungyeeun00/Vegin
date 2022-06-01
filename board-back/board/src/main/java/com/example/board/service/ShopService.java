@@ -1,5 +1,6 @@
 package com.example.board.service;
 
+import com.example.board.dto.ProductDto;
 import com.example.board.model.Choice;
 import com.example.board.model.Product;
 import com.example.board.repository.ShopRepository;
@@ -29,17 +30,23 @@ public class ShopService {
 
     public List<Choice> getChoices(Integer productId) {
         return shopRepository.findChoice(productId);
-}
+    }
+
+    public ResponseEntity<List<ProductDto>> getFeatured() {
+        Pageable page = PageRequest.of(0, 4, Sort.by("count").descending());
+        List<ProductDto> list = shopRepository.findFeatured(page);
+        return ResponseEntity.ok(list);
+    }
 
     public ResponseEntity<Map> getProduct(Integer sort, Integer p_num) {
         Map result = null;
 
         PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
-        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("product_id"));
+        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("count").descending());
         Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price"));
 
-        List<Product> list = sort ==0 ? shopRepository.findP(sort_product)
+        List<ProductDto> list = sort == 0 ? shopRepository.findP0(sort_product)
                                         : shopRepository.findP(sort_lowest);
 
         pu.setObjectCountTotal(getAllCount());
@@ -65,10 +72,10 @@ public class ShopService {
 
         PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
-        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("product_id"));
+        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("count").descending());
         Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price"));
 
-        List<Product> list = sort == 0 ? shopRepository.findPKeyword(searchInput, sort_product)
+        List<ProductDto> list = sort == 0 ? shopRepository.findPKeyword0(searchInput, sort_product)
                                         : shopRepository.findPKeyword(searchInput, sort_lowest);
 
         pu.setObjectCountTotal(getCountKeyword(searchInput));
@@ -92,10 +99,10 @@ public class ShopService {
 
         PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
-        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("product_id"));
+        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("count").descending());
         Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price"));
 
-        List<Product> list = sort == 0 ? shopRepository.findPCate(category, sort_product)
+        List<ProductDto> list = sort == 0 ? shopRepository.findPCate0(category, sort_product)
                                         : shopRepository.findPCate(category, sort_lowest);
 
         pu.setObjectCountTotal(getCateCount(category));
@@ -120,10 +127,10 @@ public class ShopService {
 
        PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
-        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("product_id"));
+        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("count").descending());
         Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price"));
 
-        List<Product> list = sort == 0 ? shopRepository.findPCateKeyword(category, searchInput, sort_product)
+        List<ProductDto> list = sort == 0 ? shopRepository.findPCateKeyword0(category, searchInput, sort_product)
                                         : shopRepository.findPCateKeyword(category, searchInput, sort_lowest);
         pu.setObjectCountTotal(getCateCountKeyword(category, searchInput));
         pu.setCalcForPaging();

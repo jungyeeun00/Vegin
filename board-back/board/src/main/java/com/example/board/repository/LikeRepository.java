@@ -1,8 +1,8 @@
 package com.example.board.repository;
 
+import com.example.board.dto.ProductDto;
 import com.example.board.model.Likes;
 import com.example.board.model.LikeId;
-import com.example.board.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -11,9 +11,18 @@ import java.util.List;
 public interface LikeRepository extends JpaRepository<Likes, LikeId> {
 
     public final static String SELECT_LIKE_PRODUCT = ""
-            + "SELECT * FROM Product "
-            + "WHERE product_id in "
-            + "(SELECT DISTINCT l.product_id FROM Like l "
+            + "SELECT "
+            + "p.product_id as productId,"
+            + "p.product_name as productName,"
+            + "p.reg_price as regPrice,"
+            + "p.sold_price as soldPrice,"
+            + "p.sale_rate as saleRate,"
+            + "p.category as category,"
+            + "p.img_src as imgSrc,"
+            + "p.detail as detail "
+            + "FROM Product p "
+            + "WHERE p.product_id in "
+            + "(SELECT DISTINCT l.product_id FROM Likes l "
             + "WHERE l.member_id=?1)";
 
     public final static String SELECT_LIKE_ID = ""
@@ -21,7 +30,7 @@ public interface LikeRepository extends JpaRepository<Likes, LikeId> {
             + "WHERE member_id=?1";
 
     @Query(value = SELECT_LIKE_PRODUCT, nativeQuery = true)
-    List<Product> findByMember(final String memberId);
+    List<ProductDto> findByMemberId(final String memberId);
 
     @Query(value = SELECT_LIKE_ID, nativeQuery = true)
     List<Integer> findLikeId(final String memberId);

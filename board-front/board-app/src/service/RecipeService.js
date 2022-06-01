@@ -24,7 +24,9 @@ class RecipeService {
         return axios.post(RECIPE_BASE_URL, {}, { withCredentials: true })
     }
 
-    
+    getFeatured() {
+        return axios.get(RECIPE_BASE_URL + "/featured")
+    }
 }
 
 export default new RecipeService();

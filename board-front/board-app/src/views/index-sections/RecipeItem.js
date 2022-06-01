@@ -20,6 +20,7 @@ function RecipeItem(props) {
                         recipe: props.recipe
                     }
                 }}
+                key={props.recipe.id}
                 onClick= {() => {RecipeService.setViews(props.recipe.id); sessionStorage.setItem("scrollPosition", window.pageYOffset);}}
             >
                 {/* <RecipeItems /> */}

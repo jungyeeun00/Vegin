@@ -26,24 +26,30 @@ public class RecipeService {
     private RecipeRepository recipeRepository;
 
     /* 재료 */
-    public HashMap<String, Object> getIngredient(Integer id) {
+    public ResponseEntity<HashMap<String, Object>> getIngredient(Integer id) {
         HashMap<String, Object> ingredient = new HashMap<String, Object>();
         List<String> categories = recipeRepository.findIgrCate(id);
         for(String category : categories) {
             ingredient.put(category, recipeRepository.findIgrById(id, category));
         }
 
-        return ingredient;
+        return ResponseEntity.ok(ingredient);
     }
 
     /* 조리단계 */
-    public List<Step> getStep(Integer id) {
-        return recipeRepository.findStById(id);
+    public ResponseEntity<List<Step>> getStep(Integer id) {
+        return ResponseEntity.ok(recipeRepository.findStById(id));
     }
 
     /* 조회수 증가 */
     public void setViews(Integer id) {
         recipeRepository.addViewCount(id);
+    }
+
+    public ResponseEntity<List<Recipe>> getFeatured() {
+        Pageable page = PageRequest.of(0, 4, Sort.by("views").descending());
+        List<Recipe> list = recipeRepository.findR(page);
+        return ResponseEntity.ok(list);
     }
 
     /* 페이지별 전체 레시피 */

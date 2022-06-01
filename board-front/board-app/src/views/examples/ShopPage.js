@@ -3,7 +3,7 @@ import IndexNavbar from 'components/Navbars/IndexNavbar';
 import ShopItem from '../index-sections/ShopItem';
 import Spinner from '../index-sections/Spinner';
 import VeginFooter from 'components/Footers/VeginFooter';
-import { faMagnifyingGlass, faCircleXmark, faListSquares } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ShopService from 'service/ShopService';
 import Slider from "react-slick";
@@ -28,7 +28,8 @@ const settings = {
     slidesToScroll: 4
  };
 
- const memberId = JSON.parse(localStorage.getItem("member"));
+//  const memberId = JSON.parse(localStorage.getItem("member"));
+const memberId = localStorage.getItem("member");
 
 class ShopPage extends Component {
 
@@ -51,6 +52,7 @@ class ShopPage extends Component {
 
     componentDidMount() {
         ShopService.getProducts(cateData[this.state.curCate], this.state.searchInput, this.state.sort, this.state.p_num).then((res) => {
+            console.log(res.data);
             this.setState({ 
                 products: res.data.list,
                 p_num: res.data.pagingData.currentPageNum,
@@ -66,8 +68,8 @@ class ShopPage extends Component {
                 isLoading: true
             })
          });
-         ShopService.getLike(cateData[this.state.curCate], memberId).then((res) => { 
-             console.log(res.data);
+         ShopService.getLikeId(cateData[this.state.curCate], memberId).then((res) => { 
+            console.log(res.data);
             this.setState({
                 likes: res.data
             })
@@ -112,10 +114,10 @@ class ShopPage extends Component {
                     pagePrev: p_num
                 })
         });
-        if(this.state.pagePrev == 0 && this.state.paging.currentPageNum != 1) {
+        if(this.state.pagePrev === 0 && this.state.paging.currentPageNum !== 1) {
             document.getElementById("1").classList.remove('active');
         }
-        else if(this.state.pagePrev != 0 && this.state.pagePrev != -1 && this.state.pagePrev != this.state.paging.currentPageNum) {
+        else if(this.state.pagePrev !== 0 && this.state.pagePrev !== -1 && this.state.pagePrev !== this.state.paging.currentPageNum) {
             document.getElementById(this.state.pagePrev.toString()).classList.remove('active');
         }
     }
@@ -127,7 +129,7 @@ class ShopPage extends Component {
             pageNums.push(i);
         }
        return (pageNums.map((page) => 
-        <li className={`page-item ${this.state.paging.currentPageNum == page ? 'active' : ''}`} id={page.toString()} key={page.toString()} >
+        <li className={`page-item ${this.state.paging.currentPageNum === page ? 'active' : ''}`} id={page.toString()} key={page.toString()} >
             <a className="page-link" onClick = {() => this.listProduct(this.state.curCate, this.state.searchInput, this.state.sort, page)}>{page}</a>
         </li>
         ));
@@ -279,7 +281,7 @@ class ShopPage extends Component {
                     </div>
 
                     <div className='bestItem-slider-wrapper'>
-                       { this.state.isLoading == false
+                       { this.state.isLoading === false
                         ? <div className='spinner'> <Spinner /> </div>
                          :
 
@@ -321,27 +323,27 @@ class ShopPage extends Component {
                 ? <p style={{textAlign: 'center'}}>검색 결과가 없습니다.</p>
                 :
                 
-                <div> 
-                    <ul className="shop-items-table">
-                    {  
-                        this.state.products.map(
-                            product =>
-                            <li key={product.productId}>                   
-                                 <ShopItem product={product}/>
-                            </li> 
-                        )}
+                    <div>
+                        <ul className="shop-items-table">
+                            {
+                                this.state.products.map(
+                                    product =>
+                                        <li key={product.productId}>
+                                            <ShopItem product={product} like={this.state.likes.includes(product.productId)} isList={false}/>
+                                        </li>
+                                )}
                         </ul>
-                        <div className ="pagination-wrapper">
+                        <div className="pagination-wrapper">
                             <nav aria-label="Page navigation example">
                                 <ul className="pagination justify-content-center">
-                                    { this.isPagingPrev() }
-                                    { this.viewPaging() }
-                                    { this.isPagingNext() }
+                                    {this.isPagingPrev()}
+                                    {this.viewPaging()}
+                                    {this.isPagingNext()}
                                 </ul>
                             </nav>
                         </div>
-                    </div>  
-                 }
+                    </div>
+                }
                 </div> 
                 <VeginFooter />
             </>

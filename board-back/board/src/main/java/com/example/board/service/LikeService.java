@@ -1,5 +1,6 @@
 package com.example.board.service;
 
+import com.example.board.dto.ProductDto;
 import com.example.board.exception.ResourceNotFoundException;
 import com.example.board.model.Likes;
 import com.example.board.model.LikeId;
@@ -24,8 +25,9 @@ public class LikeService {
         return likeRepository.save(likes);
     }
 
-    public ResponseEntity<List<Product>> getLike(String memberId) {
-        List<Product> product = likeRepository.findByMember(memberId);
+    public ResponseEntity<List<ProductDto>> getLike(String memberId) {
+        List<ProductDto> product = likeRepository.findByMemberId(memberId);
+
         return ResponseEntity.ok(product);
     }
 
