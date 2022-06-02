@@ -79,4 +79,8 @@ public class DiaryService {
         response.put("Deleted Diary Data by id : [" + no + "]", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
+
+    public List<Diary> getAllDiary() {
+        return diaryRepository.findAll();
+    }
 }

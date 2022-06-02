@@ -8,14 +8,14 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name="comment")
+@Table(name="comment_diary")
 @EqualsAndHashCode(of="comment_no")
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // @lombock ¾î³ëÅ×ÀÌ¼Ç : ÆÄ¶ó¹ÌÅÍ¸¦ ¹ŞÁö ¾Ê´Â »ı¼ºÀÚ¸¦ ¸¸µé¾îÁØ´Ù.
-@AllArgsConstructor //  @lombock ¾î³ëÅ×ÀÌ¼Ç : ¸ğµç ¼Ó¼º¿¡ ´ëÇØ¼­ »ı¼ºÀÚ¸¦ ¸¸µé¾î ³½´Ù.
-public class Comment {
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // @lombock Â¾Ã®Â³Ã«Ã…Ã—Ã€ÃŒÂ¼Ã‡ : Ã†Ã„Â¶Ã³Â¹ÃŒÃ…ÃÂ¸Â¦ Â¹ÃÃÃ¶ Â¾ÃŠÂ´Ã‚ Â»Ã½Â¼ÂºÃ€ÃšÂ¸Â¦ Â¸Â¸ÂµÃ©Â¾Ã®ÃÃ˜Â´Ã™.
+@AllArgsConstructor //  @lombock Â¾Ã®Â³Ã«Ã…Ã—Ã€ÃŒÂ¼Ã‡ : Â¸Ã°ÂµÃ§ Â¼Ã“Â¼ÂºÂ¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­ Â»Ã½Â¼ÂºÃ€ÃšÂ¸Â¦ Â¸Â¸ÂµÃ©Â¾Ã® Â³Â½Â´Ã™.
+public class CommentDiary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,21 +39,21 @@ public class Comment {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name="board_no")
-    private Board board;
+    private Diary board;
 
     @ManyToOne
     @JoinColumn(name="member_id")
     private Member member;
 
-    public Comment(String content) {
+    public CommentDiary(String content) {
         this.content = content;
         this.deleted = this.deleted == null ? false : this.deleted;
         this.created_date = this.created_date == null ? (new Timestamp(System.currentTimeMillis())).toString() : this.created_date;
     }
 
-    // Member ¿£Æ¼Æ¼¿Í  Board ¿£Æ¼Æ¼¸¦ ¿¬°áÇÏ´Â ÇÔ¼ö
+    // Member Â¿Â£Ã†Â¼Ã†Â¼Â¿Ã  Board Â¿Â£Ã†Â¼Ã†Â¼Â¸Â¦ Â¿Â¬Â°Ã¡Ã‡ÃÂ´Ã‚ Ã‡Ã”Â¼Ã¶
     public void changeAuthor(Member author) { this.member = author; }
-    public void changeBoard(Board board) {
+    public void changeBoard(Diary board) {
         this.board = board;
     }
 }
