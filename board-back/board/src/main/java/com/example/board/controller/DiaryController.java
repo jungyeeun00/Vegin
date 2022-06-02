@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -21,6 +22,11 @@ public class DiaryController {
         if (p_num==null||p_num<=0) p_num = 1;
 
         return diaryService.getPagingBoard(p_num);
+    }
+
+    @GetMapping("/diary/all")
+    public List<Diary> getAllDiary(){
+        return diaryService.getAllDiary();
     }
 
     @PostMapping("/diary")

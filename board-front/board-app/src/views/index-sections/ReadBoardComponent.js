@@ -100,15 +100,18 @@ class ReadBoardComponent extends Component {
     }
 
     createComment = () => {
-        let comment = {
-            boardNo: this.state.no,
-            memberId: MemberService.getCurrentMember(),
-            content: this.state.content
-        };
-        console.log("comment => " + JSON.stringify(comment));
-        BoardService.createComment(comment).then(res => {
-            window.location.reload();
-        });
+        if (MemberService.getCurrentMember() != null) {
+            let comment = {
+                boardNo: this.state.no,
+                memberId: MemberService.getCurrentMember(),
+                content: this.state.content
+            };
+            console.log("comment => " + JSON.stringify(comment));
+            BoardService.createComment(comment).then(res => {
+                window.location.reload();
+            });
+        } else
+            alert("댓글을 작성하려면 로그인이 필요합니다.")
     }
 
     updateComment = (commentId) => {
@@ -151,14 +154,16 @@ class ReadBoardComponent extends Component {
                     </div>
                     <div className='post-contents' dangerouslySetInnerHTML = {{ __html: this.state.board.contents }} />
                     <br /><br />
-                    <div className='post-btn'>
-                        <Button className="post-btn-edit btn-round ml-1" type="button" onClick={this.goToUpdate}>
-                            수정
-                        </Button>
-                        <Button className="post-btn-cancel btn-round ml-1" type="button" onClick={() => this.deleteView()}>
-                            삭제
-                        </Button>
-                    </div>
+                    {MemberService.getCurrentMember() == this.state.board.memberId &&
+                        <div className='post-btn'>
+                            <Button className="post-btn-edit btn-round ml-1" type="button" onClick={this.goToUpdate}>
+                                수정
+                            </Button>
+                            <Button className="post-btn-cancel btn-round ml-1" type="button" onClick={() => this.deleteView()}>
+                                삭제
+                            </Button>
+                        </div>
+                    }
                     <hr />
                     {/* 여기서부터 댓글 */}
                     <div className='post-writecomment-wrapper'>
