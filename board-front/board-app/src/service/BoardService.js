@@ -7,6 +7,10 @@ const COMMENT_API_BASE_URL = "http://localhost:8080/comment";
 class BoardService{
     /*게시판*/
 
+    getAllBoards(){
+        return axios.get(BOARD_API_BASE_URL+"/all");
+    }
+
     getBoards(p_num){
         return axios.get(BOARD_API_BASE_URL+"?p_num="+p_num);
     }
