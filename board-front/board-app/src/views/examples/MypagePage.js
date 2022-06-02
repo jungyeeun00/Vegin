@@ -4,7 +4,7 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import VeginFooter from "components/Footers/VeginFooter";
 import { Button,  Container, Row, Col } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleUser, faCreditCard, faHeart, faCartShopping, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { faCircleUser, faCreditCard, faHeart, faCartShopping, faPenToSquare, faPencilSquare, faPencil } from '@fortawesome/free-solid-svg-icons'
 
 import MemberService from "service/MemberService";
 
@@ -45,7 +45,6 @@ function MypagePage() {
                                 <div> 주소: {user.address} </div>
                                 <div> 가입일: {user.createdDate} </div>
                             </div>
-                            <Button className="info-change-btn" onClick={() => window.location.href = '/edit-profile'}>회원정보 변경</Button>
                         </Col>
                     }
                     {localStorage.length === 0 &&
@@ -56,7 +55,7 @@ function MypagePage() {
                     </Row>
                     <Row>
                         <Col className="mypage-order">
-                            <div> <FontAwesomeIcon icon={faCreditCard} /> 주문 내역 </div>
+                            <div onClick={() => window.location.href = '/edit-profile'}> <FontAwesomeIcon icon={faPencil} /> 회원정보 변경 </div>
                         </Col>
                         
                         <Col className="mypage-cart">
