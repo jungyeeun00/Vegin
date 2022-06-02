@@ -296,7 +296,9 @@ class ShopPage extends Component {
                        
                     </div>   
                     
-                    <hr className='shop-hr'/>
+                    <div className="shop-hr">
+                        <hr />
+                    </div>
 
                 {/* 정렬 및 아이템 나열 부분 */}
                 <div className="shop-content-bar"> 
