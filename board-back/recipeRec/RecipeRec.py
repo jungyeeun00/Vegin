@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 import sys
 
-engine = db.create_engine('mysql+pymysql://root:1234@localhost/vegindb').connect()
+engine = db.create_engine('mysql+pymysql://root:hansung@localhost/board-back').connect()
 
 
 def load():
