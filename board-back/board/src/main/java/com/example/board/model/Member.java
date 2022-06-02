@@ -37,8 +37,8 @@ public class Member {
     @Column(name = "email")
     private String email;
 
-    //@NotBlank(message = "비밀번호를 입력하시오.")
-    //@Size(min = 8, max = 20, message = "비밀번호는 영문 대문자, 소문자, 숫자, 특수문자 중 3종류 이상의 문자 조합으로 구성하여 8-20자로 입력하시오.")
+    @NotBlank(message = "비밀번호를 입력하시오.")
+//    @Pattern(regexp = "(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,20}", message = "비밀번호는 영문, 숫자, 특수문자를 조합하여 8-20자로 입력하시오.")
     @Column(name = "password")
     private String password;
 
@@ -86,11 +86,5 @@ public class Member {
 
     public String getUsername() {
         return id;
-    }
-
-    public String getCreatedDate(){
-        SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd");
-
-        return date.format(createdDate);
     }
 }

@@ -7,6 +7,7 @@ import Pagination from './Pagination';
 import { faMagnifyingGlass, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BestCommunityDiaryItems from './BestCommunityDiaryItems';
+import MemberService from 'service/MemberService';
 
 class ListDiaryComponent extends Component {
 
@@ -76,6 +77,8 @@ class ListDiaryComponent extends Component {
 
 
     createBoard() {
+        if (MemberService.getCurrentMember() == null)
+            return alert("로그인 후 이용 바랍니다.");
         this.props.history.push("/create-diary/_create");
     }
 
