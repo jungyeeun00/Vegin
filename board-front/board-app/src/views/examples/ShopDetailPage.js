@@ -174,7 +174,7 @@ function ProductDetailPage() {
                                     </Col>
                                     <Col>
                                         <div className="delivery-info">
-                                            3,000원 <br /> 3만원 이상 구매시 무료배송
+                                            3,000원 <br />
                                         </div>
                                         <div className="delivery-info">
                                             평일 오후 13:00 이전 결제시 당일 발송 <br />

@@ -214,9 +214,12 @@
     }
 }
 
-.shop-hr{
-    height: 1px;
-    background-color: lightgray;
+.recipe-hr {
+    padding-top: 20px;
+    hr {
+        height: 1px;
+        background-color: lightgray;
+    }
 }
 
 .pagination-wrapper{

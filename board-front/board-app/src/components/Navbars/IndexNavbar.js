@@ -98,49 +98,52 @@ function IndexNavbar() {
             </NavbarBrand>
           </div>
           <div className="col d-none d-lg-block">
-            <Nav navbar className="justify-content-end">
-              {localStorage.length === 0 && <NavItem>
-                <NavLink
-                  className="pt-0 mt-0"
-                  data-placement="bottom"
-                  href="/login-page"
-                  title="Login"
-                >
-                  <p>Login</p>
-                </NavLink>
-              </NavItem>}
-              {localStorage.length !== 0 && <NavItem>
-                <NavLink
-                  className="pt-0 mt-0"
-                  data-placement="bottom"
-                  onClick={()=>logout()}
-                  style={{cursor:'pointer'}}
-                  title="Login"
-                >
-                  <p>Logout</p>
-                </NavLink>
-              </NavItem>}
-              <NavItem>
-                <NavLink
-                  className="pt-0 mt-0"
-                  data-placement="bottom"
-                  href="/join-page"
-                  title="Join"
-                >
-                  <p>Join</p>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  className="pt-0 mt-0"
-                  data-placement="bottom"
-                  href="/mypage-page"
-                  title="My Page"
-                >
-                  <p>My page</p>
-                </NavLink>
-              </NavItem>
-            </Nav>
+            {localStorage.length === 0 
+            ? <Nav navbar className="justify-content-end">
+                <NavItem>
+                  <NavLink
+                    className="pt-0 mt-0"
+                    data-placement="bottom"
+                    href="/login-page"
+                    title="Login"
+                  >
+                    <p>Login</p>
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink
+                    className="pt-0 mt-0"
+                    data-placement="bottom"
+                    href="/join-page"
+                    title="Join"
+                  >
+                    <p>Join</p>
+                  </NavLink>
+                </NavItem>
+                </Nav>
+              : <Nav navbar className="justify-content-end">
+                  <NavItem>
+                    <NavLink
+                      className="pt-0 mt-0"
+                      data-placement="bottom"
+                      onClick={()=>logout()}
+                      style={{cursor:'pointer'}}
+                      title="Login"
+                    >
+                      <p>Logout</p>
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      className="pt-0 mt-0"
+                      data-placement="bottom"
+                      href="/mypage-page"
+                      title="My Page"
+                    >
+                      <p>My page</p>
+                    </NavLink>
+                  </NavItem>
+                </Nav>}
           </div>
         </Container>
       </Navbar>
