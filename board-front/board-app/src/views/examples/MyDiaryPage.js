@@ -8,7 +8,7 @@ import IndexNavbar from 'components/Navbars/IndexNavbar';
 import VeginFooter from 'components/Footers/VeginFooter';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 
-class MyPostPage extends Component {
+class MyDiaryPage extends Component {
     constructor(props) {
         super(props);
 
@@ -23,7 +23,7 @@ class MyPostPage extends Component {
     }
 
     componentDidMount(){
-        BoardService.getAllBoards().then((res) => {
+        BoardService.getAllDiarys().then((res) => {
             const myposts = res.data.filter(it => {
                 return it.memberId===localStorage.getItem("member");
             })
@@ -74,7 +74,7 @@ class MyPostPage extends Component {
     }
 
     readBoard(no) {
-        this.props.history.push(`/read-board/${no}`)
+        this.props.history.push(`/read-diary/${no}`)
     }
 
     render() {
@@ -87,20 +87,20 @@ class MyPostPage extends Component {
                 <br/>
                 <div className="community-navtab">
                 <Nav id="tabs" role="tablist" tabs>
-                    <NavItem style={{borderBottom: "3px solid #4A8451"}}>
-                        <NavLink id="free" style={
-                        {
-                            color:'#4A8451',
-                            fontWeight:'bold'
-                        }
-                        }
+                    <NavItem>
+                        <NavLink id="free" href='/mypost-page'
                         >
                             자유게시판
                         </NavLink>
                     </NavItem>
                     <text> | </text>
-                    <NavItem>
-                        <NavLink id="diary" href='/mydiary-page'
+                    <NavItem style={{borderBottom: "3px solid #4A8451"}}>
+                        <NavLink id="diary"  style={
+                        {
+                            color:'#4A8451',
+                            fontWeight:'bold'
+                        }
+                        }
                         >
                             다이어리
                         </NavLink>
@@ -149,4 +149,4 @@ class MyPostPage extends Component {
     }
 }
 
-export default MyPostPage;
+export default MyDiaryPage;
