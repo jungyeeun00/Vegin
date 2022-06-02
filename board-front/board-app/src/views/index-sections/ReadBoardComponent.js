@@ -111,7 +111,7 @@ class ReadBoardComponent extends Component {
                 window.location.reload();
             });
         } else
-            alert("댓글을 작성하려면 로그인이 필요합니다.")
+            alert("로그인 후 이용 바랍니다.")
     }
 
     updateComment = (commentId) => {

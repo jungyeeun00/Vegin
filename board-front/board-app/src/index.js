@@ -55,6 +55,7 @@ import CreateDiaryComponent from "views/index-sections/CreateDiaryComponent";
 import SuccessSignup from "views/examples/SuccessSignup";
 import EditProfilePage from "views/examples/EditProfilePage";
 import MyPostPage from "views/examples/MyPostPage";
+import MyDiaryPage from "views/examples/MyDiaryPage";
 // others
 
 ReactDOM.render(
@@ -152,6 +153,10 @@ ReactDOM.render(
       <Route
         path="/mypost-page"
         render={(props) => <MyPostPage {...props}/>}
+      />
+      <Route
+        path="/mydiary-page"
+        render={(props) => <MyDiaryPage {...props}/>}
       />
       <Route path='/board' component={ListBoardComponent}></Route>
       <Route path='/create-board/:no' component={CreateBoardComponent}></Route>

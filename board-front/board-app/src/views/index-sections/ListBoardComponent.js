@@ -7,6 +7,7 @@ import Pagination from './Pagination';
 import { faMagnifyingGlass, faCircleXmark, faL } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BestCommunityFreeItems from './BestCommunityFreeItems';
+import MemberService from 'service/MemberService';
 
 class ListBoardComponent extends Component {
 
@@ -75,6 +76,8 @@ class ListBoardComponent extends Component {
     }
 
     createBoard() {
+        if (MemberService.getCurrentMember() == null)
+            return alert("로그인 후 이용 바랍니다.");
         this.props.history.push("/create-board/_create");
     }
 
