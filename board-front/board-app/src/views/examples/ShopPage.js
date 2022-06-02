@@ -28,10 +28,10 @@ const settings = {
     slidesToScroll: 4
  };
 
- const memberId = localStorage.getItem("member");
-const selectCate = sessionStorage.getItem("curCate") == null ? 'cat0' : JSON.parse(sessionStorage.getItem("curCate"));
-const selectSort = sessionStorage.getItem("sort") == null ? 0 : JSON.parse(sessionStorage.getItem("sort"));
-const selectPnum = sessionStorage.getItem("p_num") == null ? 1 : JSON.parse(sessionStorage.getItem("p_num"));
+const memberId = localStorage.getItem("member");
+let selectCate = sessionStorage.getItem("curCate") == null ? 'cat0' : JSON.parse(sessionStorage.getItem("curCate"));
+let selectSort = sessionStorage.getItem("sort") == null ? 0 : JSON.parse(sessionStorage.getItem("sort"));
+let selectPnum = sessionStorage.getItem("p_num") == null ? 1 : JSON.parse(sessionStorage.getItem("p_num"));
 
 class ShopPage extends Component {
 
@@ -47,12 +47,16 @@ class ShopPage extends Component {
             pagePrev: 0,
             recommend: [],
             likes: [],
-            sort: 1, // 정렬( default: 인기순(0) )
+            sort: 0, // 정렬( default: 인기순(0) )
             isLoading: false // Spinner
         };
     }
 
     componentDidMount() {
+        selectCate = sessionStorage.getItem("curCate") == null ? 'cat0' : JSON.parse(sessionStorage.getItem("curCate"));
+        selectSort = sessionStorage.getItem("sort") == null ? 0 : JSON.parse(sessionStorage.getItem("sort"));
+        selectPnum = sessionStorage.getItem("p_num") == null ? 1 : JSON.parse(sessionStorage.getItem("p_num"));
+
         ShopService.getProducts(cateData[selectCate], this.state.searchInput, selectSort, selectPnum).then((res) => {
             console.log(res.data);
             this.setState({ 
