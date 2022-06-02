@@ -5,7 +5,6 @@ import { faUser, faFingerprint, faLock, faEnvelope, faPhone, faHouse, faCakeCand
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import MemberService from "service/MemberService";
 import VeginFooter from "components/Footers/VeginFooter";
-import { faIdCard } from '@fortawesome/free-regular-svg-icons';
 
 
 class JoinPage extends Component {
@@ -94,7 +93,7 @@ class JoinPage extends Component {
                                         2자 이상 16자 이하로 입력하시오
                                         </UncontrolledTooltip>
                                         <div className="join-group" id='bottom-id'>
-                                            <span className="join-icon"> <FontAwesomeIcon icon={faIdCard} /> <text>아이디</text> </span>
+                                            <span className="join-icon"> <FontAwesomeIcon icon={faFingerprint} /> <text>아이디</text> </span>
                                             <Input className='input-join' placeholder="ID" type="text" id="id" onChange={this.setIdHandler} />
                                         </div>
                                         <UncontrolledTooltip placement="top" target="bottom-id" delay={0}>
@@ -107,10 +106,13 @@ class JoinPage extends Component {
                                         <UncontrolledTooltip placement="top" target="bottom-email" delay={0}>
                                         @을 포함한 이메일을 입력하시오
                                         </UncontrolledTooltip>
-                                        <div className="join-group">
+                                        <div className="join-group" id='bottom-password'>
                                             <span className="join-icon"> <FontAwesomeIcon icon={faLock} /> <text>비밀번호</text> </span>
                                             <Input className='input-join' placeholder="Password" type="password" id="password" onChange={this.setPasswordHandler} />
                                         </div>
+                                        <UncontrolledTooltip placement="top" target="bottom-password" delay={0} style={{ width: "200px" }}>
+                                            영문, 숫자, 특수문자(!@#$%^&*)를 조합하여 8-20자로 입력하시오
+                                        </UncontrolledTooltip>
                                         <div className="join-group" id='bottom-phone'>
                                             <span className="join-icon"> <FontAwesomeIcon icon={faPhone} /> <text>전화번호</text> </span>
                                             <Input className='input-join' placeholder="Phone" type="text" id="phone" value={this.state.phone} onChange={this.setPhoneHandler} />

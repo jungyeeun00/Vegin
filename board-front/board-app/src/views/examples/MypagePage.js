@@ -24,6 +24,8 @@ function MypagePage() {
         // console.log("load"+localStorage.getItem("member"));
         MemberService.getOneMember(localStorage.getItem("member")).then((res) => {
             // console.log(res);
+            res.data.createdDate = res.data.createdDate.substring(0, 4) + "."
+                + res.data.createdDate.substring(5, 7) + "." + res.data.createdDate.substring(8, 10);
             setUser(res.data);
         })
         return function cleanup() {
