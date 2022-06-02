@@ -41,8 +41,8 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
 
     // 전체 + 검색
     public String RECIPE_KEYWORD =
-            "SELECT * FROM Recipe "
-                    + "WHERE id in "
+            "SELECT * FROM Recipe rc "
+                    + "WHERE rc.id in "
                     + "(SELECT DISTINCT r.id FROM Recipe r join Ingredient i on r.id=i.recipe_id "
                     + "WHERE r.name LIKE %?1% or i.name LIKE %?1%)";
     public String COUNT_RECIPE_KEYWORD =
@@ -53,27 +53,39 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
 
     // 카테고리 + 검색
     public String RECIPE_CATE_KEYWORD =
-            "SELECT * FROM Recipe "
-                    + "WHERE id in "
+            "SELECT * FROM Recipe rc "
+                    + "WHERE rc.id in "
                     + "(SELECT DISTINCT r.id FROM Recipe r join Ingredient i on r.id=i.recipe_id "
-                    + "WHERE r.category=?1 and r.name LIKE %?2% or i.name LIKE %?2%)";
+                    + "WHERE r.category=?1 and (r.name LIKE %?2% or i.name LIKE %?2%))";
     public String COUNT_RECIPE_CATE_KEYWORD =
             "SELECT count(rc) FROM Recipe rc "
                     + "WHERE id in "
                     + "(SELECT DISTINCT r.id FROM Recipe r join Ingredient i on r.id=i.recipeId "
-                    + "WHERE r.category=:category and r.name LIKE %:searchInput% or i.name LIKE %:searchInput%)";
+                    + "WHERE r.category=:category and (r.name LIKE %:searchInput% or i.name LIKE %:searchInput%))";
 
     // 카테고리 3개인 빵/디저트/과자에서 검색
+//    public String RECIPE_CATE_KEYWORD_MULT =
+//            "SELECT * FROM "
+//                    +"(SELECT * FROM Recipe WHERE category=?1 or category=?2 or category=?3) rc "
+//                    +"WHERE rc.id in "
+//                    +"(SELECT DISTINCT r.id FROM Recipe r join Ingredient i on r.id=i.recipe_id "
+//                    +"WHERE r.name LIKE %?4% or i.name LIKE %?4%)";
     public String RECIPE_CATE_KEYWORD_MULT =
-            "SELECT * FROM "
-                    +"(SELECT * FROM Recipe WHERE category=?1 or category=?2 or category=?3) rc "
-                    +"WHERE rc.id in "
+            "SELECT * FROM Recipe rc "
+                    + "WHERE (rc.category=?1 or rc.category=?2 or rc.category=?3) and "
+                    +"rc.id in "
                     +"(SELECT DISTINCT r.id FROM Recipe r join Ingredient i on r.id=i.recipe_id "
                     +"WHERE r.name LIKE %?4% or i.name LIKE %?4%)";
+//    public String COUNT_RECIPE_CATE_KEYWORD_MULT =
+//            "SELECT count(*) FROM "
+//                    +"(SELECT * FROM Recipe WHERE category=?1 or category=?2 or category=?3) rc "
+//                    +"WHERE rc.id in "
+//                    +"(SELECT DISTINCT r.id FROM Recipe r join Ingredient i on r.id=i.recipe_id "
+//                    +"WHERE r.name LIKE %?4% or i.name LIKE %?4%)";
     public String COUNT_RECIPE_CATE_KEYWORD_MULT =
-            "SELECT count(*) FROM "
-                    +"(SELECT * FROM Recipe WHERE category=?1 or category=?2 or category=?3) rc "
-                    +"WHERE rc.id in "
+            "SELECT count(*) FROM Recipe rc "
+                    +"WHERE (rc.category=?1 or rc.category=?2 or rc.category=?3) and "
+                    +"rc.id in "
                     +"(SELECT DISTINCT r.id FROM Recipe r join Ingredient i on r.id=i.recipe_id "
                     +"WHERE r.name LIKE %?4% or i.name LIKE %?4%)";
 

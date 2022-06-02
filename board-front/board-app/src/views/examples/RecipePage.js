@@ -38,6 +38,10 @@ const settings = {
     slidesToScroll: 4
 };
 
+let selectCate;
+let selectSort;
+let selectPnum;
+
 class RecipePage extends Component {
     constructor(props) {
         super(props);
@@ -54,16 +58,23 @@ class RecipePage extends Component {
             pagePrev: 0,
             isLoading: false // Spinner
         };
+        
     }
 
-
     componentDidMount() {
-        RecipeService.getRecipes(this.state.sort, cateData[this.state.curCate], this.state.searchInput, this.state.p_num).then((res) => {
+        selectCate = sessionStorage.getItem("curCate") == null ? 'cat0' : JSON.parse(sessionStorage.getItem("curCate"));
+        selectSort = sessionStorage.getItem("sort") == null ? 0 :  JSON.parse(sessionStorage.getItem("sort"));
+        selectPnum = sessionStorage.getItem("p_num") == null ? 1 : JSON.parse(sessionStorage.getItem("p_num"));
+
+        RecipeService.getRecipes(selectSort, cateData[selectCate], this.state.searchInput, selectPnum).then((res) => {
             this.setState({
                 recipes: res.data.list,
                 p_num: res.data.pagingData.currentPageNum,
                 paging: res.data.pagingData,
-                isLoading: false
+                isLoading: false,
+                p_num: selectPnum,
+                curCate: selectCate,
+                sort: selectSort,
             }, () => {
                 this.handleScrollPosition();
             });
@@ -129,6 +140,7 @@ class RecipePage extends Component {
             searchInput: ''
         });
         this.listRecipe(this.state.sort, e.target.id, '', 1);
+        sessionStorage.setItem("curCate", JSON.stringify(e.target.id));
     };
 
     // 정렬 탭
@@ -140,6 +152,7 @@ class RecipePage extends Component {
             searchInput: ''
         });
         this.listRecipe(sort, this.state.curCate, this.state.searchInput, this.state.p_num);
+        sessionStorage.setItem("sort", sort);
     }
 
     // paging
@@ -166,6 +179,7 @@ class RecipePage extends Component {
             document.getElementById(this.state.pagePrev.toString()).classList.remove('active');
         }
         window.scrollTo(0, 0);
+        sessionStorage.setItem("p_num", p_num);
     }
 
     viewPaging = () => {
@@ -372,15 +386,17 @@ class RecipePage extends Component {
                             :
                             <Slider {...settings} className='bestItem-slider'>
                                 {this.state.recommend.map(
-                                    rec =>
-                                        <div className='best-items'>
+                                    (rec, index) =>
+                                        <div className='best-items' key={index}>
                                             < RecipeItem recipe={rec} />
                                         </div>
                                 )}
                             </Slider>
                         }
                     </div>
-                    <hr className="recipe-hr" />
+                    <div className="recipe-hr">
+                        <hr />
+                    </div>
 
                     {/* 정렬 및 아이템 나열 부분 */}
                     <div className="recipe-content-bar">

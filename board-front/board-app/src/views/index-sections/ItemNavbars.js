@@ -40,7 +40,10 @@ class ItemNavbars extends Component {
                     <FeaturedShopItems />
                 </div>
         } else if (this.state.mode === 'place') {
-            featured = <FeaturedPlaceItems />
+            featured = 
+                <div className="place-main">
+                    <FeaturedPlaceItems />
+                </div>
         } else if (this.state.mode === 'community') {
             featured =
                 <div className="community-main">

@@ -6,8 +6,9 @@ class FeaturedPlaceItems extends Component {
     render() {
         return (
             <>
-            <div className='place-best-box'>
+            <ul className='place-best-table'>
                 {/* 음식점 아이템 */}
+                <li>
                 <div id="placeItem" className="item" align="center">
                     {/* 음식점 이미지 */}
                     <a href='https://www.plantcafeseoul.com/about'>
@@ -23,6 +24,8 @@ class FeaturedPlaceItems extends Component {
                     </div>
                     </a>
                 </div>
+                </li>
+                <li>
                 <div id="placeItem" className="item" align="center">
                     {/* 음식점 이미지 */}
                     <a href='http://instagram.com/nammiplantlab'>
@@ -38,6 +41,8 @@ class FeaturedPlaceItems extends Component {
                     </div>
                     </a>
                 </div>
+                </li>
+                <li>
                 <div id="placeItem" className="item" align="center">
                     <a href='https://www.instagram.com/godny_cafe'>
                     {/* 음식점 이미지 */}
@@ -53,6 +58,8 @@ class FeaturedPlaceItems extends Component {
                     </div>
                     </a>
                 </div>  
+                </li>
+                <li>
                 <div id="placeItem" className="item" align="center">
                     {/* 음식점 이미지 */}
                     <a href='https://blog.naver.com/pulmuonefnc'>
@@ -68,7 +75,8 @@ class FeaturedPlaceItems extends Component {
                     </div>
                     </a>
                 </div>
-            </div>
+                </li>
+            </ul>
             </>
         );
     }

@@ -16,7 +16,8 @@ function BestRecipeItems(props) {
     return (
         <>
             <div className='recipe-featured'>
-                <ul className="recipe-items-table">
+                {/* <ul className="recipe-items-table"> */}
+                <ul className="recipe-best-table">
                     {
                         recipes.map(
                             recipe =>
@@ -34,7 +35,7 @@ function BestRecipeItems(props) {
                                     >
                                         <div id="recipeItem" className="item" align="center">
                                             {/* 레시피 이미지 */}
-                                            <img id="recipeImg" alt="recipe_img" src={recipe.img} />
+                                            <img id="recipeImg" className="item-img" alt="recipe_img" src={recipe.img} />
                                             <p id="recipeTitle" className="item-title">{recipe.name}</p>   {/* 요리명 */}
                                             <span id="recipeServing" className="recipe-text">       {/* 인분 수 */}
                                                 <FontAwesomeIcon icon={faUser} /> {recipe.servings}
