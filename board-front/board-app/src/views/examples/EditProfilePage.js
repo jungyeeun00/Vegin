@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Button, Card, Form, Input, InputGroup, InputGroupText, Container, Row, Col, UncontrolledTooltip } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faEnvelope, faLock, faPhone, faHouse, faCakeCandles } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faFingerprint, faEnvelope, faLock, faPhone, faHouse, faCakeCandles } from '@fortawesome/free-solid-svg-icons'
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import MemberService from "service/MemberService";
 import VeginFooter from "components/Footers/VeginFooter";
-import { faIdCard } from '@fortawesome/free-regular-svg-icons';
-
 
 class EditProfilePage extends Component {
 
@@ -19,7 +17,8 @@ class EditProfilePage extends Component {
             name: '',
             phone: '',
             address: '',
-            birthday: ''
+            birthday: '',
+            createdDate: ''
         }
     }
 
@@ -32,8 +31,10 @@ class EditProfilePage extends Component {
                 name: res.data.name,
                 phone: res.data.phone,
                 address: res.data.address,
-                birthday: res.data.birthday
+                birthday: res.data.birthday,
+                createdDate: res.data.createdDate
             })
+            console.log(res.data.createdDate);
         })
     }
 
@@ -79,6 +80,14 @@ class EditProfilePage extends Component {
         });
     }
 
+    checkPassword = (password) => {
+        const regExp = /(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,20}/g;
+        if (regExp.test(password))
+            return true;
+        else
+            return false;
+    }
+
     render() {
         return (
             <>
@@ -102,7 +111,7 @@ class EditProfilePage extends Component {
                                         2자 이상 16자 이하로 입력하시오
                                         </UncontrolledTooltip>
                                         <div className="join-group" id='bottom-id'>
-                                            <span className="join-icon"> <FontAwesomeIcon icon={faIdCard} /> <text>아이디</text> </span>
+                                            <span className="join-icon"> <FontAwesomeIcon icon={faFingerprint} /> <text>아이디</text> </span>
                                             <Input className='input-join' placeholder="ID" type="text" id="id" value={this.state.id} style={{pointerEvents:'none'}}/>
                                         </div>
                                         <UncontrolledTooltip placement="top" target="bottom-id" delay={0}>
@@ -115,10 +124,13 @@ class EditProfilePage extends Component {
                                         <UncontrolledTooltip placement="top" target="bottom-email" delay={0}>
                                         @을 포함한 이메일을 입력하시오
                                         </UncontrolledTooltip>
-                                        <div className="join-group">
+                                        <div className="join-group" id='bottom-password'>
                                             <span className="join-icon"> <FontAwesomeIcon icon={faLock} /> <text>비밀번호</text> </span>
                                             <Input className='input-join' placeholder="Password" type="password" id="password" onChange={this.setPasswordHandler} />
                                         </div>
+                                        <UncontrolledTooltip placement="top" target="bottom-password" delay={0} style={{ width: "200px" }}>
+                                            영문, 숫자, 특수문자(!@#$%^&*)를 조합하여 8-20자로 입력하시오
+                                        </UncontrolledTooltip>
                                         <div className="join-group" id='bottom-phone'>
                                             <span className="join-icon"> <FontAwesomeIcon icon={faPhone} /> <text>전화번호</text> </span>
                                             <Input className='input-join' placeholder="Phone" type="text" id="phone" value={this.state.phone} onChange={this.setPhoneHandler} />
@@ -142,11 +154,25 @@ class EditProfilePage extends Component {
                                                 name: this.state.name,
                                                 phone: this.state.phone,
                                                 address: this.state.address,
-                                                birthday: this.state.birthday
+                                                birthday: this.state.birthday,
+                                                createdDate: this.state.createdDate
                                             };
-                                            MemberService.signup(memberDto)
-                                            .then(res => this.props.history.push("/signup-success"))
-                                            }}>
+                                            console.log(memberDto.password);
+                                            if (memberDto.name == '')
+                                                alert("이름을 입력하세요.");
+                                            else if (memberDto.password == '')
+                                                alert("비밀번호를 입력하세요.");
+                                            else if (!this.checkPassword(memberDto.password))
+                                                alert("비밀번호를 올바르게 입력하세요.");
+                                            else if (memberDto.email == '')
+                                                alert("이메일을 입력하세요.");
+                                            else if (memberDto.phone == '') 
+                                                alert("전화번호를 입력하세요.");
+                                            else
+                                                MemberService.signup(memberDto)
+                                                    .then(res => this.props.history.push("/signup-success"))
+                                                    .catch(err => alert("회원정보를 올바르게 입력하세요."));
+                                        }}>
                                             Edit
                                         </Button>
                                     </Form>

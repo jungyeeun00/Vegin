@@ -54,7 +54,7 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
         }
     }
 
-    .recipe-best-table, .recipe-items-table {
+    .recipe-items-table {
         display: grid;
         justify-content: space-evenly;
         grid-template-columns: auto auto auto auto;
@@ -94,8 +94,11 @@ src: url('/assets/fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
     }
 
     .recipe-hr {
-        height: 1px;
-        background-color: lightgray;
+        padding-top: 20px;
+        hr {
+            height: 1px;
+            background-color: lightgray;
+        }
     }
 
     .recipe-search-table {

@@ -14,7 +14,7 @@ function BestShopItems(props) {
     return (
         <>
             <div className='shop-featured'>
-                <ul className="shop-items-table">
+                <ul className="shop-best-table">
                     {
                         products.map(
                             product =>

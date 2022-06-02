@@ -56,7 +56,7 @@
     }
 
 
-    .shop-best-table, .shop-items-table {
+    .shop-items-table {
         display: grid;
         justify-content: space-evenly;
         grid-template-columns: auto auto auto auto;
@@ -214,7 +214,7 @@
     }
 }
 
-.recipe-hr {
+.shop-hr {
     padding-top: 20px;
     hr {
         height: 1px;

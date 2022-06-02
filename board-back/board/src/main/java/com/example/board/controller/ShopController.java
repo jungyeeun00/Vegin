@@ -96,7 +96,7 @@ public class ShopController {
             Cookie recCookie = new Cookie("recCookie", ckid);
             recCookie.setPath("/");
             recCookie.setHttpOnly(true);
-            recCookie.setMaxAge(60 * 10);
+            recCookie.setMaxAge(60 * 60 * 24 * 10);
             response.addCookie(recCookie);
 
             if(flag == 0)
@@ -108,7 +108,7 @@ public class ShopController {
             //쿠키 시간 재설정 해주기
             cookie.setPath("/");
             cookie.setHttpOnly(true);
-            cookie.setMaxAge(60 * 10);
+            cookie.setMaxAge(60 * 60 * 24 * 10);
             response.addCookie(cookie);
 
             if(flag == 0)
