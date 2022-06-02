@@ -13,7 +13,6 @@ class ReadBoardComponent extends Component {
         this.state = {
             no: this.props.match.params.no,
             board: {},
-            memberId:{},
             comments: [],
             content: '',
             updating: {
@@ -28,10 +27,8 @@ class ReadBoardComponent extends Component {
 
     componentDidMount() {
         BoardService.getOneBoard(this.state.no).then(res => {
-            console.log(res.data)
             this.setState({ 
                 board: res.data,
-                memberId: res.data.memberId,
              });
         })
 
@@ -68,7 +65,7 @@ class ReadBoardComponent extends Component {
     }
 
     goToList() {
-        this.props.history.push('/board');
+        this.props.history.goBack();
     }
 
     goToUpdate = (event) => {
@@ -148,7 +145,7 @@ class ReadBoardComponent extends Component {
                         <h3 className='post-title'>
                             {this.state.board.title}
                         </h3>
-                        <span className='post-nickname'>{this.state.memberId.id}</span>&nbsp;&nbsp;
+                        <span className='post-nickname'>{this.state.board.memberId}</span>&nbsp;&nbsp;
                         <span className='post-date'>{this.returnDate(this.state.board.createdTime)}{this.state.board.createdTime}</span>
                         <hr />
                     </div>

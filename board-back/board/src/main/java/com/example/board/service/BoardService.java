@@ -42,9 +42,9 @@ public class BoardService {
         return ResponseEntity.ok(result);
     }
 
-//    public List<Board> getAllBoard() {
-//        return boardRepository.findAll();
-//    }
+    public List<Board> getAllBoard() {
+        return boardRepository.findAll();
+    }
 
     public Board createBoard(Board board) { return boardRepository.save(board); }
 

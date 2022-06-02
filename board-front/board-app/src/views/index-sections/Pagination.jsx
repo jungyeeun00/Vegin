@@ -11,26 +11,26 @@ const Pagination = (props) => {
     if (pageCount === 1) return null; // 1페이지 뿐이라면 페이지 수를 보여주지 않음
 
     var pages = _.range(1, pageCount + 1);
-    if (pageCount / 5 > 1) {
-        if (pageCount % 5 == 0)
-            pages = _.range(parseInt(currentPage / 6) * 5 + 1, parseInt(currentPage / 6) * 5 + 6);
-        else if (currentPage % 5 == 0)
-            pages = _.range(parseInt(currentPage / 6) * 5 + 1, currentPage + 1);
-        else if (pageCount - (parseInt(currentPage / 5) * 5 + 1) < 5)
-            pages = _.range(parseInt(currentPage / 5) * 5 + 1, pageCount + 1);
-        else
-            pages = _.range(parseInt(currentPage / 5) * 5 + 1, parseInt(currentPage / 5) * 5 + 6);
-    }
+    // if (pageCount / 2 > 1) {
+    //     if (pageCount % 2 == 0)
+    //         pages = _.range(parseInt(currentPage / 3) * 2 + 1, parseInt(currentPage / 3) * 2 + 3);
+    //     else if (currentPage % 2 == 0)
+    //         pages = _.range(parseInt(currentPage / 3) * 2 + 1, currentPage + 1);
+    //     else if (pageCount - (parseInt(currentPage / 2) * 2 + 1) < 2)
+    //         pages = _.range(parseInt(currentPage / 2) * 2 + 1, pageCount + 1);
+    //     else
+    //         pages = _.range(parseInt(currentPage / 2) * 2 + 1, parseInt(currentPage / 2) * 2 + 3);
+    // }
 
     return (
         <nav id="pagination">
             <ul className="pagination">
-                <li className="page-item">
+                {/* <li className="page-item">
                     <a id="prePageItem" aria-label="Previous" className="page-link" onClick={() => onPagePrevious()}>
-                        <i aria-hidden="true" className="fa fa-angle-left"></i>
+                        <i aria-hidden="true" className="fa fa-angle-double-left"></i>
                         <span className="sr-only">Previous</span>
                     </a>
-                </li>
+                </li> */}
                 {pages.map(page => (
                     <li id="idPageItem"
                         key={page}
@@ -39,12 +39,12 @@ const Pagination = (props) => {
                         <a id="idPageItem" className="page-link" onClick={() => onPageChange(page)}>{page}</a> {/* 페이지 번호 클릭 이벤트 처리기 지정 */}
                     </li>
                 ))}
-                <li className="page-item">
+                {/* <li className="page-item">
                     <a id="nextPageItem" aria-label="Next" className="page-link" onClick={() => onPageNext()}>
-                        <i aria-hidden="true" className="fa fa-angle-right"></i>
+                        <i aria-hidden="true" className="fa fa-angle-double-right"></i>
                         <span className="sr-only">Next</span>
                     </a>
-                </li>
+                </li> */}
             </ul>
         </nav>
     );

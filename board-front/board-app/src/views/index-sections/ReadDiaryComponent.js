@@ -14,6 +14,7 @@ class ReadDiaryComponent extends Component {
         }
 
         this.goToUpdate = this.goToUpdate.bind(this);
+        this.changeContentHandler = this.changeContentHandler.bind(this);
     }
 
     componentDidMount() {
@@ -40,12 +41,16 @@ class ReadDiaryComponent extends Component {
     }
 
     goToList() {
-        this.props.history.push('/diary');
+        this.props.history.goBack();
     }
 
     goToUpdate = (event) => {
         event.preventDefault();
         this.props.history.push(`/create-diary/${this.state.no}`);
+    }
+
+    changeContentHandler = (event) => {
+        this.setState({ content: event.target.value });
     }
 
     deleteView = async function () {

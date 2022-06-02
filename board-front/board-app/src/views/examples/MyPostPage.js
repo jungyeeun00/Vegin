@@ -1,120 +1,86 @@
-import VeginFooter from 'components/Footers/VeginFooter';
-import IndexNavbar from 'components/Navbars/IndexNavbar';
 import React, { Component } from 'react';
+import { faMagnifyingGlass, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Pagination from '../index-sections/Pagination';
+import { Paginate } from '../index-sections/Paginate';
 import BoardService from 'service/BoardService';
+import IndexNavbar from 'components/Navbars/IndexNavbar';
+import VeginFooter from 'components/Footers/VeginFooter';
 
 class MyPostPage extends Component {
-
     constructor(props) {
-        super(props)
+        super(props);
+
         this.state = {
-            page: 1,
-            searchClick:false,
-            searchInput:'',
-            p_num: 1,
-            paging: {},
-            boards: [],
             posts: {
-                data: [],
-                pageSize: 10,
-                currentPage: 1
-            }
-        }
+                data: [
+                ], // 글 정보
+                pageSize: 10, // 한 페이지에 보여줄 아이템(글 목록) 개수
+                currentPage: 1 // 현재 활성화된 페이지 위치
+            },
+        };
     }
 
-    componentDidMount() {
-        BoardService.getBoards(this.state.p_num).then((res) => {
-            const myposts = res.data.list.filter(it => {
+    componentDidMount(){
+        BoardService.getAllBoards().then((res) => {
+            const myposts = res.data.filter(it => {
                 return it.memberId===localStorage.getItem("member");
             })
             this.setState({
-                boards: myposts,
+                posts:{
+                    data: myposts,
+                    pageSize:10,
+                    currentPage:1
+                },
             });
         });
+    }
+
+    handlePageChange = (page) => {
+        this.setState({
+            posts: {
+                data: this.state.posts.data,
+                pageSize: this.state.posts.pageSize,
+                currentPage: page
+            }
+        });
+    };
+    handlePagePrevious = () => {
+        if (this.state.posts.currentPage > 5) {
+            this.setState({
+                posts: {
+                    data: this.state.posts.data,
+                    pageSize: this.state.posts.pageSize,
+                    currentPage: this.state.posts.currentPage % 5 == 0 ?
+                        parseInt(this.state.posts.currentPage / 5) * 5 - 5 : parseInt(this.state.posts.currentPage / 5) * 5 - 4
+                }
+            });
+        }
+    }
+    handlePageNext = () => {
+        if (parseInt(this.state.posts.currentPage / 6) * 5 + 6 <= Math.ceil(this.state.posts.data.length / this.state.posts.pageSize)) {
+            this.setState({
+                posts: {
+                    data: this.state.posts.data,
+                    pageSize: this.state.posts.pageSize,
+                    currentPage: parseInt(this.state.posts.currentPage / 6) * 5 + 6
+                }
+            });
+        }
+    }
+    pagedPosts = () => {
+        return Paginate(this.state.posts.data, this.state.posts.currentPage, this.state.posts.pageSize);
     }
 
     readBoard(no) {
         this.props.history.push(`/read-board/${no}`)
     }
 
-    listBoard(p_num) {
-        console.log("pageNum : " + p_num);
-        BoardService.getBoards(p_num).then(res => {
-            console.log(res.data);
-            this.setState({
-                p_num: res.data.pagingData.currentPageNum,
-                paging: res.data.pagingData,
-                boards: res.data.list
-            });
-        });
-    }
-
-    viewPaging() {
-        const totalPage = Math.ceil(this.state.boards.length / 10);
-        const pageNums = [];
-
-        for (let i = 1; i <= totalPage; i++) {
-            pageNums.push(i);
-        }
-
-        return (pageNums.map(page =>
-            <li className='page-item' key={page.toString()}>
-                <a className='page-link' onClick={() => this.setState({page: page + 1})}>{page}</a>
-            </li>
-        ));
-    }
-
-    isPagingPrev() {
-        return (
-            <li className='page-itmem'>
-                <a className='page-link' onClick={() => this.state.page !== 1 && this.setState({page: this.state.page - 1})} tabIndex="-1">
-                    <i aria-hidden="true" className="fa fa-angle-left"></i>
-                </a>
-            </li>
-        )
-    }
-
-    isPagingNext() {
-        const totalPage = Math.ceil(this.state.boards.length / 10);
-
-        return (
-            <li className='page-itmem'>
-                <a className='page-link' onClick={() => this.state.page !== totalPage && this.setState({page: this.state.page + 1})} tabIndex="-1">
-                    <i aria-hidden="true" className="fa fa-angle-right"></i>
-                </a>
-            </li>
-        );
-    }
-
-    isMoveToFirstPage() {
-        return (
-            <li className='page-item'>
-                <a className='page-link' onClick={() => this.setState({page: 1})} tabIndex="-1">
-                    <i className="fa fa-angle-double-left" aria-hidden="true"></i>
-                </a>
-            </li>
-        );
-    }
-
-    isMoveToLastPage() {
-        const totalPage = Math.ceil(this.state.boards.length / 10);
-
-        return (
-            <li className='page-item'>
-                <a className='page-link' onClick={() => this.setState({page: totalPage})} tabIndex="-1">
-                    <i className="fa fa-angle-double-right" aria-hidden="true"></i>
-                </a>
-            </li>
-        );
-
-    }
-
     render() {
-        const offset = (this.state.page - 1) * 10;
         return (
             <>
             <IndexNavbar/>
-                <div className="community-main">
+            <div className="community-main">
                 <div className="community-pl-main">
                 <h3 id="commLabel">내가 쓴 글</h3>
                 <br/>
@@ -122,42 +88,38 @@ class MyPostPage extends Component {
                         <table className="community-pl-tb table">
                             <thead className="community-pl-thead">
                                 <tr>
-                                    <th scope="col" style={{ width: "8%" }}>번호</th>
-                                    <th scope="col" style={{ width: "66%" }}>제목</th>
-                                    <th scope="col" style={{ width: "10%" }}>작성자</th>
-                                    <th scope="col" style={{ width: "10%" }}>작성일</th>
+                                    <th scope="col" style={{ width: "8%" }}> 번호</th>
+                                    <th scope="col" style={{ width: "66%" }}> 제목 </th>
+                                    <th scope="col" style={{ width: "10%" }}> 작성자 </th>
+                                    <th scope="col" style={{ width: "10%" }}> 작성일 </th>
                                 </tr>
                             </thead>
                             <tbody className="community-pl-tbody">
-                                {
-                                    this.state.boards.slice(offset, offset+10).map(
-                                        board =>
-                                            <tr key={board.no}>
-                                                <td>{board.no}</td>
-                                                <td className="community-post-title" onClick={() => this.readBoard(board.no)}>{board.title}</td>
-                                                <td>{board.memberId}</td>
-                                                <td>{board.createdTime}</td>
-                                            </tr>
-                                    )
-                                }
+                                {this.pagedPosts().map((post) => (
+                                    <tr key={post.id}>
+                                        <td scope="row">{post.no}</td>
+                                        <td className="community-post-title" onClick={() => this.readBoard(post.no)}>{post.title}</td>
+                                        <td>{post.memberId}</td>
+                                        <td>{post.createdTime}</td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
-                    </div>
-                    <div className="community-pl-bottom">
-                        <div className='btn-pagination'>
-                            <nav aria-label='Page navigation example'>
-                                <ul className='pagination justify-content-center'>
-                                    {this.isMoveToFirstPage()}
-                                    {this.isPagingPrev()}
-                                    {this.viewPaging()}
-                                    {this.isPagingNext()}
-                                    {this.isMoveToLastPage()}
-                                </ul>
-                            </nav>
+                        <div className="community-pl-bottom">
+                            <div>
+                                <Pagination
+                                    pageSize={this.state.posts.pageSize}
+                                    itemsCount={this.state.posts.data.length}
+                                    currentPage={this.state.posts.currentPage}
+                                    onPageChange={this.handlePageChange}
+                                    onPagePrevious={this.handlePagePrevious}
+                                    onPageNext={this.handlePageNext}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
             <VeginFooter/>
             </>
         );
