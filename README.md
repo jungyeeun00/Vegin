@@ -1,5 +1,5 @@
 # Vegin &nbsp;<img height="35" alt="logo" src="https://user-images.githubusercontent.com/74102394/171581538-3d67c356-229e-4829-a5ae-870404d40347.png"> 
-### 공공API와 머신러닝을 활용한 비건 커뮤니티
+> 공공API와 머신러닝을 활용한 비건 커뮤니티
 
 **팀장** : 1991194 정예은  
 **팀원** : 1991166 윤소정, 19911121 이가인, 1991147 편주혜
