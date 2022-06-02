@@ -29,6 +29,9 @@ const settings = {
  };
 
  const memberId = localStorage.getItem("member");
+const selectCate = sessionStorage.getItem("curCate") == null ? 'cat0' : JSON.parse(sessionStorage.getItem("curCate"));
+const selectSort = sessionStorage.getItem("sort") == null ? 0 : JSON.parse(sessionStorage.getItem("sort"));
+const selectPnum = sessionStorage.getItem("p_num") == null ? 1 : JSON.parse(sessionStorage.getItem("p_num"));
 
 class ShopPage extends Component {
 
@@ -44,17 +47,20 @@ class ShopPage extends Component {
             pagePrev: 0,
             recommend: [],
             likes: [],
-            sort: 0, // 정렬( default: 인기순(0) )
+            sort: 1, // 정렬( default: 인기순(0) )
             isLoading: false // Spinner
         };
     }
 
     componentDidMount() {
-        ShopService.getProducts(cateData[this.state.curCate], this.state.searchInput, this.state.sort, this.state.p_num).then((res) => {
+        ShopService.getProducts(cateData[selectCate], this.state.searchInput, selectSort, selectPnum).then((res) => {
             console.log(res.data);
             this.setState({ 
                 products: res.data.list,
-                p_num: res.data.pagingData.currentPageNum,
+                //p_num: res.data.pagingData.currentPageNum,
+                p_num: selectPnum,
+                curCate: selectCate,
+                sort: selectSort,
                 paging: res.data.pagingData,
                 isLoading: false
             }, () => {
@@ -93,6 +99,7 @@ class ShopPage extends Component {
         });
         // searchInput 빈 문자열
         this.listProduct(e.target.id, '', this.state.sort, 1);
+        sessionStorage.setItem("curCate", JSON.stringify(e.target.id));
     };
 
     // paging
@@ -119,6 +126,7 @@ class ShopPage extends Component {
         else if(this.state.pagePrev !== 0 && this.state.pagePrev !== -1 && this.state.pagePrev !== this.state.paging.currentPageNum) {
             document.getElementById(this.state.pagePrev.toString()).classList.remove('active');
         }
+        sessionStorage.setItem("p_num", p_num);
     }
 
     viewPaging() {
@@ -195,6 +203,7 @@ class ShopPage extends Component {
         });
         console.log(this.state.sort);
         this.listProduct(this.state.curCate, this.state.searchInput, sort, this.state.p_num);
+        sessionStorage.setItem("sort", sort);
     }
 
     render() {
@@ -287,8 +296,8 @@ class ShopPage extends Component {
                         <Slider {...settings} className='bestItem-slider'>
                             {  
                                 this.state.recommend.map(
-                                    product =>   
-                                        <ShopItem product={product} key={product.id}/>
+                                    (product, index) =>   
+                                        <ShopItem product={product} key={index}/>
                                 )
                             } 
                         </Slider>
@@ -330,7 +339,7 @@ class ShopPage extends Component {
                                 this.state.products.map(
                                     product =>
                                         <li key={product.productId}>
-                                            <ShopItem product={product} like={this.state.likes.includes(product.productId)} isList={false}/>
+                                            <ShopItem product={product} like={this.state.likes.includes(product.productId)} isList={false} key={product.productId}/>
                                         </li>
                                 )}
                         </ul>
