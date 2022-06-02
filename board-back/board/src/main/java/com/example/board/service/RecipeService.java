@@ -204,7 +204,7 @@ public class RecipeService {
     /* 조회 로그 기록 */
     public void writeLog(Cookie cookie, Integer id, long time) {
 
-        String path = "./board/src/main/resources/RecipeViewLog.txt";
+        String path = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/RecipeViewLog.txt";
 
         try {
             File file = new File(path);
@@ -220,7 +220,7 @@ public class RecipeService {
 
     /* 검색 로그 기록 */
     public void writeLog(Cookie cookie, String keyword, long time) {
-        String path = "./board/src/main/resources/RecipeSearchLog.txt";
+        String path = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/RecipeSearchLog.txt";
         try {
             File file = new File(path);
             FileWriter fw = new FileWriter(file, true);
@@ -247,7 +247,7 @@ public class RecipeService {
         else {
             try{
                 //파일 객체 생성
-                File file = new File("./board/src/main/resources/RecipeViewLog.txt");
+                File file = new File("/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/RecipeViewLog.txt");
                 //입력 스트림 생성
                 FileReader filereader = new FileReader(file);
                 //입력 버퍼 생성
@@ -264,8 +264,8 @@ public class RecipeService {
                 bufReader.close();
 
                 String[] command = new String[3];
-                command[0] = "python";
-                command[1] = "./recipeRec/RecipeRec.py";
+                command[0] = "python3";
+                command[1] = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/recipeRec/RecipeRec.py";
                 command[2] = id;
 
                 String[] idList;

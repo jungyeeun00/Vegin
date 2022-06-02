@@ -171,7 +171,7 @@ public class ShopService {
     /* 조회, 검색 로그 기록 */
     public void writeLog(Cookie cookie, Integer id, long time) {
 
-        String path = "./board/src/main/resources/ShopViewLog.txt";
+        String path = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/ShopViewLog.txt";
 
         try {
             File file = new File(path);
@@ -186,7 +186,7 @@ public class ShopService {
     }
 
     public void writeLog(Cookie cookie, String keyword, long time) {
-        String path = "./board/src/main/resources/ShopSearchLog.txt";
+        String path = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/ShopSearchLog.txt";
 
         try {
             File file = new File(path);
@@ -216,7 +216,7 @@ public class ShopService {
         else {
             try{
                 //파일 객체 생성
-                File file = new File("./board/src/main/resources/ShopViewLog.txt");
+                File file = new File("/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/ShopViewLog.txt");
                 //입력 스트림 생성
                 FileReader filereader = new FileReader(file);
                 //입력 버퍼 생성
@@ -234,7 +234,7 @@ public class ShopService {
 
                 String[] command = new String[3];
                 command[0] = "python3";
-                command[1] = "./shopRec/ShopRec.py";
+                command[1] = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/shopRec/ShopRec.py ";
                 command[2] = id;
 
                 idList = execPython(command);

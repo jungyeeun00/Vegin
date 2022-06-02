@@ -16,9 +16,4 @@ public class BoardApplication {
 		SpringApplication.run(BoardApplication.class, args);
 	}
 
-	@RequestMapping("/")
-	public String home(){
-		return "hello world spring";
-	}
-
 }
