@@ -198,9 +198,9 @@ function ProductDetailPage() {
                                                 <option value="" >옵션</option>
                                                 {
                                                     choices.map(
-                                                        choice => 
+                                                        (choice, index) => 
                                                         !choice.content.includes("품절") &&
-                                                        <option value={choice.content + "\t" + choice.extraCost}>
+                                                        <option value={choice.content + "\t" + choice.extraCost} key={index}>
                                                             {choice.content}
                                                         </option>
                                                 )}
@@ -215,6 +215,7 @@ function ProductDetailPage() {
                                                 options.map((option, idx) => {
                                                 return (
                                                     <ShopItemOption 
+                                                    key={idx}
                                                     option={option} idx={idx}
                                                     minusQuantity={minusQuantity}
                                                     plusQuantity={plusQuantity}
