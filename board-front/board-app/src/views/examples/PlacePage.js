@@ -102,6 +102,16 @@ const PlacePage = () => {
         setTables(n_tables);    //필터가 여러번 되면서 걸러짐
     }
 
+    // enter 이벤트 처리 (검색)
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            var n_tables = orgTable.filter(it => {
+                return it.upso_NM.includes(searchInput);
+            });
+            setTables(n_tables);    //필터가 여러번 되면서 걸러짐
+        }
+    };
+
     const setSearchContent = (e) => {
         setSearchInput(e.target.value);
     }
@@ -184,7 +194,7 @@ const PlacePage = () => {
                         <div id="place-list-main" className="place-list-main">
                             <div className="place-search-bar">
                                 <span className='place-search-icon' onClick={setSearchHandler} style={{cursor: 'pointer'}}> <FontAwesomeIcon icon={faMagnifyingGlass} /> </span>
-                                <input type="search" placeholder="검색하기" value={searchInput}
+                                <input type="search" placeholder="검색하기" value={searchInput} onKeyPress={handleKeyPress}
                                     onFocus={searchOnHandler} onBlur={searchOffHandler} onChange={setSearchContent} />
                                 {searchInput.length !== 0 &&
                                     <button className="btn-clear" onClick={searchInputRemoveHandler}>

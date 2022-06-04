@@ -138,8 +138,22 @@ class JoinPage extends Component {
                                                 address: this.state.address,
                                                 birthday: this.state.birthday
                                             };
+                                            if (memberDto.name == '')
+                                                alert("이름을 입력하세요.");
+                                            else if (memberDto.id == '')
+                                                alert("아이디를 입력하세요.");
+                                            else if (memberDto.password == '')
+                                                alert("비밀번호를 입력하세요.");
+                                            else if (!this.checkPassword(memberDto.password))
+                                                alert("비밀번호를 올바르게 입력하세요.");
+                                            else if (memberDto.email == '')
+                                                alert("이메일을 입력하세요.");
+                                            else if (memberDto.phone == '') 
+                                                alert("전화번호를 입력하세요.");
+                                            else
                                             MemberService.signup(memberDto)
                                             .then(res => this.props.history.push("/signup-success"))
+                                            .catch(err => alert("회원정보를 올바르게 입력하세요."));
                                             }}>
                                             Join
                                         </Button>
