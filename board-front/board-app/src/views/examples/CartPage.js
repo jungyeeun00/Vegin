@@ -111,7 +111,7 @@ function CartPage(props) {
         if (isTrue) {
             setTotalPrice(totalPrice + curPrice);
         }
-        else {
+        else if(!isTrue && totalPrice != 0){
             setTotalPrice(totalPrice - curPrice);
         }
     }

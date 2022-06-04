@@ -30,6 +30,7 @@ function ProductDetailPage() {
     const saleRate = location.state.saleRate;
     const imgSrc = location.state.imgSrc;
     const detail = location.state.detail; 
+    let noOpFlag = 1; // 옵션 없는 경우 체크 변수(1은 옵션 없음 0은 옵션 있음)
 
     const [choices, setChoices] = useState([]);
 
@@ -43,7 +44,7 @@ function ProductDetailPage() {
         .then(res => setChoices(res.data))
         window.scrollTo(0, 0);
         setDefOp(
-            { productName: productName, num: 0, price: Number(soldPrice), sum: 0 , id: 0},
+            { productName: productName, num: 0, price: Number(soldPrice), sum: 0 , id: 0}
         )
     }, []);
    
@@ -60,6 +61,8 @@ function ProductDetailPage() {
 
     //상품 옵션을 선택하면 화면에 elements 추가 렌더링
     const selectOption = (e) => {
+        noOpFlag = 0;
+
         let flag = 0; // 중복 선택 여부 확인 변수
         let opValue = e.target.value.split("\t"); // content, extraCost 탭 문자로 분리
         let price = Number(opValue[1]) + Number(soldPrice); // 추가 금액에 원래 가격 합산
@@ -114,19 +117,17 @@ function ProductDetailPage() {
 
         if(window.confirm("장바구니로 이동하시겠습니까?")){
             window.location.href = "/cart";
-        } 
-        else {
-            alert("취소");
         }
 
         // 세션 저장
         const _cart = sessionStorage.getItem("cart");
         if (_cart) {
             const parseCart = JSON.parse(_cart);
-            sessionStorage.setItem("cart", JSON.stringify([...parseCart, ...options]));
+            // noOpFlag 넣어서 if문으로 구분하기.... option이 없는 경우는 defoption 을 세션에 저장하기
+                sessionStorage.setItem("cart", JSON.stringify([...parseCart, ...options]));
         } 
         else {
-            sessionStorage.setItem("cart", JSON.stringify(options));
+               sessionStorage.setItem("cart", JSON.stringify(options));
         }  
     }
 

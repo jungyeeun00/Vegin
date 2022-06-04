@@ -301,7 +301,7 @@ class ShopPage extends Component {
                             {  
                                 this.state.recommend.map(
                                     (product, index) =>   
-                                        <ShopItem product={product} key={index}/>
+                                        <ShopItem product={product} like={this.state.likes.includes(product.productId)} isList={false} key={index}/>
                                 )
                             } 
                         </Slider>
