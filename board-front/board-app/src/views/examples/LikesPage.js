@@ -9,12 +9,14 @@ const memberId = localStorage.getItem("member");
 function LikesPage(props) {
     const [products, setProducts] = useState([])
 
+    /* 찜한 목록 불러옴 */
     useEffect(() => {
         MyPageService.getLikeList(memberId).then((res) => {
             setProducts(res.data);
         })
     }, []);
 
+    /* 취소 시 목록 업데이트(취소한 아이템 제외) */
     const onUpdate = (id) => {
         var newProducts = products;
         newProducts = products.filter(product => product.productId !== id);

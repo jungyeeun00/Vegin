@@ -26,7 +26,7 @@ public class ShopController {
 
     @PostMapping("")
     public List<Product> getShopList(HttpServletRequest request) {
-        Cookie cookie = WebUtils.getCookie(request, "recCookie");
+        Cookie cookie = WebUtils.getCookie(request, "recShop");
         if(cookie == null)  // 랜덤
           return shopService.recommend(null);
 
@@ -88,27 +88,27 @@ public class ShopController {
                     HttpServletRequest request,
                     Integer flag) {
 
-        Cookie cookie = WebUtils.getCookie(request, "recCookie");
+        Cookie cookie = WebUtils.getCookie(request, "recShop");
 
         // 비회원 첫 클릭
         if (cookie == null) {
             String ckid = session.getId();
-            Cookie recCookie = new Cookie("recCookie", ckid);
-            recCookie.setPath("/");
-            recCookie.setHttpOnly(true);
-            recCookie.setMaxAge(60 * 60 * 24 * 10);
-            response.addCookie(recCookie);
+            Cookie recShop = new Cookie("recShop", ckid);
+            recShop.setPath("/");
+            recShop.setHttpOnly(true);
+            recShop.setMaxAge(60 * 60 * 24 * 365);
+            response.addCookie(recShop);
 
             if(flag == 0)
-                shopService.writeLog(recCookie, id, session.getLastAccessedTime());
+                shopService.writeLog(recShop, id, session.getLastAccessedTime());
             else
-                shopService.writeLog(recCookie, keyword, session.getLastAccessedTime());
+                shopService.writeLog(recShop, keyword, session.getLastAccessedTime());
 
         } else if (cookie != null) {
             //쿠키 시간 재설정 해주기
             cookie.setPath("/");
             cookie.setHttpOnly(true);
-            cookie.setMaxAge(60 * 60 * 24 * 10);
+            cookie.setMaxAge(60 * 60 * 24 * 365);
             response.addCookie(cookie);
 
             if(flag == 0)

@@ -1,7 +1,6 @@
-//import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import 'assets/scss/paper-kit/_itemnav.scss';
 import React, { Component } from 'react';
-import { Nav, Navbar, NavItem, NavLink } from 'reactstrap';
+import { Navbar, NavItem, NavLink, Nav } from 'reactstrap';
+import 'assets/scss/paper-kit/_itemnav.scss'
 import BoardService from 'service/BoardService';
 import BestCommunityFreeItems from './BestCommunityFreeItems';
 import FeaturedPlaceItems from './FeaturedPlaceItems';

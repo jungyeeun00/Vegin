@@ -28,8 +28,6 @@ import "assets/demo/demo.css?v=1.3.0";
 // pages
 import Index from "views/Index.js";
 import NucleoIcons from "views/NucleoIcons.js";
-import LandingPage from "views/examples/LandingPage.js";
-import ProfilePage from "views/examples/ProfilePage.js";
 import LoginPage from "views/examples/LoginPage.js";
 import JoinPage from "views/examples/JoinPage.js";
 import MypagePage from "views/examples/MypagePage.js";
@@ -42,7 +40,6 @@ import ShopDetailPage from "views/examples/ShopDetailPage";
 import PlacePage from "views/examples/PlacePage";
 import PostPage from "views/examples/PostPage";
 import WritePostPage from "views/examples/WritePostPage";
-import ShopNavTab from "views/index-sections/ShopNavTab";
 import CartPage from "views/examples/CartPage";
 import LikesPage from "views/examples/LikesPage";
 import ListBoardComponent from "views/index-sections/ListBoardComponent";
@@ -64,14 +61,6 @@ ReactDOM.render(
       <Route
         path="/nucleo-icons"
         render={(props) => <NucleoIcons {...props} />}
-      />
-      <Route
-        path="/landing-page"
-        render={(props) => <LandingPage {...props} />}
-      />
-      <Route
-        path="/profile-page"
-        render={(props) => <ProfilePage {...props} />}
       />
       <Route
         path="/register-page"

@@ -234,7 +234,7 @@ public class ShopService {
 
                 String[] command = new String[3];
                 command[0] = "python3";
-                command[1] = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/shopRec/ShopRec.py ";
+                command[1] = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/shopRec/ShopRec.py";
                 command[2] = id;
 
                 idList = execPython(command);

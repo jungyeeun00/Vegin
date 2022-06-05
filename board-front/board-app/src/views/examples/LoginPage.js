@@ -22,11 +22,12 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import MemberService from "service/MemberService";
 
 // reactstrap components
-import { Button, Card, Form, Input, InputGroup, InputGroupText, Container, Row, Col } from "reactstrap";
+import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFingerprint, faLock } from '@fortawesome/free-solid-svg-icons'
 import VeginFooter from "components/Footers/VeginFooter";
 
+/* 로그인 페이지 */
 class LoginPage extends Component {
 
   constructor(props) {
@@ -37,10 +38,12 @@ class LoginPage extends Component {
     }
   }
 
+  /* 아이디 입력 */
   setUsernameHandler = (e) => {
     this.setState({ username: e.target.value });
   };
 
+  /* 비밀번호 입력 */
   setPasswordHandler = (e) => {
     this.setState({ password: e.target.value });
   };
@@ -55,20 +58,21 @@ class LoginPage extends Component {
             <Row>
               <Col className="ml-auto mr-auto" lg="4">
                 <Card className="card-register login ml-auto mr-auto" style={{ backgroundColor: "white" }}>
-                  {/* <h3 className="title mx-auto">
-                    <img className="login_logo" alt="login_logo" src={require("assets/img/login_logo.png")} style={{ width: '250px' }} />
-                  </h3> */}
                   <h3 className="login-title">LOGIN</h3>
                   <Form className="register-form">
+                    {/* 아이디 입력 */}
                     <div className="login-group">
                       <span className="login-icon"> <FontAwesomeIcon icon={faFingerprint} /> </span>
                       <Input className='input-login' placeholder="ID" type="text" id="username" onChange={this.setUsernameHandler} />
                     </div>
+                    {/* 비밀번호 입력 */}
                     <div className="login-group">
                       <span className="login-icon"> <FontAwesomeIcon icon={faLock} /> </span>
                       <Input className='input-login' placeholder="Password" type="password" id="password" onChange={this.setPasswordHandler} />
                     </div>
+                    {/* 로그인 버튼 */}
                     <Button block className="login-btn" onClick={() =>
+                      /* 로그인 요청 */
                       MemberService.login(this.state.username, this.state.password)
                         .then(res => {
                           console.log(res.data);
@@ -79,6 +83,7 @@ class LoginPage extends Component {
                     </Button>
                   </Form>
                   <div className="otherbtns" >
+                    {/* 회원가입 */}
                     <Button
                       className="signup-btn"
                       color="danger"

@@ -1,13 +1,22 @@
-import sqlalchemy as db
+import sys
 import pandas as pd
-import re
+import sqlalchemy as db
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
-import sys
 
+# db와 연결
 engine = db.create_engine('mysql+pymysql://root:hansung@localhost/board-back').connect()
 
+# 불용어 추가
+recipe_stopwords = ['비건', '비건채식', '비건레시피', '비건음식', '비건베이킹', '요리', '쿡', '법', '간단', '레시피', '채식', '베이', '킹', '음식', '초', '노', '손', '맛', '약', 'cm', 'g', 'or']
 
+# 유사도 계산 시 사용할 가중치
+w_igr = 2
+w_name = 1.5
+w_st = 1
+
+
+# 데이터 불러 와서 데이터 처리를 위한 열 추가
 def load():
     sql_igr = 'select * from ingredient'
     ingredient = pd.read_sql(sql_igr, engine)
@@ -22,18 +31,14 @@ def load():
     return recipe
 
 
-recipe_stopwords = ['비건', '비건채식', '비건레시피', '비건음식', '비건베이킹', '요리', '쿡', '법', '간단', '레시피', '채식', '베이', '킹', '음식', '초', '노', '손', '맛', '약', 'cm', 'g', 'or']
-w_igr = 2
-w_name = 1.5
-w_st = 1
-
-
+# TF-IDF
 def vectorize(documents):
     tf = TfidfVectorizer(stop_words=recipe_stopwords, min_df=1)
     tfidf_matrix = tf.fit_transform(documents)
     return tfidf_matrix
 
 
+# 유사도
 def similarity(recipe):
     # 유사도
     tfidf_matrix1 = vectorize(recipe['igr_list'])
@@ -45,22 +50,24 @@ def similarity(recipe):
     return cosine_sim / 4.5
 
 
+# 추천 리스트. 상위 8개 레시피 반환
 def get_recommendations(id):
+    # 레시피 데이터
     recipe = load()
-
+    # 레시피의 id를 index로 하고 recipe.index를 data로 하는 indices 생성
     indices = pd.Series(data=recipe.index, index=recipe['id'].astype(str))
-    # 선택한 레시피의 아이디로부터 해당되는 인덱스를 받아옵니다. 이제 선택한 레시피를 가지고 연산할 수 있습니다
+    # 입력받은 레시피의 id로부터 해당되는 인덱스를 받아옴
     idx = indices[id]
-    # 모든 레시피에 대해서 해당 레시피와의 유사도를 구합니다
+    # 모든 레시피에 대해서 해당 레시피와의 유사도를 구함
     cosine_sim = similarity(recipe)
     sim_scores = list(enumerate(cosine_sim[idx]))
-    # 유사도에 따라 레시피들을 정렬합니다
+    # 유사도에 따라 레시피들을 정렬
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-    # 가장 유사한 8개의 레시피를 받아옵니다
+    # 가장 유사한 8개의 레시피를 받아옴(본인 제외)
     sim_scores = sim_scores[1:9]
-    # 가장 유사한 8개의 레시피의 인덱스를 받아옵니다
+    # 가장 유사한 8개의 레시피의 인덱스 받아옴
     recipe_indices = [i[0] for i in sim_scores]
-    # 가장 유사한 8개의 레시피의 아이디를 리턴합니다
+    # 가장 유사한 8개의 레시피의 id를 리턴
     return list(map(int, indices[recipe_indices].index))
 
 

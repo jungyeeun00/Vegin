@@ -19,6 +19,7 @@ function RecipeDetailPage() {
     const [cates, setCates] = useState([]);
     const [steps, setSteps] = useState([]);
 
+    /* 재료, 재료카테고리, 조리방법 */
     useEffect(() => {
         RecipeService.getIngredients(id).then(res => 
             setIngres(Object.values(res.data))

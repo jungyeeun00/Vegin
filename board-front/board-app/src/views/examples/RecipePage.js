@@ -51,7 +51,7 @@ class RecipePage extends Component {
             searchCancel: false,
             recipes: [],
             recommend: [],
-            sort: 0, // 정렬( default: 인기순(0) )
+            sort: 0, // 정렬( default: 등록순(id순)(0) )
             curCate: 'cat0',
             p_num: 1,
             paging: {},
@@ -61,6 +61,7 @@ class RecipePage extends Component {
         
     }
 
+    /* 저장된 state, 레시피 리스트, 추천 리스트 */
     componentDidMount() {
         selectCate = sessionStorage.getItem("curCate") == null ? 'cat0' : JSON.parse(sessionStorage.getItem("curCate"));
         selectSort = sessionStorage.getItem("sort") == null ? 0 :  JSON.parse(sessionStorage.getItem("sort"));
@@ -87,6 +88,7 @@ class RecipePage extends Component {
          });
     }
 
+    /* 스크롤 위치 불러오기 */
     handleScrollPosition = () => {
         const scrollPosition = sessionStorage.getItem("scrollPosition");
         if (scrollPosition) {
@@ -95,22 +97,29 @@ class RecipePage extends Component {
         }
     };
 
-    searchOnHandler = () => { // onFocus 이벤트
+    /* 검색바 onFocus 이벤트 */
+    searchOnHandler = () => {
         this.setState({
             searchClick: true,
             searchCancel: true
         });
     };
-    searchOffHandler = () => { // onBlur 이벤트
+
+    /* 검색바 onBlur 이벤트 */
+    searchOffHandler = () => {
         this.setState({
             searchClick: false
         });
     };
-    setSearchHandler = (e) => { // input 창에 onChange 이벤트
+
+    /* 검색바 input 창 onChange 이벤트 */
+    setSearchHandler = (e) => {
         this.setState({
             searchInput: e.target.value
         });
     };
+
+    /* 검색바 x버튼 onClick 이벤트 */
     searchInputRemoveHandler = () => {
         this.setState({
             searchInput: '',
@@ -119,7 +128,7 @@ class RecipePage extends Component {
         this.listRecipe(this.state.sort, this.state.curCate, '', 1);
     };
 
-    // enter 이벤트 처리 (검색)
+    /* 검색바 enter 이벤트 */
     handleKeyPress = (e) => {
         if (e.key === "Enter") {
             this.listRecipe(this.state.sort, this.state.curCate, this.state.searchInput, -1);
@@ -129,10 +138,12 @@ class RecipePage extends Component {
         };
     };
 
+    /* 검색바 아이콘 onClick 이벤트 */
     handleClick = () => {
         this.listRecipe(this.state.sort, this.state.curCate, this.state.searchInput, -1);
     };
 
+    /* 카테고리 onClick 이벤트. 카테고리 변경 및 sessionStorage에 state 저장 */
     changeCate = (e) => {
         this.setState({
             curCate: e.target.id,
@@ -143,7 +154,7 @@ class RecipePage extends Component {
         sessionStorage.setItem("curCate", JSON.stringify(e.target.id));
     };
 
-    // 정렬 탭
+    /* 정렬탭 onClick 이벤트. 정렬 변경 및 sessionStorage에 state 저장 */
     clickHandler = (sort) => {
         this.setState({
             sort: sort,
@@ -155,7 +166,7 @@ class RecipePage extends Component {
         sessionStorage.setItem("sort", sort);
     }
 
-    // paging
+    /* page별 레시피 리스트 불러오기 */
     listRecipe = (sort, curCate, searchInput, p_num) => {
         RecipeService.getRecipes(sort, cateData[curCate], searchInput, p_num).then((res) => {
             res.data.list != null
@@ -172,6 +183,7 @@ class RecipePage extends Component {
                     pagePrev: p_num
                 })
         });
+        // paging 버튼 active 추가 및 제거
         if(this.state.pagePrev === 0 && this.state.paging.currentPageNum !== 1) {
             document.getElementById("1").classList.remove('active');
         }
@@ -182,6 +194,7 @@ class RecipePage extends Component {
         sessionStorage.setItem("p_num", p_num);
     }
 
+    /* 페이지 클릭 */
     viewPaging = () => {
         const pageNums = [];
 
@@ -196,6 +209,7 @@ class RecipePage extends Component {
         ));
     }
 
+    /* 이전 버튼 클릭 */
     isPagingPrev = () => {
         if (this.state.paging.isPrev) {
             return (
@@ -209,6 +223,7 @@ class RecipePage extends Component {
         }
     }
 
+    /* 다음 버튼 클릭 */
     isPagingNext = () => {
         if (this.state.paging.isNext) {
             return (

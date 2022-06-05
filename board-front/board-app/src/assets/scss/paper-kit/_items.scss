@@ -17,6 +17,52 @@
    font-family: 'main-font-m';
    src: url('../../fonts/main-font/KoPubWorld-Dotum-Medium.ttf');
 }
+.recipe-best-table,
+.shop-best-table,
+.place-best-table,
+.community-best-table {
+    display: grid;
+    justify-content: space-evenly;
+    grid-template-columns: auto auto auto auto;
+    width:100%;
+    padding-left: 0;
+    margin-bottom: 0;
+
+    li, .item {
+        display:inline-block;
+        vertical-align:middle;
+        margin-bottom: 10px;
+        margin-top: 3vh;
+        padding: 0;
+        .item-img {
+            width: 230px;
+            height: 250px;
+            border: 1px solid #aaaaaa;
+            object-fit: cover;
+        }
+        #recipeTitle {
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #shopTitle {
+            height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .recipe-text,
+        .shop-text {
+            padding: 0.2vw;
+            margin: 0.34vw 0.2vw;
+        }
+        .nav-link {
+            padding: 0;
+        }
+    }
+}
+
 
 .item-title {
     width: 200px;
@@ -134,52 +180,4 @@
 .place-main {
     padding: 0% 15%;
     position: relative;
-}
-
-.recipe-best-table,
-.shop-best-table,
-.place-best-table,
-.community-best-table {
-    // padding: 0% 13%;
-    // position: relative;
-    display: grid;
-    justify-content: space-evenly;
-    grid-template-columns: auto auto auto auto;
-    width:100%;
-    padding-left: 0;
-    margin-bottom: 0;
-
-    li, .item {
-        display:inline-block;
-        vertical-align:middle;
-        margin-bottom: 10px;
-        margin-top: 3vh;
-        padding: 0;
-
-        .item-img {
-            width: 230px;
-            height: 250px;
-            border: 1px solid #aaaaaa;
-            object-fit: cover;
-        }
-
-        #recipeTitle {
-            height: 120px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        #shopTitle {
-            height: 90px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .recipe-text,
-        .shop-text {
-            padding: 0.2vw;
-            margin: 0.34vw 0.2vw;
-        }
-    }
 }

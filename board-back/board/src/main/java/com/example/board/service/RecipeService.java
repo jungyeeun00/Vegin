@@ -46,6 +46,7 @@ public class RecipeService {
         recipeRepository.addViewCount(id);
     }
 
+    /* featured 4개 레시피 */
     public ResponseEntity<List<Recipe>> getFeatured() {
         Pageable page = PageRequest.of(0, 4, Sort.by("views").descending());
         List<Recipe> list = recipeRepository.findR(page);
@@ -58,17 +59,14 @@ public class RecipeService {
 
         PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
-        Pageable sort_recipe = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("id"));
-        Pageable sort_popular = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("views").descending());
+        Pageable sort_recipe = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("id")); // 등록된 순(id순) 정렬
+        Pageable sort_popular = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("views").descending()); // 조회수 순 정렬
 
         List<Recipe> list = sort ==0 ? recipeRepository.findR(sort_recipe)
                 : recipeRepository.findR(sort_popular);
 
         pu.setObjectCountTotal(getAllCount());
         pu.setCalcForPaging();
-
-        System.out.println("p_num : "+p_num);
-        System.out.println(pu.toString());
 
         if (list == null || list.size() == 0) {
             return null;
@@ -88,8 +86,8 @@ public class RecipeService {
 
         PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
-        Pageable sort_recipe = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("id"));
-        Pageable sort_popular = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("views").descending());
+        Pageable sort_recipe = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("id")); // 등록된 순(id순) 정렬
+        Pageable sort_popular = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("views").descending()); // 조회수 순 정렬
 
         if(category.equals("빵/디저트/과자")) {
             list = sort ==0 ? recipeRepository.findRCateM("빵", "디저트", "과자", sort_recipe) : recipeRepository.findRCateM("빵", "디저트", "과자", sort_popular);
@@ -100,9 +98,6 @@ public class RecipeService {
             pu.setObjectCountTotal(getCateCount(category));
         }
         pu.setCalcForPaging();
-
-        System.out.println("p_num : "+p_num);
-        System.out.println(pu.toString());
 
         if (list == null || list.size() == 0) {
             return null;
@@ -121,15 +116,12 @@ public class RecipeService {
 
         PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
-        Pageable sort_recipe = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("id"));
-        Pageable sort_popular = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("views").descending());
+        Pageable sort_recipe = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("id")); // 등록된 순(id순) 정렬
+        Pageable sort_popular = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("views").descending()); // 조회수 순 정렬
 
         List<Recipe> list = sort ==0 ? recipeRepository.findRKeyword(searchInput, sort_recipe) : recipeRepository.findRKeyword(searchInput, sort_popular);
         pu.setObjectCountTotal(getCountKeyword(searchInput));
         pu.setCalcForPaging();
-
-        System.out.println("p_num : "+p_num);
-        System.out.println(pu.toString());
 
         if (list == null || list.size() == 0) {
             return null;
@@ -149,8 +141,8 @@ public class RecipeService {
 
         PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
-        Pageable sort_recipe = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("id"));
-        Pageable sort_popular = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("views").descending());
+        Pageable sort_recipe = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("id")); // 등록된 순(id순) 정렬
+        Pageable sort_popular = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("views").descending()); // 조회수 순 정렬
 
         if(category.equals("빵/디저트/과자")) {
             list = sort ==0 ? recipeRepository.findRCateKeywordM("빵", "디저트", "과자", searchInput, sort_recipe) : recipeRepository.findRCateKeywordM("빵", "디저트", "과자", searchInput, sort_popular);
@@ -161,9 +153,6 @@ public class RecipeService {
             pu.setObjectCountTotal(getCateCountKeyword(category, searchInput));
         }
         pu.setCalcForPaging();
-
-        System.out.println("p_num : "+p_num);
-        System.out.println(pu.toString());
 
         if (list == null || list.size() == 0) {
             return null;
@@ -237,7 +226,7 @@ public class RecipeService {
     public List<Recipe> recommend(String value) {
         List<Recipe> list = new ArrayList<>();
 
-        if(value == null) {
+        if(value == null) { // 쿠키 없을 경우
             for(int i=0; i<8; i++) {
                 double randomValue = Math.random();
                 int intValue = (int) (randomValue * getAllCount()) + 1;
@@ -246,11 +235,9 @@ public class RecipeService {
         }
         else {
             try{
-                //파일 객체 생성
+                /* viewlog 파일에서 가장 최근 기록된 로그의 id를 찾음 */
                 File file = new File("/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/RecipeViewLog.txt");
-                //입력 스트림 생성
                 FileReader filereader = new FileReader(file);
-                //입력 버퍼 생성
                 BufferedReader bufReader = new BufferedReader(filereader);
                 String line = "";
                 String id = "";
@@ -260,9 +247,9 @@ public class RecipeService {
                     if(array[0].equals(value) && Long.parseLong(array[2]) > time)
                         id = array[1];
                 }
-                //.readLine()은 끝에 개행문자를 읽지 않는다.
                 bufReader.close();
 
+                /* 파이썬과 연동하여 추천리스트 받아오기 */
                 String[] command = new String[3];
                 command[0] = "python3";
                 command[1] = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/recipeRec/RecipeRec.py";
@@ -291,18 +278,16 @@ public class RecipeService {
             }
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             PumpStreamHandler pumpStreamHandler = new PumpStreamHandler(outputStream);
-//            PumpStreamHandler pumpStreamHandler = new PumpStreamHandler(System.out);
             DefaultExecutor executor = new DefaultExecutor();
             executor.setStreamHandler(pumpStreamHandler);
             int result = executor.execute(commandLine);
             String line = new String(outputStream.toByteArray());
 
+            /* 문자열로 받아온 결과 배열로 만들어서 return */
             split = line.split(",");
-
             for(int i = 0; i < 8; i++) {
                 split[i] = split[i].replaceAll("[^0-9]", "");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
