@@ -8,7 +8,6 @@ import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import "assets/css/Slide.css";
 import { Slide } from "./Slide";
-import { Container } from "reactstrap";
 
 const data = [
   {

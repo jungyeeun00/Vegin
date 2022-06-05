@@ -59,7 +59,7 @@
     .shop-items-table {
         display: grid;
         justify-content: space-evenly;
-        grid-template-columns: auto auto auto auto;
+        grid-template-columns: repeat(4, 250px);
         width:100%;
         padding-left: 0;
         margin-bottom: 0;
