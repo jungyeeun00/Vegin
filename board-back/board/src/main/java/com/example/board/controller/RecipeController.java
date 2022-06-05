@@ -1,6 +1,5 @@
 package com.example.board.controller;
 
-import com.example.board.dto.ProductDto;
 import com.example.board.model.Recipe;
 import com.example.board.model.Step;
 import com.example.board.service.RecipeService;
@@ -17,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/recipe-page")
 public class RecipeController {
@@ -25,9 +24,10 @@ public class RecipeController {
     @Autowired
     private RecipeService recipeService;
 
+    /* 추천 레시피 리스트 받아옴 */
     @PostMapping("")
     public List<Recipe> getRecList(HttpServletRequest request) {
-        Cookie cookie = WebUtils.getCookie(request, "recCookie");
+        Cookie cookie = WebUtils.getCookie(request, "recRecipe");
         if(cookie == null) {
             return recipeService.recommend(null);
         }
@@ -36,11 +36,13 @@ public class RecipeController {
         }
     }
 
+    /* 홈에서 보여질 featured 4개 레시피 */
     @GetMapping("/featured")
     public ResponseEntity<List<Recipe>> getFeatured() {
         return recipeService.getFeatured();
     }
 
+    /* 디테일에서 보여질 레시피별 ingredient */
     @GetMapping("/ingre/{id}")
     public ResponseEntity<HashMap<String, Object>> getIngreById(
             @PathVariable Integer id) {
@@ -48,6 +50,7 @@ public class RecipeController {
         return recipeService.getIngredient(id);
     }
 
+    /* 디테일에서 보여질 레시피별 step */
     @GetMapping("/step/{id}")
     public ResponseEntity<List<Step>> getStepById(
             @PathVariable Integer id) {
@@ -55,6 +58,7 @@ public class RecipeController {
         return recipeService.getStep(id);
     }
 
+    /* 조회수 증가 */
     @ResponseBody
     @PostMapping("/views/{id}")
     public void setViewCount(
@@ -68,6 +72,7 @@ public class RecipeController {
         recipeService.setViews(id);
     }
 
+    /* 카테고리(전체 및 일반 카테고리) */
     @PostMapping("/{category}")
     public ResponseEntity<Map> getRecipesByCate(@RequestParam(value = "sort", required = false) Integer sort,
                                                 @PathVariable String category,
@@ -93,6 +98,7 @@ public class RecipeController {
             return recipeService.getRecipeCateKeyword(sort, category, searchInput, p_num);
     }
 
+    /* 카테고리(빵/디저트/과자) */
     @PostMapping("/{category1}/{category2}")
     public ResponseEntity<Map> getRecipesByCate1(@RequestParam(value = "sort", required = false) Integer sort,
                                                  @PathVariable String category1,
@@ -139,7 +145,7 @@ public class RecipeController {
             return recipeService.getRecipeCateKeyword(sort, category, searchInput, p_num);
     }
 
-    // 레시피 클릭, 검색 시 쿠키 설정 및 로그 기록 함수 호출 메소드
+    /* 레시피 클릭, 검색 시 쿠키 설정 및 로그 기록 함수 호출 메소드 */
     public void Log(Integer id,
                     String keyword,
                     HttpSession session,
@@ -147,28 +153,28 @@ public class RecipeController {
                     HttpServletRequest request,
                     Integer flag) {
 
-        Cookie cookie = WebUtils.getCookie(request, "recCookie");
+        Cookie cookie = WebUtils.getCookie(request, "recRecipe");
 
-        // 비회원 첫 클릭
+        /* 첫 클릭 시 쿠키 생성 및 로그 기록 */
         if (cookie == null) {
             String ckid = session.getId();
-            Cookie recCookie = new Cookie("recCookie", ckid);
-            recCookie.setPath("/");
-            recCookie.setHttpOnly(true);
-            recCookie.setMaxAge(60 * 60 * 24 * 10);
-            response.addCookie(recCookie);
-
+            Cookie recRecipe = new Cookie("recRecipe", ckid);
+            recRecipe.setPath("/");
+            recRecipe.setHttpOnly(true);
+            recRecipe.setMaxAge(60 * 60 * 24 * 365);
+            response.addCookie(recRecipe);
 
             if(flag == 0)
-                recipeService.writeLog(recCookie, id, session.getLastAccessedTime());
+                recipeService.writeLog(recRecipe, id, session.getLastAccessedTime());
             else
-                recipeService.writeLog(recCookie, keyword, session.getLastAccessedTime());
+                recipeService.writeLog(recRecipe, keyword, session.getLastAccessedTime());
 
-        } else if (cookie != null) {
-            //쿠키 시간 재설정 해주기
+        }
+        /* 첫 클릭 아닐 시 쿠키 재설정 및 로그 기록 */
+        else if (cookie != null) {
             cookie.setPath("/");
             cookie.setHttpOnly(true);
-            cookie.setMaxAge(60 * 60 * 24 * 10);
+            cookie.setMaxAge(60 * 60 * 24 * 365);
             response.addCookie(cookie);
 
             if(flag == 0)

@@ -35,7 +35,6 @@ import {
   DropdownItem,
   Container,
 } from "reactstrap";
-import { Link } from "react-router-dom";
 import MemberService from "service/MemberService";
 
 function IndexNavbar() {
@@ -182,7 +181,7 @@ function IndexNavbar() {
               </NavItem>
               <UncontrolledDropdown nav inNavbar className='in-dropdown-wrapper'>
                 <DropdownToggle className='in-dropdown'
-                  style={{ height: '49px', padding: '10px 48px', margin: '15px 3px' }}>
+                  style={{ height: '47px', padding: '0px 48px', margin: '15px 3px' }}>
                   ABOUT
                   </DropdownToggle>
                 <DropdownMenu
@@ -235,7 +234,7 @@ function IndexNavbar() {
               </NavItem>
               <UncontrolledDropdown nav inNavbar className='in-dropdown-wrapper'>
                 <DropdownToggle className='in-dropdown'
-                  style={{ height: '49px', padding: '10px 48px', margin: '15px 3px' }}>
+                  style={{ height: '47px', padding: '0px 48px', margin: '15px 3px' }}>
                   COMMUNITY
                   </DropdownToggle>
                 <DropdownMenu

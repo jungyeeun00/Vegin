@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Navbar, NavItem, NavLink, Nav } from 'reactstrap';
-//import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import 'assets/scss/paper-kit/_itemnav.scss'
 import FeaturedShopItems from './FeaturedShopItems';
 import FeaturedPlaceItems from './FeaturedPlaceItems';
-import CommunityItems from './CommunityItems';
 import FeaturedRecipeItems from './FeaturedRecipeItems';
 import BoardService from 'service/BoardService';
 import BestCommunityFreeItems from './BestCommunityFreeItems';
