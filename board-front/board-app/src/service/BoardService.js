@@ -16,6 +16,14 @@ class BoardService{
         return axios.get(BOARD_API_BASE_URL+"?p_num="+p_num);
     }
 
+    getBestBoards(){
+        return axios.get(BOARD_API_BASE_URL+"/best");
+    }
+
+    setCounts(no){
+        return axios.post(BOARD_API_BASE_URL+"/"+no);
+    }
+
     createBoard(board){
         return axios.post(BOARD_API_BASE_URL, board);
     }
@@ -41,6 +49,15 @@ class BoardService{
     getDiarys(p_num){
         return axios.get(DIARY_API_BASE_URL+"?p_num="+p_num);
     }
+    
+    getBestDiarys(){
+        return axios.get(DIARY_API_BASE_URL+"/best");
+    }
+
+    setDiaryCounts(no){
+        return axios.post(DIARY_API_BASE_URL+"/"+no);
+    }
+
 
     createDiary(diary){
         return axios.post(DIARY_API_BASE_URL, diary);

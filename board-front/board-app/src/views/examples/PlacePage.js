@@ -12,7 +12,6 @@ import PlaceItem from 'views/index-sections/PlaceItem';
 const PlacePage = () => {
     const [tables, setTables] = useState([]);
     const [map, setMap] = useState();
-    const [searchClick, setSearchClick] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [open, setOpen] = useState(false);
     const [showDetail, setShowDetail] = useState(false);
@@ -22,13 +21,13 @@ const PlacePage = () => {
     const [orgTable, setorgTable] = useState([]);
 
     useEffect(() => {
-        //place_info table 불러오기
+        /* place_info table 불러오기 */
         PlaceService.getPlaces().then((res) => {
             setTables(res.data);
             setorgTable(res.data);
         })
 
-        //kakao map 생성
+        /* kakao map 생성 */
         var container = document.getElementById('map');
         var options = {
             center: new kakao.maps.LatLng(37.58201688858207, 127.00191330927217),
@@ -41,7 +40,7 @@ const PlacePage = () => {
         }
     }, []);
 
-    //마커 표시
+    /* 마커 표시 */
     function showMarkers() {
         tables.map(element => {
             const marker = new kakao.maps.Marker({
@@ -49,7 +48,7 @@ const PlacePage = () => {
                 position: new kakao.maps.LatLng(element.y_DNTS, element.x_CNTS),
                 title: element.upso_NM,
             });
-            // 마커에 표시할 인포윈도우를 생성 
+            /* 마커에 표시할 인포윈도우를 생성 */
             var infowindow = new kakao.maps.InfoWindow({
                 content: `
                 <div style='width:max-content'>
@@ -68,60 +67,59 @@ const PlacePage = () => {
     }
     showMarkers();
 
+    /* 인포윈도우 생성 */
     function makeOverListener(map, marker, infowindow) {
         return function () {
             infowindow.open(map, marker);
         };
     }
 
+    /* 인포윈도우 닫기 */
     function makeOutListener(infowindow) {
         return function () {
             infowindow.close();
         };
     }
 
-    //지도 위치 이동
+    /* 지도 중심 좌표 이동 */
     const moveMapCenter = (el) => {
-        // 이동할 위도 경도 위치를 생성
         var moveLatLon = new kakao.maps.LatLng(el.y_DNTS, el.x_CNTS);
-        // 지도 중심을 이동
         map.setCenter(moveLatLon);
     }
 
-    const searchOnHandler = () => {
-        setSearchClick(true);
-    }
-    const searchOffHandler = () => {
-        setSearchClick(false);
-    }
-
-    const setSearchHandler = () => { // input 창에 onChange 이벤트
+    /* 찾기 버튼 클릭시 place 필터링하여 검색 */
+    const setSearchHandler = () => { 
         var n_tables = orgTable.filter(it => {
             return it.upso_NM.includes(searchInput);
         });
-        setTables(n_tables);    //필터가 여러번 되면서 걸러짐
+        setTables(n_tables);
     }
 
-    // enter 이벤트 처리 (검색)
+    /* enter 이벤트 처리 (검색) */
     const handleKeyPress = (e) => {
         if (e.key === "Enter") {
             var n_tables = orgTable.filter(it => {
                 return it.upso_NM.includes(searchInput);
             });
-            setTables(n_tables);    //필터가 여러번 되면서 걸러짐
+            setTables(n_tables);
         }
     };
 
+    /* input 창에 onChange 이벤트 처리 */
     const setSearchContent = (e) => {
         setSearchInput(e.target.value);
+        if(e.target.value === ''){
+            setTables(orgTable);
+        }
     }
 
+    /* x버튼 클릭 시 place 리스트 초기화 */
     const searchInputRemoveHandler = () => {
         setSearchInput('');
         setTables(orgTable);
     }
 
-    // button 클릭 시 토글
+    /* button 클릭 시 토글 */
     const toggleMenu = () => {
         if (xPosition > -1125) {
             setX('-1125');
@@ -134,7 +132,7 @@ const PlacePage = () => {
         }
     };
 
-    //PlaceDetailItem 보이기
+    /* PlaceDetailItem 보이기 */
     const changeShowDetail = (data) => {
         if (!showDetail) {
             moveMapCenter(data);
@@ -148,12 +146,12 @@ const PlacePage = () => {
             <div style='font-size:12px; margin:0px 5px 5px 5px'>${data.rdn_CODE_NM}</div>
             </div>
             `,
-                iwPosition = new kakao.maps.LatLng(n_y_DNTS, data.x_CNTS), //인포윈도우 표시 위치
-                iwRemoveable = true; //인포윈도우를 닫을 수 있는 x버튼이 표시
+                iwPosition = new kakao.maps.LatLng(n_y_DNTS, data.x_CNTS),
+                iwRemoveable = true;
 
-            // 인포윈도우를 생성하고 지도에 표시
+            /* 인포윈도우를 생성 후 지도에 표시 */
             var infowindow = new kakao.maps.InfoWindow({
-                map: map, // 인포윈도우가 표시될 지도
+                map: map,
                 position: iwPosition,
                 content: iwContent,
                 removable: iwRemoveable
@@ -164,6 +162,7 @@ const PlacePage = () => {
         setShowDetail(true);
     }
 
+    /* PlaceDetailItem이 보여진 상태인지 체크 */
     const isshowDetail = () => {
         setShowDetail(false);
     }
@@ -195,7 +194,7 @@ const PlacePage = () => {
                             <div className="place-search-bar">
                                 <span className='place-search-icon' onClick={setSearchHandler} style={{cursor: 'pointer'}}> <FontAwesomeIcon icon={faMagnifyingGlass} /> </span>
                                 <input type="search" placeholder="검색하기" value={searchInput} onKeyPress={handleKeyPress}
-                                    onFocus={searchOnHandler} onBlur={searchOffHandler} onChange={setSearchContent} />
+                                    onChange={setSearchContent} />
                                 {searchInput.length !== 0 &&
                                     <button className="btn-clear" onClick={searchInputRemoveHandler}>
                                         <FontAwesomeIcon icon={faCircleXmark} />

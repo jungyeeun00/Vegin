@@ -3,7 +3,7 @@ body{
 
 }
 .post-wrapper{
-    margin: auto;
+    margin: 50px auto;
     padding: auto;
     justify-content: center;
     justify-items: center;
@@ -23,6 +23,12 @@ body{
 
 .post-date{
     color: rgb(151, 149, 149);
+}
+
+.post-view{
+    color: rgb(151, 149, 149);
+    float: right;
+    margin-right: 30px;
 }
 .post-contents{
     color: black;

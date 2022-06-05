@@ -29,6 +29,11 @@ public class DiaryController {
         return diaryService.getAllDiary();
     }
 
+    @GetMapping("/diary/best")
+    public List<Diary> getBestBoards(){
+        return diaryService.getBestBoards();
+    }
+
     @PostMapping("/diary")
     public Diary createBoard(@RequestBody Diary board){
         System.out.println("@PostMapping(\"/diary\")");
@@ -41,6 +46,10 @@ public class DiaryController {
         return diaryService.getBoard(no);
     }
 
+    @PostMapping("/diary/{no}")
+    public void setCounts(@PathVariable Integer no){
+        diaryService.setCounts(no);
+    }
     @PutMapping("/diary/{no}")
     public ResponseEntity<Diary> updateBoardByNo(
             @PathVariable Integer no, @RequestBody Diary board){

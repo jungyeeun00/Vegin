@@ -25,32 +25,17 @@ class ReadDiaryComponent extends Component {
     }
 
     componentDidMount() {
+        /* 서버에서 글 정보 가져오기 */
         BoardService.getOneDiary(this.state.no).then(res => {
             this.setState({ board: res.data });
         })
-
+        /* 서버에서 댓글 정보 가져오기 */
         BoardService.getDiaryComments(this.state.no).then(res => {
             this.setState({ comments: res.data });
         })
     }
 
-    returnBoardType(typeNo) {
-        let type = null;
-        if (typeNo == 1) {
-            type = "자유게시판";
-        } else if (typeNo == 2) {
-            type = "다이어리";
-        } else {
-            type = "type 미지정";
-        }
-
-        return (
-            <div className='row'>
-                <label>Board Type : </label>{type}
-            </div>
-        )
-    }
-
+    /* 로그인 한 유저 정보 가져오기 */
     returnCurrentMember() {
         let currentMember = null;
         if (MemberService.getCurrentMember() == null)
@@ -61,15 +46,18 @@ class ReadDiaryComponent extends Component {
         return currentMember;
     }
 
+    /* 목록으로 돌아가기 */
     goToList() {
         this.props.history.goBack();
     }
 
+    /* 글 수정으로 이동 */
     goToUpdate = (event) => {
         event.preventDefault();
         this.props.history.push(`/create-diary/${this.state.no}`);
     }
 
+    /* 댓글 수정 상태로 업데이트 */
     changeUpdating = (commentId) => {
         this.setState({
             updating: {
@@ -79,10 +67,12 @@ class ReadDiaryComponent extends Component {
         });
     }
 
+    /* onChange 이벤트 발생 시 댓글 내용 저장 */
     changeContentHandler = (event) => {
         this.setState({ content: event.target.value });
     }
 
+    /* 댓글 삭제 */
     deleteView = async function () {
         if (window.confirm("정말로 글을 삭제하시겠습니까?\n삭제된 글은 복구할 수 없습니다")) {
             BoardService.deleteDiary(this.state.no).then(res => {
@@ -96,6 +86,7 @@ class ReadDiaryComponent extends Component {
         }
     }
 
+    /* 댓글 생성 */
     createComment = () => {
         if (MemberService.getCurrentMember() != null) {
             let comment = {
@@ -111,6 +102,7 @@ class ReadDiaryComponent extends Component {
             alert("로그인 후 이용 바랍니다.")
     }
 
+    /* 댓글 수정 */
     updateComment = (commentId) => {
         let comment = {
             boardNo: this.state.no,
@@ -123,6 +115,7 @@ class ReadDiaryComponent extends Component {
         });
     }
 
+    /* 댓글 삭제 */
     deleteComment = async function (commentId) {
         if (window.confirm("정말로 댓글을 삭제하시겠습니까?\n삭제된 댓글은 복구할 수 없습니다")) {
             BoardService.deleteDiaryComment(this.state.no, commentId).then(res => {
@@ -130,10 +123,6 @@ class ReadDiaryComponent extends Component {
                 window.location.reload();
             }).catch(error => alert("댓글 삭제가 실패했습니다."));
         }
-    }
-
-    returnDate(cTime){
-        console.log(typeof(cTime));
     }
 
     render() {
@@ -146,7 +135,8 @@ class ReadDiaryComponent extends Component {
                             {this.state.board.title}
                         </h3>
                         <span className='post-nickname'>{this.state.board.memberId}</span>&nbsp;&nbsp;
-                        <span className='post-date'>{this.returnDate(this.state.board.createdTime)}{this.state.board.createdTime}</span>
+                        <span className='post-date'>{this.state.board.createdTime}</span>
+                        <span className='post-view'>조회수 &nbsp;{this.state.board.counts}</span>
                         <hr />
                     </div>
                     <div className='post-contents' dangerouslySetInnerHTML = {{ __html: this.state.board.contents }} />

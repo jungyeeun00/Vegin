@@ -1,7 +1,6 @@
+import { faCheck, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons'
 import React, { Component } from 'react';
-import { faClock } from '@fortawesome/free-regular-svg-icons';
 
 class PlaceDetailItem extends Component {
     constructor(props) {
@@ -11,6 +10,7 @@ class PlaceDetailItem extends Component {
         };
     }
 
+    /* PlaceDetailItem 숨기기 */
     setHidden = (e) => {
         this.setState({
             isHidden: true
@@ -48,10 +48,6 @@ class PlaceDetailItem extends Component {
                                         <span className='place-dt-location-icon'> <FontAwesomeIcon icon={faLocationDot} /> </span>
                                         <span className='place-dt-info-ds'>{rdn_CODE_NM}</span>
                                     </div>
-                                    {/* <div className='place-dt-infobox'>
-                                        <span className='place-dt-location-icon'> <FontAwesomeIcon icon={faClock} /> </span>
-                                        <span className='place-dt-info-ds'>00:00 ~ 00:00</span>
-                                    </div> */}
                                     <div className='place-dt-infobox'>
                                         <span className='place-dt-location-icon'> <FontAwesomeIcon icon={faPhone} /> </span>
                                         <span className='place-dt-info-ds'>{tel_NO}</span>

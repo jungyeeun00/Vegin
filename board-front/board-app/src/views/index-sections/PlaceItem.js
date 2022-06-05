@@ -1,12 +1,10 @@
-import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
-import React, { Component, useEffect, useState } from 'react';
+import React from 'react';
 import { Col, Row } from 'reactstrap';
 
 const PlaceItem = ({place, changeShowDetail}) => {
-    const { upso_NM, cob_CODE_NM, crtfc_GBN_NM, rdn_CODE_NM, tel_NO, image } = place;
+    const { upso_NM, cob_CODE_NM, rdn_CODE_NM, tel_NO, image } = place;
 
     return (
         <>

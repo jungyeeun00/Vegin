@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Navbar, NavItem, NavLink, Nav } from 'reactstrap';
 import 'assets/scss/paper-kit/_itemnav.scss'
-import FeaturedShopItems from './FeaturedShopItems';
-import FeaturedPlaceItems from './FeaturedPlaceItems';
-import FeaturedRecipeItems from './FeaturedRecipeItems';
 import BoardService from 'service/BoardService';
 import BestCommunityFreeItems from './BestCommunityFreeItems';
+import FeaturedPlaceItems from './FeaturedPlaceItems';
+import FeaturedRecipeItems from './FeaturedRecipeItems';
+import FeaturedShopItems from './FeaturedShopItems';
 
 
 class ItemNavbars extends Component {
@@ -14,15 +14,21 @@ class ItemNavbars extends Component {
         this.state = {
             mode: 'recipe',
             boards: [],
+            best: [],
         }
     }
 
     componentDidMount() {
-        BoardService.getBoards(1).then((res) => {
+        BoardService.getAllBoards().then((res) => {
             this.setState({
-                boards: res.data.list
+                boards: res.data
             });
         });
+        BoardService.getBestBoards().then((res)=>{
+            this.setState({
+                best: res.data
+            })
+        })
     }
 
     getContent() {
@@ -45,7 +51,8 @@ class ItemNavbars extends Component {
         } else if (this.state.mode === 'community') {
             featured =
                 <div className="community-main">
-                        {this.state.boards.length != 0 && <BestCommunityFreeItems boards={this.state.boards} />}
+                        {this.state.boards.length !== 0 && <BestCommunityFreeItems boards={this.state.best} />}
+                        {this.state.boards.length === 0 && <h5 style={{textAlign:'center', margin:'60px 0'}}>아직 작성된 글이 없습니다.</h5>}
                 </div>
         }
         return featured;

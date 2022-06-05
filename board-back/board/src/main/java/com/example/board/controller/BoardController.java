@@ -29,6 +29,11 @@ public class BoardController {
         return boardService.getAllBoard();
     }
 
+    @GetMapping("/board/best")
+    public List<Board> getBestBoards(){
+        return boardService.getBestBoards();
+    }
+
     @PostMapping("/board")
     public Board createBoard(@RequestBody Board board){
         System.out.println("@PostMapping(\"/board\")");
@@ -39,6 +44,11 @@ public class BoardController {
     @GetMapping("/board/{no}")
     public ResponseEntity<Board> getBoardByNo(@PathVariable Integer no){
         return boardService.getBoard(no);
+    }
+
+    @PostMapping("/board/{no}")
+    public void setCounts(@PathVariable Integer no){
+        boardService.setCounts(no);
     }
 
     @PutMapping("/board/{no}")
