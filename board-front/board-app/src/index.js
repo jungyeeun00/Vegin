@@ -40,7 +40,6 @@ import RecipePage from "views/examples/RecipePage";
 import RecipeDetailPage from "views/examples/RecipeDetailPage";
 import ShopDetailPage from "views/examples/ShopDetailPage";
 import PlacePage from "views/examples/PlacePage";
-import CommunityPage from "views/examples/CommunityPage";
 import PostPage from "views/examples/PostPage";
 import WritePostPage from "views/examples/WritePostPage";
 import ShopNavTab from "views/index-sections/ShopNavTab";
@@ -106,14 +105,6 @@ ReactDOM.render(
         path="/place-page"
         render={(props) => <PlacePage {...props} />}
       />
-      {/* <Route
-        path="/community-page"
-        render={(props) => <CommunityPage {...props} />}
-      />
-      <Route
-        path="/community-page/:tab"
-        render={(props) => <CommunityPage {...props} />}
-      /> */}
       <Route
         path="/community-post-page"
         render={(props) => <PostPage {...props} />}

@@ -38,9 +38,6 @@ public class Diary {
     @Column(name = "updatedTime")
     private Date updatedTime;
 
-    @Column(name = "likes")
-    private Integer likes;
-
     @Column(name = "counts")
     private Integer counts;
 

@@ -7,6 +7,7 @@ import com.example.board.util.PagingUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -44,6 +45,17 @@ public class BoardService {
 
     public List<Board> getAllBoard() {
         return boardRepository.findAll();
+    }
+
+    /* 인기글 조회 */
+    public List<Board> getBestBoards() {
+        return boardRepository.findTopByCounts();
+    }
+
+    /* 조회수 증가 */
+    @Transactional
+    public void setCounts(Integer no){
+        boardRepository.addCounts(no);
     }
 
     public Board createBoard(Board board) { return boardRepository.save(board); }

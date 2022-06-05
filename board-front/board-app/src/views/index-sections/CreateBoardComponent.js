@@ -18,24 +18,22 @@ class CreateBoardComponent extends Component {
             memberId: ''
         }
 
-        this.changeTypeHandler = this.changeTypeHandler.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
         this.changeContentsHandler = this.changeContentsHandler.bind(this);
         this.createBoard = this.createBoard.bind(this);
     }
 
-    changeTypeHandler = (event) => {
-        this.setState({ type: event.target.value });
-    }
-
+    /* 타이틀 입력 */
     changeTitleHandler = (event) => {
         this.setState({ title: event.target.value });
     }
 
+    /* 내용 입력 */
     changeContentsHandler = (event) => {
         this.setState({ contents: event });
     }
 
+    /* 글 생성 */
     createBoard = (event) => {
         event.preventDefault();
         let board = {
@@ -46,16 +44,19 @@ class CreateBoardComponent extends Component {
         };
         console.log("board => " + JSON.stringify(board));
         if (this.state.no === '_create') {
+            /* 새 글 생성 */
             BoardService.createBoard(board).then(res => {
                 this.props.history.push('/board');
             });
-        } else {
+        } else {    
+            /* 기존 글 수정 */
             BoardService.updateBoard(this.state.no, board).then(res => {
                 this.props.history.push('/board');
             });
         }
     }
 
+    /* 취소버튼 클릭 시 목록으로 이동 */
     cancel() {
         this.props.history.push('/board');
     }
@@ -64,6 +65,7 @@ class CreateBoardComponent extends Component {
         if (this.state.no === '_create') {
             return;
         } else {
+            /* 수정 시 기존 글 내용 불러옴 */
             BoardService.getOneBoard(this.state.no).then(res => {
                 let board = res.data;
                 console.log("board => " + JSON.stringify(board));
@@ -97,7 +99,6 @@ class CreateBoardComponent extends Component {
                                         </div>
                                         <div className='form-group'>
                                             <label>Contents</label>
-                                            {/* <textarea placeholder='contents' name='contents' className='form-control' value={this.state.contents} onChange={this.changeContentsHandler} /> */}
                                             <CKEditor
                                                 className='wp-editor'
                                                 editor={ClassicEditor}

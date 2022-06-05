@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
-import { NavItem, NavLink, Nav, TabContent, TabPane } from "reactstrap";
-import IndexNavbar from 'components/Navbars/IndexNavbar';
-import VeginFooter from 'components/Footers/VeginFooter'
-import BoardService from '../../service/BoardService';
-import Pagination from './Pagination';
-import { faMagnifyingGlass, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import BestCommunityDiaryItems from './BestCommunityDiaryItems';
+import VeginFooter from 'components/Footers/VeginFooter';
+import IndexNavbar from 'components/Navbars/IndexNavbar';
+import React, { Component } from 'react';
+import { Nav, NavItem, NavLink } from "reactstrap";
 import MemberService from 'service/MemberService';
+import BoardService from '../../service/BoardService';
+import BestCommunityDiaryItems from './BestCommunityDiaryItems';
 
 class ListDiaryComponent extends Component {
 
@@ -20,6 +19,7 @@ class ListDiaryComponent extends Component {
             p_num: 1,
             paging: {},
             boards: [],
+            best: [],
             posts: {
                 data: [],
                 pageSize: 10,
@@ -31,6 +31,7 @@ class ListDiaryComponent extends Component {
     }
 
     componentDidMount() {
+        /* 서버에서 글 목록 가져오기 */
         BoardService.getDiarys(this.state.p_num).then((res) => {
             this.setState({
                 p_num: res.data.pagingData.currentPageNum,
@@ -39,26 +40,23 @@ class ListDiaryComponent extends Component {
                 orgBoards: res.data.list,
             });
         });
-    }
-
-    searchOnHandler = () => {
-        this.setState({
-            searchClick:true
+        /* 서버에서 best 글 목록 가져오기 */
+        BoardService.getBestDiarys().then((res)=>{
+            this.setState({
+                best: res.data
+            })
         })
-    }
-    searchOffHandler = () => {
-        this.setState({
-            searchClick:false
-        })
-    }
+}
 
-    setSearchHandler = (e) => { // input 창에 onChange 이벤트
+    /* input 창에 onChange 이벤트 */
+    setSearchHandler = (e) => {
         this.setState({
             searchInput:e.target.value
         })
     }
 
-    setSearchContent = (e) => { //테이블 제목과 검색 결과 비교&필터링
+    /* 찾기 버튼 클릭 시 글 제목과 검색 결과 비교 & 필터링 */
+    setSearchContent = (e) => {
         console.log(this.state.searchInput);
         var n_boards = this.state.boards.filter(it => {
             return it.title.includes(this.state.searchInput);
@@ -68,6 +66,19 @@ class ListDiaryComponent extends Component {
         })
     }
 
+    /* enter 입력 시 글 제목과 검색 결과 비교 & 필터링 */
+    handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            var n_boards = this.state.boards.filter(it => {
+                return it.title.includes(this.state.searchInput);
+            })
+            this.setState({
+                boards:n_boards
+            })
+        }
+    };
+
+    /* x버튼 클릭 시 내용 지우기 */
     searchInputRemoveHandler = () => {
         this.setState({
             searchInput:'',
@@ -75,17 +86,22 @@ class ListDiaryComponent extends Component {
         })
     }
 
-
+    /* 새 글 작성 페이지로 이동 */
     createBoard() {
+        /* 로그인 상태가 아닐 경우 알람창 */
         if (MemberService.getCurrentMember() == null)
             return alert("로그인 후 이용 바랍니다.");
         this.props.history.push("/create-diary/_create");
     }
 
+    /* 글 상세보기로 이동 */
     readBoard(no) {
         this.props.history.push(`/read-diary/${no}`)
+        /* 조회수 증가 */
+        BoardService.setDiaryCounts(no);
     }
 
+    /* 현재 페이지에 맞게 목록 초기화 */
     listBoard(p_num) {
         console.log("pageNum : " + p_num);
         BoardService.getDiarys(p_num).then(res => {
@@ -98,6 +114,7 @@ class ListDiaryComponent extends Component {
         });
     }
 
+    /* 페이징 버튼 */
     viewPaging() {
         const pageNums = [];
 
@@ -112,6 +129,7 @@ class ListDiaryComponent extends Component {
         ));
     }
 
+    /* 이전 페이지 이동 버튼 */
     isPagingPrev() {
         return (
             <li className='page-itmem'>
@@ -122,6 +140,7 @@ class ListDiaryComponent extends Component {
         )
     }
 
+    /* 다음 페이지 이동 버튼 */
     isPagingNext() {
         return (
             <li className='page-itmem'>
@@ -132,6 +151,7 @@ class ListDiaryComponent extends Component {
         );
     }
 
+    /* 처음 페이지 이동 버튼 */
     isMoveToFirstPage() {
         return (
             <li className='page-item'>
@@ -142,6 +162,7 @@ class ListDiaryComponent extends Component {
         );
     }
 
+    /* 마지막 페이지 이동 버튼 */
     isMoveToLastPage() {
         return (
             <li className='page-item'>
@@ -185,7 +206,8 @@ class ListDiaryComponent extends Component {
                     <div className="community-best">
                         <h3>BEST</h3>
                     </div>
-                        {this.state.boards.length != 0 && <BestCommunityDiaryItems diarys={this.state.orgBoards} />}
+                        {this.state.best.length != 0 && <BestCommunityDiaryItems diarys={this.state.best} />}
+                        {this.state.boards.length === 0 && <h5 style={{textAlign:'center', margin:'60px 0'}}>아직 작성된 글이 없습니다.</h5>}
                         <hr className="community-hr" />
                         <div className="community-pl-title">
                             <h5 className="text-center">다이어리</h5>
@@ -193,7 +215,7 @@ class ListDiaryComponent extends Component {
                         <div className="community-pl-search-bar">
                             <span className='place-search-icon' onClick={this.setSearchContent} style={{cursor: 'pointer'}}> <FontAwesomeIcon icon={faMagnifyingGlass} /> </span>
                             <input type="search" placeholder="글 제목 / 본문" value={this.state.searchInput}
-                                onFocus={this.searchOnHandler} onBlur={this.searchOffHandler} onChange={this.setSearchHandler} />
+                                onChange={this.setSearchHandler} />
                             {this.state.searchInput.length !== 0 &&
                                 <button className="btn-clear" onClick={this.searchInputRemoveHandler}>
                                     <FontAwesomeIcon icon={faCircleXmark} />
@@ -206,9 +228,10 @@ class ListDiaryComponent extends Component {
                                     <thead className="community-pl-thead">
                                         <tr>
                                             <th scope="col" style={{ width: "8%" }}>번호</th>
-                                            <th scope="col" style={{ width: "66%" }}>제목</th>
+                                            <th scope="col" style={{ width: "60%" }}>제목</th>
                                             <th scope="col" style={{ width: "10%" }}>작성자</th>
                                             <th scope="col" style={{ width: "10%" }}>작성일</th>
+                                            <th scope="col" style={{ width: "6%" }}>조회수</th>
                                         </tr>
                                     </thead>
                                     <tbody className="community-pl-tbody">
@@ -220,6 +243,7 @@ class ListDiaryComponent extends Component {
                                                         <td className="community-post-title" onClick={() => this.readBoard(board.no)}>{board.title}</td>
                                                         <td>{board.memberId}</td>
                                                         <td>{board.createdTime}</td>
+                                                        <td>{board.counts}</td>
                                                     </tr>
                                             )
                                         }
