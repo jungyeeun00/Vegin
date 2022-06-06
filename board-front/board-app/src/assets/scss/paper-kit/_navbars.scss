@@ -78,6 +78,12 @@
               padding: 15px 0;
               color: #999;
             }
+
+            &.active {
+              p {
+                color: #62bb6e;
+              }
+            }
         }
         .in-dropdown{
           background-color: transparent !important;
@@ -92,6 +98,10 @@
           font-weight: 600;
           color: $default-color;
           text-align: center !important;
+
+          &.active {
+            color: #62bb6e;
+          }
         }
         .dropdown-info{
           border: 1px solid rgb(206, 204, 204);

@@ -16,13 +16,12 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useState, useEffect } from "react";
 // nodejs library that concatenates strings
 import classnames from "classnames";
 import 'assets/scss/paper-kit/_indexnavbar.scss'
 // reactstrap components
 import {
-  Button,
   Collapse,
   NavbarBrand,
   Navbar,
@@ -38,41 +37,42 @@ import {
 import MemberService from "service/MemberService";
 
 function IndexNavbar() {
-  const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
-  const [navbarCollapse, setNavbarCollapse] = React.useState(false);
+  const [navbarCollapse, setNavbarCollapse] = useState(false);
+  const [activeName, setActiveName] = useState("HOME");
 
   const toggleNavbarCollapse = () => {
     setNavbarCollapse(!navbarCollapse);
     document.documentElement.classList.toggle("nav-open");
   };
 
-  React.useEffect(() => {
-    const updateNavbarColor = () => {
-      if (
-        document.documentElement.scrollTop > 299 ||
-        document.body.scrollTop > 299
-      ) {
-        setNavbarColor("");
-      } else if (
-        document.documentElement.scrollTop < 300 ||
-        document.body.scrollTop < 300
-      ) {
-        setNavbarColor("navbar-transparent");
-      }
-    };
-
-    window.addEventListener("scroll", updateNavbarColor);
-
-    return function cleanup() {
-      window.removeEventListener("scroll", updateNavbarColor);
-    };
-  });
+  useEffect(() => {
+    if(window.location.pathname.includes("index")) {
+      setActiveName("HOME");
+    }
+    else if(window.location.pathname.includes("about")) {
+      setActiveName("ABOUT");
+    }
+    else if(window.location.pathname.includes("recipe")) {
+      setActiveName("RECIPE");
+    }
+    else if(window.location.pathname.includes("shop")) {
+      setActiveName("SHOP");
+    }
+    else if(window.location.pathname.includes("place")) {
+      setActiveName("PLACE");
+    }
+    else if(window.location.pathname.includes("board") || window.location.pathname.includes("diary")) {
+      setActiveName("COMMUNITY");
+    }
+  }, [window.location.pathname]);
 
   const logout = () => {
     console.log("logout"+localStorage.length);
     MemberService.logout();
     window.location.replace("/");
   }
+
+  console.log(window.location.pathname.includes("index"))
 
   return (
     <div>
@@ -171,7 +171,7 @@ function IndexNavbar() {
             <Nav navbar>
               <NavItem>
                 <NavLink
-                  className="px-5"
+                  className={`px-5 ${activeName === "HOME" ? "active" : ""}`}
                   data-placement="bottom"
                   href="/index"
                   title="HOME"
@@ -180,8 +180,10 @@ function IndexNavbar() {
                 </NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar className='in-dropdown-wrapper'>
-                <DropdownToggle className='in-dropdown'
-                  style={{ height: '47px', padding: '0px 48px', margin: '15px 3px' }}>
+                <DropdownToggle 
+                  className={`in-dropdown ${activeName === "ABOUT" ? "active" : ""}`}
+                  style={{ height: '47px', padding: '0px 48px', margin: '15px 3px' }}
+                >
                   ABOUT
                   </DropdownToggle>
                 <DropdownMenu
@@ -204,7 +206,7 @@ function IndexNavbar() {
               </UncontrolledDropdown>
               <NavItem>
                 <NavLink
-                  className="px-5"
+                  className={`px-5 ${activeName === "RECIPE" ? "active" : ""}`}
                   data-placement="bottom"
                   href="/recipe-page"
                   title="RECIPE"
@@ -214,7 +216,7 @@ function IndexNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
-                  className="px-5"
+                  className={`px-5 ${activeName === "SHOP" ? "active" : ""}`}
                   data-placement="bottom"
                   href="/shop-page"
                   title="SHOP"
@@ -224,7 +226,7 @@ function IndexNavbar() {
               </NavItem>
               <NavItem>
                 <NavLink
-                  className="px-5"
+                  className={`px-5 ${activeName === "PLACE" ? "active" : ""}`}
                   data-placement="bottom"
                   href="/place-page"
                   title="PLACE"
@@ -233,7 +235,8 @@ function IndexNavbar() {
                 </NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar className='in-dropdown-wrapper'>
-                <DropdownToggle className='in-dropdown'
+                <DropdownToggle 
+                  className={`in-dropdown ${activeName === "COMMUNITY" ? "active" : ""}`}
                   style={{ height: '47px', padding: '0px 48px', margin: '15px 3px' }}>
                   COMMUNITY
                   </DropdownToggle>
