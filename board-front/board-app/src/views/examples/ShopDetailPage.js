@@ -378,10 +378,10 @@ function ProductDetailPage() {
                         </div>
                     </TabPane>
                     <TabPane tabId="2">
-                        < Reviews key={productId} />
+                        < Reviews productId={productId} />
                     </TabPane>
                     <TabPane tabId="3">
-                        < ProductInquiry key={productId} />
+                        < ProductInquiry productId={productId} />
                     </TabPane>
                 </TabContent>
             </div>{" "}

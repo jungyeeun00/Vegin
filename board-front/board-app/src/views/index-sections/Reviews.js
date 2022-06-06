@@ -8,7 +8,7 @@ class Reviews extends Component {
         super(props);
 
         this.state = {
-            productId: this.props.key,
+            productId: this.props.productId,
             reviews: [],
             content: '',
             updating: {
@@ -17,7 +17,7 @@ class Reviews extends Component {
             }
         }
 
-        this.goToUpdate = this.goToUpdate.bind(this);
+        //this.goToUpdate = this.goToUpdate.bind(this);
         this.changeContentHandler = this.changeContentHandler.bind(this);
     }
 

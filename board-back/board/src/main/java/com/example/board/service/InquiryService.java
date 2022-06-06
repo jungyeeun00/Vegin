@@ -22,36 +22,50 @@ public class InquiryService {
     private ShopRepository shopRepository;
     @NonNull
     private InquiryRepository inquiryRepository;
+    @NonNull
+    private MemberRepository memberRepository;
 
-    // ¹®ÀÇ µî·Ï
-    public Inquiry createInquiry(Inquiry inquiry, int productId) {
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+    public Inquiry createInquiry(Inquiry inquiry, int productId, String memberId, String answerMemberId) {
         Optional<Product> product = this.shopRepository.findById(productId);
+        Optional<Member> member = this.memberRepository.findById(memberId);
+        Optional<Member> answerMember = this.memberRepository.findById(answerMemberId);
         product.ifPresent(re->{
             inquiry.changeProduct(re);
+        });
+        member.ifPresent(re->{
+            inquiry.changeAuthor(re);
+        });
+        answerMember.ifPresent(re->{
+            inquiry.changeAnswerAuthor(re);
         });
         System.out.println(inquiry);
         return this.inquiryRepository.save(inquiry);
     }
 
-    // ¹®ÀÇ ¼öÁ¤
-    public ResponseEntity<Inquiry> updateInquiry(Integer id, Inquiry updatedInquiry) {
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public ResponseEntity<Inquiry> updateInquiry(Integer id, Inquiry updatedInquiry, String answerMemberId) {
         Inquiry inquiry = inquiryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Inquiry Data by id : [" + id + "]"));
+        Optional<Member> answerMember = this.memberRepository.findById(answerMemberId);
         inquiry.setText(updatedInquiry.getText());
         inquiry.setAnswer(updatedInquiry.getAnswer());
+        answerMember.ifPresent(re->{
+            inquiry.changeAnswerAuthor(re);
+        });
         inquiry.setLast_modified_date((new Timestamp(System.currentTimeMillis())).toString());
 
         Inquiry endUpdatedInquiry = inquiryRepository.save(inquiry);
         return ResponseEntity.ok(endUpdatedInquiry);
     }
 
-    // ¹®ÀÇ ¸®½ºÆ®
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
     @Transactional(readOnly = true)
     public List<Inquiry> Listinquirys(int productId) {
         return this.inquiryRepository.getInquirysOfProduct(productId);
     }
 
-    // ¹®ÀÇ »èÁ¦
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     @Transactional
     public List<Inquiry> Deleteinquiry(int inquiryId, int productId) {
         this.inquiryRepository.deleteById(inquiryId);
