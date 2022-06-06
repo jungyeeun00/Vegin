@@ -4,8 +4,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.Map;
 
 public class ImageSearchApi {
@@ -19,9 +17,9 @@ public class ImageSearchApi {
             }
 
             int responseCode = con.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
+            if (responseCode == HttpURLConnection.HTTP_OK) {
                 return readBody(con.getInputStream());
-            } else { // 에러 발생
+            } else {
                 return readBody(con.getErrorStream());
             }
         } catch (IOException e) {

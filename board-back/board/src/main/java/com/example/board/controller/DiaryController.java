@@ -29,6 +29,14 @@ public class DiaryController {
         return diaryService.getAllDiary();
     }
 
+    @GetMapping("/diary/search")
+    public ResponseEntity<Map> getSearchDiarys(@RequestParam(value = "search", required = false) String search,
+                                               @RequestParam(value = "p_num", required = false) Integer p_num){
+        if(p_num==null||p_num<=0) p_num = 1;
+
+        return diaryService.getBoardKeyword(p_num, search);
+    }
+
     @GetMapping("/diary/best")
     public List<Diary> getBestBoards(){
         return diaryService.getBestBoards();

@@ -17,10 +17,12 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
+    /* 전체 게시글 수 */
     public int findAllCount(){
         return (int)boardRepository.count();
     }
 
+    /* 페이징 정보 포함한 게시글 조회 */
     public ResponseEntity<Map> getPagingBoard(Integer p_num) {
         Map result = null;
 
@@ -28,9 +30,6 @@ public class BoardService {
         List<Board> list = boardRepository.findFromTo(pu.getObjectStartNum(), pu.getObjectCountPerPage());
         pu.setObjectCountTotal(findAllCount());
         pu.setCalcForPaging();
-
-        System.out.println("p_num : " + p_num);
-        System.out.println(pu.toString());
 
         if (list == null || list.size() == 0) {
             return null;
@@ -43,6 +42,27 @@ public class BoardService {
         return ResponseEntity.ok(result);
     }
 
+    /* 검색된 게시글 조회 */
+    public ResponseEntity<Map> getBoardKeyword(Integer p_num, String search){
+        Map result = null;
+
+        PagingUtil pu = new PagingUtil(p_num, 10, 5);
+        List<Board> list = boardRepository.findBoardByTitle(search, pu.getObjectStartNum(), pu.getObjectCountPerPage());
+        pu.setObjectCountTotal(Math.toIntExact(boardRepository.countBoardsByTitleContains(search)));
+        pu.setCalcForPaging();
+
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+
+        result = new HashMap();
+        result.put("pagingData", pu);
+        result.put("list", list);
+
+        return ResponseEntity.ok(result);
+    }
+
+    /* 전체 게시글 조회 */
     public List<Board> getAllBoard() {
         return boardRepository.findAll();
     }
@@ -58,14 +78,17 @@ public class BoardService {
         boardRepository.addCounts(no);
     }
 
+    /* 게시글 생성 */
     public Board createBoard(Board board) { return boardRepository.save(board); }
 
+    /* 게시글 상세 조회 */
     public ResponseEntity<Board> getBoard(Integer no) {
         Board board = boardRepository.findById(no)
                 .orElseThrow(()->new ResourceNotFoundException("Not exist Board Data by no : ["+no+"]"));
         return ResponseEntity.ok(board);
     }
 
+    /* 게시글 수정 */
     public ResponseEntity<Board> updateBoard(Integer no, Board updatedBoard) {
         Board board = boardRepository.findById(no)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + no + "]"));
@@ -77,6 +100,7 @@ public class BoardService {
         return ResponseEntity.ok(endUpdatedBoard);
     }
 
+    /* 게시글 삭제 */
     public ResponseEntity<Map<String, Boolean>> deleteBoard(Integer no) {
         Board board = boardRepository.findById(no)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + no + "]"));
