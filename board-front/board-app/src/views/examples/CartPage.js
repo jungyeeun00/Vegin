@@ -1,5 +1,6 @@
 import { faEquals, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { checkboxClasses } from '@mui/material';
 import VeginFooter from "components/Footers/VeginFooter";
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import React, { useState } from 'react';
@@ -11,14 +12,8 @@ function CartPage(props) {
     if (cartItem) {
         cartItem = JSON.parse(cartItem);
         // id 설정
-        for(let i = 0; i < cartItem.length; i++) {
+        for(let i = 0; i < cartItem.length; i++)
             cartItem[i].id = i;
-        }
-        //sessionStorage.setItem("cart", JSON.stringify(cartItem))
-
-        //cartItem에 중복으로 담긴건 개수 처리해주기
-        //choiceId가 -1인 경우는 productId로 비교..!
-      
     }
 
     const [checkItems, setCheckItems] = useState([]);
@@ -41,8 +36,8 @@ function CartPage(props) {
         });
         setCheckItems(checkItem);
         setTotalPrice(0);
-        
-        // 세션에서도 삭제
+
+        // 세션 처리
         sessionStorage.setItem("cart", JSON.stringify(item));
     };
 
@@ -56,10 +51,10 @@ function CartPage(props) {
         checkItem = checkItems.filter(check => check !== id);
         setCheckItems(checkItem);
 
-        calcTotalPrice(id, false);
-        //setTotalPrice(totalPrice - checkItem.sum)
+        const ExistenceStatus = checkItems.includes(id); // 체크 여부 확인 변수
+        if(ExistenceStatus) calcTotalPrice(id, false);
         
-        // 세션에서도 삭제
+        // 세션 처리
         sessionStorage.setItem("cart", JSON.stringify(item));
     }
 
@@ -68,6 +63,7 @@ function CartPage(props) {
         setItems([]);
         setCheckItems([]);
         sessionStorage.setItem("cart", "");
+        setTotalPrice(0);
     }
 
     /* 체크박스 전체 단일 개체 선택 */
@@ -77,7 +73,6 @@ function CartPage(props) {
             setCheckItems([...checkItems, id]);
             calcTotalPrice(id, true);
         } else {
-            // 체크 해제
             setCheckItems(checkItems.filter((check) => check !== id));
             calcTotalPrice(id, false);
         }
@@ -120,6 +115,25 @@ function CartPage(props) {
         }
     }
 
+    /* 체크된 상품 수량 변화 있을 때 가격 계산 */
+    const changeTotalPrice = (id) => {
+        var checkItem = checkItems;
+        checkItem = checkItems.filter(check => check !== id);
+
+        const ExistenceStatus = checkItems.includes(id); // 체크 여부 확인 변수
+        if(ExistenceStatus) {
+            const cart = sessionStorage.getItem("cart");
+                if (cart) {
+                    const parseCart = JSON.parse(cart);
+                    let sum = 0;
+                    parseCart.map(p => {
+                        sum += p.sum;
+                    })
+                    setTotalPrice(sum);
+                } 
+            }
+    }
+
     return (
         <>
             <IndexNavbar />
@@ -158,6 +172,7 @@ function CartPage(props) {
                                         setCheckItems={setCheckItems}
                                         key={item.id}
                                         onRemove={onRemoveOne}
+                                        changeTotalPrice={changeTotalPrice}
                                     />
                             )}
                         </tbody>

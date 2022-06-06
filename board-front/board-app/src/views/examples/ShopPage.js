@@ -19,7 +19,7 @@ const cateData = {
     cat4 : '생활용품',
     cat5 : '패션잡화'
 }
-// recommend slider settings
+/* recommend slider settings */
 const settings = {
     dots: true,
     infinite: true,
@@ -34,7 +34,6 @@ let selectSort = sessionStorage.getItem("sort") == null ? 0 : JSON.parse(session
 let selectPnum = sessionStorage.getItem("p_num") == null ? 1 : JSON.parse(sessionStorage.getItem("p_num"));
 
 class ShopPage extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -52,6 +51,7 @@ class ShopPage extends Component {
         };
     }
 
+    /* 저장된 state, 상품 리스트, 추천 리스트 */
     componentDidMount() {
         selectCate = sessionStorage.getItem("curCate") == null ? 'cat0' : JSON.parse(sessionStorage.getItem("curCate"));
         selectSort = sessionStorage.getItem("sort") == null ? 0 : JSON.parse(sessionStorage.getItem("sort"));
@@ -61,7 +61,6 @@ class ShopPage extends Component {
             console.log(res.data);
             this.setState({ 
                 products: res.data.list,
-                //p_num: res.data.pagingData.currentPageNum,
                 p_num: selectPnum,
                 curCate: selectCate,
                 sort: selectSort,
@@ -84,7 +83,8 @@ class ShopPage extends Component {
             })
          });
     }
-    /* 뒤로가기 시 스크롤 유지 위해 세션에 저장 */
+
+    /* 스크롤 위치 불러오기 */
     handleScrollPosition = () => {
         const scrollPosition = sessionStorage.getItem("scrollPosition");
         if (scrollPosition) {
@@ -92,21 +92,20 @@ class ShopPage extends Component {
           sessionStorage.removeItem("scrollPosition");
         }
     };
-    /* 카테고리 변경 */
+
+     /* 카테고리 onClick 이벤트. 카테고리 변경 및 sessionStorage에 state 저장 */
     changeCate = (e) => {
         this.setState({
             curCate: e.target.id,
             p_num: 1,
-            // 카테고리 변경되면 searchInput 초기화
             searchInput: ''
         
         });
-        // searchInput 빈 문자열
         this.listProduct(e.target.id, '', this.state.sort, 1);
         sessionStorage.setItem("curCate", JSON.stringify(e.target.id));
     };
 
-    /* 페이징하여 상품 리스트 불러옴 */
+    /* page별 상품 리스트 불러오기 */
     listProduct(curCate, searchInput, sort, p_num) {
         console.log("pageNum : "+ p_num );
         ShopService.getProducts(cateData[curCate], searchInput, sort, p_num).then((res) => {
@@ -133,6 +132,7 @@ class ShopPage extends Component {
         sessionStorage.setItem("p_num", p_num);
     }
 
+    /* 페이지 클릭 */
     viewPaging() {
         const pageNums = [];
 
@@ -146,7 +146,7 @@ class ShopPage extends Component {
         ));
         
     }
-    /* 이전 페이지로 이동 */
+    /* 이전 버튼 클릭 */
     isPagingPrev(){
         if (this.state.paging.prev) {
             return (
@@ -157,7 +157,7 @@ class ShopPage extends Component {
         }
     }
 
-    /* 다음 페이지로 이동 */
+     /* 다음 버튼 클릭 */
     isPagingNext(){
         if (this.state.paging.next) {
             return (
@@ -168,47 +168,47 @@ class ShopPage extends Component {
         }
     }
 
-    readProduct(productId) {
-        this.props.history.push(`/shop-page/shop-detail-page/${productId}`);
-    }
-    /* onFocus 이벤트 */
+    /* 검색바 onFocus 이벤트 */
     searchOnHandler = () => { 
         this.setState({
             searchClick: true,
         });
     };
-    /* onBlur 이벤트 */
+
+    /* 검색바 onBlur 이벤트 */
     searchOffHandler = () => { 
         this.setState({
             searchClick: false
         });
     };
-    /* input 창에 onChange 이벤트 */
+
+    /* 검색바 input 창 onChange 이벤트 */
     setSearchHandler = (e) => { 
         this.setState({
             searchInput: e.target.value
         });
     };
-    /* input 창 지워줌 */
+
+    /* 검색바 x버튼 onClick 이벤트 */
     searchInputRemoveHandler = () => {
         this.setState({
             searchInput: '',
         });
         this.listProduct(this.state.curCate, '', 1);
     };
-    /* enter 이벤트 처리 (검색) */
+
+    /* 검색바 enter 이벤트 */
     handleKeyPress = (e) => {
         if (e.key === "Enter") {
             this.listProduct(this.state.curCate, this.state.searchInput, this.state.sort, -1);
         }
     };
 
-    /* 정렬 탭 */
+    /* 정렬탭 onClick 이벤트. 정렬 변경 및 sessionStorage에 state 저장 */
     clickHandler = (sort) => {
         this.setState({
             sort: sort,
             p_num: 1,
-            // 정렬 기준 searchInput 초기화
             searchInput: ''
         });
         console.log(this.state.sort);

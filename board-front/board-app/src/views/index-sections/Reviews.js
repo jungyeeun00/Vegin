@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Button } from "reactstrap";
 import ShopService from 'service/ShopService';
 import MemberService from 'service/MemberService';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 class Reviews extends Component {
     constructor(props) {
@@ -10,15 +12,16 @@ class Reviews extends Component {
         this.state = {
             productId: this.props.productId,
             reviews: [],
-            content: '',
+            text: '',
+            star: 1,
             updating: {
                 now: false,
                 reviewId: ''
             }
         }
 
-        //this.goToUpdate = this.goToUpdate.bind(this);
-        this.changeContentHandler = this.changeContentHandler.bind(this);
+        this.changeStarHandler = this.changeStarHandler.bind(this);
+        this.changeTextHandler = this.changeTextHandler.bind(this);
     }
 
     componentDidMount() {
@@ -27,6 +30,7 @@ class Reviews extends Component {
         })
     }
 
+    /* 현재 사용자 */
     returnCurrentMember() {
         let currentMember = null;
         if (MemberService.getCurrentMember() == null)
@@ -37,6 +41,7 @@ class Reviews extends Component {
         return currentMember;
     }
 
+    /* 수정 중인지 상태 변경 */
     changeUpdating = (reviewId) => {
         this.setState({
             updating: {
@@ -46,16 +51,26 @@ class Reviews extends Component {
         });
     }
 
-    changeContentHandler = (event) => {
-        this.setState({ content: event.target.value });
+    /* 별점 상태 수정 */
+    changeStarHandler = (event) => {
+        console.log(event.target.value);
+        this.setState({ star: event.target.value });
     }
 
+    /* 텍스트 상태 수정 */
+    changeTextHandler = (event) => {
+        this.setState({ text: event.target.value });
+    }
+
+    /* 리뷰 등록 */
     createReview = () => {
         if (MemberService.getCurrentMember() != null) {
             let review = {
                 productId: this.state.productId,
                 memberId: MemberService.getCurrentMember(),
-                content: this.state.content
+                star: this.state.star,
+                imgSrc: '', 
+                text:this.state.text
             };
             console.log("review => " + JSON.stringify(review));
             ShopService.createReview(review).then(res => {
@@ -65,11 +80,12 @@ class Reviews extends Component {
             alert("로그인 후 이용 바랍니다.")
     }
 
+    /* 리뷰 내용 수정 */
     updateReview = (reviewId) => {
         let review = {
             productId: this.state.productId,
             memberId: MemberService.getCurrentMember(),
-            content: this.state.content
+            text: this.state.text
         };
         console.log("review => " + JSON.stringify(review));
         ShopService.updateReview(reviewId, review).then(res => {
@@ -77,51 +93,68 @@ class Reviews extends Component {
         });
     }
 
+    /* 리뷰 삭제 */
     deleteReview = async function (reviewId) {
         if (window.confirm("정말로 리뷰를 삭제하시겠습니까?\n삭제된 리뷰는 복구할 수 없습니다")) {
             ShopService.deleteReview(this.state.productId, reviewId).then(res => {
-                console.log("delete result => " + JSON.
-                stringify(res));
-                if (res.status == 200) {
-                    window.location.reload();
-                } else {
-                    alert("리뷰 삭제가 실패했습니다.");
-                }
-            });
+                console.log("delete result => " + JSON.stringify(res));
+                window.location.reload();
+            }).catch(error => alert("댓글 삭제가 실패했습니다."));
         }
     }
 
     render() {
         return (
             <>
+                <div className='shop-writereview-wrapper'>
+                    &nbsp;<span className='shop-writereview-name'>{this.returnCurrentMember()}</span>
+                    <div className="form-group">
+                        &nbsp;<label htmlFor="formStarRating">별점</label>&nbsp;&nbsp;
+                        <select id="formStarRating" onChange={this.changeStarHandler}>
+                            <option value="1">★</option>
+                            <option value="2">★★</option>
+                            <option value="3">★★★</option>
+                            <option value="4">★★★★</option>
+                            <option value="5">★★★★★</option>
+                        </select>
+                    </div>
+                    <textarea
+                        id='shop-writereview'
+                        placeholder='불쾌감을 주는 욕설과 악플은 삭제될 수 있습니다.'
+                        onChange={this.changeTextHandler}>
+                    </textarea>
+                    <div className='shop-reviewwrite-btn-wrapper'>
+                        <Button className="shop-reviewwrite-btn btn-round ml-1" type="button" onClick={() => this.createReview()}>
+                            등록
+                        </Button>
+                    </div>
+                </div>
                 {/* 리뷰리스트 */}
                 <ul className="review-list">
+                    {this.state.reviews.length === 0 ? <div><br/><br/><br/>등록된 리뷰가 없습니다.</div> : ""}
                     {
                         this.state.reviews.map((review) => (
                             <li className="review-item">
                                 <Container>
-                                    <Row style={{ height: '30px' }}>
-                                        <Col md="3" className="review-user">
-                                            <div><span>{review.member.id}</span>님의 리뷰입니다</div>
+                                    <Row>
+                                        <Col className="review-user" md={2}>
+                                            <div><span>{review.member.id}</span>님의 리뷰</div>
                                         </Col>
-                                        <Col className="review-star">
+                                        <Col className="review-star" md={8}>
                                             <div className="star-wrap">
                                                 <div className="star-rating">
-                                                    <span style={{ width: "60%" }}></span>
+                                                    <span style={{ width: `${review.star * 20}%` }}></span>
                                                 </div>
                                             </div>
                                         </Col>
-                                        <Col className='review-created-date'>
-                                            <div><span>{review.created_date.substring(0, 16)}</span>님의 리뷰입니다</div>
+                                        <Col className='review-created-date' md={2}>
+                                            <div><span>{review.created_date.substring(0, 16)}</span></div>
                                         </Col>
                                     </Row>
                                     <Row>
-                                        <Col md="3">
+                                        <Col md={2}>
                                         </Col>
-                                        <Col className="review-content">
-                                            <div className="review-img">
-                                                <img alt="review_img" src={require("assets/img/eva.jpg")} />
-                                            </div>
+                                        <Col className="review-content" md={8}>
                                             <div className="review-text">
                                                 {!this.state.updating.now && <span className='shop-review-text'>{review.text}</span>}
                                                 {this.state.updating.now && this.state.updating.reviewId == review.id &&
@@ -129,85 +162,38 @@ class Reviews extends Component {
                                                         <textarea
                                                             id='shop-updatereview'
                                                             placeholder='불쾌감을 주는 욕설과 악플은 삭제될 수 있습니다.'
-                                                            defaultValue={review.ctext}
-                                                            onChange={this.changeContentHandler}>
+                                                            defaultValue={review.text}
+                                                            onChange={this.changeTextHandler}>
                                                         </textarea>
                                                         <div className='shop-reviewupdate-btn-wrapper'>
                                                             <Button className="shop-reviewupdate-btn btn-round ml-1" type="button" onClick={() => this.updateReview(review.id)}>
                                                                 등록
                                                             </Button>
+                                                            <Button className="shop-reviewupdate-cancel btn-round ml-1" type="button" onClick={() => this.changeUpdating(review.id)}>
+                                                                취소
+                                                            </Button>
                                                         </div>
                                                     </div>
                                                 }
                                             </div>
-                                            {MemberService.getCurrentMember() == review.member.id && !this.state.updating.now &&
+                                        </Col>
+                                        <Col className="review-btn align-self-end" md={2}>
+                                        {MemberService.getCurrentMember() == review.member.id && !this.state.updating.now &&
                                                 <div className='shop-review-btn-wrapper'>
-                                                    <Button className="shop-review-btn-edit btn-round ml-1" type="button" onClick={() => this.changeUpdating(review.id)}>수정</Button>
-                                                    <Button className="shop-review-btn-cancel btn-round ml-1" type="button" onClick={() => this.deleteReview(review.id)}>삭제</Button>
+                                                    <Button className="shop-review-btn-edit btn-round ml-1" type="button" onClick={() => this.changeUpdating(review.id)}>
+                                                        <FontAwesomeIcon icon={faPencil} />
+                                                    </Button>
+                                                    <Button className="shop-review-btn-cancel btn-round ml-1" type="button" onClick={() => this.deleteReview(review.id)}>
+                                                        <FontAwesomeIcon icon={faTrashCan} />
+                                                    </Button>
                                                 </div>
-                                            }
+                                        }
                                         </Col>
                                     </Row>
                                 </Container>
                             </li>
                         ))
                     }
-                    {/* <li className="review-item">
-                        <Container>
-                            <Row style={{ height: '30px' }}>
-                                <Col md="3" className="review-user">
-                                    <div><span>홍**</span>님의 리뷰입니다</div>
-                                </Col>
-                                <Col className="review-star">
-                                    <div className="star-wrap">
-                                        <div className="star-rating">
-                                            <span style={{ width: "60%" }}></span>
-                                        </div>
-                                    </div>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col md="3">
-                                </Col>
-                                <Col className="review-content">
-                                    <div className="review-img">
-                                        <img alt="review_img" src={require("assets/img/eva.jpg")} />
-                                    </div>
-                                    <div className="review-text">
-                                        나쁘지 않은듯? 아마도?
-                                    </div>
-                                </Col>
-                            </Row>
-                        </Container>
-                    </li>
-                    <li className="review-item">
-                        <Container>
-                            <Row style={{ height: '30px' }}>
-                                <Col md="3" className="review-user">
-                                    <div><span>김**</span>님의 리뷰입니다</div>
-                                </Col>
-                                <Col className="review-star">
-                                    <div className="star-wrap">
-                                        <div className="star-rating">
-                                            <span style={{ width: "100%" }}></span>
-                                        </div>
-                                    </div>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col md="3">
-                                </Col>
-                                <Col className="review-content">
-                                    <div className="review-text">
-                                        진짜 최고. 여러분 제발 여기 사이트 이용하세요. 특히 이 제품.<br />
-                                        한 번 이거 산 뒤로 계속 이 제품만 사용하는 중입니다.<br />
-                                        쓸 말 고갈. 진짜 우리 사이트 최고 짱짱맨<br />
-                                        최고의 비건 사이트 비긴~ 야호~<br />
-                                    </div>
-                                </Col>
-                            </Row>
-                        </Container>
-                    </li> */}
                 </ul>
             </>
         );

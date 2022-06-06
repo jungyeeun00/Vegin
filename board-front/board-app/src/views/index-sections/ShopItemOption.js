@@ -1,11 +1,8 @@
-import React from 'react';
-import "../../assets/scss/paper-kit/_shop-page.scss";
-import { Link } from "react-router-dom"
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import "assets/scss/paper-kit/_aboutvegan.scss";
+import React from 'react';
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import "../../assets/scss/paper-kit/_shop-page.scss";
 
 function ShopItemOption(props) {
 
