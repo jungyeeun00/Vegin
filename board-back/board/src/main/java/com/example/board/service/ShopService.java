@@ -56,9 +56,6 @@ public class ShopService {
         pu.setObjectCountTotal(getAllCount());
         pu.setCalcForPaging();
 
-        System.out.println("p_num : "+p_num);
-        System.out.println(pu.toString());
-
 
         if (list == null || list.size() == 0) {
             return null;
@@ -86,9 +83,6 @@ public class ShopService {
         pu.setObjectCountTotal(getCountKeyword(searchInput));
         pu.setCalcForPaging();
 
-        System.out.println("p_num : "+p_num);
-        System.out.println(pu.toString());
-
         if (list == null || list.size() == 0) {
             return null;
         }
@@ -115,9 +109,6 @@ public class ShopService {
         pu.setObjectCountTotal(getCateCount(category));
         pu.setCalcForPaging();
 
-        System.out.println("p_num : "+p_num);
-        System.out.println(pu.toString());
-
         if (list == null || list.size() == 0) {
             return null;
         }
@@ -142,9 +133,6 @@ public class ShopService {
                                         : shopRepository.findPCateKeyword(category, searchInput, sort_lowest);
         pu.setObjectCountTotal(getCateCountKeyword(category, searchInput));
         pu.setCalcForPaging();
-
-        System.out.println("p_num : "+p_num);
-        System.out.println(pu.toString());
 
         if (list == null || list.size() == 0) {
             return null;

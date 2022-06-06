@@ -8,6 +8,10 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @Getter
 public class ReviewDto {
+
+    @NotBlank
+    private Integer star;
+
     private String imgSrc;
 
     @NotBlank

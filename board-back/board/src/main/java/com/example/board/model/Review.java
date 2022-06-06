@@ -12,13 +12,17 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // @lombock ¾î³ëÅ×ÀÌ¼Ç : ÆÄ¶ó¹ÌÅÍ¸¦ ¹ÞÁö ¾Ê´Â »ý¼ºÀÚ¸¦ ¸¸µé¾îÁØ´Ù.
-@AllArgsConstructor //  @lombock ¾î³ëÅ×ÀÌ¼Ç : ¸ðµç ¼Ó¼º¿¡ ´ëÇØ¼­ »ý¼ºÀÚ¸¦ ¸¸µé¾î ³½´Ù.
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // @lombock ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ : ï¿½Ä¶ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
+@AllArgsConstructor //  @lombock ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ : ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
     private Integer id;
+
+    @NonNull
+    @Column(name = "star")
+    private Integer star;
 
     @Column(name = "img_src")
     private String img_src;
@@ -45,14 +49,15 @@ public class Review {
     @JoinColumn(name="member_id")
     private Member member;
 
-    public Review(String img_src, String text) {
+    public Review(Integer star, String img_src, String text) {
+        this.star = star;
         this.img_src = img_src;
         this.text = text;
         this.deleted = this.deleted == null ? false : this.deleted;
         this.created_date = this.created_date == null ? (new Timestamp(System.currentTimeMillis())).toString() : this.created_date;
     }
 
-    // Member ¿£Æ¼Æ¼¿Í  Board ¿£Æ¼Æ¼¸¦ ¿¬°áÇÏ´Â ÇÔ¼ö
+    // Member ï¿½ï¿½Æ¼Æ¼ï¿½ï¿½  Board ï¿½ï¿½Æ¼Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     public void changeAuthor(Member author) { this.member = author; }
     public void changeProduct(Product product) {
         this.product = product;
