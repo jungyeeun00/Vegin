@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import ShopService from 'service/ShopService';
 import MemberService from 'service/MemberService';
+import { RingVolumeOutlined } from '@material-ui/icons';
+import { rest } from 'lodash';
 
 class ProductInquiry extends Component {
     constructor(props) {
@@ -10,22 +12,25 @@ class ProductInquiry extends Component {
         this.state = {
             productId: this.props.productId,
             inquirys: [],
+            title: '',
             text: '',
+            answer: '',
             updating: {
                 now: false,
                 inquiryId: ''
             },
-            details: []
+            details: [],
+            role: ''
         }
 
-        // this.goToUpdate = this.goToUpdate.bind(this);
-        this.changetextHandler = this.changetextHandler.bind(this);
+        this.changeTitleHandler = this.changeTitleHandler.bind(this);
+        this.changeTextHandler = this.changeTextHandler.bind(this);
+        this.changeAnswerHandler = this.changeAnswerHandler.bind(this);
     }
 
     componentDidMount() {
         ShopService.getInquirys(this.state.productId).then(res => {
             this.setState({ inquirys: res.data });
-            console.log(res.data);
         })
     }
 
@@ -57,8 +62,16 @@ class ProductInquiry extends Component {
         });
     }
 
-    changetextHandler = (event) => {
+    changeTitleHandler = (event) => {
+        this.setState({ title: event.target.value });
+    }
+
+    changeTextHandler = (event) => {
         this.setState({ text: event.target.value });
+    }
+
+    changeAnswerHandler = (event) => {
+        this.setState({ answer: event.target.value });
     }
 
     createInquiry = () => {
@@ -66,7 +79,9 @@ class ProductInquiry extends Component {
             let inquiry = {
                 productId: this.state.productId,
                 memberId: MemberService.getCurrentMember(),
-                text:this.state.text
+                title: this.state.title,
+                text: this.state.text,
+                answer: ''
             };
             console.log("inquiry => " + JSON.stringify(inquiry));
             ShopService.createInquiry(inquiry).then(res => {
@@ -76,11 +91,14 @@ class ProductInquiry extends Component {
             alert("로그인 후 이용 바랍니다.")
     }
 
-    updateInquiry = (inquiryId) => {
+    updateInquiry = (inquiryId, title, answer, answerMemberId) => {
         let inquiry = {
             productId: this.state.productId,
             memberId: MemberService.getCurrentMember(),
-            text: this.state.text
+            title: title,
+            text: this.state.text,
+            answer: answer,
+            answerMemberId: answerMemberId
         };
         console.log("inquiry => " + JSON.stringify(inquiry));
         ShopService.updateInquiry(inquiryId, inquiry).then(res => {
@@ -90,33 +108,61 @@ class ProductInquiry extends Component {
 
     deleteInquiry = async function (inquiryId) {
         if (window.confirm("정말로 문의를 삭제하시겠습니까?\n삭제된 문의는 복구할 수 없습니다")) {
-            ShopService.deleteInquiry(inquiryId).then(res => {
+            ShopService.deleteInquiry(this.state.productId, inquiryId).then(res => {
                 console.log("delete result => " + JSON.stringify(res));
-                if (res.status == 200) {
-                    window.location.reload();
-                } else {
-                    alert("문의 삭제가 실패했습니다.");
-                }
-            });
+                window.location.reload();
+            }).catch((err) => alert("문의 삭제가 실패했습니다."));
         }
     }
 
-    deleteAnswer = async function (inquiryId) {
-        if (window.confirm("정말로 답변을 삭제하시겠습니까?\n삭제된 답변은 복구할 수 없습니다")) {
-            ShopService.deleteAnswer(this.state.productId, inquiryId).then(res => {
-                console.log("delete result => " + JSON.stringify(res));
-                if (res.status == 200) {
-                    window.location.reload();
-                } else {
-                    alert("답변 삭제가 실패했습니다.");
-                }
+    createAnswer = (inquiryId, memberId, title, text) => {
+        if (MemberService.getCurrentMember() != null) {
+            let inquiry = {
+                productId: this.state.productId,
+                memberId: memberId,
+                title: title,
+                text: text,
+                answer: this.state.answer,
+                answerMemberId: MemberService.getCurrentMember()
+            };
+            console.log("inquiry => " + JSON.stringify(inquiry));
+            ShopService.updateInquiry(inquiryId, inquiry).then(res => {
+                window.location.reload();
             });
+        } else
+            alert("로그인 후 이용 바랍니다.")
+    }
+
+    deleteAnswer = async function (inquiryId, title, text) {
+        if (window.confirm("정말로 답변을 삭제하시겠습니까?\n삭제된 답변은 복구할 수 없습니다")) {
+            let inquiry = {
+                productId: this.state.productId,
+                memberId: MemberService.getCurrentMember(),
+                title: title,
+                text: text,
+                answer: '',
+                answerMemberId: null
+            };
+            console.log("inquiry => " + JSON.stringify(inquiry));
+            ShopService.updateInquiry(inquiryId, inquiry).then(res => {
+                window.location.reload();
+            }).catch((err) => alert("답변 삭제가 실패했습니다."));
         }
     }
 
     openDetail = (inquiryId) => {
-        // this.setState({ details: this.state.details.push(inquiryId) });
-        this.state.details.push(inquiryId);
+        if (!this.state.details.includes(inquiryId))
+            this.state.details.push(inquiryId);
+        else
+            this.state.details.pop(inquiryId);
+        this.setState({ details: this.state.details });
+        this.checkRole();
+    }
+
+    checkRole = () => {
+        MemberService.getOneMember(MemberService.getCurrentMember()).then((res) => {
+            this.setState({ role: res.data.role });
+        })
     }
 
     render() {
@@ -140,83 +186,91 @@ class ProductInquiry extends Component {
                             {
                                 this.state.inquirys.map((inquiry) => (
                                     <tbody className="inq-tbody">
-                                        <tr className="inquiry-item" onClick={this.openDetail(inquiry.id)}>
+                                        <tr className="inquiry-item" onClick={() => this.openDetail(inquiry.id)}>
                                             <td scope="row">{inquiry.id}</td>
-                                            {/* <td>{inquiry.title}</td> */}
-                                            {/* <td>{inquiry.member.id}</td> */}
-                                            <td></td>
-                                            <td></td>
-                                            <td>{inquiry.created_date.substring(0, 16)}</td>
-                                            <td>{inquiry.answer!='' ? "완료" : "미완료"}</td>
+                                            <td>{inquiry.title}</td>
+                                            <td>{inquiry.member.id}</td>
+                                            <td>{inquiry.created_date.substring(0, 10)}</td>
+                                            <td>{inquiry.answer != '' ? "완료" : "미완료"}</td>
                                         </tr>
                                         {
                                             this.state.details.includes(inquiry.id) &&
                                             <tr>
-                                                <div className='inquiry-wrapper'>
-                                                    <hr />
-                                                    <div className='inquiry-text' dangerouslySetInnerHTML={{ __html: inquiry.text }} />
-                                                    <br /><br />
-                                                    {/* {MemberService.getCurrentMember() == inquiry.member.id &&
-                                                        <div className='inquiry-btn'>
-                                                            <Button className="inquiry-btn-edit btn-round ml-1" type="button" onClick={this.goToUpdate}>
-                                                                수정
-                                                            </Button>
-                                                                <Button className="inquiry-btn-cancel btn-round ml-1" type="button" onClick={() => this.deleteInquiry(inquiry.id)}>
-                                                                삭제
-                                                            </Button>
-                                                        </div>
-                                                    } */}
-                                                    <hr />
-                                                    {/* 여기서부터 댓글 */}
-                                                    <div className='inquiry-writeanswer-wrapper'>
-                                                        &nbsp;<span className='inquiry-writeanswer-name'>{this.returnCurrentMember()}</span>
-                                                        <textarea
-                                                            id='inquiry-writeanswer'
-                                                            placeholder='답변을 입력하세요.'
-                                                            onChange={this.changetextHandler}>
-                                                        </textarea>
-                                                        <div className='inquiry-answerwrite-btn-wrapper'>
-                                                            <Button className="inquiry-answerwrite-btn btn-round ml-1" type="button" onClick={() => this.createAnswer()}>
-                                                                등록
-                                                            </Button>
-                                                        </div>
-                                                    </div>
-                                                    <div className='inquiry-answer-wrapper'>
-                                                        {
-                                                            inquiry.answer!=null &&
-                                                            <div className='inquiry-answer'>
-                                                                <hr />
-                                                                <div className='inquiry-answer-text'>
-                                                                    <span className='inquiry-answer-text'>{inquiry.answer}</span>
+                                                <td colSpan="5">
+                                                    <div className='inquiry-wrapper'>
+                                                        <hr />
+                                                        {!this.state.updating.now &&
+                                                            <div className='inquiry-content' dangerouslySetInnerHTML={{ __html: inquiry.text }} />
+                                                        }
+                                                        <br /><br />
+                                                        {this.state.updating.now && this.state.updating.inquiryId == inquiry.id &&
+                                                            <div className='shop-updateinquiry-wrapper'>
+                                                                <textarea
+                                                                    id='shop-updateinquiry'
+                                                                    placeholder='불쾌감을 주는 욕설과 악플은 삭제될 수 있습니다.'
+                                                                    defaultValue={inquiry.text}
+                                                                    onChange={this.changeTextHandler}>
+                                                                </textarea>
+                                                                <div className='shop-inquiryupdate-btn-wrapper'>
+                                                                    <Button className="shop-inquiryupdate-btn btn-round ml-1" type="button" onClick={() => this.updateInquiry(inquiry.id, inquiry.title, inquiry.answer, inquiry.answerMemberId)}>
+                                                                        등록
+                                                                    </Button>
                                                                 </div>
-                                                                {/* {MemberService.getCurrentMember() == inquiry.member.id &&
-                                                                    <div className='inquiry-answer-btn-wrapper'>
-                                                                        <Button className="inquiry-answer-btn-cancel btn-round ml-1" type="button" onClick={() => this.deleteAnswer(inquiry.id)}>삭제</Button>
-                                                                    </div>
-                                                                } */}
                                                             </div>
                                                         }
+                                                        {MemberService.getCurrentMember() == inquiry.member.id && !this.state.updating.now &&
+                                                            <div className='inquiry-btn'>
+                                                                    <Button className="inquiry-btn-edit btn-round ml-1" type="button" onClick={() => this.changeUpdating(inquiry.id)}>
+                                                                    수정
+                                                                </Button>
+                                                                <Button className="inquiry-btn-cancel btn-round ml-1" type="button" onClick={() => this.deleteInquiry(inquiry.id)}>
+                                                                    삭제
+                                                                </Button>
+                                                            </div>
+                                                        }
+                                                        <hr />
+                                                        {/* 여기서부터 답변 */}
+                                                        {
+                                                            inquiry.answer === '' &&
+                                                            this.state.role === "ROLE_ADMIN" &&
+                                                            <div className='inquiry-writeanswer-wrapper'>
+                                                                &nbsp;<span className='inquiry-writeanswer-name'>{this.returnCurrentMember()}</span>
+                                                                <textarea
+                                                                    id='inquiry-writeanswer'
+                                                                    placeholder='답변을 입력하세요.'
+                                                                    onChange={this.changeAnswerHandler}>
+                                                                </textarea>
+                                                                <div className='inquiry-answerwrite-btn-wrapper'>
+                                                                    <Button className="inquiry-answerwrite-btn btn-round ml-1" type="button" onClick={() => this.createAnswer(inquiry.id, inquiry.member.id, inquiry.title, inquiry.text)}>
+                                                                        등록
+                                                                    </Button>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        <div className='inquiry-answer-wrapper'>
+                                                            {
+                                                                inquiry.answer != '' &&
+                                                                <div className='inquiry-answer'>
+                                                                    <hr />
+                                                                    <div className='inquiry-answer-content'>
+                                                                        <span className='inquiry-answer-member-id'>{inquiry.answerMember.id}</span>
+                                                                        <span className='inquiry-answer-content'>{inquiry.answer}</span>
+                                                                    </div>
+                                                                    {MemberService.getCurrentMember() == inquiry.answerMember.id &&
+                                                                        <div className='inquiry-answer-btn-wrapper'>
+                                                                            <Button className="inquiry-answer-btn-cancel btn-round ml-1" type="button" onClick={() => this.deleteAnswer(inquiry.id, inquiry.title, inquiry.text)}>삭제</Button>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            }
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </td>
                                             </tr>
                                         }
                                     </tbody>
                                 ))
                             }
-                            {/* <tr>
-                                    <td scope="row">1</td>
-                                    <td>문의 제목</td>
-                                    <td>편주혜</td>
-                                    <td>2022.04.11</td>
-                                    <td>미완료</td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">2</td>
-                                    <td>문의 제목2</td>
-                                    <td>편주혜</td>
-                                    <td>2022.04.11</td>
-                                    <td>미완료</td>
-                                </tr> */}
                         </table>
                     </div>
                 </div>

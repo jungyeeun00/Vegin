@@ -70,14 +70,6 @@ class ProductService {
         return axios.delete(INQUIRY_API_BASE_URL + "/delete/" + productId + "/" + inquiryId);
     }
 
-    // createAnswer(inquiry) {
-
-    // }
-
-    deleteAnswer(productId, inquiryId) {
-        return axios.delete(INQUIRY_API_BASE_URL + "/anwser/delete/" + productId + "/" + inquiryId);
-    }
-
 }
 
 export default new ProductService();

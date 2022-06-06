@@ -13,7 +13,6 @@ import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -60,6 +59,9 @@ public class Member {
     @Column(name = "birthday")
     private String birthday;
 
+    @Column(name = "role")
+    private String role;
+
     @Column(name = "createdDate")
     private Date createdDate;
 
@@ -69,11 +71,12 @@ public class Member {
 
     @PrePersist
     public void prePersist() {
+        this.role = "ROLE_USER";
         this.createdDate = this.createdDate == null ? new Timestamp(System.currentTimeMillis()) : this.createdDate;
     }
 
     @Builder
-    public Member(String id, String password, String name, String phone, String address, String email, String birthday, Date createdDate) {
+    public Member(String id, String password, String name, String phone, String address, String email, String birthday, String role, Date createdDate) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -81,7 +84,9 @@ public class Member {
         this.phone = phone;
         this.address = address;
         this.birthday = birthday;
+        this.role = role;
         this.createdDate = createdDate;
+
     }
 
     public String getUsername() {
