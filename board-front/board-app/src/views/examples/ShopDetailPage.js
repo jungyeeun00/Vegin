@@ -294,7 +294,7 @@ function ProductDetailPage() {
                                         toggle("1");
                                     }}
                                 >
-                                    상품문의
+                                    상품정보
                                 </NavLink>
                             </NavItem>
                             <NavItem>
@@ -327,10 +327,10 @@ function ProductDetailPage() {
                         </div>
                     </TabPane>
                     <TabPane tabId="2">
-                        < Reviews />
+                        < Reviews key={productId} />
                     </TabPane>
                     <TabPane tabId="3">
-                        < ProductInquiry />
+                        < ProductInquiry key={productId} />
                     </TabPane>
                 </TabContent>
             </div>{" "}

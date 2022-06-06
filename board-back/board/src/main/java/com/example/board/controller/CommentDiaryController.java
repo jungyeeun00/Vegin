@@ -40,19 +40,13 @@ public class CommentDiaryController {
     // UPDATE
     @PutMapping("/update/{commentId}")
     public ResponseEntity<CommentDiary> updateComment(@PathVariable int commentId, @RequestBody CommentDiaryDto commentDto) { //, Principal principal){
-        return this.commentService.updateBoard(commentId, new CommentDiary(commentDto.getContent()));
+        return this.commentService.updateComment(commentId, new CommentDiary(commentDto.getContent()));
     }
 
     //DELETE
     @DeleteMapping("/delete/{boardNo}/{commentNo}")
     public ResponseEntity<List<CommentDiary>> addComment(@PathVariable int boardNo,@PathVariable int commentNo) {
         return new ResponseEntity<>(this.commentService.Deletecomment(commentNo, boardNo),HttpStatus.CREATED);
-    }
-
-    //UPDATE
-    @PutMapping("/modify/{boardNo}/{commentNo}")
-    public ResponseEntity<List<CommentDiary>> modifyComment(@PathVariable int boardNo, @PathVariable int commentNo, @RequestBody CommentDiaryDto commentDto, Principal principal) {
-        return new ResponseEntity<>(this.commentService.Modifycomment(new CommentDiary(commentDto.getContent()),commentNo, boardNo),HttpStatus.CREATED);
     }
 
 }
