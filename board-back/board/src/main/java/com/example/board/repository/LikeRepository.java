@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface LikeRepository extends JpaRepository<Likes, LikeId> {
 
+    /* Like 누른 상품 */
     public final static String SELECT_LIKE_PRODUCT = ""
             + "SELECT "
             + "p.product_id as productId,"
@@ -25,6 +26,7 @@ public interface LikeRepository extends JpaRepository<Likes, LikeId> {
             + "(SELECT DISTINCT l.product_id FROM Likes l "
             + "WHERE l.member_id=?1)";
 
+    /* Like 누른 상품 아이디 */
     public final static String SELECT_LIKE_ID = ""
             + "SELECT product_id FROM Likes "
             + "WHERE member_id=?1";

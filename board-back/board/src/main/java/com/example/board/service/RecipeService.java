@@ -25,7 +25,7 @@ public class RecipeService {
     @Autowired
     private RecipeRepository recipeRepository;
 
-    /* 재료 */
+    /* 레시피별 재료 */
     public ResponseEntity<HashMap<String, Object>> getIngredient(Integer id) {
         HashMap<String, Object> ingredient = new HashMap<String, Object>();
         List<String> categories = recipeRepository.findIgrCate(id);
@@ -89,7 +89,7 @@ public class RecipeService {
         Pageable sort_recipe = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("id")); // 등록된 순(id순) 정렬
         Pageable sort_popular = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("views").descending()); // 조회수 순 정렬
 
-        if(category.equals("빵/디저트/과자")) {
+        if(category.equals("빵/디저트/과자")) { // 각자 다른 카테고리 합친거라서 모든 카테고리 결과 찾아줘야함
             list = sort ==0 ? recipeRepository.findRCateM("빵", "디저트", "과자", sort_recipe) : recipeRepository.findRCateM("빵", "디저트", "과자", sort_popular);
             pu.setObjectCountTotal(getCateCount("빵") + getCateCount("디저트") + getCateCount("과자"));
         }
@@ -144,7 +144,7 @@ public class RecipeService {
         Pageable sort_recipe = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("id")); // 등록된 순(id순) 정렬
         Pageable sort_popular = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("views").descending()); // 조회수 순 정렬
 
-        if(category.equals("빵/디저트/과자")) {
+        if(category.equals("빵/디저트/과자")) { // 각자 다른 카테고리 합친거라서 모든 카테고리 결과 찾아줘야함
             list = sort ==0 ? recipeRepository.findRCateKeywordM("빵", "디저트", "과자", searchInput, sort_recipe) : recipeRepository.findRCateKeywordM("빵", "디저트", "과자", searchInput, sort_popular);
             pu.setObjectCountTotal(getCateCountKeywordM("빵", "디저트","과자",searchInput));
         }
@@ -177,12 +177,12 @@ public class RecipeService {
 
     /* 검색된 전체 레시피 개수 */
     public int getCountKeyword(String searchInput) {
-        return recipeRepository.countKw(searchInput).intValue();
+        return recipeRepository.countKeyword(searchInput).intValue();
     }
 
     /* 검색된 카테고리별 레시피 개수 */
     public int getCateCountKeyword(String category, String searchInput) {
-        return recipeRepository.countCateKw(category, searchInput).intValue();
+        return recipeRepository.countCateKeyword(category, searchInput).intValue();
     }
 
     /* 검색된 카테고리(3개짜리) 레시피 개수 */
@@ -226,7 +226,7 @@ public class RecipeService {
     public List<Recipe> recommend(String value) {
         List<Recipe> list = new ArrayList<>();
 
-        if(value == null) { // 쿠키 없을 경우
+        if(value == null) { // 쿠키 없을 경우 랜덤으로 8개 추천
             for(int i=0; i<8; i++) {
                 double randomValue = Math.random();
                 int intValue = (int) (randomValue * getAllCount()) + 1;
@@ -268,7 +268,7 @@ public class RecipeService {
         return list;
     }
 
-    /* 파이썬 코드 실행 */
+    /* 추천 시스템 파이썬 코드 실행 */
     public static String[] execPython(String[] command) {
         String[] split = new String[0];
         try {

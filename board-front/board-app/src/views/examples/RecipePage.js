@@ -214,7 +214,7 @@ class RecipePage extends Component {
         if (this.state.paging.isPrev) {
             return (
                 <li className="page-item" id="page-prev">
-                    <a className="page-link" onClick={() => this.listRecipe(this.state.sort, this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum - 2))} tabIndex="-1">
+                    <a className="page-link" onClick={() => this.listRecipe(this.state.sort, this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum - 10))} tabIndex="-1">
                         <i aria-hidden="true" class="fa fa-angle-left"></i>
                         <span class="sr-only">Previous</span>
                     </a>
@@ -228,7 +228,7 @@ class RecipePage extends Component {
         if (this.state.paging.isNext) {
             return (
                 <li className="page-item " id="page-next">
-                    <a className="page-link" onClick={() => this.listRecipe(this.state.sort, this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum + 2))} tabIndex="-1">
+                    <a className="page-link" onClick={() => this.listRecipe(this.state.sort, this.state.curCate, this.state.searchInput, (this.state.paging.currentPageNum + 10))} tabIndex="-1">
                         <i aria-hidden="true" class="fa fa-angle-right"></i>
                         <span class="sr-only">Next</span>
                     </a>

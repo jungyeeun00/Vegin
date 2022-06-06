@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import java.io.Serializable;
+
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @Getter

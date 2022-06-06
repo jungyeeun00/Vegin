@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RestController
 @RequestMapping("/recipe-page")
 public class RecipeController {
@@ -98,7 +98,7 @@ public class RecipeController {
             return recipeService.getRecipeCateKeyword(sort, category, searchInput, p_num);
     }
 
-    /* 카테고리(빵/디저트/과자) */
+    /* 카테고리(국/탕 같은 두 개) */
     @PostMapping("/{category1}/{category2}")
     public ResponseEntity<Map> getRecipesByCate1(@RequestParam(value = "sort", required = false) Integer sort,
                                                  @PathVariable String category1,
@@ -121,6 +121,7 @@ public class RecipeController {
             return recipeService.getRecipeCateKeyword(sort, category, searchInput, p_num);
     }
 
+    /* 카테고리(빵/디저트/과자 세 개) */
     @PostMapping("/{category1}/{category2}/{category3}")
     public ResponseEntity<Map> getRecipesByCate2(@RequestParam(value = "sort", required = false) Integer sort,
                                                  @PathVariable String category1,
