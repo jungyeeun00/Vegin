@@ -1,20 +1,14 @@
-import React, { useState, useEffect} from "react";
-import { useParams, useHistory, useLocation } from "react-router";
-import IndexNavbar from 'components/Navbars/IndexNavbar';
 import VeginFooter from 'components/Footers/VeginFooter';
-import { PagesSharp, ThreeSixtyOutlined } from '@material-ui/icons';
-import ShopService from 'service/ShopService';
+import IndexNavbar from 'components/Navbars/IndexNavbar';
+import { set } from 'lodash';
+import React, { useEffect, useState } from "react";
+import { useHistory, useLocation, useParams } from "react-router";
 import {
-    Container,
-    Row,
-    Col,
-    Button,
-    NavItem,
-    NavLink,
-    Nav,
-    TabContent,
-    TabPane,
+    Button, Col, Container, Nav, NavItem,
+    NavLink, Row, TabContent,
+    TabPane
 } from "reactstrap";
+import ShopService from 'service/ShopService';
 import ProductInquiry from "../index-sections/ProductInquiry";
 import Reviews from "../index-sections/Reviews";
 import ShopItemOption from '../index-sections/ShopItemOption';
@@ -30,24 +24,28 @@ function ProductDetailPage() {
     const saleRate = location.state.saleRate;
     const imgSrc = location.state.imgSrc;
     const detail = location.state.detail; 
-    let noOpFlag = 1; // 옵션 없는 경우 체크 변수(1은 옵션 없음 0은 옵션 있음)
 
     const [choices, setChoices] = useState([]);
 
     const [defoption, setDefOp] = useState([]) // default 옵션
-
     const [options, setOption] = useState([]); // 선택한 옵션 
+    const [editOp, setEditOp] = useState([]);
+
     const [sum, setSum] = useState(0); // 선택한 옵션 총 금액
+
+    const [noOpFlag, setNoOpFlag] = useState(1); // 옵션 없는 경우 체크 변수(1은 옵션 없음 0은 옵션 있음)
 
     useEffect(() => {
         ShopService.getChoices(productId)
         .then(res => setChoices(res.data))
         window.scrollTo(0, 0);
         setDefOp(
-            { productName: productName, num: 0, price: Number(soldPrice), sum: 0 , id: 0}
+            { productName: productName, num: 0, price: Number(soldPrice), sum: 0 , id: 0, choiceId: -1, productId: productId}
         )
+        setNoOpFlag(1);
+        setSum(0);
     }, []);
-   
+   /* 상품 리스트로 돌아가기 위해 경로 저장 */
     const goToList = () => { 
         history.push('/shop-page'); 
     };
@@ -59,13 +57,13 @@ function ProductDetailPage() {
         }
     };
 
-    //상품 옵션을 선택하면 화면에 elements 추가 렌더링
+    /* 상품 옵션을 선택하면 화면에 elements 추가 렌더링 */
     const selectOption = (e) => {
-        noOpFlag = 0;
+        setNoOpFlag(0);
 
         let flag = 0; // 중복 선택 여부 확인 변수
         let opValue = e.target.value.split("\t"); // content, extraCost 탭 문자로 분리
-        let price = Number(opValue[1]) + Number(soldPrice); // 추가 금액에 원래 가격 합산
+        let price = Number(opValue[2]) + Number(soldPrice); // 추가 금액에 원래 가격 합산
         const _options = options.filter((o) => {
             return o.option !== opValue[0];
         });
@@ -81,13 +79,13 @@ function ProductDetailPage() {
             setOption([
                 ..._options,
                 // price: 판매가 regPrice: 정가
-                { productName: productName, option: opValue[0], num: 1, price: price, regPrice: regPrice, sum: price, id: 0 },
+                { productName: productName, option: opValue[0], num: 1, price: price, regPrice: regPrice, sum: price, id: 0, choiceId: opValue[1] },
             ])
             setSum(sum + price); 
         }
     };
 
-   //선택한 옵션의 수량 변경 시 수량 및 가격 반영
+   /* 선택한 옵션의 수량 변경 시 수량 및 가격 반영 */
     const plusQuantity = (option) => {
         setOption(options);
         setSum(sum + option.price);
@@ -101,7 +99,8 @@ function ProductDetailPage() {
             option.sum -= option.price;
         }
         setOption(options);
-    };  //옵션 삭제
+    };  
+    /* 옵션 삭제 */
     const deleteOption = (target) => {
         const _options = options.filter(o => {
             if (o.option !== target.option) {
@@ -112,23 +111,75 @@ function ProductDetailPage() {
         setOption(_options);
     };
 
-     //장바구니 담기 시 로컬 스토리지에 정보를 저장
+     /* 장바구니 담기 시 로컬 스토리지에 정보 저장 */
     const setSessionStorage = () => {
 
         if(window.confirm("장바구니로 이동하시겠습니까?")){
             window.location.href = "/cart";
         }
-
+        console.log("noOpFlag " + noOpFlag);
         // 세션 저장
         const _cart = sessionStorage.getItem("cart");
         if (_cart) {
-            const parseCart = JSON.parse(_cart);
-            // noOpFlag 넣어서 if문으로 구분하기.... option이 없는 경우는 defoption 을 세션에 저장하기
-                sessionStorage.setItem("cart", JSON.stringify([...parseCart, ...options]));
+            const _parseCart = JSON.parse(_cart);
+            // noOpFlag가 1인 경우는 옵션이 존재하지 않는 상품 
+            // 처음에 설정했던 defoption(상품이름, 수량, 가격만 저장)
+            if(noOpFlag === 1) checkCart_No_op(defoption, _parseCart);
+            //sessionStorage.setItem("cart", JSON.stringify([..._parseCart, defoption]));
+            else checkCart_op(options, _parseCart);
         } 
-        else {
-               sessionStorage.setItem("cart", JSON.stringify(options));
-        }  
+        else { // 장바구니(세션) 비어있을 때
+            if(noOpFlag === 1) sessionStorage.setItem("cart", JSON.stringify(defoption));
+            else sessionStorage.setItem("cart", JSON.stringify(options));
+        }
+    }
+
+    //checkOption: 새로 선택한 옵션, cartOption: 세션에 담겨있는 선택된 옵션
+    const checkCart_op = (checkOption, cartOption) =>{
+        const newCartArr = []; 
+
+        checkOption.forEach( check => {
+            let ExistenceStatus = cartOption.findIndex(i => i.choiceId === check.choiceId); // 중복 체크 변수
+            console.log("status " + ExistenceStatus);
+
+            if (ExistenceStatus === -1) // 중복되는 것이 없으면 그대로 세션에 저장
+                newCartArr.push(check); // 새로 추가된 옵션 저장
+            else { // 중복되는 것이 있으면 수량, 가격 변경해서 다시 삽입
+                cartOption.forEach(cartop => {
+                    if(cartop.choiceId === check.choiceId) {
+                        cartop.num += check.num;
+                        cartop.sum += check.sum;
+                        newCartArr.push(cartop);
+                        cartOption = cartOption.filter(c => {
+                            return c.choiceId !== check.choiceId})
+                    }
+                })
+            }
+            sessionStorage.setItem("cart", JSON.stringify([...cartOption, ...newCartArr]));
+        })
+    }
+
+    const checkCart_No_op = (check, cartOption) => {
+        const newCartArr = []; 
+
+        let ExistenceStatus = cartOption.findIndex(i => (i.productId === check.productId)); // 중복 체크 변수
+        console.log("status " + ExistenceStatus);
+
+        if (ExistenceStatus === -1) // 중복되는 것이 없으면 그대로 세션에 저장
+            newCartArr.push(check); // 새로 추가된 상품
+        else { // 중복되는 것이 있으면 수량, 가격 변경해서 다시 삽입
+            cartOption.forEach(cartop => {
+                if(cartop.productId === check.productId) {
+                    cartop.num += check.num;
+                    cartop.sum += check.sum;
+                    newCartArr.push(cartop);
+                    cartOption = cartOption.filter(c => {
+                        return c.choiceId !== check.choiceId})
+                }
+            })
+        }
+        sessionStorage.setItem("cart", JSON.stringify([...cartOption, ...newCartArr]));
+    
     }
 
     return (
@@ -201,7 +252,7 @@ function ProductDetailPage() {
                                                     choices.map(
                                                         (choice, index) => 
                                                         !choice.content.includes("품절") &&
-                                                        <option value={choice.content + "\t" + choice.extraCost} key={index}>
+                                                        <option value={choice.content + "\t" + choice.choiceId + "\t" + choice.extraCost} key={index}>
                                                             {choice.content}
                                                         </option>
                                                 )}
