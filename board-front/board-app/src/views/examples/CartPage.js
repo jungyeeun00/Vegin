@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import IndexNavbar from "components/Navbars/IndexNavbar.js";
-import VeginFooter from "components/Footers/VeginFooter";
-import CartItem from 'views/index-sections/CartItem';
+import { faEquals, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEquals, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
+import VeginFooter from "components/Footers/VeginFooter";
+import IndexNavbar from "components/Navbars/IndexNavbar.js";
+import React, { useState } from 'react';
+import CartItem from 'views/index-sections/CartItem';
 
 function CartPage(props) {
     let cartItem = sessionStorage.getItem("cart");
@@ -15,6 +15,10 @@ function CartPage(props) {
             cartItem[i].id = i;
         }
         //sessionStorage.setItem("cart", JSON.stringify(cartItem))
+
+        //cartItem에 중복으로 담긴건 개수 처리해주기
+        //choiceId가 -1인 경우는 productId로 비교..!
+      
     }
 
     const [checkItems, setCheckItems] = useState([]);
@@ -66,7 +70,7 @@ function CartPage(props) {
         sessionStorage.setItem("cart", "");
     }
 
-    // 체크박스 전체 단일 개체 선택
+    /* 체크박스 전체 단일 개체 선택 */
     const handleSingleCheck = (checked, id) => {
         console.log("single");
         if (checked) {
@@ -79,7 +83,7 @@ function CartPage(props) {
         }
     };
 
-    // 체크박스 전체 선택
+    /* 체크박스 전체 선택 */
     const handleAllCheck = (checked) => {
         console.log("all");
         if (checked) {
@@ -101,7 +105,7 @@ function CartPage(props) {
         }
     };
 
-    // total 값 계산
+    /* total 값 계산 */
     const calcTotalPrice = (id, isTrue) => {
         const curPrice = items.reduce((sum, cur, idx) => {
             if (cur.id == id)
@@ -115,8 +119,6 @@ function CartPage(props) {
             setTotalPrice(totalPrice - curPrice);
         }
     }
-
-  
 
     return (
         <>
@@ -203,20 +205,6 @@ function CartPage(props) {
                                     </span>
                                 </em>
                             </div>
-                            {/* <span>
-                               
-                                <FontAwesomeIcon icon={faMinus} className="icon" />
-                            </span>
-                            <div>
-                                <span>
-                                    할인금액
-                                </span>
-                                <em>
-                                    <span>
-                                        {salePrice}원
-                                    </span>
-                                </em>
-                            </div> */}
                             <span>
                                 <FontAwesomeIcon icon={faEquals} className="icon" />
                             </span>

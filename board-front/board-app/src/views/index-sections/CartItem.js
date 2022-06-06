@@ -6,7 +6,7 @@ function CartItem(props) {
     const [optionSum, setSum] = useState(props.option.sum);
     const [items, setItems] =useState(props.items)
 
-    //선택한 옵션의 수량 변경 시 수량 및 가격 반영
+    /*선택한 옵션의 수량 변경 시 수량 및 가격 반영*/
     const plusQuantity = (option) => {
         option.num += 1;
         option.sum += option.price;
@@ -22,8 +22,6 @@ function CartItem(props) {
             }
         }
         sessionStorage.setItem("cart", JSON.stringify(items));
-       
-    
     };
     const minusQuantity = (option) => {
         if (option.sum > 0 && option.num > 1) {

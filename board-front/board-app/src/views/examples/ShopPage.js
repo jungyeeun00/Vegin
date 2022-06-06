@@ -84,7 +84,7 @@ class ShopPage extends Component {
             })
          });
     }
-
+    /* 뒤로가기 시 스크롤 유지 위해 세션에 저장 */
     handleScrollPosition = () => {
         const scrollPosition = sessionStorage.getItem("scrollPosition");
         if (scrollPosition) {
@@ -92,7 +92,7 @@ class ShopPage extends Component {
           sessionStorage.removeItem("scrollPosition");
         }
     };
-
+    /* 카테고리 변경 */
     changeCate = (e) => {
         this.setState({
             curCate: e.target.id,
@@ -106,7 +106,7 @@ class ShopPage extends Component {
         sessionStorage.setItem("curCate", JSON.stringify(e.target.id));
     };
 
-    // paging
+    /* 페이징하여 상품 리스트 불러옴 */
     listProduct(curCate, searchInput, sort, p_num) {
         console.log("pageNum : "+ p_num );
         ShopService.getProducts(cateData[curCate], searchInput, sort, p_num).then((res) => {
@@ -146,6 +146,7 @@ class ShopPage extends Component {
         ));
         
     }
+    /* 이전 페이지로 이동 */
     isPagingPrev(){
         if (this.state.paging.prev) {
             return (
@@ -155,6 +156,8 @@ class ShopPage extends Component {
             );
         }
     }
+
+    /* 다음 페이지로 이동 */
     isPagingNext(){
         if (this.state.paging.next) {
             return (
@@ -168,36 +171,39 @@ class ShopPage extends Component {
     readProduct(productId) {
         this.props.history.push(`/shop-page/shop-detail-page/${productId}`);
     }
-
-    searchOnHandler = () => { // onFocus 이벤트
+    /* onFocus 이벤트 */
+    searchOnHandler = () => { 
         this.setState({
             searchClick: true,
         });
     };
-    searchOffHandler = () => { // onBlur 이벤트
+    /* onBlur 이벤트 */
+    searchOffHandler = () => { 
         this.setState({
             searchClick: false
         });
     };
-    setSearchHandler = (e) => { // input 창에 onChange 이벤트
+    /* input 창에 onChange 이벤트 */
+    setSearchHandler = (e) => { 
         this.setState({
             searchInput: e.target.value
         });
     };
+    /* input 창 지워줌 */
     searchInputRemoveHandler = () => {
         this.setState({
             searchInput: '',
         });
         this.listProduct(this.state.curCate, '', 1);
     };
-    // enter 이벤트 처리 (검색)
+    /* enter 이벤트 처리 (검색) */
     handleKeyPress = (e) => {
         if (e.key === "Enter") {
             this.listProduct(this.state.curCate, this.state.searchInput, this.state.sort, -1);
         }
     };
 
-    // 정렬 탭
+    /* 정렬 탭 */
     clickHandler = (sort) => {
         this.setState({
             sort: sort,
