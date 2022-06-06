@@ -46,29 +46,31 @@ class MyDiaryPage extends Component {
             }
         });
     };
+
     handlePagePrevious = () => {
-        if (this.state.posts.currentPage > 5) {
+        if (this.state.posts.currentPage > 1) {
             this.setState({
                 posts: {
                     data: this.state.posts.data,
                     pageSize: this.state.posts.pageSize,
-                    currentPage: this.state.posts.currentPage % 5 == 0 ?
-                        parseInt(this.state.posts.currentPage / 5) * 5 - 5 : parseInt(this.state.posts.currentPage / 5) * 5 - 4
+                    currentPage: this.state.posts.currentPage - 1
                 }
             });
         }
     }
+
     handlePageNext = () => {
-        if (parseInt(this.state.posts.currentPage / 6) * 5 + 6 <= Math.ceil(this.state.posts.data.length / this.state.posts.pageSize)) {
+        if(Math.ceil(this.state.posts.data.length / this.state.posts.pageSize) > this.state.posts.currentPage){
             this.setState({
                 posts: {
                     data: this.state.posts.data,
                     pageSize: this.state.posts.pageSize,
-                    currentPage: parseInt(this.state.posts.currentPage / 6) * 5 + 6
+                    currentPage: this.state.posts.currentPage + 1
                 }
             });
         }
     }
+
     pagedPosts = () => {
         return Paginate(this.state.posts.data, this.state.posts.currentPage, this.state.posts.pageSize);
     }
