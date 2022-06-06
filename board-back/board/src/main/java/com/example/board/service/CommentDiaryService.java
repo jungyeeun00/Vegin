@@ -45,7 +45,7 @@ public class CommentDiaryService {
     }
 
     // ��� ����
-    public ResponseEntity<CommentDiary> updateBoard(Integer id, CommentDiary updatedComment) {
+    public ResponseEntity<CommentDiary> updateComment(Integer id, CommentDiary updatedComment) {
         CommentDiary comment = commentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Comment Data by id : [" + id + "]"));
         comment.setContent(updatedComment.getContent());
@@ -60,6 +60,7 @@ public class CommentDiaryService {
     public List<CommentDiary> Listcomments(int boardNo) {
         return this.commentRepository.getCommentsOfBoard(boardNo);
     }
+
     // ��� ����
     @Transactional
     public List<CommentDiary> Deletecomment(int commentNo, int boardNo) {
@@ -67,14 +68,4 @@ public class CommentDiaryService {
         return this.commentRepository.getCommentsOfBoard(boardNo);
     }
 
-    //��� ����
-    @Transactional
-    public List<CommentDiary> Modifycomment(CommentDiary comment,int commentNo,int boardNo) {
-        Optional<CommentDiary> modifycomment=this.commentRepository.findById(commentNo);
-        modifycomment.ifPresent(origin->{
-            origin.setContent(comment.getContent());
-            this.commentRepository.save(origin);
-        });
-        return this.commentRepository.getCommentsOfBoard(boardNo);
-    }
 }

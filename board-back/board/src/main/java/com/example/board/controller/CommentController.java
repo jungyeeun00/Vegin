@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -40,19 +39,13 @@ public class CommentController {
     // UPDATE
     @PutMapping("/update/{commentId}")
     public ResponseEntity<Comment> updateComment(@PathVariable int commentId, @RequestBody CommentDto commentDto) { //, Principal principal){
-        return this.commentService.updateBoard(commentId, new Comment(commentDto.getContent()));
+        return this.commentService.updateComment(commentId, new Comment(commentDto.getContent()));
     }
 
     //DELETE
     @DeleteMapping("/delete/{boardNo}/{commentNo}")
     public ResponseEntity<List<Comment>> addComment(@PathVariable int boardNo,@PathVariable int commentNo) {
         return new ResponseEntity<>(this.commentService.Deletecomment(commentNo, boardNo),HttpStatus.CREATED);
-    }
-
-    //UPDATE
-    @PutMapping("/modify/{boardNo}/{commentNo}")
-    public ResponseEntity<List<Comment>> modifyComment(@PathVariable int boardNo,@PathVariable int commentNo,@RequestBody CommentDto commentDto,Principal principal) {
-        return new ResponseEntity<>(this.commentService.Modifycomment(new Comment(commentDto.getContent()),commentNo, boardNo),HttpStatus.CREATED);
     }
 
 }
