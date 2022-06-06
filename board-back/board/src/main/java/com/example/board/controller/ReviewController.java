@@ -27,7 +27,7 @@ public class ReviewController {
     // CREATE
     @PostMapping("/add")
     public Review addReview(@RequestBody ReviewDto reviewDto) { //, Principal principal){
-        return this.reviewService.createReview(new Review(reviewDto.getImgSrc(), reviewDto.getText()), reviewDto.getMemberId(), reviewDto.getProductId());
+        return this.reviewService.createReview(new Review(reviewDto.getStar(), reviewDto.getImgSrc(), reviewDto.getText()), reviewDto.getMemberId(), reviewDto.getProductId());
     }
 
     // READ
@@ -39,7 +39,7 @@ public class ReviewController {
     // UPDATE
     @PutMapping("/update/{reviewId}")
     public ResponseEntity<Review> updateReview(@PathVariable int reviewId, @RequestBody ReviewDto reviewDto) {
-        return this.reviewService.updateReview(reviewId, new Review(reviewDto.getImgSrc(), reviewDto.getText()));
+        return this.reviewService.updateReview(reviewId, new Review(reviewDto.getStar(), reviewDto.getImgSrc(), reviewDto.getText()));
     }
 
     //DELETE

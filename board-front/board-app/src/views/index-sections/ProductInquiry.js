@@ -8,9 +8,9 @@ class ProductInquiry extends Component {
         super(props);
 
         this.state = {
-            productId: this.props.key,
+            productId: this.props.productId,
             inquirys: [],
-            content: '',
+            text: '',
             updating: {
                 now: false,
                 inquiryId: ''
@@ -18,13 +18,14 @@ class ProductInquiry extends Component {
             details: []
         }
 
-        this.goToUpdate = this.goToUpdate.bind(this);
-        this.changeContentHandler = this.changeContentHandler.bind(this);
+        // this.goToUpdate = this.goToUpdate.bind(this);
+        this.changetextHandler = this.changetextHandler.bind(this);
     }
 
     componentDidMount() {
         ShopService.getInquirys(this.state.productId).then(res => {
-            this.setState({ s: res.data });
+            this.setState({ inquirys: res.data });
+            console.log(res.data);
         })
     }
 
@@ -56,8 +57,8 @@ class ProductInquiry extends Component {
         });
     }
 
-    changeContentHandler = (event) => {
-        this.setState({ content: event.target.value });
+    changetextHandler = (event) => {
+        this.setState({ text: event.target.value });
     }
 
     createInquiry = () => {
@@ -65,7 +66,7 @@ class ProductInquiry extends Component {
             let inquiry = {
                 productId: this.state.productId,
                 memberId: MemberService.getCurrentMember(),
-                content: this.state.content
+                text:this.state.text
             };
             console.log("inquiry => " + JSON.stringify(inquiry));
             ShopService.createInquiry(inquiry).then(res => {
@@ -79,7 +80,7 @@ class ProductInquiry extends Component {
         let inquiry = {
             productId: this.state.productId,
             memberId: MemberService.getCurrentMember(),
-            content: this.state.content
+            text: this.state.text
         };
         console.log("inquiry => " + JSON.stringify(inquiry));
         ShopService.updateInquiry(inquiryId, inquiry).then(res => {
@@ -114,7 +115,8 @@ class ProductInquiry extends Component {
     }
 
     openDetail = (inquiryId) => {
-        this.setState({ details: this.state.details.push(inquiryId) });
+        // this.setState({ details: this.state.details.push(inquiryId) });
+        this.state.details.push(inquiryId);
     }
 
     render() {
@@ -140,8 +142,10 @@ class ProductInquiry extends Component {
                                     <tbody className="inq-tbody">
                                         <tr className="inquiry-item" onClick={this.openDetail(inquiry.id)}>
                                             <td scope="row">{inquiry.id}</td>
-                                            <td>{inquiry.title}</td>
-                                            <td>{inquiry.member.id}</td>
+                                            {/* <td>{inquiry.title}</td> */}
+                                            {/* <td>{inquiry.member.id}</td> */}
+                                            <td></td>
+                                            <td></td>
                                             <td>{inquiry.created_date.substring(0, 16)}</td>
                                             <td>{inquiry.answer!='' ? "완료" : "미완료"}</td>
                                         </tr>
@@ -150,9 +154,9 @@ class ProductInquiry extends Component {
                                             <tr>
                                                 <div className='inquiry-wrapper'>
                                                     <hr />
-                                                    <div className='inquiry-content' dangerouslySetInnerHTML={{ __html: this.state.inquiry.content }} />
+                                                    <div className='inquiry-text' dangerouslySetInnerHTML={{ __html: inquiry.text }} />
                                                     <br /><br />
-                                                    {MemberService.getCurrentMember() == inquiry.member.id &&
+                                                    {/* {MemberService.getCurrentMember() == inquiry.member.id &&
                                                         <div className='inquiry-btn'>
                                                             <Button className="inquiry-btn-edit btn-round ml-1" type="button" onClick={this.goToUpdate}>
                                                                 수정
@@ -161,7 +165,7 @@ class ProductInquiry extends Component {
                                                                 삭제
                                                             </Button>
                                                         </div>
-                                                    }
+                                                    } */}
                                                     <hr />
                                                     {/* 여기서부터 댓글 */}
                                                     <div className='inquiry-writeanswer-wrapper'>
@@ -169,7 +173,7 @@ class ProductInquiry extends Component {
                                                         <textarea
                                                             id='inquiry-writeanswer'
                                                             placeholder='답변을 입력하세요.'
-                                                            onChange={this.changeContentHandler}>
+                                                            onChange={this.changetextHandler}>
                                                         </textarea>
                                                         <div className='inquiry-answerwrite-btn-wrapper'>
                                                             <Button className="inquiry-answerwrite-btn btn-round ml-1" type="button" onClick={() => this.createAnswer()}>
@@ -182,14 +186,14 @@ class ProductInquiry extends Component {
                                                             inquiry.answer!=null &&
                                                             <div className='inquiry-answer'>
                                                                 <hr />
-                                                                <div className='inquiry-answer-content'>
-                                                                    <span className='inquiry-answer-content'>{inquiry.answer}</span>
+                                                                <div className='inquiry-answer-text'>
+                                                                    <span className='inquiry-answer-text'>{inquiry.answer}</span>
                                                                 </div>
-                                                                {MemberService.getCurrentMember() == inquiry.member.id &&
+                                                                {/* {MemberService.getCurrentMember() == inquiry.member.id &&
                                                                     <div className='inquiry-answer-btn-wrapper'>
                                                                         <Button className="inquiry-answer-btn-cancel btn-round ml-1" type="button" onClick={() => this.deleteAnswer(inquiry.id)}>삭제</Button>
                                                                     </div>
-                                                                }
+                                                                } */}
                                                             </div>
                                                         }
                                                     </div>

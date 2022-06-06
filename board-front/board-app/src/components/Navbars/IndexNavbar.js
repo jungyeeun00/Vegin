@@ -67,12 +67,9 @@ function IndexNavbar() {
   }, [window.location.pathname]);
 
   const logout = () => {
-    console.log("logout"+localStorage.length);
     MemberService.logout();
     window.location.replace("/");
   }
-
-  console.log(window.location.pathname.includes("index"))
 
   return (
     <div>
