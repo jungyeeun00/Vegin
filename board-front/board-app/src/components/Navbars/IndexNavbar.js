@@ -38,7 +38,7 @@ import MemberService from "service/MemberService";
 
 function IndexNavbar() {
   const [navbarCollapse, setNavbarCollapse] = useState(false);
-  const [activeName, setActiveName] = useState("HOME");
+  const [activeName, setActiveName] = useState("");
 
   const toggleNavbarCollapse = () => {
     setNavbarCollapse(!navbarCollapse);
