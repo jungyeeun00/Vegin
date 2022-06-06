@@ -1,6 +1,5 @@
 import VeginFooter from 'components/Footers/VeginFooter';
 import IndexNavbar from 'components/Navbars/IndexNavbar';
-import { set } from 'lodash';
 import React, { useEffect, useState } from "react";
 import { useHistory, useLocation, useParams } from "react-router";
 import {
@@ -29,10 +28,7 @@ function ProductDetailPage() {
 
     const [defoption, setDefOp] = useState([]) // default 옵션
     const [options, setOption] = useState([]); // 선택한 옵션 
-    const [editOp, setEditOp] = useState([]);
-
     const [sum, setSum] = useState(0); // 선택한 옵션 총 금액
-
     const [noOpFlag, setNoOpFlag] = useState(1); // 옵션 없는 경우 체크 변수(1은 옵션 없음 0은 옵션 있음)
 
     useEffect(() => {
@@ -40,11 +36,12 @@ function ProductDetailPage() {
         .then(res => setChoices(res.data))
         window.scrollTo(0, 0);
         setDefOp(
-            { productName: productName, num: 0, price: Number(soldPrice), sum: 0 , id: 0, choiceId: -1, productId: productId}
+             { productName: productName, num: 0, price: Number(soldPrice), sum: 0 , id: 0, choiceId: -1, productId: productId }, 
         )
         setNoOpFlag(1);
         setSum(0);
     }, []);
+    
    /* 상품 리스트로 돌아가기 위해 경로 저장 */
     const goToList = () => { 
         history.push('/shop-page'); 
@@ -100,6 +97,7 @@ function ProductDetailPage() {
         }
         setOption(options);
     };  
+    
     /* 옵션 삭제 */
     const deleteOption = (target) => {
         const _options = options.filter(o => {
@@ -125,16 +123,15 @@ function ProductDetailPage() {
             // noOpFlag가 1인 경우는 옵션이 존재하지 않는 상품 
             // 처음에 설정했던 defoption(상품이름, 수량, 가격만 저장)
             if(noOpFlag === 1) checkCart_No_op(defoption, _parseCart);
-            //sessionStorage.setItem("cart", JSON.stringify([..._parseCart, defoption]));
             else checkCart_op(options, _parseCart);
         } 
         else { // 장바구니(세션) 비어있을 때
-            if(noOpFlag === 1) sessionStorage.setItem("cart", JSON.stringify(defoption));
+            if(noOpFlag === 1) sessionStorage.setItem("cart", JSON.stringify([defoption]));
             else sessionStorage.setItem("cart", JSON.stringify(options));
         }
     }
 
-    //checkOption: 새로 선택한 옵션, cartOption: 세션에 담겨있는 선택된 옵션
+    /* 옵션이 있는 경우 장바구니 상품 중복 처리 */ 
     const checkCart_op = (checkOption, cartOption) =>{
         const newCartArr = []; 
 
@@ -159,12 +156,11 @@ function ProductDetailPage() {
         })
     }
 
+     /* 옵션이 있는 경우 장바구니 상품 중복 처리 */ 
     const checkCart_No_op = (check, cartOption) => {
         const newCartArr = []; 
 
         let ExistenceStatus = cartOption.findIndex(i => (i.productId === check.productId)); // 중복 체크 변수
-        console.log("status " + ExistenceStatus);
-
         if (ExistenceStatus === -1) // 중복되는 것이 없으면 그대로 세션에 저장
             newCartArr.push(check); // 새로 추가된 상품
         else { // 중복되는 것이 있으면 수량, 가격 변경해서 다시 삽입
@@ -179,7 +175,6 @@ function ProductDetailPage() {
             })
         }
         sessionStorage.setItem("cart", JSON.stringify([...cartOption, ...newCartArr]));
-    
     }
 
     return (
@@ -285,7 +280,6 @@ function ProductDetailPage() {
                                                 <span>수량 선택</span>
                                             </div>
                                             <div className="option-wrapper">
-                                           
                                                     <ShopItemOption 
                                                     option={defoption} 
                                                     minusQuantity={minusQuantity}
@@ -305,16 +299,18 @@ function ProductDetailPage() {
                                        <span> {sum}원 </span> 
                                     </Col>
                                 </Row>
-
                                 <div className="product-btns">
                                 <Button
                                     className="cart-btn btn-round"
                                     outline
                                     type="button"
-                                    onClick={setSessionStorage}
+                                    onClick={() => { if(sum === 0) alert("수량을 선택하세요.");
+                                                     else setSessionStorage(); }}
+                                    
                                 >
                                     장바구니 담기
                                 </Button>
+                               
                                 <Button 
                                     className="buy-btn btn-round"
                                     outline
@@ -325,12 +321,8 @@ function ProductDetailPage() {
                                  </div>
                             </Container>
                         </div>
-                        
                     </div>
-                    
                 </div > 
-               
-
             </div >
            
             {/* <ShopNavTab /> */}
