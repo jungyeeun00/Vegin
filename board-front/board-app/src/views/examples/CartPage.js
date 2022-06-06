@@ -122,16 +122,16 @@ function CartPage(props) {
 
         const ExistenceStatus = checkItems.includes(id); // 체크 여부 확인 변수
         if(ExistenceStatus) {
-        const cart = sessionStorage.getItem("cart");
-            if (cart) {
-                const parseCart = JSON.parse(cart);
-                let sum = 0;
-                parseCart.map(p => {
-                    sum += p.sum;
-                })
-                setTotalPrice(sum);
-            } 
-        }
+            const cart = sessionStorage.getItem("cart");
+                if (cart) {
+                    const parseCart = JSON.parse(cart);
+                    let sum = 0;
+                    parseCart.map(p => {
+                        sum += p.sum;
+                    })
+                    setTotalPrice(sum);
+                } 
+            }
     }
 
     return (
