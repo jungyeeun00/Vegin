@@ -102,9 +102,9 @@ class ListBoardComponent extends Component {
 
     /* 글 상세보기로 이동 */
     readBoard(no) {
-        this.props.history.push(`/read-board/${no}`);
         /* 조회수 증가 */
         BoardService.setCounts(no);
+        this.props.history.push(`/read-board/${no}`);
     }
 
     /* 현재 페이지에 맞게 목록 초기화 */
