@@ -12,16 +12,16 @@ function CartItem(props) {
         option.sum += option.price;
         setNum(option.num);
         setSum(option.sum);
-        props.changeTotalPrice(option.id);
          // 세션 저장
         for(let i = 0; i< items.length; i++) {
             if(items[i].id == option.id) {
                 items[i].num = option.num;
-                items[i].sum = option.sum;
+                items[i].sum = items[i].num * items[i].price;
                 break;
             }
         }
         sessionStorage.setItem("cart", JSON.stringify(items));
+        props.changeTotalPrice(option.id);
     };
     const minusQuantity = (option) => {
         if (option.sum > 0 && option.num > 1) {
@@ -30,17 +30,17 @@ function CartItem(props) {
         }
         setNum(option.num);
         setSum(option.sum);
-        props.changeTotalPrice(option.id);
          // 세션 저장
          for(let i = 0; i< items.length; i++) {
             if(items[i].id == option.id) {
                 items[i].num = option.num;
-                items[i].sum = option.price;
+                items[i].sum = items[i].num * items[i].price;
                 break;
             }
         }
         setItems(items);
         sessionStorage.setItem("cart", JSON.stringify(items));
+        props.changeTotalPrice(option.id);
     };
 
     return (

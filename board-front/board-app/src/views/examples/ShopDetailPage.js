@@ -75,7 +75,6 @@ function ProductDetailPage() {
         if(flag == 0) {
             setOption([
                 ..._options,
-                // price: 판매가 regPrice: 정가
                 { productName: productName, option: opValue[0], num: 1, price: price, regPrice: regPrice, sum: price, id: 0, choiceId: opValue[1] },
             ])
             setSum(sum + price); 
@@ -87,13 +86,15 @@ function ProductDetailPage() {
         setOption(options);
         setSum(sum + option.price);
         option.num += 1;
-        option.sum += option.price;
+        //option.sum += option.price;
+        option.sum = option.num * option.price;
     };
     const minusQuantity = (option) => {
         if (option.sum > 0 && option.num > 1) {
             setSum(sum - option.price);
             option.num -= 1;
-            option.sum -= option.price;
+            //option.sum -= option.price;
+            option.sum = option.num * option.price;
         }
         setOption(options);
     };  
@@ -121,18 +122,17 @@ function ProductDetailPage() {
         if (_cart) {
             const _parseCart = JSON.parse(_cart);
             // noOpFlag가 1인 경우는 옵션이 존재하지 않는 상품 
-            // 처음에 설정했던 defoption(상품이름, 수량, 가격만 저장)
-            if(noOpFlag === 1) checkCart_No_op(defoption, _parseCart);
-            else checkCart_op(options, _parseCart);
+            if(noOpFlag === 1) checkCart(defoption, _parseCart);
+            else checkCartOp(options, _parseCart);
         } 
-        else { // 장바구니(세션) 비어있을 때
+        else { 
             if(noOpFlag === 1) sessionStorage.setItem("cart", JSON.stringify([defoption]));
             else sessionStorage.setItem("cart", JSON.stringify(options));
         }
     }
 
     /* 옵션이 있는 경우 장바구니 상품 중복 처리 */ 
-    const checkCart_op = (checkOption, cartOption) =>{
+    const checkCartOp = (checkOption, cartOption) =>{
         const newCartArr = []; 
 
         checkOption.forEach( check => {
@@ -140,7 +140,7 @@ function ProductDetailPage() {
             console.log("status " + ExistenceStatus);
 
             if (ExistenceStatus === -1) // 중복되는 것이 없으면 그대로 세션에 저장
-                newCartArr.push(check); // 새로 추가된 옵션 저장
+                newCartArr.push(check); 
             else { // 중복되는 것이 있으면 수량, 가격 변경해서 다시 삽입
                 cartOption.forEach(cartop => {
                     if(cartop.choiceId === check.choiceId) {
@@ -157,12 +157,12 @@ function ProductDetailPage() {
     }
 
      /* 옵션이 있는 경우 장바구니 상품 중복 처리 */ 
-    const checkCart_No_op = (check, cartOption) => {
+    const checkCart = (check, cartOption) => {
         const newCartArr = []; 
 
         let ExistenceStatus = cartOption.findIndex(i => (i.productId === check.productId)); // 중복 체크 변수
         if (ExistenceStatus === -1) // 중복되는 것이 없으면 그대로 세션에 저장
-            newCartArr.push(check); // 새로 추가된 상품
+            newCartArr.push(check);
         else { // 중복되는 것이 있으면 수량, 가격 변경해서 다시 삽입
             cartOption.forEach(cartop => {
                 if(cartop.productId === check.productId) {
@@ -326,7 +326,7 @@ function ProductDetailPage() {
             </div >
            
             {/* <ShopNavTab /> */}
-            <div className="navtab-section">
+            {/* <div className="navtab-section">
                 <div className="nav-tabs-navigation">
                     <div className="nav-tabs-wrapper">
                         <Nav id="tabs" role="tablist" tabs>
@@ -376,7 +376,7 @@ function ProductDetailPage() {
                         < ProductInquiry key={productId} />
                     </TabPane>
                 </TabContent>
-            </div>{" "}
+            </div>{" "} */}
 
             <div className="btn-list">
                 <button type="button" className="btn-round btn"
