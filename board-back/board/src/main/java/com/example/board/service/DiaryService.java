@@ -20,10 +20,12 @@ public class DiaryService {
     @Autowired
     private DiaryRepository diaryRepository;
 
+    /* 전체 게시글 수 */
     public int findAllCount(){
         return (int) diaryRepository.count();
     }
 
+    /* 페이징 정보 포함한 게시글 조회 */
     public ResponseEntity<Map> getPagingBoard(Integer p_num) {
         Map result = null;
 
@@ -46,6 +48,27 @@ public class DiaryService {
         return ResponseEntity.ok(result);
     }
 
+    /* 검색된 게시글 조회 */
+    public ResponseEntity<Map> getBoardKeyword(Integer p_num, String search){
+        Map result = null;
+
+        PagingUtil pu = new PagingUtil(p_num, 10, 5);
+        List<Diary> list = diaryRepository.findBoardByTitle(search, pu.getObjectStartNum(), pu.getObjectCountPerPage());
+        pu.setObjectCountTotal(Math.toIntExact(diaryRepository.countBoardsByTitleContains(search)));
+        pu.setCalcForPaging();
+
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+
+        result = new HashMap();
+        result.put("pagingData", pu);
+        result.put("list", list);
+
+        return ResponseEntity.ok(result);
+    }
+
+    /* 전체 게시글 조회 */
     public List<Diary> getAllDiary() {
         return diaryRepository.findAll();
     }
@@ -61,16 +84,19 @@ public class DiaryService {
         diaryRepository.addCounts(no);
     }
 
+    /* 게시글 생성 */
     public Diary createBoard(Diary diary) {
         return diaryRepository.save(diary);
     }
 
+    /* 게시글 상세 조회 */
     public ResponseEntity<Diary> getBoard(Integer no) {
         Diary diary = diaryRepository.findById(no)
                 .orElseThrow(()->new ResourceNotFoundException("Not exist Diary Data by no : ["+no+"]"));
         return ResponseEntity.ok(diary);
     }
 
+    /* 게시글 수정 */
     public ResponseEntity<Diary> updateBoard(Integer no, Diary updatedBoard) {
         Diary diary = diaryRepository.findById(no)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Diary Data by no : [" + no + "]"));
@@ -82,6 +108,7 @@ public class DiaryService {
         return ResponseEntity.ok(endUpdatedBoard);
     }
 
+    /* 게시글 삭제 */
     public ResponseEntity<Map<String, Boolean>> deleteBoard(Integer no) {
         Diary diary = diaryRepository.findById(no)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Diary Data by no : [" + no + "]"));

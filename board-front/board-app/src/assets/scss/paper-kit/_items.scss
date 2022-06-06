@@ -71,6 +71,9 @@
     font-size: 17px;
     color: black;
     border-bottom: 1px solid #aaaaaa;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .shop-text {

@@ -20,6 +20,10 @@ class BoardService{
         return axios.get(BOARD_API_BASE_URL+"/best");
     }
 
+    getSearchBoards(search, p_num){
+        return axios.get(BOARD_API_BASE_URL+"/search/?search=" + search + "&p_num=" + p_num);
+    }
+
     setCounts(no){
         return axios.post(BOARD_API_BASE_URL+"/"+no);
     }
@@ -52,6 +56,10 @@ class BoardService{
     
     getBestDiarys(){
         return axios.get(DIARY_API_BASE_URL+"/best");
+    }
+
+    getSearchDiarys(search, p_num){
+        return axios.get(DIARY_API_BASE_URL+"/search/?search=" + search + "&p_num=" + p_num);
     }
 
     setDiaryCounts(no){

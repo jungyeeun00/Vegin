@@ -20,11 +20,9 @@ class ListBoardComponent extends Component {
             paging: {},
             boards: [],
             best: [],
-            posts: {
-                data: [],
-                pageSize: 10,
-                currentPage: 1
-            }
+            search_p_num: 1,
+            search_boards: [],
+            search_paging: {},
         }
 
         this.createBoard = this.createBoard.bind(this);
@@ -57,24 +55,31 @@ class ListBoardComponent extends Component {
 
     /* 찾기 버튼 클릭 시 글 제목과 검색 결과 비교 & 필터링 */
     setSearchContent = (e) => { 
-        console.log(this.state.searchInput);
-        var n_boards = this.state.boards.filter(it => {
-            return it.title.includes(this.state.searchInput);
-        })
-        this.setState({
-            boards:n_boards
-        })
+        BoardService.getSearchBoards(this.state.searchInput, 1).then((res) => {
+            this.setState({
+                boards: res.data.list,
+                p_num: res.data.pagingData.currentPageNum,
+                paging: res.data.pagingData,
+                search_boards: res.data.list,
+                search_p_num: res.data.pagingData.currentPageNum,
+                search_paging: res.data.pagingData
+            })
+        });
     }
 
     /* enter 입력 시 글 제목과 검색 결과 비교 & 필터링 */
     handleKeyPress = (e) => {
         if (e.key === "Enter") {
-            var n_boards = this.state.boards.filter(it => {
-                return it.title.includes(this.state.searchInput);
-            })
-            this.setState({
-                boards:n_boards
-            })
+            BoardService.getSearchBoards(this.state.searchInput, 1).then((res) => {
+                this.setState({
+                    boards: res.data.list,
+                    p_num: res.data.pagingData.currentPageNum,
+                    paging: res.data.pagingData,
+                    search_boards: res.data.list,
+                    search_p_num: res.data.pagingData.currentPageNum,
+                    search_paging: res.data.pagingData
+                })
+            });
         }
     };
 
@@ -82,6 +87,7 @@ class ListBoardComponent extends Component {
     searchInputRemoveHandler = () => {
         this.setState({
             searchInput:'',
+            search_boards: [],
             boards:this.state.orgBoards
         })
     }
@@ -96,30 +102,50 @@ class ListBoardComponent extends Component {
 
     /* 글 상세보기로 이동 */
     readBoard(no) {
-        this.props.history.push(`/read-board/${no}`);
         /* 조회수 증가 */
         BoardService.setCounts(no);
+        this.props.history.push(`/read-board/${no}`);
     }
 
     /* 현재 페이지에 맞게 목록 초기화 */
     listBoard(p_num) {
         console.log("pageNum : " + p_num);
-        BoardService.getBoards(p_num).then(res => {
-            console.log(res.data);
-            this.setState({
-                p_num: res.data.pagingData.currentPageNum,
-                paging: res.data.pagingData,
-                boards: res.data.list
+        /* 검색한 결과 데이터가 있는 경우 */
+        if(this.state.search_boards.length !== 0){
+            BoardService.getSearchBoards(this.state.searchInput, p_num).then((res) => {
+                this.setState({
+                    boards: res.data.list,
+                    p_num: res.data.pagingData.currentPageNum,
+                    paging: res.data.pagingData,
+                    search_boards: res.data.list,
+                    search_p_num: res.data.pagingData.currentPageNum,
+                    search_paging: res.data.pagingData
+                })
             });
-        });
+        } else {
+            BoardService.getBoards(p_num).then(res => {
+                console.log(res.data);
+                this.setState({
+                    p_num: res.data.pagingData.currentPageNum,
+                    paging: res.data.pagingData,
+                    boards: res.data.list
+                });
+            });
+        }
     }
 
     /* 페이징 버튼 */
     viewPaging() {
         const pageNums = [];
-
-        for (let i = this.state.paging.pageNumStart; i <= this.state.paging.pageNumEnd; i++) {
-            pageNums.push(i);
+        /* 검색한 결과 데이터가 있는 경우 */
+        if(this.state.search_boards.length !== 0){
+            for (let i = this.state.search_paging.pageNumStart; i <= this.state.search_paging.pageNumEnd; i++) {
+                pageNums.push(i);
+            }    
+        } else {
+            for (let i = this.state.paging.pageNumStart; i <= this.state.paging.pageNumEnd; i++) {
+                pageNums.push(i);
+            }
         }
 
         return (pageNums.map(page =>

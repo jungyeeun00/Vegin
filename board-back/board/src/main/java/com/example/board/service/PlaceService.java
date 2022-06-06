@@ -15,7 +15,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
@@ -27,10 +26,12 @@ public class PlaceService {
     @Autowired
     PlaceInfoRepository placeInfoRepository;
 
+    /* 전체 플레이스 조회 */
     public List<PlaceInfo> getAllPlaces() {
         String result = "";
 
         try {
+            /* 서울 열린 데이터 광장 Open API - 서울 음식점 정보 가져오기 */
             URL url = new URL("http://openapi.seoul.go.kr:8088/" + "41497a6663656b6634335950466b78/" +
                     "json/CrtfcUpsoInfo/501/1500");
             BufferedReader bf;
@@ -51,9 +52,9 @@ public class PlaceService {
                 if (placeInfoRepository.count() > 500) break;
                 if (placeInfoRepository.countUPSONM((String) tmp.get("UPSO_NM")) >= 1) continue;
 
-                //네이버 검색 api
-                String clientId = "KWZO2nm_58J0kYLojjaw"; //애플리케이션 클라이언트 아이디값"
-                String clientSecret = "TYZo36AIJQ"; //애플리케이션 클라이언트 시크릿값"
+                /* 네이버 검색 API - 음식점의 이미지 정보 가져오기 */
+                String clientId = "KWZO2nm_58J0kYLojjaw";
+                String clientSecret = "TYZo36AIJQ";
 
                 String text = null;
                 try {
@@ -62,7 +63,7 @@ public class PlaceService {
                     throw new RuntimeException("검색어 인코딩 실패",e);
                 }
 
-                String apiURL = "https://openapi.naver.com/v1/search/image?query=" + text;    // json 결과
+                String apiURL = "https://openapi.naver.com/v1/search/image?query=" + text;
 
                 Map<String, String> requestHeaders = new HashMap<>();
                 requestHeaders.put("X-Naver-Client-Id", clientId);
@@ -98,18 +99,4 @@ public class PlaceService {
 
         return placeInfoRepository.findAll();
     }
-
-    public ResponseEntity<PlaceInfo> getPlace(Long no){
-        PlaceInfo placeInfo = placeInfoRepository.findById(no).orElseThrow(()->new ResourceNotFoundException("Not exist Place Data by id : ["+no+"]"));
-        return ResponseEntity.ok(placeInfo);
-    }
-
-    public int findcountUPSONM(String searchInput){
-        return placeInfoRepository.countUPSONM(searchInput).intValue();
-    }
-
-    public PlaceInfo createPlaceInfo(PlaceInfo placeInfo){ return placeInfoRepository.save(placeInfo);}
-
-    public int findAllCount() { return (int)placeInfoRepository.count(); }
-
 }

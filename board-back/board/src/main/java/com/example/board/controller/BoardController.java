@@ -29,6 +29,14 @@ public class BoardController {
         return boardService.getAllBoard();
     }
 
+    @GetMapping("/board/search")
+    public ResponseEntity<Map> getSearchBoards(@RequestParam(value = "search", required = false) String search,
+                                               @RequestParam(value = "p_num", required = false) Integer p_num){
+        if(p_num==null||p_num<=0) p_num = 1;
+
+        return boardService.getBoardKeyword(p_num, search);
+    }
+
     @GetMapping("/board/best")
     public List<Board> getBestBoards(){
         return boardService.getBestBoards();
