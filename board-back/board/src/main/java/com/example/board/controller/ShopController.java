@@ -24,6 +24,7 @@ public class ShopController {
     @Autowired
     private ShopService shopService;
 
+    /* 추천 상품 리스트 받아옴 */
     @PostMapping("")
     public List<Product> getShopList(HttpServletRequest request) {
         Cookie cookie = WebUtils.getCookie(request, "recShop");
@@ -34,12 +35,13 @@ public class ShopController {
           return shopService.recommend(cookie.getValue());
     }
 
+    /* 홈에서 보여질 featured 4개 상품 */
     @GetMapping("/featured")
     public ResponseEntity<List<ProductDto>> getFeatured() {
         return shopService.getFeatured();
     }
 
-    // 1. 상품 전체 목록
+    /* 카테고리(전체를 포함한 카테고리들) */
     @ResponseBody
     @PostMapping("/{category}")
     public ResponseEntity<Map> getProductsByCate(@PathVariable String category,
@@ -69,7 +71,7 @@ public class ShopController {
             return shopService.getProductCateKeyword(category, searchInput, p_num, sort);
     }
 
-    // get product
+    /* 상품별 옵션 */
     @ResponseBody
     @PostMapping("/shop-detail-page/{productId}")
     public List<Choice> getChoiceList(@PathVariable Integer productId,
@@ -80,7 +82,7 @@ public class ShopController {
        return shopService.getChoices(productId);
     }
 
-    // 레시피 클릭, 검색 시 쿠키 설정 및 로그 기록 함수 호출 메소드
+    /* 레시피 클릭, 검색 시 쿠키 설정 및 로그 기록 함수 호출 메소드 */
     public void Log(Integer id,
                     String keyword,
                     HttpSession session,
@@ -90,7 +92,7 @@ public class ShopController {
 
         Cookie cookie = WebUtils.getCookie(request, "recShop");
 
-        // 비회원 첫 클릭
+        /* 첫 클릭 시 쿠키 생성 및 로그 기록 */
         if (cookie == null) {
             String ckid = session.getId();
             Cookie recShop = new Cookie("recShop", ckid);
@@ -104,8 +106,9 @@ public class ShopController {
             else
                 shopService.writeLog(recShop, keyword, session.getLastAccessedTime());
 
-        } else if (cookie != null) {
-            //쿠키 시간 재설정 해주기
+        }
+        /* 첫 클릭 아닐 시 쿠키 재설정 및 로그 기록 */
+        else if (cookie != null) {
             cookie.setPath("/");
             cookie.setHttpOnly(true);
             cookie.setMaxAge(60 * 60 * 24 * 365);

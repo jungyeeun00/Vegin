@@ -28,23 +28,27 @@ public class ShopService {
     @Autowired
     private ShopRepository shopRepository;
 
+    /* 상품별 옵션 */
     public List<Choice> getChoices(Integer productId) {
         return shopRepository.findChoice(productId);
     }
 
+    /* featured 4개 상품 */
     public ResponseEntity<List<ProductDto>> getFeatured() {
         Pageable page = PageRequest.of(0, 4, Sort.by("count").descending());
         List<ProductDto> list = shopRepository.findFeatured(page);
         return ResponseEntity.ok(list);
     }
 
+    /* 페이지별 전체 상품 */
     public ResponseEntity<Map> getProduct(Integer sort, Integer p_num) {
         Map result = null;
 
         PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
-        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("count").descending());
-        Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price"));
+        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(), Sort.by("count").descending()); // 인기순(찜개수순) 정렬
+        Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price")); // 최저가순 정렬
+
 
         List<ProductDto> list = sort == 0 ? shopRepository.findP0(sort_product)
                                         : shopRepository.findP(sort_lowest);
@@ -67,13 +71,14 @@ public class ShopService {
         return ResponseEntity.ok(result);
     }
 
+    /* 검색된 전체 상품 */
     public ResponseEntity<Map> getProductKeyword(String searchInput, Integer p_num, Integer sort) {
         Map result = null;
 
         PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
-        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("count").descending());
-        Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price"));
+        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("count").descending()); // 인기순(찜개수순) 정렬
+        Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price")); // 최저가순 정렬
 
         List<ProductDto> list = sort == 0 ? shopRepository.findPKeyword0(searchInput, sort_product)
                                         : shopRepository.findPKeyword(searchInput, sort_lowest);
@@ -94,13 +99,15 @@ public class ShopService {
 
         return ResponseEntity.ok(result);
     }
+
+    /* 카테고리별 상품 */
     public ResponseEntity<Map> getProductCate(String category, Integer p_num, Integer sort) {
         Map result = null;
 
         PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
-        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("count").descending());
-        Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price"));
+        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("count").descending()); // 인기순(찜개수순) 정렬
+        Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price")); // 최저가순 정렬
 
         List<ProductDto> list = sort == 0 ? shopRepository.findPCate0(category, sort_product)
                                         : shopRepository.findPCate(category, sort_lowest);
@@ -122,13 +129,14 @@ public class ShopService {
         return ResponseEntity.ok(result);
     }
 
+    /* 카테고리별 검색된 상품 */
     public ResponseEntity<Map> getProductCateKeyword(String category, String searchInput, Integer p_num, Integer sort) {
         Map result = null;
 
        PagingUtil2 pu = new PagingUtil2(p_num, 40, 10); // ($1:표시할 현재 페이지, $2:한페이지에 표시할 글 수, $3:한 페이지에 표시할 페이지 버튼의 수 )
 
-        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("count").descending());
-        Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price"));
+        Pageable sort_product = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("count").descending()); // 인기순(찜개수순) 정렬
+        Pageable sort_lowest = PageRequest.of(p_num-1, pu.getObjectCountPerPage(),Sort.by("sold_price")); // 최저가순 정렬
 
         List<ProductDto> list = sort == 0 ? shopRepository.findPCateKeyword0(category, searchInput, sort_product)
                                         : shopRepository.findPCateKeyword(category, searchInput, sort_lowest);
@@ -163,12 +171,13 @@ public class ShopService {
     public int getCateCount(String category) {
         return shopRepository.countCate(category).intValue();
     }
+
     /* 카테고리 별 검색된 상품 개수 */
     public int getCateCountKeyword(String category, String searchInput) {
         return shopRepository.countCateKeyword(category, searchInput).intValue();
     }
 
-    /* 조회, 검색 로그 기록 */
+    /* 조회 로그 기록 */
     public void writeLog(Cookie cookie, Integer id, long time) {
 
         String path = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/ShopViewLog.txt";
@@ -185,6 +194,7 @@ public class ShopService {
         }
     }
 
+    /* 검색 로그 기록 */
     public void writeLog(Cookie cookie, String keyword, long time) {
         String path = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/ShopSearchLog.txt";
 
@@ -200,12 +210,12 @@ public class ShopService {
         }
     }
 
-    /* 상품 추천 */
+    /* 추천 리스트 받아오기 */
     public List<Product> recommend(String value) {
         List<Product> list = new ArrayList<>();
         String [] idList;
 
-        if(value == null) {
+        if(value == null) { // 쿠키 없을 경우 랜덤으로 8개 추천
             for(int i = 0; i < 8; i++) {
                 double randomValue = Math.random();
                 int intValue = (int) (randomValue * getAllCount()) + 1;
@@ -215,11 +225,9 @@ public class ShopService {
         }
         else {
             try{
-                //파일 객체 생성
+                /* viewlog 파일에서 가장 최근 기록된 로그의 id를 찾음 */
                 File file = new File("/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/ShopViewLog.txt");
-                //입력 스트림 생성
                 FileReader filereader = new FileReader(file);
-                //입력 버퍼 생성
                 BufferedReader bufReader = new BufferedReader(filereader);
                 String line = "";
                 String id = "";
@@ -229,9 +237,9 @@ public class ShopService {
                     if(array[0].equals(value) && Long.parseLong(array[2]) > time)
                         id = array[1];
                 }
-                //.readLine()은 끝에 개행문자를 읽지 않는다.
                 bufReader.close();
 
+                /* 파이썬과 연동하여 추천리스트 받아오기 */
                 String[] command = new String[3];
                 command[0] = "python3";
                 command[1] = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/shopRec/ShopRec.py";
@@ -249,6 +257,7 @@ public class ShopService {
         return list;
     }
 
+    /* 추천 시스템 파이썬 코드 실행 */
     public static String[] execPython(String[] command) {
         //String[] split = null;
         String[] split = new String[0];
@@ -265,6 +274,7 @@ public class ShopService {
 
             String line = new String(outputStream.toByteArray());
 
+            /* 문자열로 받아온 결과 배열로 만들어서 return */
             split = line.split(",");
             for(int i = 0; i < 8; i++) {
                 split[i] = split[i].replaceAll("[^0-9]", "");

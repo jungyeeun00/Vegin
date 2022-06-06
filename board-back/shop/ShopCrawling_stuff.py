@@ -7,14 +7,6 @@ options = webdriver.ChromeOptions()
 driver = webdriver.Chrome()
 
 # DB 연결
-# conn = pymysql.connect(
-#     host='vegindatabase.cbnzjcm8m9yd.ap-northeast-2.rds.amazonaws.com',
-#     port=3306,
-#     user='vegin',
-#     password='vegin123',
-#     db='vegindb',
-#     charset='utf8'
-# )
 conn = pymysql.connect(
     host='127.0.0.1',
     port=3306,

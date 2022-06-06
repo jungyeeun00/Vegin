@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
+# 만개의 레시피
 baseUrl = 'http://www.10000recipe.com'
 
 def ItemRecipe(recipeUrl):
@@ -17,6 +18,7 @@ def ItemRecipe(recipeUrl):
     recipe_step = [] # 레시피 순서
     recipe_step_img = [] # 레시피 순서별 사진
 
+    # 레시피 사진
     try:
         res = soup.select_one("div.view2_pic > div.centeredcrop > img")
         recipe_title_img.append(res.attrs['src'])
@@ -24,6 +26,7 @@ def ItemRecipe(recipeUrl):
         print("ValueError or AttributeError")
         return
 
+    # 레시피 이름 및 정보(시간, 난이도, 인분수)
     try:
         res = soup.select_one("div.view2_summary.st3 > h3")
         recipe_title.append(res.get_text())
@@ -58,9 +61,8 @@ def ItemRecipe(recipeUrl):
         return
 
 
-    # 요리 순서
+    # 조리 순서
     res = soup.select("div.view_step > div.view_step_cont.media")
-
     i = 1
     for n in res:
         # 툴 제거

@@ -12,15 +12,12 @@ import javax.persistence.*;
 @IdClass(LikeId.class)
 public class Likes {
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "productId")
     private Integer productId;
 
     @Id
     @Column(name = "memberId")
     private String memberId;
-
-
 
     public Likes(String memberId, Integer productId) {
         this.memberId = memberId;

@@ -18,6 +18,7 @@ cates = {'밑반찬':'63', '메인반찬':'56', '국/탕':'54', '찌개':'55', '
 # 비건 검색한 baseUrl
 baseUrl = "https://www.10000recipe.com/recipe/list.html?q=%EB%B9%84%EA%B1%B4"
 
+# 카테고리별로 수집
 for cate in cates.keys():
     page = 1
     last = False
@@ -43,16 +44,20 @@ for cate in cates.keys():
                 sql_ingre = "INSERT INTO ingredient (recipe_id, quantity, category, name) VALUES (%s, %s, %s, %s)"
                 sql_step = "INSERT INTO step (no, recipe_id, content, img) VALUES (%s, %s, %s, %s)"
                 try:
+                    # recipe 테이블에 추가
                     curs.execute(sql_recipe, (res[1][0], res[2][0], res[2][1], res[2][2], cate, 0, res[0][0]))
                     conn.commit()
                     keys = (res[3].keys())
                     i = 0
+
+                    # ingredient 테이블에 추가
                     for key in keys:
                         for value in res[3][key]:
                             curs.execute(sql_ingre, (id, res[4][i], key, value))
                             conn.commit()
                             i += 1
 
+                    # step 테이블에 추가
                     for n in range(1, len(res[5]) + 1):
                         curs.execute(sql_step, (n, id, res[5][n-1], res[6][n-1]))
                         conn.commit()
@@ -61,6 +66,7 @@ for cate in cates.keys():
                 except Exception as e:
                     print(e)
 
+        # 페이지 이동
         page_list = soup.select('#contents_area_full > ul > nav > ul > li > a')
         if (page_list[-1].get_text() == str(page)) and (page_list[-1].get_text() != ">"):
             last = True

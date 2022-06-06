@@ -22,7 +22,8 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
     public String INGREDIENT_CATEGORY = ""
             + "select category from Ingredient where recipe_id=:id group by category";
 
-    /* 레시피 id별 전체 조리 스텝텝 */    public String STEP_ALL = ""
+    /* 레시피 id별 전체 조리 스텝 */
+    public String STEP_ALL = ""
             + "select s from Step s where s.recipeId=:id";
 
     /* 전체 레시피 */
@@ -94,38 +95,36 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
     @Query(value = STEP_ALL)
     List<Step> findStById(@Param("id") Integer id);
 
+    // 전체 (검색X)
     @Query(value = RECIPE_LIST, nativeQuery = true)
     List<Recipe> findR(Pageable pageable);
 
+    // 카테고리 (검색X)
     @Query(value = RECIPE_CATE, nativeQuery = true)
     List<Recipe> findRCate(final String category,
                            Pageable pageable);
-
-    @Query(value = COUNT_RECIPE_CATE_LIST)
-    Long countCate(@Param("category") String category);
-
     @Query(value = RECIPE_CATE_MULT, nativeQuery = true)
     List<Recipe> findRCateM(final String category1,
                             final String category2,
                             final String category3,
                             Pageable pageable);
+    @Query(value = COUNT_RECIPE_CATE_LIST)
+    Long countCate(@Param("category") String category);
 
-
+    // 전체 (검색O)
     @Query(value = RECIPE_KEYWORD, nativeQuery = true)
     List<Recipe> findRKeyword(final String searchInput,
                               Pageable pageable);
     @Query(value = COUNT_RECIPE_KEYWORD)
-    Long countKw(@Param("searchInput") String searchInput);
+    Long countKeyword(@Param("searchInput") String searchInput);
 
-
+    // 카테고리 (검색O)
     @Query(value = RECIPE_CATE_KEYWORD, nativeQuery = true)
     List<Recipe> findRCateKeyword(final String category,
                                   final String searchInput,
                                   Pageable pageable);
     @Query(value = COUNT_RECIPE_CATE_KEYWORD)
-    Long countCateKw(@Param("category") String category, @Param("searchInput") String searchInput);
-
-
+    Long countCateKeyword(@Param("category") String category, @Param("searchInput") String searchInput);
     @Query(value = RECIPE_CATE_KEYWORD_MULT, nativeQuery = true)
     List<Recipe> findRCateKeywordM(final String category1,
                                   final String category2,
