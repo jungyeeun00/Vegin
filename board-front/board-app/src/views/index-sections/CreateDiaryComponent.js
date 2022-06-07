@@ -15,7 +15,10 @@ class CreateDiaryComponent extends Component {
             type: '',
             title: '',
             contents: '',
-            memberId: ''
+            memberId: '',
+            editorConfiguration: {
+                toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "|", "blockQuote", "insertTable", "|", "undo", "redo"]
+            }
         }
 
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -102,6 +105,7 @@ class CreateDiaryComponent extends Component {
                                             <CKEditor
                                                 className='wp-editor'
                                                 editor={ClassicEditor}
+                                                config={this.state.editorConfiguration}
                                                 value={this.state.contents}
                                                 onChange={(event, editor) => {
                                                     const data = editor.getData();
