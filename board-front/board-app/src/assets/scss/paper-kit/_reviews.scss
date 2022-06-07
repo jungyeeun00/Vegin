@@ -126,6 +126,12 @@
             background-color: #4A8451;
             border-color: #4A8451;
             margin-bottom: 10px;
+
+            &:hover,
+            &:active {
+                background-color: #2b4d2f;
+                border-color: #2b4d2f;
+            }
         }
     }
 }

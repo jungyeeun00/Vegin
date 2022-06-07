@@ -30,116 +30,229 @@
 
             .inq-tbody {
                 color: black;
+
+                .inquiry-answer-wrapper {
+                    .inquiry-answer-content {
+                        .inquiry-answer-text {
+                            text-align: center;
+                        }
+                    }
+                }
+
+                .inquiry-wrapper {
+                    padding: 8px 8px;
+                    // margin-bottom: 10px;
+                    text-align: left;
+                
+                    .inquiry-content {
+                        text-align: center;
+                        margin-bottom: 20px;
+                        color: black;
+                    }
+
+                    .inquiry-answer-btn-wrapper {
+                        text-align: right;
+                        
+                        .inquiry-answer-btn-cancel {
+                            background-color: #4A8451;
+                            border-color: #4A8451;
+                            width: 70px;
+
+                            &:hover,
+                            &:active {
+                                background-color: #2b4d2f;
+                                border-color: #2b4d2f;
+                            }
+                        }
+                    }
+
+                    
+                    .shop-updateinquiry-wrapper, .inquiry-writeanswer-wrapper {
+                        padding: 8px 8px;
+                        border: 1px solid rgb(167, 167, 167);
+                        margin-bottom: 10px;
+                        margin-top: 5px;
+                
+                        .inquiry-writeanswer-name {
+                            color: black;
+                            font-size: 18px;
+                            font-weight: 500;
+                        }
+
+                        #shop-updateinquiry, #inquiry-writeanswer {
+                            width: 100%;
+                            height: 120px;
+                            border: none;
+                            resize: none;
+                            margin-top: 5px;
+                            margin-left: 2px;
+                        }
+                
+                        #shop-updateinquiry:focus, #inquiry-writeanswer:focus {
+                            outline: none;
+                        }
+                
+                        .shop-inquiryupdate-btn-wrapper, .inquiry-answerwrite-btn-wrapper {
+                            text-align: right;
+                            padding-right: 10px;
+                
+                            .shop-inquiryupdate-btn, .inquiry-answerwrite-btn {
+                                background-color: #4A8451;
+                                border-color: #4A8451;
+                                margin-bottom: 10px;
+
+                                &:hover,
+                                &:active {
+                                    background-color: #2b4d2f;
+                                    border-color: #2b4d2f;
+                                }
+                            }
+                        }
+                    }
+                
+                
+                    .shop-inquiry-btn-wrapper {
+                        text-align: right;
+                
+                        .shop-inquiry-btn-edit {
+                            background-color: white;
+                            border-width: 1.5px;
+                            background-color: white;
+                            border-color: #4A8451;
+                            color: #4A8451;
+                            width: 70px;
+
+                            &:hover,
+                            &:active {
+                                background-color: #CCC5B9;
+                                border-color: #CCC5B9;
+                                color: #fff;
+                            }
+                        }
+                
+                        .shop-inquiry-btn-cancel {
+                            background-color: #4A8451;
+                            border-color: #4A8451;
+                            width: 70px;
+
+                            &:hover,
+                            &:active {
+                                background-color: #2b4d2f;
+                                border-color: #2b4d2f;
+                            }
+                        }
+                    }
+                }
+                
+                .inquiry-btn {
+                    text-align: right;
+
+                    .inquiry-btn-edit {
+                        background-color: white;
+                        border-width: 1.5px;
+                        background-color: white;
+                        border-color: #4A8451;
+                        color: #4A8451;
+                        width: 70px;
+
+                        &:hover,
+                        &:active {
+                            background-color: #CCC5B9;
+                            border-color: #CCC5B9;
+                            color: #fff;
+                        }
+                    }
+
+                    .inquiry-btn-cancel {
+                        background-color: #4A8451;
+                        border-color: #4A8451;
+                        width: 70px;
+
+                        &:hover,
+                        &:active {
+                            background-color: #2b4d2f;
+                            border-color: #2b4d2f;
+                        }
+                    }
+
+                    .inquiry-btn-edit.checked {
+                        background-color: #37693d;
+                    }
+
+                }
+                
+                .shop-writeinquiry-wrapper {
+                    padding: 8px 8px;
+                    border: 1px solid rgb(167, 167, 167);
+                    margin-bottom: 10px;
+                    margin-top: 20px;
+                
+                    .shop-writeinquiry-name {
+                        color: black;
+                        font-size: 16px;
+                        font-weight: 500;
+                    }
+                
+                    #shop-writeinquiry {
+                        width: 100%;
+                        height: 120px;
+                        border: none;
+                        resize: none;
+                        margin-top: 5px;
+                    }
+                
+                    #shop-writeinquiry:focus {
+                        outline: none;
+                    }
+                
+                    .shop-inquirywrite-btn-wrapper {
+                        text-align: right;
+                        padding-right: 10px;
+                
+                        .shop-inquirywrite-btn {
+                            background-color: #4A8451;
+                            border-color: #4A8451;
+                            // border: none;
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
             }
         }
     }
-}
 
-.inquiry-wrapper {
-    margin-top: 20px;
-    margin-bottom: 50px;
-
-    .inquiry-content {
-        margin-bottom: 14px;
-        color: black;
+    .btn-write {
+        text-align: right;
+        
+        .nav-link {
+            padding: 0px;
+        }
+    
+        button {
+            width: 85px;
+            background-color: #4A8451;
+            border: none;
+            font-size: 11px;
+    
+            &:hover {
+                background-color: #2B4D2F;
+            }
+        }
     }
 
-    .shop-updateinquiry-wrapper {
-        padding: 8px 8px;
-        border: 1px solid rgb(167, 167, 167);
-        margin-bottom: 10px;
-        margin-top: 10px;
+    .wp-wrapper {
+        text-align: left;
 
-        .shop-updateinquiry-name {
-            color: black;
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        #shop-updateinquiry {
+        #shop-createinquiry-content {
             width: 100%;
             height: 120px;
-            border: none;
             resize: none;
             margin-top: 5px;
+            margin-left: 2px;
         }
-
-        #post-updatecomment:focus {
+        
+        #shop-createinquiry-content:focus {
             outline: none;
-        }
-
-        .post-commentupdate-btn-wrapper {
-            text-align: right;
-            padding-right: 10px;
-
-            .post-commentupdate-btn {
-                background-color: #4A8451;
-                border-color: #4A8451;
-                // border: none;
-                margin-bottom: 10px;
-            }
-        }
-    }
-
-
-    .post-comment-btn-wrapper {
-        text-align: right;
-
-        .post-comment-btn-edit {
-            background-color: white;
-            border-width: 1.5px;
-            background-color: white;
-            border-color: #4A8451;
-            color: #4A8451;
-            width: 70px;
-        }
-
-        .post-comment-btn-cancel {
-            background-color: #4A8451;
-            border-color: #4A8451;
-            width: 70px;
-        }
-
-        .post-comment-btn-edit.checked {
-            background-color: #37693d;
-        }
-    }
-}
-
-
-.post-writecomment-wrapper {
-    padding: 8px 8px;
-    border: 1px solid rgb(167, 167, 167);
-    margin-bottom: 10px;
-    margin-top: 20px;
-
-    .post-writecomment-name {
-        color: black;
-        font-size: 16px;
-        font-weight: 500;
-    }
-
-    #post-writecomment {
-        width: 100%;
-        height: 120px;
-        border: none;
-        resize: none;
-        margin-top: 5px;
-    }
-
-    #post-writecomment:focus {
-        outline: none;
-    }
-
-    .post-commentwrite-btn-wrapper {
-        text-align: right;
-        padding-right: 10px;
-
-        .post-commentwrite-btn {
-            background-color: #4A8451;
-            border-color: #4A8451;
-            // border: none;
-            margin-bottom: 10px;
         }
     }
 }
