@@ -72,7 +72,7 @@ class ReadBoardComponent extends Component {
         this.setState({ content: event.target.value });
     }
 
-    /* 댓글 삭제 */
+    /* 글 삭제 */
     deleteView = async function () {
         if (window.confirm("정말로 글을 삭제하시겠습니까?\n삭제된 글은 복구할 수 없습니다")) {
             BoardService.deleteBoard(this.state.no).then(res => {

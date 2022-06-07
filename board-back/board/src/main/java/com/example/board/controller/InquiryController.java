@@ -20,12 +20,14 @@ import java.util.List;
 public class InquiryController {
 
     @NonNull
+    MemberRepository memberRepository;
+    @NonNull
     InquiryService inquiryService;
 
     // CREATE
     @PostMapping("/add")
     public Inquiry addInquiry(@RequestBody InquiryDto inquiryDto) {
-        return this.inquiryService.createInquiry(new Inquiry(inquiryDto.getText(), inquiryDto.getAnswer()), inquiryDto.getProductId());
+        return this.inquiryService.createInquiry(new Inquiry(inquiryDto.getTitle(), inquiryDto.getText(), inquiryDto.getAnswer()), inquiryDto.getProductId(), inquiryDto.getMemberId(), inquiryDto.getAnswerMemberId());
     }
 
     // READ
@@ -37,7 +39,7 @@ public class InquiryController {
     // UPDATE
     @PutMapping("/update/{inquiryId}")
     public ResponseEntity<Inquiry> updateInquiry(@PathVariable int inquiryId, @RequestBody InquiryDto inquiryDto) {
-        return this.inquiryService.updateInquiry(inquiryId, new Inquiry(inquiryDto.getText(), inquiryDto.getAnswer()));
+        return this.inquiryService.updateInquiry(inquiryId, new Inquiry(inquiryDto.getTitle(), inquiryDto.getText(), inquiryDto.getAnswer()), inquiryDto.getAnswerMemberId());
     }
 
     //DELETE

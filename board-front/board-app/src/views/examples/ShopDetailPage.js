@@ -326,7 +326,7 @@ function ProductDetailPage() {
             </div >
            
             {/* <ShopNavTab /> */}
-            {/* <div className="navtab-section">
+            <div className="navtab-section">
                 <div className="nav-tabs-navigation">
                     <div className="nav-tabs-wrapper">
                         <Nav id="tabs" role="tablist" tabs>
@@ -370,13 +370,13 @@ function ProductDetailPage() {
                         </div>
                     </TabPane>
                     <TabPane tabId="2">
-                        < Reviews key={productId} />
+                        < Reviews productId={productId} toggle={toggle}/>
                     </TabPane>
                     <TabPane tabId="3">
-                        < ProductInquiry key={productId} />
+                        < ProductInquiry productId={productId} />
                     </TabPane>
                 </TabContent>
-            </div>{" "} */}
+            </div>{" "}
 
             <div className="btn-list">
                 <button type="button" className="btn-round btn"
