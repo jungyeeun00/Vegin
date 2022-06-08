@@ -27,28 +27,19 @@ public class MemberService implements UserDetailsService {
     @Autowired
     private MemberRepository memberRepository;
 
-    // 회원가입
+    /* 회원가입 */
     @Transactional
     public String signUp(MemberDto memberDto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
 
-        // password를 암호화 한 뒤 db에 저장
-
+        /* password 암호화 후 DB에 저장 */
         return memberRepository.save(memberDto.toEntity()).getId();
     }
-//    public String signUp(MemberDto memberDto) {
-//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
-//
-//        // password를 암호화 한 뒤 db에 저장
-//
-//        return memberRepository.save(memberDto.toEntity()).getId();
-//    }
 
+    /* 로그인 시 회원 정보 조회 */
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        // 로그인을 하기 위해 가입된 user정보를 조회하는 메서드
         Optional<Member> memberWrapper = memberRepository.findById(id);
         Member member = memberWrapper.get();
         System.out.println(member.getName() + "-----------------");
@@ -61,67 +52,8 @@ public class MemberService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(MemberRole.USER.getValue()));
         }
 
-        // 아이디, 비밀번호, 권한리스트를 매개변수로 User를 만들어 반환해준다.
+        /* 아이디, 비밀번호, 권한리스트를 매개변수로 User 생성하여 반환 */
         return new User(member.getId(), member.getPassword(), authorities);
     }
 
-    public int findAllCount(){
-        return (int)memberRepository.count();
-    }
-
-    public ResponseEntity<Map> getPagingMember(Integer p_num) {
-        Map result = null;
-
-        PagingUtil pu = new PagingUtil(p_num, 5, 5);
-        List<Member> list = memberRepository.findFromTo(pu.getObjectStartNum(), pu.getObjectCountPerPage());
-        pu.setObjectCountTotal(findAllCount());
-        pu.setCalcForPaging();
-
-        System.out.println("p_num : " + p_num);
-        System.out.println(pu.toString());
-
-        if (list == null || list.size() == 0) {
-            return null;
-        }
-
-        result = new HashMap();
-        result.put("pagingData", pu);
-        result.put("list", list);
-
-        return ResponseEntity.ok(result);
-    }
-
-    public Member createMember(Member member) {
-        return memberRepository.save(member);
-    }
-
-    public ResponseEntity<Member> getMember(String id) {
-        Member member = memberRepository.findById(id)
-                .orElseThrow(()->new ResourceNotFoundException("Not exist Board Data by no : ["+id+"]"));
-        return ResponseEntity.ok(member);
-    }
-
-    public ResponseEntity<Member> updateMember(String id, Member updatedMember) {
-        Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + id + "]"));
-        member.setPassword(updatedMember.getPassword());
-        member.setName(updatedMember.getName());
-        member.setPhone(updatedMember.getPhone());
-        member.setAddress(updatedMember.getAddress());
-        member.setBirthday(updatedMember.getBirthday());
-        member.setEmail(updatedMember.getEmail());
-
-        Member endUpdatedMember = memberRepository.save(member);
-        return ResponseEntity.ok(endUpdatedMember);
-    }
-
-    public ResponseEntity<Map<String, Boolean>> deleteMember(String id) {
-        Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + id + "]"));
-
-        memberRepository.delete(member);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("Deleted Board Data by id : [" + id + "]", Boolean.TRUE);
-        return ResponseEntity.ok(response);
-    }
 }

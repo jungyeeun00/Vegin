@@ -25,7 +25,7 @@ public class ReviewService {
     @NonNull
     private MemberRepository memberRepository;
 
-    // 후기 등록
+    /* 상품 후기 등록 */
     public Review createReview(Review review, String memberId, int productId) {
         Optional<Product> product = this.shopRepository.findById(productId);
         Optional<Member> member = this.memberRepository.findById(memberId);
@@ -39,7 +39,7 @@ public class ReviewService {
         return this.reviewRepository.save(review);
     }
 
-    // 후기 수정
+    /* 상품 후기 수정 */
     public ResponseEntity<Review> updateReview(Integer id, Review updatedReview) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Review Data by id : [" + id + "]"));
@@ -51,13 +51,13 @@ public class ReviewService {
         return ResponseEntity.ok(endUpdatedReview);
     }
 
-    // 후기 리스트
+    /* 상품 후기 목록 */
     @Transactional(readOnly = true)
     public List<Review> Listreviews(int productId) {
         return this.reviewRepository.getReviewsOfProduct(productId);
     }
 
-    // 후기 삭제
+    /* 상품 후기 삭제 */
     @Transactional
     public List<Review> Deletereview(int reviewId, int productId) {
         this.reviewRepository.deleteById(reviewId);

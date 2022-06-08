@@ -11,19 +11,8 @@ import java.util.Optional;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    public final static String SELECT_MEMBER_LIST_PAGED = ""
-            + "SELECT "
-            + "id,"
-            + "password,"
-            + "name,"
-            + "phone,"
-            + "address,"
-            + "email "
-            + "FROM member";
 
-    @Query(value = SELECT_MEMBER_LIST_PAGED, nativeQuery = true)
-    List<Member> findFromTo(final Integer objectStartNum, final Integer objectCountPerPage);
-
+    /* È¸¿ø */
     @Query("select m from Member m where m.id = :id")
     Optional<Member> findById(@Param("id") String id);
 }

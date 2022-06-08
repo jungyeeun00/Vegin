@@ -30,7 +30,7 @@ public class CommentService {
     @NonNull
     private MemberRepository memberRepository;
 
-    // 댓글 등록
+    /* 자유게시판 댓글 등록 */
     public Comment createComment(Comment comment, String memberId, int boardNo) {
         Optional<Board> board = this.boardRepository.findById(boardNo);
         Optional<Member> member = this.memberRepository.findById(memberId);
@@ -44,7 +44,7 @@ public class CommentService {
         return this.commentRepository.save(comment);
     }
 
-    // 댓글 수정
+    /* 자유게시판 댓글 수정 */
     public ResponseEntity<Comment> updateComment(Integer id, Comment updatedComment) {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Comment Data by id : [" + id + "]"));
@@ -55,13 +55,13 @@ public class CommentService {
         return ResponseEntity.ok(endUpdatedComment);
     }
 
-    //댓글 리스트
+    /* 자유게시판 댓글 목록 조회 */
     @Transactional(readOnly = true)
     public List<Comment> Listcomments(int boardNo) {
         return this.commentRepository.getCommentsOfBoard(boardNo);
     }
 
-    // 댓글 삭제
+    /* 자유게시판 댓글 삭제 */
     @Transactional
     public List<Comment> Deletecomment(int commentNo, int boardNo) {
         this.commentRepository.deleteById(commentNo);
