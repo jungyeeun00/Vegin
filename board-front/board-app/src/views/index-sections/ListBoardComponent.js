@@ -232,8 +232,8 @@ class ListBoardComponent extends Component {
                     <div className="community-best">
                         <h3>BEST</h3>
                     </div>
-                        {this.state.best.length !== 0 && <BestCommunityFreeItems boards={this.state.best} />}
-                        {this.state.boards.length === 0 && <h5 style={{textAlign:'center', margin:'60px 0'}}>아직 작성된 글이 없습니다.</h5>}
+                        {this.state.best.length >= 4 && <BestCommunityFreeItems boards={this.state.best} />}
+                        {this.state.boards.length < 0 && <h5 style={{textAlign:'center', margin:'60px 0'}}>아직 베스트 글이 없습니다.</h5>}
                         <hr className="community-hr" />
                         <div className="community-pl-title">
                             <h5 className="text-center">자유게시판</h5>
