@@ -1,6 +1,8 @@
 # Vegin &nbsp;<img height="35" alt="logo" src="https://user-images.githubusercontent.com/74102394/171581538-3d67c356-229e-4829-a5ae-870404d40347.png"> 
 > 공공API와 머신러닝을 활용한 비건 커뮤니티
 
+[![Video Label](http://img.youtube.com/vi/9u9Y_aCMLbc/0.jpg)](https://youtu.be/9u9Y_aCMLbc)
+
 ### 1. 프로젝트 제작 기간 및 참여 인원
 
 * 2022년 1월 ~ 6월초
