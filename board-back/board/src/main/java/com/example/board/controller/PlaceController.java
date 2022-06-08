@@ -32,6 +32,7 @@ public class PlaceController {
     private PlaceService placeService;
 
 
+    /* 모든 음식점 정보 불러오기 */
     @GetMapping("/map")
     public List<PlaceInfo> getAllPlaces(){
         return placeService.getAllPlaces();

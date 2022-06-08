@@ -52,6 +52,7 @@ public class PlaceService {
                 if (placeInfoRepository.count() > 500) break;
                 if (placeInfoRepository.countUPSONM((String) tmp.get("UPSO_NM")) >= 1) continue;
 
+
                 /* 네이버 검색 API - 음식점의 이미지 정보 가져오기 */
                 String clientId = "KWZO2nm_58J0kYLojjaw";
                 String clientSecret = "TYZo36AIJQ";
