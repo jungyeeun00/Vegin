@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Button, Row, Col } from 'reactstrap';
 import ShopService from 'service/ShopService';
 import MemberService from 'service/MemberService';
-import { RingVolumeOutlined } from '@material-ui/icons';
-import { rest } from 'lodash';
 
 class ProductInquiry extends Component {
     constructor(props) {
@@ -37,7 +35,7 @@ class ProductInquiry extends Component {
 
     returnCurrentMember() {
         let currentMember = null;
-        if (MemberService.getCurrentMember() == null)
+        if (MemberService.getCurrentMember() === null)
             currentMember = "문의 작성 시 로그인 필요";
         else
             currentMember = MemberService.getCurrentMember();
@@ -82,7 +80,7 @@ class ProductInquiry extends Component {
     }
 
     createInquiry = () => {
-        if (MemberService.getCurrentMember() != null) {
+        if (MemberService.getCurrentMember() !== null) {
             let inquiry = {
                 productId: this.state.productId,
                 memberId: MemberService.getCurrentMember(),
@@ -126,7 +124,7 @@ class ProductInquiry extends Component {
     }
 
     createAnswer = (inquiryId, memberId, title, text) => {
-        if (MemberService.getCurrentMember() != null) {
+        if (MemberService.getCurrentMember() !== null) {
             let inquiry = {
                 productId: this.state.productId,
                 memberId: memberId,
@@ -204,7 +202,7 @@ class ProductInquiry extends Component {
                                                 <td>{inquiry.title}</td>
                                                 <td>{inquiry.member.id}</td>
                                                 <td>{inquiry.created_date.substring(0, 10)}</td>
-                                                <td>{inquiry.answer != '' ? "완료" : "미완료"}</td>
+                                                <td>{inquiry.answer !== '' ? "완료" : "미완료"}</td>
                                             </tr>
                                             {
                                                 this.state.details.includes(inquiry.id) &&
@@ -214,7 +212,7 @@ class ProductInquiry extends Component {
                                                             {!this.state.updating.now &&
                                                                 <div className='inquiry-content' dangerouslySetInnerHTML={{ __html: inquiry.text }} />
                                                             }
-                                                            {this.state.updating.now && this.state.updating.inquiryId == inquiry.id &&
+                                                            {this.state.updating.now && this.state.updating.inquiryId === inquiry.id &&
                                                                 <div className='shop-updateinquiry-wrapper'>
                                                                     <textarea
                                                                         id='shop-updateinquiry'
@@ -229,7 +227,7 @@ class ProductInquiry extends Component {
                                                                     </div>
                                                                 </div>
                                                             }
-                                                            {MemberService.getCurrentMember() == inquiry.member.id && !this.state.updating.now &&
+                                                            {MemberService.getCurrentMember() === inquiry.member.id && !this.state.updating.now &&
                                                                 <div className='inquiry-btn'>
                                                                     <Button className="inquiry-btn-edit btn-round ml-1" type="button" onClick={() => this.changeUpdating(inquiry.id)}>
                                                                         수정
@@ -260,7 +258,7 @@ class ProductInquiry extends Component {
                                                             }
                                                             <div className='inquiry-answer-wrapper'>
                                                                 {
-                                                                    inquiry.answer != '' &&
+                                                                    inquiry.answer !== '' &&
                                                                     <div className='inquiry-answer'>
                                                                             <div className='inquiry-answer-content'>
                                                                                 <Row>
@@ -268,7 +266,7 @@ class ProductInquiry extends Component {
                                                                                     <Col md='8' className='inquiry-answer-text'>{inquiry.answer}</Col>
                                                                                 </Row>
                                                                         </div>
-                                                                        {MemberService.getCurrentMember() == inquiry.answerMember.id &&
+                                                                        {MemberService.getCurrentMember() === inquiry.answerMember.id &&
                                                                             <div className='inquiry-answer-btn-wrapper'>
                                                                                 <Button className="inquiry-answer-btn-cancel btn-round ml-1" type="button" onClick={() => this.deleteAnswer(inquiry.id, inquiry.title, inquiry.text)}>삭제</Button>
                                                                             </div>

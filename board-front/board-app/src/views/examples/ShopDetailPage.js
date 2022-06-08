@@ -66,13 +66,13 @@ function ProductDetailPage() {
         });
         // 이미 선택한 옵션인 경우 팝업 창 뜨도록
         for(let i = 0; i < options.length; i++) {
-            if(options[i].option == opValue[0]) {
+            if(options[i].option === opValue[0]) {
                 flag = 1;
                 alert('이미 선택한 옵션입니다.');
                 break;
             }
         }
-        if(flag == 0) {
+        if(flag === 0) {
             setOption([
                 ..._options,
                 { productName: productName, option: opValue[0], num: 1, price: price, regPrice: regPrice, sum: price, id: 0, choiceId: opValue[1] },
@@ -201,7 +201,7 @@ function ProductDetailPage() {
                                 <Row className="price-row" style={{ height: '75px'}}>
                                     <Col>
                                         <div className="product-price">
-                                            { soldPrice != regPrice &&
+                                            { soldPrice !== regPrice &&
                                                 <span>
                                                     <span className="product-saleRate">{saleRate}%</span> 
                                                     <span className="product-regPrice">{regPrice}</span>
@@ -230,7 +230,7 @@ function ProductDetailPage() {
                                     </Col>
                                 </Row>
                                 {/* 옵션 있는 경우만 출력 */}
-                                { choices.length != 0 
+                                { choices.length !== 0 
                                 ?   <Row>
                                         <Col md="4" className="option-col text-center text-md-left">
                                             <div className="option-choice">
@@ -256,7 +256,7 @@ function ProductDetailPage() {
                                         <Col>
 
                                         {/* 선택 옵션 */}
-                                        {options.length != 0 &&
+                                        {options.length !== 0 &&
                                             <div className="option-wrapper">
                                             {
                                                 options.map((option, idx) => {
