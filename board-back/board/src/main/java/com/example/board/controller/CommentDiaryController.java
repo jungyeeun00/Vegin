@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -25,25 +24,25 @@ public class CommentDiaryController {
     @NonNull
     CommentDiaryService commentService;
 
-    // CREATE
+    /* 다이어리 댓글 등록 */
     @PostMapping("/add")
     public CommentDiary addComment(@RequestBody CommentDiaryDto commentDto) { //, Principal principal){
          return this.commentService.createComment(new CommentDiary(commentDto.getContent()), commentDto.getMemberId(), commentDto.getBoardNo());
     }
 
-    // READ
+    /* 다이어리 댓글 목록 조회 */
     @GetMapping("/list/{boardNo}")
     public ResponseEntity<List<CommentDiary>> addComment(@PathVariable int boardNo){
         return new ResponseEntity<>(this.commentService.Listcomments(boardNo),HttpStatus.CREATED);
     }
 
-    // UPDATE
+    /* 다이어리 댓글 수정 */
     @PutMapping("/update/{commentId}")
     public ResponseEntity<CommentDiary> updateComment(@PathVariable int commentId, @RequestBody CommentDiaryDto commentDto) { //, Principal principal){
         return this.commentService.updateComment(commentId, new CommentDiary(commentDto.getContent()));
     }
 
-    //DELETE
+    /* 다이어리 댓글 삭제 */
     @DeleteMapping("/delete/{boardNo}/{commentNo}")
     public ResponseEntity<List<CommentDiary>> addComment(@PathVariable int boardNo,@PathVariable int commentNo) {
         return new ResponseEntity<>(this.commentService.Deletecomment(commentNo, boardNo),HttpStatus.CREATED);

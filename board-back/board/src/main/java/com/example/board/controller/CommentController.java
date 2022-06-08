@@ -24,25 +24,25 @@ public class CommentController {
     @NonNull
     CommentService commentService;
 
-    // CREATE
+    /* 자유게시판 댓글 등록 */
     @PostMapping("/add")
     public Comment addComment(@RequestBody CommentDto commentDto) { //, Principal principal){
          return this.commentService.createComment(new Comment(commentDto.getContent()), commentDto.getMemberId(), commentDto.getBoardNo());
     }
 
-    // READ
+    /* 자유게시판 댓글 목록 조회 */
     @GetMapping("/list/{boardNo}")
     public ResponseEntity<List<Comment>> addComment(@PathVariable int boardNo){
         return new ResponseEntity<>(this.commentService.Listcomments(boardNo),HttpStatus.CREATED);
     }
 
-    // UPDATE
+    /* 자유게시판 댓글 수정 */
     @PutMapping("/update/{commentId}")
     public ResponseEntity<Comment> updateComment(@PathVariable int commentId, @RequestBody CommentDto commentDto) { //, Principal principal){
         return this.commentService.updateComment(commentId, new Comment(commentDto.getContent()));
     }
 
-    //DELETE
+    /* 자유게시판 댓글 삭제*/
     @DeleteMapping("/delete/{boardNo}/{commentNo}")
     public ResponseEntity<List<Comment>> addComment(@PathVariable int boardNo,@PathVariable int commentNo) {
         return new ResponseEntity<>(this.commentService.Deletecomment(commentNo, boardNo),HttpStatus.CREATED);

@@ -25,7 +25,7 @@ public class InquiryService {
     @NonNull
     private MemberRepository memberRepository;
 
-    // ���� ���
+    /* 상품 문의 등록 */
     public Inquiry createInquiry(Inquiry inquiry, int productId, String memberId, String answerMemberId) {
         Optional<Product> product = this.shopRepository.findById(productId);
         Optional<Member> member = this.memberRepository.findById(memberId);
@@ -43,7 +43,7 @@ public class InquiryService {
         return this.inquiryRepository.save(inquiry);
     }
 
-    // ���� ����
+    /* 상품 문의 수정 */
     public ResponseEntity<Inquiry> updateInquiry(Integer id, Inquiry updatedInquiry, String answerMemberId) {
         Inquiry inquiry = inquiryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Inquiry Data by id : [" + id + "]"));
@@ -59,13 +59,13 @@ public class InquiryService {
         return ResponseEntity.ok(endUpdatedInquiry);
     }
 
-    // ���� ����Ʈ
+    /* 상품 문의 목록 조회 */
     @Transactional(readOnly = true)
     public List<Inquiry> Listinquirys(int productId) {
         return this.inquiryRepository.getInquirysOfProduct(productId);
     }
 
-    // ���� ����
+    /* 상품 문의 삭제 */
     @Transactional
     public List<Inquiry> Deleteinquiry(int inquiryId, int productId) {
         this.inquiryRepository.deleteById(inquiryId);

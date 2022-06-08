@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface CommentDiaryRepository extends CrudRepository<CommentDiary,Integer> {
 
+    /* 다이어리 댓글 목록 */
     @Query("SELECT c from CommentDiary c where c.board.no=:boardNo and c.id>0 order by c.id ASC")
     public List<CommentDiary> getCommentsOfBoard(@Param("boardNo") Integer boardNo);
 

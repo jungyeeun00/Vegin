@@ -14,6 +14,7 @@ class ProductService {
         return axios.post(SHOP_API_BASE_URL + "/" + category + "?searchInput=" + searchInput +"&sort=" + sort + "&p_num=" + p_num,{}, { withCredentials: true });
     }
 
+    /* 관심상품 */
     setLike(memberId, productId) {
         return axios.get(SHOP_API_BASE_URL + "?memberId=" + memberId +"&productId=" + productId)
     }
@@ -26,18 +27,22 @@ class ProductService {
         return axios.get(SHOP_API_BASE_URL +  "/" + category + "?memberId=" + memberId)
     }
 
+    /* 상품 장바구니 */
     getChoices(productId) {
         return axios.post(SHOP_API_BASE_URL + "/shop-detail-page/" + productId,{}, { withCredentials: true })
     }
 
+    /* 상품 추천 */
     getRecommend() {
         return axios.post(SHOP_API_BASE_URL ,{}, { withCredentials: true })
     }
 
+    /* 인기 상품 */
     getFeatured() {
         return axios.get(SHOP_API_BASE_URL + "/featured")
     }
 
+    /* 상품 후기 */
     getReviews(productId) {
         return axios.get(REVIEW_API_BASE_URL + "/list/" + productId)
     }
@@ -54,6 +59,7 @@ class ProductService {
         return axios.delete(REVIEW_API_BASE_URL + "/delete/" + productId + "/" + reviewId);
     }
     
+    /* 상품 문의 */
     getInquirys(productId) {
         return axios.get(INQUIRY_API_BASE_URL + "/list/" + productId)
     }

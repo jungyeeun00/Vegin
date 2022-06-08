@@ -92,13 +92,6 @@ class LoginPage extends Component {
                     >
                       SIGN UP
                     </Button>
-                    {/* <Button
-                      className="findpwd-btn"
-                      color="danger"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}  >
-                      Forgot password?
-                    </Button> */}
                   </div>
                 </Card>
               </Col>

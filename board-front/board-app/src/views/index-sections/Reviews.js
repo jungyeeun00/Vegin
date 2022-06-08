@@ -25,12 +25,13 @@ class Reviews extends Component {
     }
 
     componentDidMount() {
+        /* 서버에서 상품 후기 정보 가져오기 */
         ShopService.getReviews(this.state.productId).then(res => {
             this.setState({ reviews: res.data });
         })
     }
 
-    /* 현재 사용자 */
+    /* 로그인 한 유저 정보 가져오기 */
     returnCurrentMember() {
         let currentMember = null;
         if (MemberService.getCurrentMember() == null)
@@ -41,7 +42,7 @@ class Reviews extends Component {
         return currentMember;
     }
 
-    /* 수정 중인지 상태 변경 */
+    /* 상품 후기 수정 상태로 업데이트 */
     changeUpdating = (reviewId) => {
         this.setState({
             updating: {
@@ -51,18 +52,18 @@ class Reviews extends Component {
         });
     }
 
-    /* 별점 상태 수정 */
+    /* onChange 이벤트 발생 시 상품 후기 별점 저장 */
     changeStarHandler = (event) => {
         console.log(event.target.value);
         this.setState({ star: event.target.value });
     }
 
-    /* 텍스트 상태 수정 */
+    /* onChange 이벤트 발생 시 상품 후기 내용 저장 */
     changeTextHandler = (event) => {
         this.setState({ text: event.target.value });
     }
 
-    /* 리뷰 등록 */
+    /* 상품 후기 등록 */
     createReview = () => {
         if (MemberService.getCurrentMember() != null) {
             let review = {
@@ -80,7 +81,7 @@ class Reviews extends Component {
             alert("로그인 후 이용 바랍니다.")
     }
 
-    /* 리뷰 내용 수정 */
+    /* 상품 후기 수정 */
     updateReview = (reviewId) => {
         let review = {
             productId: this.state.productId,
@@ -93,7 +94,7 @@ class Reviews extends Component {
         });
     }
 
-    /* 리뷰 삭제 */
+    /* 상품 후기 삭제 */
     deleteReview = async function (reviewId) {
         if (window.confirm("정말로 리뷰를 삭제하시겠습니까?\n삭제된 리뷰는 복구할 수 없습니다")) {
             ShopService.deleteReview(this.state.productId, reviewId).then(res => {

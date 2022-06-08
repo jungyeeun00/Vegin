@@ -24,25 +24,25 @@ public class InquiryController {
     @NonNull
     InquiryService inquiryService;
 
-    // CREATE
+    /* 상품 문의 등록 */
     @PostMapping("/add")
     public Inquiry addInquiry(@RequestBody InquiryDto inquiryDto) {
         return this.inquiryService.createInquiry(new Inquiry(inquiryDto.getTitle(), inquiryDto.getText(), inquiryDto.getAnswer()), inquiryDto.getProductId(), inquiryDto.getMemberId(), inquiryDto.getAnswerMemberId());
     }
 
-    // READ
+    /* 상품 문의 목록 조회 */
     @GetMapping("/list/{productId}")
     public ResponseEntity<List<Inquiry>> addInquiry(@PathVariable int productId){
         return new ResponseEntity<>(this.inquiryService.Listinquirys(productId), HttpStatus.CREATED);
     }
 
-    // UPDATE
+    /* 상품 문의 수정 */
     @PutMapping("/update/{inquiryId}")
     public ResponseEntity<Inquiry> updateInquiry(@PathVariable int inquiryId, @RequestBody InquiryDto inquiryDto) {
         return this.inquiryService.updateInquiry(inquiryId, new Inquiry(inquiryDto.getTitle(), inquiryDto.getText(), inquiryDto.getAnswer()), inquiryDto.getAnswerMemberId());
     }
 
-    //DELETE
+    /* 상품 문의 삭제 */
     @DeleteMapping("/delete/{productId}/{inquiryId}")
     public ResponseEntity<List<Inquiry>> addInquiry(@PathVariable int productId,@PathVariable int inquiryId) {
         return new ResponseEntity<>(this.inquiryService.Deleteinquiry(inquiryId, productId),HttpStatus.CREATED);

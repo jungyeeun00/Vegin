@@ -28,11 +28,13 @@ class ProductInquiry extends Component {
     }
 
     componentDidMount() {
+        /* 서버에서 상품 문의 정보 가져오기 */
         ShopService.getInquirys(this.state.productId).then(res => {
             this.setState({ inquirys: res.data });
         })
     }
 
+    /* 로그인 한 유저 정보 가져오기 */
     returnCurrentMember() {
         let currentMember = null;
         if (MemberService.getCurrentMember() === null)
@@ -43,21 +45,14 @@ class ProductInquiry extends Component {
         return currentMember;
     }
 
-    goToList() {
-        this.props.history.goBack();
-    }
-
-    goToUpdate = (event) => {
-        event.preventDefault();
-        this.props.history.push(`/create-inquiry/${this.state.productId}`);
-    }
-
+    /* 상품 문의 등록 상태로 업데이트 */
     changeCreating = () => {
         this.setState({
             creating: true
         });
     }
 
+    /* 상품 문의 수정 상태로 업데이트 */
     changeUpdating = (inquiryId) => {
         this.setState({
             updating: {
@@ -67,18 +62,22 @@ class ProductInquiry extends Component {
         });
     }
 
+    /* onChange 이벤트 발생 시 상품 문의 제목 저장 */
     changeTitleHandler = (event) => {
         this.setState({ title: event.target.value });
     }
 
+    /* onChange 이벤트 발생 시 상품 문의 내용 저장 */
     changeTextHandler = (event) => {
         this.setState({ text: event.target.value });
     }
 
+    /* onChange 이벤트 발생 시 상품 문의 답변 저장 */
     changeAnswerHandler = (event) => {
         this.setState({ answer: event.target.value });
     }
 
+    /* 상품 문의 삭제 */
     createInquiry = () => {
         if (MemberService.getCurrentMember() !== null) {
             let inquiry = {
@@ -99,6 +98,7 @@ class ProductInquiry extends Component {
             alert("로그인 후 이용 바랍니다.")
     }
 
+    /* 상품 문의 수정 */
     updateInquiry = (inquiryId, title, answer, answerMemberId) => {
         let inquiry = {
             productId: this.state.productId,
@@ -114,6 +114,7 @@ class ProductInquiry extends Component {
         });
     }
 
+    /* 상품 문의 삭제 */
     deleteInquiry = async function (inquiryId) {
         if (window.confirm("정말로 문의를 삭제하시겠습니까?\n삭제된 문의는 복구할 수 없습니다")) {
             ShopService.deleteInquiry(this.state.productId, inquiryId).then(res => {
@@ -123,6 +124,7 @@ class ProductInquiry extends Component {
         }
     }
 
+    /* 상품 문의 답변 등록 */
     createAnswer = (inquiryId, memberId, title, text) => {
         if (MemberService.getCurrentMember() !== null) {
             let inquiry = {
@@ -141,6 +143,7 @@ class ProductInquiry extends Component {
             alert("로그인 후 이용 바랍니다.")
     }
 
+    /* 상품 문의 답변 삭제 */
     deleteAnswer = async function (inquiryId, title, text) {
         if (window.confirm("정말로 답변을 삭제하시겠습니까?\n삭제된 답변은 복구할 수 없습니다")) {
             let inquiry = {
@@ -158,6 +161,7 @@ class ProductInquiry extends Component {
         }
     }
 
+    /* 상품 문의 상세 열린 상태로 업데이트 */    
     openDetail = (inquiryId) => {
         if (!this.state.details.includes(inquiryId))
             this.state.details.push(inquiryId);
@@ -167,6 +171,7 @@ class ProductInquiry extends Component {
         this.checkRole();
     }
 
+    /* 상품 문의 답변 등록 및 삭제 권한 검사 */
     checkRole = () => {
         MemberService.getOneMember(MemberService.getCurrentMember()).then((res) => {
             this.setState({ role: res.data.role });

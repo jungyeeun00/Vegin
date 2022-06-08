@@ -96,9 +96,6 @@ class JoinPage extends Component {
                         <Row>
                             <Col className="ml-auto mr-auto">
                                 <Card className="card-register join ml-auto mr-auto" style={{ backgroundColor: "white" }}>
-                                    {/* <h3 className="title mx-auto">
-                    <img className="login_logo" alt="login_logo" src={require("assets/img/login_logo.png")} style={{ width: '250px' }} />
-                    </h3> */}
                                     <h3 className="join-title">JOIN</h3>
                                     <Form className="register-form">
                                         {/* 이름 입력 */}
