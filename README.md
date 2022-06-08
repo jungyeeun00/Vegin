@@ -99,7 +99,7 @@
 
 
 
-#### AboutVeganPage.js & AboutVeginPage.js
+#### AboutVeganPage & AboutVeginPage.js
 
 > #### ABOUT 페이지
 >
