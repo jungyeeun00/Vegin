@@ -211,26 +211,89 @@
 
   * Vegin 커뮤니티에 대한 소개와 비건에 대한 정보를 확인할 수 있다.
 
+
 * **RECIPE 카테고리**
 
   * RECIPE
 
-    <img width="800" title="HOME" alt="HOME" src="https://user-images.githubusercontent.com/73582215/172656635-59f149df-b40e-4157-bf78-003b040f9802.png">
+    <img width="800" title="RECIPE" alt="RECIPE" src="https://user-images.githubusercontent.com/73582215/172656635-59f149df-b40e-4157-bf78-003b040f9802.png">
 
   * RECIPE 상세
 
-    <img width="800" title="HOME" alt="HOME" src="https://user-images.githubusercontent.com/73582215/172656790-3341f914-af1f-4efb-9b94-e06c188e2f2f.png">
+    <img width="800" title="RECIPE Detail" alt="RECIPE Detail" src="https://user-images.githubusercontent.com/73582215/172656790-3341f914-af1f-4efb-9b94-e06c188e2f2f.png">
     
   * RECIPE 카테고리를 클릭하면, 다양한 비건 음식 추천 레시피를 볼 수 있다.
+
   * 재료명 또는 메뉴명으로 레시피를 직접 검색하여 찾을 수 있다.
+
   * 원하는 레시피를 선택하면 재료와 조리 단계에 대한 내용을 상세하게 확인할 수 있다.
+
   * 특정 레시피 클릭 시 사용자별로 세션id 값을 담은 쿠키가 생성되고, 사용자가 클릭한 아이템의 로그를 쿠키 value, 아이템 id, 접속 time 순서로 기록하며, 추천 시스템의 input값은 이 로그에서 가장 최근에 기록된 것을 사용한다.
+
   * sqlalchemy 라이브러리를 사용해 MySQL DB와 연동하여 이름, 카테고리, 재료, 조리방법을 가져온다.
+
   * sklearn 라이브러리를 사용해 tf-idf를 통해 구한 DTM으로 linear_kernel을 통해 유사도를 구한 뒤, 가장 유사도가 높은 8개의 레시피를 반환한다. 이 때 카테고리 및 재료, 이름, 조리방법에 다른 가중치를 주어 유사도를 계산한다.
+
   * java와 python 연동은 apache commons exec 라이브러리를 사용한다.
 
 
+* **SHOP 카테고리**
 
+  * SHOP
+
+    <img width="800" title="SHOP" alt="SHOP" src="https://user-images.githubusercontent.com/73582215/172659892-5dd11dc3-595b-4fa8-81a5-b973b7ea9513.png">
+
+  * SHOP 상세
+
+    <img width="800" title="SHOP Detail" alt="SHOP Detail" src="https://user-images.githubusercontent.com/73582215/172659824-d5638e83-e553-4c46-848c-0c9175eb1baa.png">
+
+  * SHOP 카테고리를 클릭하면, 사용자가 조회 또는 구매하였던 상품과 유사한 상품들을 살펴볼 수 있고, 품명 또는 품목의 키워드로 관련된 상품을 검색할 수 있다. 
+
+  * 원하는 상품을 선택하면 상품의 상세 정보를 확인할 수 있고, 원하는 옵션과 수량 등을 입력하여 상품을 장바구니에 담거나 구매할 수 있다.
+
+  * 사용자가 상품의 구매를 결정하면 결제 시스템으로 이동한다.
+
+  * 특정 상품 클릭 시 사용자별로 세션id값을 담은 쿠키가 생성되고, 사용자가 클릭한 아이템의 로그를 쿠키 value, 아이템 id, 접속 time 순서로 기록하며, 추천 시스템의 input값은 이 로그에서 가장 최근에 기록된 것을 사용한다.
+
+  * sqlalchemy 라이브러리를 사용해 MySQL DB와 연동하여 이름, 카테고리를 가져온다.
+
+  * sklearn 라이브러리를 사용해 tf-idf를 통해 구한 DTM으로 linear_kernel을 통해 유사도를 구한 뒤, 가장 유사도가 높은 8개의 상품을 반환한다.
+
+  * java와 python 연동은 apache commons exec 라이브러리를 사용한다. 
+
+
+* **PLACE 카테고리**
+
+  * PLACE
+
+    <img width="800" title="PLACE" alt="PLACE" src="https://user-images.githubusercontent.com/73582215/172660854-8ee5761f-cc0b-48d4-b01d-36107e6a7fa7.png">
+
+  * PLACE 상세
+
+    <img width="800" title="PLACE Detail" alt="PLACE Detail" src="https://user-images.githubusercontent.com/73582215/172661581-5766e31c-54fb-4e26-ab12-f41da49445c2.png">
+
+  * 사용자는 비건 음식점을 찾을 수 있고, 음식점의 상세 정보를 조회할 수 있다.
+
+  * 지도를 이동해 원하는 지역의 비건 음식점을 찾을 수 있고, 음식점 검색을 통해 원하는 음식점의 정보를 조회할 수 있다.
+
+
+* **COMMUNITY 카테고리**
+
+  * COMMUNITY
+
+    <img width="800" title="COMMUNITY" alt="COMMUNITY" src="https://user-images.githubusercontent.com/73582215/172662378-358dc872-b622-451a-80d9-6fbf926d0732.png">
+
+  * COMMUNITY 상세
+
+    <img width="800" title="COMMUNITY Detail" alt="COMMUNITY Detail" src="https://user-images.githubusercontent.com/73582215/172662463-b1857518-cd51-4027-bdd7-49c43c3eed7c.png">
+
+  * 자유게시판과 다이어리 게시판이 있다.
+
+  * 글 및 댓글 작성은 회원가입/로그인을 해야 가능하다.
+
+  * 자유게시판과 다이어리의 글은 누구나 조회가 가능하다.
+
+  * 작성한 모든 글은 수정 및 삭제가 가능하다.
 
 
 ### 7. 기대효과
@@ -260,8 +323,10 @@
 
 ### 9. 개발도구
 
-- **IntelliJ IDEA**   
+- **IntelliJ IDEA**  
+
 - **Visual Studio Code**   
+
 - **MySQL Workbench**   
 
 
