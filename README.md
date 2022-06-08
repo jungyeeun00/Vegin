@@ -235,6 +235,7 @@
 
   * java와 python 연동은 apache commons exec 라이브러리를 사용한다.
 
+<br/>
 
 * **SHOP 카테고리**
 
@@ -260,6 +261,7 @@
   
   * java와 python 연동은 apache commons exec 라이브러리를 사용한다. 
 
+<br/>
 
 * **PLACE 카테고리**
 
@@ -275,6 +277,7 @@
   
   * 지도를 이동해 원하는 지역의 비건 음식점을 찾을 수 있고, 음식점 검색을 통해 원하는 음식점의 정보를 조회할 수 있다.
 
+<br/>
 
 * **COMMUNITY 카테고리**
 
