@@ -75,6 +75,7 @@
 >
 > ##### - VEGIN'S MAGAZINE (비건 관련 매거진)
 
+<br/>
 
 #### JoinPage.js
 
@@ -86,6 +87,7 @@
 >
 > ##### 회원가입 완료 직후 홈 페이지로 Redirect
 
+<br/>
 
 #### LoginPage.js
 
@@ -95,6 +97,7 @@
 >
 > ##### - Local Storage에 member라는 Key로 Item을 저장하는 방법으로 로그인 여부 확인
 
+<br/>
 
 #### MypagePage.js
 
@@ -106,6 +109,7 @@
 >
 > ##### - 장바구니 / 관심 상품 / 내 글 목록 조회 및 수정
 
+<br/>
 
 #### AboutVeganPage & AboutVeginPage.js
 
@@ -115,6 +119,7 @@
 >
 > ##### - 비건에 대한 소식, 정보를 전하는 매거진 제공
 
+<br/>
 
 #### RecipePage.js
 
@@ -126,6 +131,7 @@
 >
 > ##### - 레시피 목록 최신순/인기순 정렬
 
+<br/>
 
 #### RecipeDetailPage.js
 
@@ -133,6 +139,7 @@
 >
 > ##### - 특정 레시피의 재료, 조리 순서 등 확인
 
+<br/>
 
 #### ShopPage.js
 
@@ -144,6 +151,7 @@
 >
 > ##### - 상품 목록 인기순/최저가순 정렬
 
+<br/>
 
 #### ShopDetailPage.js
 
@@ -155,6 +163,7 @@
 >
 > ##### - 상품정보 / 상품후기 / 상품문의
 
+<br/>
 
 #### PlacePage.js
 
@@ -164,6 +173,7 @@
 >
 > ##### - 특정 음식점의 상세 정보와 지도 내 마커 위치 확인
 
+<br/>
 
 #### ListBoardComponent / ListDiaryComponent.js
 
@@ -175,6 +185,7 @@
 >
 > ##### - 글 작성 페이지로 이동 가능
 
+<br/>
 
 #### ReadBoardComponent / ReadDiaryComponent.js
 
