@@ -50,11 +50,10 @@
 #### 3.1 프로젝트 설명
 웹 크롤링을 이용하여 비건 레시피 데이터를 수집하고, 사용자가 재료나 음식의 키워드를 검색하면 관련된 레시피를 제공한다. 비건 음식점에 대한 정보는 오픈 API를 사용하여 제공한다. 사용자들은 비건 관련 상품을 구매할 수 있고, 자유게시판에 자신의 의견과 비건 소식, 정보 등을 자유롭게 글로 남길 수 있으며, 다이어리 게시판에 비건 라이프를 기록할 수 있다. 레시피와 상품은 가장 최근 조회 이력을 바탕으로 머신러닝을 사용하여 추천 리스트를 제공한다.
 #### 3.2 프로젝트 구조
-<img height="200" alt="project structure" src="https://user-images.githubusercontent.com/73582215/172617167-72d8c92d-e982-4aef-a0bb-6c4f09e14cbe.png"> 
+<img width="800" alt="project structure" src="https://user-images.githubusercontent.com/73582215/172617167-72d8c92d-e982-4aef-a0bb-6c4f09e14cbe.png"> 
 
 ### 4. ERD 설계
-
-
+<img width="900" alt="Database ERD" src="https://user-images.githubusercontent.com/73582215/172619391-217d8b55-f203-48fc-a073-6c68c2aa1e90.jpg">
 
 ### 5. 페이지 설명
 
@@ -188,18 +187,49 @@
 
 
 
-
-
 ### 6. 실행 화면
 
 * **HOME 화면 & ABOUT 카테고리**
 
+  * HOME
+
+    <img width="800" title="HOME" alt="HOME" src="https://user-images.githubusercontent.com/73582215/172619918-ae1210c1-720b-4521-9686-5d2b481a7268.png">
+
+  * ABOUT - VEGAN
+
+    <img width="800" title="ABOUT - VEGAN" alt="ABOUT - VEGAN" src="https://user-images.githubusercontent.com/73582215/172620358-7a69dcfc-e4e3-41f3-9237-12698301086b.png">
+    
+  * ABOUT - VEGIN
+
+    <img width="800" title="ABOUT - VEGIN" alt="ABOUT - VEGIN" src="https://user-images.githubusercontent.com/73582215/172654493-1f9f4f85-0030-440b-99f0-ae6681a8e596.png">
+
   * 로그인, 회원가입, 마이페이지로 이동할 수 있다.
 
   * 레시피, 샵, 플레이스, 커뮤니티 별 인기 있는 항목을 메인 화면에 보여준다.
+
   * 비건에 대한 소식, 정보를 알려주는 매거진을 제공한다.
 
   * Vegin 커뮤니티에 대한 소개와 비건에 대한 정보를 확인할 수 있다.
+
+* **RECIPE 카테고리**
+
+  * RECIPE
+
+    <img width="800" title="HOME" alt="HOME" src="https://user-images.githubusercontent.com/73582215/172656635-59f149df-b40e-4157-bf78-003b040f9802.png">
+
+  * RECIPE 상세
+
+    <img width="800" title="HOME" alt="HOME" src="https://user-images.githubusercontent.com/73582215/172656790-3341f914-af1f-4efb-9b94-e06c188e2f2f.png">
+    
+  * RECIPE 카테고리를 클릭하면, 다양한 비건 음식 추천 레시피를 볼 수 있다.
+  * 재료명 또는 메뉴명으로 레시피를 직접 검색하여 찾을 수 있다.
+  * 원하는 레시피를 선택하면 재료와 조리 단계에 대한 내용을 상세하게 확인할 수 있다.
+  * 특정 레시피 클릭 시 사용자별로 세션id 값을 담은 쿠키가 생성되고, 사용자가 클릭한 아이템의 로그를 쿠키 value, 아이템 id, 접속 time 순서로 기록하며, 추천 시스템의 input값은 이 로그에서 가장 최근에 기록된 것을 사용한다.
+  * sqlalchemy 라이브러리를 사용해 MySQL DB와 연동하여 이름, 카테고리, 재료, 조리방법을 가져온다.
+  * sklearn 라이브러리를 사용해 tf-idf를 통해 구한 DTM으로 linear_kernel을 통해 유사도를 구한 뒤, 가장 유사도가 높은 8개의 레시피를 반환한다. 이 때 카테고리 및 재료, 이름, 조리방법에 다른 가중치를 주어 유사도를 계산한다.
+  * java와 python 연동은 apache commons exec 라이브러리를 사용한다.
+
+
 
 
 
