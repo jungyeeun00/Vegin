@@ -56,4 +56,10 @@ public class MemberService implements UserDetailsService {
         return new User(member.getId(), member.getPassword(), authorities);
     }
 
+    public ResponseEntity<Member> getMember(String id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("Not exist Board Data by no : ["+id+"]"));
+        return ResponseEntity.ok(member);
+    }
+
 }
