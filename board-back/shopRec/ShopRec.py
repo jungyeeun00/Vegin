@@ -4,7 +4,7 @@ import sqlalchemy as db
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 
-engine = db.create_engine('mysql+pymysql://root:hansung@localhost/board-back').connect()
+engine = db.create_engine('mysql+pymysql://root:1234@localhost/vegindb').connect()
 
 # 불용어 추가
 product_stopwords = ['비건', 'Vegan', 'vegan', '클래식', '세트', '할인', 'set', '신상', '증정', '배송', '인증']

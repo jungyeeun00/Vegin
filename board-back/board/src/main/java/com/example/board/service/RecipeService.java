@@ -193,7 +193,7 @@ public class RecipeService {
     /* 조회 로그 기록 */
     public void writeLog(Cookie cookie, Integer id, long time) {
 
-        String path = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/RecipeViewLog.txt";
+        String path = "./board/src/main/resources/RecipeViewLog.txt";
 
         try {
             File file = new File(path);
@@ -209,7 +209,7 @@ public class RecipeService {
 
     /* 검색 로그 기록 */
     public void writeLog(Cookie cookie, String keyword, long time) {
-        String path = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/RecipeSearchLog.txt";
+        String path = "./board/src/main/resources/RecipeSearchLog.txt";
         try {
             File file = new File(path);
             FileWriter fw = new FileWriter(file, true);
@@ -236,7 +236,7 @@ public class RecipeService {
         else {
             try{
                 /* viewlog 파일에서 가장 최근 기록된 로그의 id를 찾음 */
-                File file = new File("/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/RecipeViewLog.txt");
+                File file = new File("./board/src/main/resources/RecipeViewLog.txt");
                 FileReader filereader = new FileReader(file);
                 BufferedReader bufReader = new BufferedReader(filereader);
                 String line = "";
@@ -251,8 +251,8 @@ public class RecipeService {
 
                 /* 파이썬과 연동하여 추천리스트 받아오기 */
                 String[] command = new String[3];
-                command[0] = "python3";
-                command[1] = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/recipeRec/RecipeRec.py";
+                command[0] = "python";
+                command[1] = "./recipeRec/RecipeRec.py";
                 command[2] = id;
 
                 String[] idList;
@@ -267,6 +267,7 @@ public class RecipeService {
 
         return list;
     }
+
 
     /* 추천 시스템 파이썬 코드 실행 */
     public static String[] execPython(String[] command) {

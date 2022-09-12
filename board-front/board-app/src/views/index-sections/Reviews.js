@@ -17,7 +17,8 @@ class Reviews extends Component {
             updating: {
                 now: false,
                 reviewId: ''
-            }
+            },
+            sentiments: []
         }
 
         this.changeStarHandler = this.changeStarHandler.bind(this);
@@ -28,7 +29,11 @@ class Reviews extends Component {
         /* 서버에서 상품 후기 정보 가져오기 */
         ShopService.getReviews(this.state.productId).then(res => {
             this.setState({ reviews: res.data });
-        })
+        });
+        /* 서버에서 후기 별 긍,부정 스코어 가져오기 */
+        ShopService.getSentiment(this.state.productId).then(res => {
+            this.setState({ sentiments: res.data.split("\t") });
+        });
     }
 
     /* 로그인 한 유저 정보 가져오기 */
@@ -134,7 +139,7 @@ class Reviews extends Component {
                 <ul className="review-list">
                     {this.state.reviews.length === 0 ? <div><br/><br/><br/>등록된 리뷰가 없습니다.</div> : ""}
                     {
-                        this.state.reviews.map((review) => (
+                        this.state.reviews.map((idx, review) => (
                             <li className="review-item">
                                 <Container>
                                     <Row>
@@ -150,6 +155,12 @@ class Reviews extends Component {
                                         </Col>
                                         <Col className='review-created-date' md={2}>
                                             <div><span>{review.created_date.substring(0, 16)}</span></div>
+                                            {this.state.sentiments !== "0" ?
+                                                Number(this.state.sentiments[idx]) > 0.5 ? 
+                                                    <span>긍정 {(Number(this.state.sentiments[idx])*100).toFixed(2)} %</span> // 긍정
+                                                    :  <span>부정 {((1 - Number(this.state.sentiments[idx]))*100).toFixed(2)} %</span> // 부정
+                                                : null
+                                            }
                                         </Col>
                                     </Row>
                                     <Row>

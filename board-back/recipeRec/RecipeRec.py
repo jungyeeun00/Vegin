@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 
 # db와 연결
-engine = db.create_engine('mysql+pymysql://root:hansung@localhost/board-back').connect()
+engine = db.create_engine('mysql+pymysql://root:1234@localhost/vegindb').connect()
 
 # 불용어 추가
 recipe_stopwords = ['비건', '비건채식', '비건레시피', '비건음식', '비건베이킹', '요리', '쿡', '법', '간단', '레시피', '채식', '베이', '킹', '음식', '초', '노', '손', '맛', '약', 'cm', 'g', 'or']
