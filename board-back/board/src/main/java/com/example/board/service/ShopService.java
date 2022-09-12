@@ -168,7 +168,7 @@ public class ShopService {
     /* 조회 로그 기록 */
     public void writeLog(Cookie cookie, Integer id, long time) {
 
-        String path = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/ShopViewLog.txt";
+        String path = "./board/src/main/resources/ShopViewLog.txt";
 
         try {
             File file = new File(path);
@@ -184,7 +184,7 @@ public class ShopService {
 
     /* 검색 로그 기록 */
     public void writeLog(Cookie cookie, String keyword, long time) {
-        String path = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/ShopSearchLog.txt";
+        String path = "./board/src/main/resources/ShopSearchLog.txt";
 
         try {
             File file = new File(path);
@@ -214,7 +214,7 @@ public class ShopService {
         else {
             try{
                 /* viewlog 파일에서 가장 최근 기록된 로그의 id를 찾음 */
-                File file = new File("/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/board/src/main/resources/ShopViewLog.txt");
+                File file = new File("./board/src/main/resources/ShopViewLog.txt");
                 FileReader filereader = new FileReader(file);
                 BufferedReader bufReader = new BufferedReader(filereader);
                 String line = "";
@@ -229,8 +229,8 @@ public class ShopService {
 
                 /* 파이썬과 연동하여 추천리스트 받아오기 */
                 String[] command = new String[3];
-                command[0] = "python3";
-                command[1] = "/Users/jeong-yeeun/Documents/Vegin/Vegin/board-back/shopRec/ShopRec.py";
+                command[0] = "python";
+                command[1] = "./shopRec/ShopRec.py";
                 command[2] = id;
 
                 idList = execPython(command);

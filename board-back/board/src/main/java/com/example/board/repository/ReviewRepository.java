@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ReviewRepository extends CrudRepository<Review, Integer> {
 
-    /* »óÇ° ÈÄ±â ¸ñ·Ï */
+    /* ï¿½ï¿½Ç° ï¿½Ä±ï¿½ ï¿½ï¿½ï¿½ */
     @Query("SELECT r from Review r where r.product.productId=:productId and r.id>0 order by r.id ASC")
     public List<Review> getReviewsOfProduct(@Param("productId") Integer productId);
 }
