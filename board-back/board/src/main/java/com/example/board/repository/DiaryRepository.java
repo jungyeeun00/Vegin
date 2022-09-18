@@ -26,23 +26,23 @@ public interface DiaryRepository extends JpaRepository<Diary, Integer> {
 
 
     /* 조회수 증가 */
-    public String ADD_COUNTS = "UPDATE Diary b SET b.counts = b.counts + 1 WHERE b.no=:no";
+    public String ADD_COUNTS = "UPDATE diary b SET b.counts = b.counts + 1 WHERE b.no=:no";
     @Modifying
     @Query(value = ADD_COUNTS, nativeQuery = true)
     Integer addCounts(final Integer no);
 
 
     /* 조회수 높은 글 4개 조회 */
-    public String SELECT_BEST_DIARY = "SELECT * FROM Diary ORDER BY counts DESC, created_time ASC LIMIT 4";
+    public String SELECT_BEST_DIARY = "SELECT * FROM diary ORDER BY counts DESC, created_time ASC LIMIT 4";
     @Query(value = SELECT_BEST_DIARY, nativeQuery = true)
     List<Diary> findTopByCounts();
 
 
     /* 검색 */
-    public String SELECT_SEARCH_DIARY = "SELECT * FROM Diary " +
+    public String SELECT_SEARCH_DIARY = "SELECT * FROM diary " +
             "WHERE title LIKE %:search% ORDER BY no DESC " +
             "LIMIT :objectStartNum, :objectCountPerPage";
-    public String SELECT_SEARCH_COUNT = "SELECT count(*) FROM Diary WHERE title LIKE %:search%";
+    public String SELECT_SEARCH_COUNT = "SELECT count(*) FROM diary WHERE title LIKE %:search%";
     @Query(value = SELECT_SEARCH_DIARY, nativeQuery = true)
     List<Diary> findBoardByTitle(final String search, final Integer objectStartNum, final Integer objectCountPerPage);
     @Query(value = SELECT_SEARCH_COUNT, nativeQuery = true)
