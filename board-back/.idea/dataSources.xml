@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="board-back@localhost" uuid="c15c0865-4d04-4c1e-b99a-df4ea49b2f6a">
+    <data-source source="LOCAL" name="vegindatabase01" uuid="4d47b81f-d8d0-4655-a25f-cee25ae9851f">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/board-back</jdbc-url>
+      <jdbc-url>jdbc:mysql://vegindatabase01.cyumdfzrqmsj.ap-northeast-2.rds.amazonaws.com:3306/board-back</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

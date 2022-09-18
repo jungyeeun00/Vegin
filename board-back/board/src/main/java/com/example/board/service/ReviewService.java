@@ -68,56 +68,56 @@ public class ReviewService {
         return this.reviewRepository.getReviewsOfProduct(productId);
     }
 
-    public List<String> ListSentiments(int productId) {
-        List<String> result = new ArrayList<>();
-        List<Review> reviewList = this.reviewRepository.getReviewsOfProduct(productId);
-        for(Review review : reviewList) {
-            String str = predictReview(review.getText()) + '\t';
-            result.add(str);
-        }
-
-        return result;
-    }
-
-    public String predictReview(String sentence) {
-        String score = null;
-        try {
-            /* 파이썬에서 퍼센트 받아오기 */
-            String[] command = new String[3];
-            command[0] = "python";
-            command[1] = "./review/predict.py";
-            command[2] = sentence;
-
-            score = execPython(command);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return score;
-    }
-
-    /* 리뷰 파이썬 실행 */
-    public static String execPython(String[] command) {
-        String score = null;
-        try {
-            CommandLine commandLine = CommandLine.parse(command[0]);
-            for (int i = 1, n = command.length; i < n; i++) {
-                commandLine.addArgument(command[i]);
-            }
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            PumpStreamHandler pumpStreamHandler = new PumpStreamHandler(outputStream);
-            DefaultExecutor executor = new DefaultExecutor();
-            executor.setStreamHandler(pumpStreamHandler);
-            int result = executor.execute(commandLine);
-
-            score = new String(outputStream.toByteArray());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return score;
-    }
+//    public List<String> ListSentiments(int productId) {
+//        List<String> result = new ArrayList<>();
+//        List<Review> reviewList = this.reviewRepository.getReviewsOfProduct(productId);
+//        for(Review review : reviewList) {
+//            String str = predictReview(review.getText()) + '\t';
+//            result.add(str);
+//        }
+//
+//        return result;
+//    }
+//
+//    public String predictReview(String sentence) {
+//        String score = null;
+//        try {
+//            /* 파이썬에서 퍼센트 받아오기 */
+//            String[] command = new String[3];
+//            command[0] = "python";
+//            command[1] = "./review/predict.py";
+//            command[2] = sentence;
+//
+//            score = execPython(command);
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return score;
+//    }
+//
+//    /* 리뷰 파이썬 실행 */
+//    public static String execPython(String[] command) {
+//        String score = null;
+//        try {
+//            CommandLine commandLine = CommandLine.parse(command[0]);
+//            for (int i = 1, n = command.length; i < n; i++) {
+//                commandLine.addArgument(command[i]);
+//            }
+//            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//            PumpStreamHandler pumpStreamHandler = new PumpStreamHandler(outputStream);
+//            DefaultExecutor executor = new DefaultExecutor();
+//            executor.setStreamHandler(pumpStreamHandler);
+//            int result = executor.execute(commandLine);
+//
+//            score = new String(outputStream.toByteArray());
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return score;
+//    }
 }

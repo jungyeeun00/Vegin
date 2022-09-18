@@ -47,9 +47,9 @@ class ProductService {
         return axios.get(REVIEW_API_BASE_URL + "/list/" + productId)
     }
 
-    getSentiment(productId) {
-        return axios.get(REVIEW_API_BASE_URL + "/sentiment/" + productId)
-    }
+    // getSentiment(productId) {
+    //     return axios.get(REVIEW_API_BASE_URL + "/sentiment/" + productId)
+    // }
 
     createReview(review) {
         return axios.post(REVIEW_API_BASE_URL + "/add", review)

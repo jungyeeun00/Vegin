@@ -26,8 +26,10 @@ def predict(new_sentence):
     score = float(model.predict(pad_new)) # 예측
     return score
 
+
 def main(argv):
     print(predict(argv[1]))
+
 
 if __name__ == "__main__":
     main(sys.argv)

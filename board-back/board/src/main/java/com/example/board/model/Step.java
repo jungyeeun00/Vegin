@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @IdClass(StepId.class)
-@Table(name = "step")
+//@Table(name = "step")
 public class Step {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

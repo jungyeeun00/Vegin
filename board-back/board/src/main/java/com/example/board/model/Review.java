@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name="review")
+//@Table(name="review")
 @EqualsAndHashCode(of="review_id")
 @Getter
 @Setter
