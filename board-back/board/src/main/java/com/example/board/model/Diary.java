@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-@Table(name = "diary")
+//@Table(name = "diary")
 @DynamicInsert
 @DynamicUpdate
 @Getter
