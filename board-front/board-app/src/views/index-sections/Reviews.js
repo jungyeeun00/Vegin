@@ -4,6 +4,7 @@ import ShopService from 'service/ShopService';
 import MemberService from 'service/MemberService';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import GenderChart from './GenderChart';
 
 class Reviews extends Component {
     constructor(props) {
@@ -112,6 +113,7 @@ class Reviews extends Component {
     render() {
         return (
             <>
+                <GenderChart female={60} male={40}/>
                 <div className='shop-writereview-wrapper'>
                     &nbsp;<span className='shop-writereview-name'>{this.returnCurrentMember()}</span>
                     <div className="form-group">
@@ -139,7 +141,7 @@ class Reviews extends Component {
                 <ul className="review-list">
                     {this.state.reviews.length === 0 ? <div><br/><br/><br/>등록된 리뷰가 없습니다.</div> : ""}
                     {
-                        this.state.reviews.map((idx, review) => (
+                        this.state.reviews.map((review) => (
                             <li className="review-item">
                                 <Container>
                                     <Row>
