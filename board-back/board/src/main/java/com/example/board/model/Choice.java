@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Getter
 @Entity
-@Table(name = "choice")
+//@Table(name = "choice")
 public class Choice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

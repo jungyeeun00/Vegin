@@ -20,7 +20,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor(access= AccessLevel.PROTECTED) // 기본 생성자를 만들어줍니다.
 @Entity // DB 테이블 역할을 합니다.
-@Table(name = "member")
+//@Table(name = "member")
 @DynamicInsert
 @DynamicUpdate
 public class Member {

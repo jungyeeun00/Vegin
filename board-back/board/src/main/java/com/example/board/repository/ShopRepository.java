@@ -23,12 +23,12 @@ public interface ShopRepository extends JpaRepository<Product, Integer> {
             + "p.category as category,"
             + "p.img_src as imgSrc,"
             + "p.detail as detail "
-            + "FROM Product p";
+            + "FROM product p";
 
     /* 찜한 순(like 테이블에서 product_id의 count순)으로 정렬하는 sql */
     String SORT0_SQL = " "
             + "left join "
-            + "(SELECT product_id, count(product_id) as count FROM Likes GROUP BY product_id) as l "
+            + "(SELECT product_id, count(product_id) as count FROM likes GROUP BY product_id) as l "
             + "ON p.product_id=l.product_id";
 
     /* 상품별 모든 옵션 */

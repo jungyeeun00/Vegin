@@ -16,7 +16,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
-@Table(name = "board")
+//@Table(name = "board")
 @DynamicInsert
 @DynamicUpdate
 @Getter

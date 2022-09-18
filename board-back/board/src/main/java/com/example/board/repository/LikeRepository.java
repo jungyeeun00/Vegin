@@ -21,14 +21,14 @@ public interface LikeRepository extends JpaRepository<Likes, LikeId> {
             + "p.category as category,"
             + "p.img_src as imgSrc,"
             + "p.detail as detail "
-            + "FROM Product p "
+            + "FROM product p "
             + "WHERE p.product_id in "
-            + "(SELECT DISTINCT l.product_id FROM Likes l "
+            + "(SELECT DISTINCT l.product_id FROM likes l "
             + "WHERE l.member_id=?1)";
 
     /* Like 누른 상품 아이디 */
     public final static String SELECT_LIKE_ID = ""
-            + "SELECT product_id FROM Likes "
+            + "SELECT product_id FROM likes "
             + "WHERE member_id=?1";
 
     @Query(value = SELECT_LIKE_PRODUCT, nativeQuery = true)

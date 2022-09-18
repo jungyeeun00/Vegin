@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name="comment_diary")
+//@Table(name="comment_diary")
 @EqualsAndHashCode(of="comment_no")
 @Getter
 @Setter

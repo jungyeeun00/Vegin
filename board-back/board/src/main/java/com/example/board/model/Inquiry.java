@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name="inquiry")
+//@Table(name="inquiry")
 @EqualsAndHashCode(of="inquiry_id")
 @Getter
 @Setter

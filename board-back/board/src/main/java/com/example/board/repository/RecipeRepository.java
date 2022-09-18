@@ -28,15 +28,15 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
 
     /* 전체 레시피 */
     public String RECIPE_LIST =
-            "SELECT * FROM Recipe";
+            "SELECT * FROM recipe";
 
     /* 카테고리별 레시피(카테고리 1개) */
     public String RECIPE_CATE =
-            "SELECT * FROM Recipe WHERE category=?1";
+            "SELECT * FROM recipe WHERE category=?1";
 
     /* 카테고리별 레시피(카테고리 3개 빵, 디저트, 과자용)  */
     public String RECIPE_CATE_MULT =
-            "SELECT * FROM Recipe WHERE category=?1 or category=?2 or category=?3";
+            "SELECT * FROM recipe WHERE category=?1 or category=?2 or category=?3";
 
     /* 카테고리별 레시피 개수 */
     public String COUNT_RECIPE_CATE_LIST =
@@ -44,9 +44,9 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
 
     /* 전체 + 검색 */
     public String RECIPE_KEYWORD =
-            "SELECT * FROM Recipe rc "
+            "SELECT * FROM recipe rc "
                     + "WHERE rc.id in "
-                    + "(SELECT DISTINCT r.id FROM Recipe r join Ingredient i on r.id=i.recipe_id "
+                    + "(SELECT DISTINCT r.id FROM recipe r join ingredient i on r.id=i.recipe_id "
                     + "WHERE r.name LIKE %?1% or i.name LIKE %?1%)";
     public String COUNT_RECIPE_KEYWORD =
             "SELECT count(rc) FROM Recipe rc "
@@ -56,9 +56,9 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
 
     /* 카테고리 + 검색 */
     public String RECIPE_CATE_KEYWORD =
-            "SELECT * FROM Recipe rc "
+            "SELECT * FROM recipe rc "
                     + "WHERE rc.id in "
-                    + "(SELECT DISTINCT r.id FROM Recipe r join Ingredient i on r.id=i.recipe_id "
+                    + "(SELECT DISTINCT r.id FROM recipe r join ingredient i on r.id=i.recipe_id "
                     + "WHERE r.category=?1 and (r.name LIKE %?2% or i.name LIKE %?2%))";
     public String COUNT_RECIPE_CATE_KEYWORD =
             "SELECT count(rc) FROM Recipe rc "
@@ -68,21 +68,21 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
 
     /* 카테고리 3개인 빵/디저트/과자에서 검색 */
     public String RECIPE_CATE_KEYWORD_MULT =
-            "SELECT * FROM Recipe rc "
+            "SELECT * FROM recipe rc "
                     + "WHERE (rc.category=?1 or rc.category=?2 or rc.category=?3) and "
                     +"rc.id in "
-                    +"(SELECT DISTINCT r.id FROM Recipe r join Ingredient i on r.id=i.recipe_id "
+                    +"(SELECT DISTINCT r.id FROM recipe r join ingredient i on r.id=i.recipe_id "
                     +"WHERE r.name LIKE %?4% or i.name LIKE %?4%)";
     public String COUNT_RECIPE_CATE_KEYWORD_MULT =
-            "SELECT count(*) FROM Recipe rc "
+            "SELECT count(*) FROM recipe rc "
                     +"WHERE (rc.category=?1 or rc.category=?2 or rc.category=?3) and "
                     +"rc.id in "
-                    +"(SELECT DISTINCT r.id FROM Recipe r join Ingredient i on r.id=i.recipe_id "
+                    +"(SELECT DISTINCT r.id FROM recipe r join ingredient i on r.id=i.recipe_id "
                     +"WHERE r.name LIKE %?4% or i.name LIKE %?4%)";
 
     /* 조회수 + 1 */
     public String ADD_VIEW_COUNT =
-            "UPDATE Recipe r " +
+            "UPDATE recipe r " +
                     "SET r.views = r.views + 1 " +
                     "WHERE r.id=?1";
 

@@ -8,13 +8,13 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name="comment")
+//@Table(name="comment")
 @EqualsAndHashCode(of="comment_no")
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // @lombock ¾î³ëÅ×ÀÌ¼Ç : ÆÄ¶ó¹ÌÅÍ¸¦ ¹ÞÁö ¾Ê´Â »ý¼ºÀÚ¸¦ ¸¸µé¾îÁØ´Ù.
-@AllArgsConstructor //  @lombock ¾î³ëÅ×ÀÌ¼Ç : ¸ðµç ¼Ó¼º¿¡ ´ëÇØ¼­ »ý¼ºÀÚ¸¦ ¸¸µé¾î ³½´Ù.
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // @lombock ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ : ï¿½Ä¶ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
+@AllArgsConstructor //  @lombock ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ : ï¿½ï¿½ï¿½ ï¿½Ó¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 public class Comment {
 
     @Id
@@ -51,7 +51,7 @@ public class Comment {
         this.created_date = this.created_date == null ? (new Timestamp(System.currentTimeMillis())).toString() : this.created_date;
     }
 
-    // Member ¿£Æ¼Æ¼¿Í  Board ¿£Æ¼Æ¼¸¦ ¿¬°áÇÏ´Â ÇÔ¼ö
+    // Member ï¿½ï¿½Æ¼Æ¼ï¿½ï¿½  Board ï¿½ï¿½Æ¼Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     public void changeAuthor(Member author) { this.member = author; }
     public void changeBoard(Board board) {
         this.board = board;
