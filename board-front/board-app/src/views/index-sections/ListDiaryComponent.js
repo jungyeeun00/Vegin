@@ -3,10 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import VeginFooter from 'components/Footers/VeginFooter';
 import IndexNavbar from 'components/Navbars/IndexNavbar';
 import React, { Component } from 'react';
+import { Calendar } from 'react-calendar';
 import { Nav, NavItem, NavLink } from "reactstrap";
 import MemberService from 'service/MemberService';
 import BoardService from '../../service/BoardService';
 import BestCommunityDiaryItems from './BestCommunityDiaryItems';
+import 'react-calendar/dist/Calendar.css';
 
 class ListDiaryComponent extends Component {
 
@@ -23,6 +25,7 @@ class ListDiaryComponent extends Component {
             search_p_num: 1,
             search_boards: [],
             search_paging: {},
+            value: new Date()
         }
 
         this.createBoard = this.createBoard.bind(this);
@@ -229,7 +232,13 @@ class ListDiaryComponent extends Component {
                     </Nav>
                 </div>
                     <div className="community-pl-main">
-                    <div className="community-best">
+                        <div>
+                            <Calendar
+                                className="mx-auto w-full text-sm border-b"
+                                onChange={this.onChange} value={this.props.value}
+                            />
+                        </div>
+                    {/* <div className="community-best">
                         <h3>BEST</h3>
                     </div>
                         {this.state.best.length >= 4 && <BestCommunityDiaryItems diarys={this.state.best} />}
@@ -292,7 +301,7 @@ class ListDiaryComponent extends Component {
                                     <button className='btn-round btn' onClick={this.createBoard}>글 작성</button>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <VeginFooter />

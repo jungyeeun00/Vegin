@@ -1,0 +1,32 @@
+.chart-box {
+    margin: 50px auto;
+    height: 150px;
+}
+
+.chart-lb {
+    margin: auto;
+}
+
+.chart-lb-wrap {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+    margin: auto;
+}
+
+.color-box {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 6px;
+}
+
+.lb-detail {
+    float: left;
+    font-size: 14px;
+}
+
+.lb-perc{
+    font-weight: bolder;
+}
