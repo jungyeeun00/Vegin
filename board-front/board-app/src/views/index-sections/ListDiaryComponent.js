@@ -8,7 +8,7 @@ import { Nav, NavItem, NavLink } from "reactstrap";
 import MemberService from 'service/MemberService';
 import BoardService from '../../service/BoardService';
 import BestCommunityDiaryItems from './BestCommunityDiaryItems';
-import 'react-calendar/dist/Calendar.css';
+import DiaryCalendar from './DiaryCalendar';
 
 class ListDiaryComponent extends Component {
 
@@ -233,10 +233,11 @@ class ListDiaryComponent extends Component {
                 </div>
                     <div className="community-pl-main">
                         <div>
-                            <Calendar
-                                className="mx-auto w-full text-sm border-b"
+                            <DiaryCalendar/>
+                            {/* <Calendar
+                                className="calendar"
                                 onChange={this.onChange} value={this.props.value}
-                            />
+                            /> */}
                         </div>
                     {/* <div className="community-best">
                         <h3>BEST</h3>
