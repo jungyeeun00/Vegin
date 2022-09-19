@@ -1,15 +1,22 @@
+.chart-wrapper {
+    display: flex;
+    margin-left: -50px;
+}
+
 .chart-box {
-    margin: 50px auto;
+    margin: 50px 70px 50px 20px;
     height: 150px;
 }
 
 .chart-lb {
     margin: auto;
+    margin-left: -160px;
 }
 
 .chart-lb-wrap {
     list-style: none;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     width: 200px;
     margin: auto;
@@ -30,3 +37,4 @@
 .lb-perc{
     font-weight: bolder;
 }
+
