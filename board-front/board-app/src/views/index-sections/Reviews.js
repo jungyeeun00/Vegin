@@ -19,7 +19,7 @@ class Reviews extends Component {
                 now: false,
                 reviewId: ''
             },
-            // sentiments: []
+            sentiments: []
         }
 
         this.changeStarHandler = this.changeStarHandler.bind(this);
@@ -31,10 +31,11 @@ class Reviews extends Component {
         ShopService.getReviews(this.state.productId).then(res => {
             this.setState({ reviews: res.data });
         });
-        // /* 서버에서 후기 별 긍,부정 스코어 가져오기 */
-        // ShopService.getSentiment(this.state.productId).then(res => {
-        //     this.setState({ sentiments: res.data.split("\t") });
-        // });
+        /* 서버에서 후기 별 긍,부정 스코어 가져오기 */
+        ShopService.getSentiment(this.state.productId).then(res => {
+            console.log("sentiment : " + res.data);
+            this.setState({ sentiments: res.data });
+        });
     }
 
     /* 로그인 한 유저 정보 가져오기 */
@@ -119,11 +120,15 @@ class Reviews extends Component {
                     <div className="form-group">
                         &nbsp;<label htmlFor="formStarRating">별점</label>&nbsp;&nbsp;
                         <select id="formStarRating" onChange={this.changeStarHandler}>
-                            <option value="1">★</option>
-                            <option value="2">★★</option>
-                            <option value="3">★★★</option>
-                            <option value="4">★★★★</option>
-                            <option value="5">★★★★★</option>
+                            <option value="1">1</option>
+                            <option value="1.5">1.5</option>
+                            <option value="2">2</option>
+                            <option value="2.5">2.5</option>
+                            <option value="3">3</option>
+                            <option value="3.5">3.5</option>
+                            <option value="4">4</option>
+                            <option value="4.5">4.5</option>
+                            <option value="5">5</option>
                         </select>
                     </div>
                     <textarea
@@ -141,7 +146,7 @@ class Reviews extends Component {
                 <ul className="review-list">
                     {this.state.reviews.length === 0 ? <div><br/><br/><br/>등록된 리뷰가 없습니다.</div> : ""}
                     {
-                        this.state.reviews.map((review) => (
+                        this.state.reviews.map((review, idx) => (
                             <li className="review-item">
                                 <Container>
                                     <Row>
@@ -157,12 +162,12 @@ class Reviews extends Component {
                                         </Col>
                                         <Col className='review-created-date' md={2}>
                                             <div><span>{review.created_date.substring(0, 16)}</span></div>
-                                            {/* {this.state.sentiments !== "0" ?
+                                            {this.state.sentiments !== "0" ?
                                                 Number(this.state.sentiments[idx]) > 0.5 ? 
                                                     <span>긍정 {(Number(this.state.sentiments[idx])*100).toFixed(2)} %</span> // 긍정
                                                     :  <span>부정 {((1 - Number(this.state.sentiments[idx]))*100).toFixed(2)} %</span> // 부정
                                                 : null
-                                            } */}
+                                            }
                                         </Col>
                                     </Row>
                                     <Row>

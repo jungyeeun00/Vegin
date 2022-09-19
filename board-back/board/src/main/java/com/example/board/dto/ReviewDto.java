@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 public class ReviewDto {
 
     @NotBlank
-    private Integer star;
+    private Float star;
 
     private String imgSrc;
 

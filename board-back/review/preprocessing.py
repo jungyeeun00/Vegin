@@ -14,6 +14,7 @@ engine = db.create_engine('mysql+pymysql://vegin:vegin123@vegindatabase01.cyumdf
 # 데이터 불러오기
 sql_load = "SELECT star, text FROM review"
 review = pd.read_sql(sql_load, engine)
+engine.close()
 # 레이블 부여. 별점 3.5이상인 리뷰는 1, 별점 3이하인 리뷰는 0
 review['label'] = np.select([review.star > 3], [1], default=0)
 # 중복 데이터 제거

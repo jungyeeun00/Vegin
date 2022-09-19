@@ -53,8 +53,8 @@ public class ReviewController {
         return new ResponseEntity<>(this.reviewService.Deletereview(reviewId, productId),HttpStatus.CREATED);
     }
 
-//    @GetMapping("/sentiment/{productId}")
-//    public ResponseEntity<List<String>> addSentiment(@PathVariable int productId){
-//        return new ResponseEntity<>(this.reviewService.ListSentiments(productId),HttpStatus.CREATED);
-//    }
+    @GetMapping("/sentiment/{productId}")
+    public ResponseEntity<List<String>> addSentiment(@PathVariable int productId){
+        return new ResponseEntity<>(this.reviewService.ListSentiments(productId),HttpStatus.CREATED);
+    }
 }
