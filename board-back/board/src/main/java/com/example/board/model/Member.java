@@ -65,6 +65,12 @@ public class Member {
     @Column(name = "createdDate")
     private Date createdDate;
 
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "age")
+    private Integer age;
+
     @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();
