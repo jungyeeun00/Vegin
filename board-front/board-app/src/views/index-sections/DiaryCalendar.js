@@ -109,7 +109,6 @@ const DiaryCalendar = () => {
     const onDateClick = (day) => {
         setSelectedDate(day);
         alert(day);
-        cd 
     }
 
     return (
