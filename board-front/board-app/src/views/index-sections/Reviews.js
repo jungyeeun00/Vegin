@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import GenderChart from './GenderChart';
 import AgeChart from './AgeChart';
+import { isConditionalExpression } from 'typescript';
 
 class Reviews extends Component {
     constructor(props) {
@@ -33,7 +34,15 @@ class Reviews extends Component {
     componentDidMount() {
         /* 서버에서 상품 후기 정보 가져오기 */
         ShopService.getReviews(this.state.productId).then(res => {
-            this.setState({ reviews: res.data });
+            this.setState({ 
+                reviews: res.data,
+                fCnt: res.data.filter(reviews => reviews.member.gender === 'f').length,
+                mCnt: res.data.filter(reviews => reviews.member.gender === 'm').length,
+                teens: res.data.filter(reviews => parseInt(reviews.member.age / 10) === 1).length,
+                twenties: res.data.filter(reviews => parseInt(reviews.member.age / 10) === 2).length,
+                thirties: res.data.filter(reviews => parseInt(reviews.member.age / 10) === 3).length,
+                forties: res.data.filter(reviews => parseInt(reviews.member.age / 10) > 3).length
+            });
         });
         /* 서버에서 후기 별 긍,부정 스코어 가져오기 */
         ShopService.getSentiment(this.state.productId).then(res => {
@@ -120,26 +129,13 @@ class Reviews extends Component {
             <>
                 {this.state.reviews.length !== 0 &&
                     <div className='chart-wrapper'>
-                        {this.state.reviews.map((reviews) => {
-                            {reviews.member.gender == "f" ? this.state.fCnt++ : this.state.mCnt++}
-                        })} 
-                        {this.state.reviews.map((reviews) => {
-                            {parseInt(reviews.member.age / 10) === 1 && this.state.teens++}
-                            {parseInt(reviews.member.age / 10) === 2 && this.state.twenties++}
-                            {parseInt(reviews.member.age / 10) === 3 && this.state.thirties++}
-                            {parseInt(reviews.member.age / 10) >= 4 && this.state.forties++}
-                        })}
-                    
-                      
                          <AgeChart teens={Math.floor(this.state.teens/this.state.reviews.length * 100)}
                                     twenties={Math.round(this.state.twenties/this.state.reviews.length * 100)}
                                     thirties={Math.round(this.state.thirties/this.state.reviews.length * 100)}
                                     forties={Math.round(this.state.forties/this.state.reviews.length * 100)}/>
                         <GenderChart female={Math.floor(this.state.fCnt / (this.state.reviews.length) * 100)} 
                                     male={100 - Math.floor(this.state.fCnt / (this.state.reviews.length) * 100)}/>  
-                        
                     </div>
-
                 }
                 <div className='shop-writereview-wrapper'>
                     &nbsp;<span className='shop-writereview-name'>{this.returnCurrentMember()}</span>
