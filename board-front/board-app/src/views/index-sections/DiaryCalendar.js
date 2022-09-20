@@ -9,11 +9,9 @@ const RenderHeader = ({ currMonth, prevMonth, nextMonth }) => {
     return (
         <div className='header-main'>
             <div className='col col-start'>
-                <span>
-                    <span>
-                        {format(currMonth, 'M')}월
-                    </span>
-                    {(format(currMonth, 'yyyy'))}
+                <span className='text'>
+                    <span className='month'> {format(currMonth, 'M')}월 </span>
+                    <span className='year'> {(format(currMonth, 'yyyy'))} </span>
                 </span>
             </div>
             <div className='col col-end'>
@@ -89,7 +87,7 @@ const RenderCells = ({ currMonth, selectedDate, onDateClick }) => {
     }
 
     return (
-        <div>
+        <div className='body'>
             {rows}
         </div>
     )
