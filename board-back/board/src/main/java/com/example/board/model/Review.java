@@ -22,7 +22,7 @@ public class Review {
 
     @NonNull
     @Column(name = "star")
-    private Integer star;
+    private Float star;
 
     @Column(name = "img_src")
     private String img_src;
@@ -49,7 +49,7 @@ public class Review {
     @JoinColumn(name="member_id")
     private Member member;
 
-    public Review(Integer star, String img_src, String text) {
+    public Review(Float star, String img_src, String text) {
         this.star = star;
         this.img_src = img_src;
         this.text = text;
