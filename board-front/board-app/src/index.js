@@ -45,13 +45,14 @@ import LikesPage from "views/examples/LikesPage";
 import ListBoardComponent from "views/index-sections/ListBoardComponent";
 import CreateBoardComponent from "views/index-sections/CreateBoardComponent";
 import ReadBoardComponent from "views/index-sections/ReadBoardComponent";
-import ListDiaryComponent from "views/index-sections/ListDiaryComponent";
 import ReadDiaryComponent from "views/index-sections/ReadDiaryComponent";
 import CreateDiaryComponent from "views/index-sections/CreateDiaryComponent";
 import SuccessSignup from "views/examples/SuccessSignup";
 import EditProfilePage from "views/examples/EditProfilePage";
 import MyPostPage from "views/examples/MyPostPage";
 import MyDiaryPage from "views/examples/MyDiaryPage";
+import MainDiaryCalendar from "views/index-sections/MainDiaryCalendar";
+import ListDiaryComponent from "views/index-sections/ListDiaryComponent";
 // others
 
 ReactDOM.render(
@@ -141,7 +142,8 @@ ReactDOM.render(
       <Route path='/board' component={ListBoardComponent}></Route>
       <Route path='/create-board/:no' component={CreateBoardComponent}></Route>
       <Route path='/read-board/:no' component={ReadBoardComponent}></Route>
-      <Route path='/diary' component={ListDiaryComponent}></Route>
+      <Route path='/diary' component={MainDiaryCalendar}></Route>
+      <Route path='/diary-list' component={ListDiaryComponent}></Route>
       <Route path='/create-diary/:no' component={CreateDiaryComponent}></Route>
       <Route path='/read-diary/:no' component={ReadDiaryComponent}></Route>
       <Redirect to="/index" />

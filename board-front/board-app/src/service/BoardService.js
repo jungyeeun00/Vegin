@@ -50,8 +50,8 @@ class BoardService{
         return axios.get(DIARY_API_BASE_URL+"/all");
     }
 
-    getDiarys(p_num){
-        return axios.get(DIARY_API_BASE_URL+"?p_num="+p_num);
+    getDiarys(p_num, date){
+        return axios.get(DIARY_API_BASE_URL+"?p_num="+p_num+"&date="+date);
     }
     
     getBestDiarys(){

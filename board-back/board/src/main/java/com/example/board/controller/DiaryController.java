@@ -19,10 +19,11 @@ public class DiaryController {
 
     /* 페이징 정보 포함한 모든 게시글 불러옴 */
     @GetMapping("/diary")
-    public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num", required = false) Integer p_num) {
+    public ResponseEntity<Map> getAllBoards(@RequestParam(value = "p_num", required = false) Integer p_num,
+                                            @RequestParam(value = "date", required = false) String date) {
         if (p_num==null||p_num<=0) p_num = 1;
 
-        return diaryService.getPagingBoard(p_num);
+        return diaryService.getPagingBoard(p_num, date);
     }
 
     /* 모든 게시글 불러옴 */

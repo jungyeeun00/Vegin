@@ -1,14 +1,9 @@
-import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import VeginFooter from 'components/Footers/VeginFooter';
 import IndexNavbar from 'components/Navbars/IndexNavbar';
 import React, { Component } from 'react';
-import { Calendar } from 'react-calendar';
 import { Nav, NavItem, NavLink } from "reactstrap";
 import MemberService from 'service/MemberService';
 import BoardService from '../../service/BoardService';
-import BestCommunityDiaryItems from './BestCommunityDiaryItems';
-import DiaryCalendar from './DiaryCalendar';
 
 class ListDiaryComponent extends Component {
 
@@ -33,20 +28,19 @@ class ListDiaryComponent extends Component {
 
     componentDidMount() {
         /* 서버에서 글 목록 가져오기 */
-        BoardService.getDiarys(this.state.p_num).then((res) => {
+        const currDate = this.props.location.state.currDate;
+        BoardService.getDiarys(this.state.p_num, currDate).then((res) => {
+            console.log(res.data)
+            const myposts = res.data.list.filter(it => {
+                return it.memberId === localStorage.getItem("member");
+            })
             this.setState({
                 p_num: res.data.pagingData.currentPageNum,
                 paging: res.data.pagingData,
-                boards: res.data.list,
-                orgBoards: res.data.list,
+                boards: myposts,
+                orgBoards: myposts,
             });
         });
-        /* 서버에서 best 글 목록 가져오기 */
-        BoardService.getBestDiarys().then((res)=>{
-            this.setState({
-                best: res.data
-            })
-        })
 }
 
     /* input 창에 onChange 이벤트 */
@@ -219,7 +213,7 @@ class ListDiaryComponent extends Component {
                         </NavItem>
                         <text> | </text>
                         <NavItem style={{borderBottom: "3px solid #4A8451"}}>
-                            <NavLink id="diary" style={
+                            <NavLink id="diary" href='/diary' style={
                             {
                                 color:'#4A8451',
                                 fontWeight:'bold'
@@ -232,32 +226,6 @@ class ListDiaryComponent extends Component {
                     </Nav>
                 </div>
                     <div className="community-pl-main">
-                        <div>
-                            <DiaryCalendar/>
-                            {/* <Calendar
-                                className="calendar"
-                                onChange={this.onChange} value={this.props.value}
-                            /> */}
-                        </div>
-                    {/* <div className="community-best">
-                        <h3>BEST</h3>
-                    </div>
-                        {this.state.best.length >= 4 && <BestCommunityDiaryItems diarys={this.state.best} />}
-                        {this.state.best.length < 4 && <h5 style={{textAlign:'center', margin:'60px 0'}}>아직 베스트 글이 없습니다.</h5>}
-                        <hr className="community-hr" />
-                        <div className="community-pl-title">
-                            <h5 className="text-center">다이어리</h5>
-                        </div>
-                        <div className="community-pl-search-bar">
-                            <span className='place-search-icon' onClick={this.setSearchContent} style={{cursor: 'pointer'}}> <FontAwesomeIcon icon={faMagnifyingGlass} /> </span>
-                            <input type="search" placeholder="글 제목 / 본문" value={this.state.searchInput}
-                                onChange={this.setSearchHandler} onKeyPress={this.handleKeyPress}/>
-                            {this.state.searchInput.length !== 0 &&
-                                <button className="btn-clear" onClick={this.searchInputRemoveHandler}>
-                                    <FontAwesomeIcon icon={faCircleXmark} />
-                                </button>
-                            }  
-                        </div>
                         <div>
                             <div className="community-pl-tb-wrap">
                                 <table className="community-pl-tb table">
@@ -302,7 +270,7 @@ class ListDiaryComponent extends Component {
                                     <button className='btn-round btn' onClick={this.createBoard}>글 작성</button>
                                 </div>
                             </div>
-                        </div> */}
+                        </div>
                     </div>
                 </div>
                 <VeginFooter />

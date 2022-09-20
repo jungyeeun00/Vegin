@@ -20,9 +20,10 @@ public interface DiaryRepository extends JpaRepository<Diary, Integer> {
             + "updated_time,"
             + "counts"
             + " FROM diary WHERE 0 < no "
-            + "ORDER BY no DESC LIMIT ?1, ?2";
+            + "AND created_time LIKE %:date% "
+            + "ORDER BY no DESC LIMIT :objectStartNum, :objectCountPerPage";
     @Query(value = SELECT_BOARD_LIST_PAGED, nativeQuery = true)
-    List<Diary> findFromTo(final Integer objectStartNum, final Integer objectCountPerPage);
+    List<Diary> findFromTo(@Param("date") final String date, @Param("objectStartNum") final Integer objectStartNum, @Param("objectCountPerPage") final Integer objectCountPerPage);
 
 
     /* 조회수 증가 */
