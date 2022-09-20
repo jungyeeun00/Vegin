@@ -26,11 +26,12 @@ public class DiaryService {
     }
 
     /* 페이징 정보 포함한 게시글 조회 */
-    public ResponseEntity<Map> getPagingBoard(Integer p_num) {
+    public ResponseEntity<Map> getPagingBoard(Integer p_num, String date) {
         Map result = null;
+        System.out.println("date="+date);
 
         PagingUtil pu = new PagingUtil(p_num, 10, 5);
-        List<Diary> list = diaryRepository.findFromTo(pu.getObjectStartNum(), pu.getObjectCountPerPage());
+        List<Diary> list = diaryRepository.findFromTo(date, pu.getObjectStartNum(), pu.getObjectCountPerPage());
         pu.setObjectCountTotal(findAllCount());
         pu.setCalcForPaging();
 

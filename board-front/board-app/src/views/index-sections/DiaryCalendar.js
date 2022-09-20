@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { addDays, addMonths, endOfMonth, endOfWeek, format, isSameDay, isSameMonth, parse, startOfMonth, startOfWeek, subMonths } from 'date-fns';
 import React from 'react';
 import { useState } from 'react';
+import { useHistory } from 'react-router';
 
 
 const RenderHeader = ({ currMonth, prevMonth, nextMonth }) => {
@@ -97,6 +98,7 @@ const RenderCells = ({ currMonth, selectedDate, onDateClick }) => {
 const DiaryCalendar = () => {
     const [currMonth, setCurrMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const history = useHistory();
 
     const prevMonth = () => {
         setCurrMonth(subMonths(currMonth, 1));
@@ -108,8 +110,8 @@ const DiaryCalendar = () => {
 
     const onDateClick = (day) => {
         setSelectedDate(day);
-        alert(day);
-        cd 
+        const currDate = format(day, "yyyy-MM-dd");
+        history.push({pathname:`/diary-list/${currDate}`, state:{currDate: currDate}});
     }
 
     return (
