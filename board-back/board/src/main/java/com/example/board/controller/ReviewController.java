@@ -54,7 +54,12 @@ public class ReviewController {
     }
 
     @GetMapping("/sentiment/{productId}")
-    public ResponseEntity<List<String>> addSentiment(@PathVariable int productId){
+    public ResponseEntity<List<Float>> addSentiment(@PathVariable int productId){
         return new ResponseEntity<>(this.reviewService.ListSentiments(productId),HttpStatus.CREATED);
+    }
+
+    @GetMapping("/sentiment")
+    public void addSentiment(){
+        this.reviewService.createSentiment();
     }
 }

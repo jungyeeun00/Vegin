@@ -95,7 +95,10 @@ class Reviews extends Component {
             };
             console.log("review => " + JSON.stringify(review));
             ShopService.createReview(review).then(res => {
-                window.location.reload();
+                ShopService.createSentiment().then(res => {
+                    window.location.reload();
+                });
+                // window.location.reload();
             });
         } else
             alert("로그인 후 이용 바랍니다.")
@@ -184,10 +187,10 @@ class Reviews extends Component {
                                         </Col>
                                         <Col className='review-created-date' md={2}>
                                             <div><span>{review.created_date.substring(0, 16)}</span></div>
-                                            {this.state.sentiments !== "0" ?
+                                            {this.state.sentiments[idx] !== 0 ?
                                                 Number(this.state.sentiments[idx]) > 0.5 ? 
-                                                    <span>긍정 {(Number(this.state.sentiments[idx])*100).toFixed(2)} %</span> // 긍정
-                                                    :  <span>부정 {((1 - Number(this.state.sentiments[idx]))*100).toFixed(2)} %</span> // 부정
+                                                    <span>긍정 {(this.state.sentiments[idx]*100).toFixed(2)} %</span> // 긍정
+                                                    :  <span>부정 {((1 - this.state.sentiments[idx])*100).toFixed(2)} %</span> // 부정
                                                 : null
                                             }
                                         </Col>
