@@ -47,8 +47,14 @@ class ProductService {
         return axios.get(REVIEW_API_BASE_URL + "/list/" + productId)
     }
 
+    /* 긍정 부정 */
     getSentiment(productId) {
         return axios.get(REVIEW_API_BASE_URL + "/sentiment/" + productId)
+    }
+
+    /* 긍정 부정 */
+    createSentiment() {
+        return axios.get(REVIEW_API_BASE_URL + "/sentiment")
     }
 
     createReview(review) {

@@ -28,6 +28,8 @@ public class ReviewService {
     private ReviewRepository reviewRepository;
     @NonNull
     private MemberRepository memberRepository;
+    @NonNull
+    private SentimentsRepository sentimentsRepository;
 
     /* ��ǰ �ı� ��� */
     public Review createReview(Review review, String memberId, int productId) {
@@ -68,15 +70,22 @@ public class ReviewService {
         return this.reviewRepository.getReviewsOfProduct(productId);
     }
 
-    public List<String> ListSentiments(int productId) {
-        List<String> result = new ArrayList<>();
-        List<Review> reviewList = this.reviewRepository.getReviewsOfProduct(productId);
-        for(Review review : reviewList) {
-            String str = predictReview(review.getText());
-            result.add(str);
-        }
+    public void createSentiment() {
+        Long theLong = this.reviewRepository.count();
+        Integer review_id = theLong != null ? theLong.intValue() : 0;
+        Review review = this.sentimentsRepository.getLastReview(review_id);
+        String senti;
+        Float score = Float.parseFloat(predictReview(review.getText()));
+        if(score > 0.5)
+            senti = "긍정";
+        else
+            senti = "부정";
+        Sentiments sentiments = new Sentiments(review_id, senti, score);
+        this.sentimentsRepository.save(sentiments);
+    }
 
-        return result;
+    public List<Float> ListSentiments(int productId) {
+        return this.sentimentsRepository.getScore(productId);
     }
 
     public String predictReview(String sentence) {
